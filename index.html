@@ -3,385 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WhatsApp Web Pro</title>
+    <title>Email Form Test</title>
     <style>
-        :root {
-            --wa-teal: #00a884;
-            --wa-dark-bg: #111b21;
-            --wa-panel-bg: #202c33;
-            --wa-chat-bg: #0b141a;
-            --wa-bubble-out: #005c4b;
-            --wa-bubble-in: #202c33;
-            --text-main: #e9edef;
-            --text-muted: #8696a0;
-            --text-link: #53bdeb;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #111b21;
+            color: #e9edef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; user-select: none; }
-        body, html { width: 100%; height: 100%; overflow: hidden; background-color: #0a1014; color: var(--text-main); display: flex; justify-content: center; align-items: center; }
-
-        /* Step 1: Account Setup Layout Container */
-        #onboarding-screen { display: flex; flex-direction: column; align-items: center; background: var(--wa-panel-bg); padding: 40px; border-radius: 12px; width: 380px; box-shadow: 0 24px 64px rgba(0,0,0,0.8); border-top: 6px solid var(--wa-teal); text-align: center; transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1), filter 1.5s, opacity 1s; z-index: 10; }
-        #onboarding-screen.shattered { transform: scale(0.95); filter: blur(15px); opacity: 0; pointer-events: none; }
-
-        /* Floating Ambient Pulser Engine Details */
-        .wa-pulsing-logo { width: 85px; height: 85px; background: var(--wa-teal); border-radius: 50%; margin-bottom: 25px; animation: ambientFloat 5s ease-in-out infinite; display: flex; align-items: center; justify-content: center; font-size: 45px; color: white; filter: drop-shadow(0px 12px 24px rgba(0,0,0,0.4)); }
-        @keyframes ambientFloat {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-12px) rotate(2deg); }
+        .form-container {
+            background-color: #202c33;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            width: 350px;
         }
-
-        .avatar-uploader { position: relative; margin-bottom: 25px; cursor: pointer; }
-        .avatar-frame { width: 120px; height: 120px; border-radius: 50%; background: #111b21; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 2px dashed var(--text-muted); font-size: 13px; color: var(--text-muted); transition: 0.2s; }
-        .avatar-frame:hover { border-color: var(--wa-teal); color: var(--wa-teal); }
-        .avatar-frame img { width: 100%; height: 100%; object-fit: cover; }
-
-        .wa-input { width: 100%; padding: 14px 18px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #3b4a54; background: #2a3942; color: white; font-size: 16px; outline: none; transition: 0.2s; user-select: text; }
-        .wa-input:focus { border-color: var(--wa-teal); }
-        
-        .wa-btn { width: 100%; padding: 14px; border: none; border-radius: 8px; background: var(--wa-teal); color: #111b21; font-weight: bold; font-size: 16px; cursor: pointer; transition: filter 0.2s; }
-        .wa-btn:hover { filter: brightness(1.1); }
-
-        /* Step 2: Advanced Loading Engine Screen Overlay */
-        .mojang-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #00a884; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1), transform 0.6s ease; }
-        .mojang-overlay.active { opacity: 1; pointer-events: auto; }
-
-        .welcome-banner { color: #ffffff; font-size: 40px; font-weight: 900; letter-spacing: 6px; text-transform: uppercase; opacity: 0; transform: scale(0.7) translateY(30px); text-shadow: 0 10px 30px rgba(0,0,0,0.2); text-align: center; padding: 0 20px; }
-        .mojang-overlay.active .welcome-banner { animation: cleanSplash 2s cubic-bezier(0.19, 1, 0.22, 1) forwards 0.3s; }
-
-        .engine-track { width: 320px; height: 4px; background: rgba(255, 255, 255, 0.25); border-radius: 4px; margin-top: 40px; overflow: hidden; opacity: 0; }
-        .mojang-overlay.active .engine-track { opacity: 1; transition: opacity 0.4s ease 0.8s; }
-        .engine-progress { width: 0%; height: 100%; background: #ffffff; box-shadow: 0 0 15px #ffffff; }
-
-        @keyframes cleanSplash {
-            0% { opacity: 0; transform: scale(0.85) translateY(20px); filter: blur(4px); }
-            40% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
-            85% { opacity: 1; transform: scale(1.02); filter: blur(0); }
-            100% { opacity: 0; transform: scale(1.08) translateY(-10px); filter: blur(8px); }
+        h2 {
+            margin-bottom: 20px;
+            color: #00a884;
+            text-align: center;
         }
+        input[type="email"], textarea {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #2a3942;
+            background-color: #2a3942;
+            color: white;
+            box-sizing: border-box;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #00a884;
+            color: #111b21;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #008769;
+        }
+    </style>
+</head>
+<body>
 
-        /* Step 3: Main Dashboard Interface Frame */
-        #whatsapp-frame { display: none; width: 100vw; height: 100vh; background-color: var(--wa-dark-bg); opacity: 0; pointer-events: none; transition: opacity 1.2s ease-out; position: absolute; top: 0; left: 0; }
-        #whatsapp-frame.loaded { display: flex; opacity: 1; pointer-events: auto; }
+    <div class="form-container">
+        <h2>Email Test Form</h2>
         
-        .sidebar-panel { width: 340px; background: var(--wa-dark-bg); border-right: 1px solid #222d34; display: flex; flex-direction: column; }
-        .sidebar-header { padding: 12px 16px; background: var(--wa-panel-bg); display: flex; align-items: center; justify-content: space-between; }
-        .sidebar-header img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: #111; }
-        
-        .sidebar-tools { padding: 12px; display: flex; gap: 8px; border-bottom: 1px solid #222d34; background: #111b21; }
-        .sidebar-tools .sm-btn { padding: 8px 12px; font-size: 12px; background: var(--wa-panel-bg); color: var(--text-main); border: none; border-radius: 20px; cursor: pointer; }
-        .sidebar-tools .sm-btn:hover { background: #2a3942; }
+        <!-- Replace YOUR_EMAIL@EXAMPLE.COM with your actual email address -->
+        <form action="https://formsubmit.co" method="POST">
+            
+            <label for="email">Your Email Address:</label>
+            <input type="email" name="email" id="email" placeholder="name@example.com" required>
+            
+            <label for="message">Test Message:</label>
+            <textarea name="message" id="message" rows="4" placeholder="Type your test message here..." required></textarea>
+            
+            <!-- Optional configuration fields to customize behavior -->
+            <input type="hidden" name="_subject" value="New Test Submission from HTML Page!">
+            <input type="hidden" name="_captcha" value="false">
 
-        .chat-scroll-stack { flex: 1; overflow-y: auto; }
-        .chat-list-row { padding: 12px 16px; cursor: pointer; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #222d34; transition: background 0.2s; }
-        .chat-list-row:hover, .chat-list-row.active { background: var(--wa-panel-bg); }
-        .chat-list-row .row-avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #2a3942; font-size: 20px; }
-        .chat-list-row .row-meta { flex: 1; min-width: 0; }
-        .chat-list-row .row-name { font-weight: 500; font-size: 16px; color: var(--text-main); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .chat-list-row .row-preview { font-size: 13px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        
-        .workspace-panel { flex: 1; display: flex; flex-direction: column; background: var(--wa-chat-bg); position: relative; }
-        .workspace-panel::before { content: ""; position: absolute; top:0; left:0; width:100%; height:100%; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10zm10 8c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm40 40c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); pointer-events: none; }
-        
-        .workspace-header { padding: 10px 16px; background: var(--wa-panel-bg); display: flex; align-items: center; justify-content: space-between; z-index: 10; }
-        .header-profile { display: flex; align-items: center; gap: 15px; }
-        .header-profile .title { font-weight: 500; font-size: 16px; }
-        
-        .thread-scroll-view { flex: 1; overflow-y: auto; padding: 20px 30px; display: flex; flex-direction: column; gap: 8px; z-index: 5; }
-        
-        .wa-bubble { max-width: 65%; padding: 8px 12px; border-radius: 8px; line-height: 1.4; position: relative; font-size: 14.5px; display: flex; flex-direction: column; box-shadow: 0 1px 0.5px rgba(0,0,0,0.13); margin-bottom: 4px; }
-        .wa-bubble.sent { background: var(--wa-bubble-out); align-self: flex-end; border-top-right-radius: 0; color: #e9edef; }
-        .wa-bubble.received { background: var(--wa-bubble-in); align-self: flex-start; border-top-left-radius: 0; color: #e9edef; }
-        .wa-bubble .bubble-author { font-size: 12px; font-weight: bold; color: var(--wa-teal); margin-bottom: 4px; }
-        .wa-bubble .bubble-footer { display: flex; align-items: center; justify-content: flex-end; gap: 4px; font-size: 11px; color: var(--text-muted); margin-top: 4px; align-self: flex-end; }
-        .wa-bubble .wa-ticks { color: #53bdeb; font-weight: bold; }
-        .wa-bubble img { max-width: 100%; border-radius: 6px; margin-top: 6px; display: block; }
-        .wa-bubble audio { margin-top: 6px; max-width: 100%; filter: invert(1) hue-rotate(180deg); }
+            <button type="submit">Send Test Email</button>
+        </form>
+    </div>
 
-        .input-dock-bar { padding: 10px 16px; background: var(--wa-panel-bg); display: flex; align-items: center; gap: 15px; position: relative; z-index: 10; }
-        .input-dock-bar input[type="text"] { flex: 1; background: #2a3942; border: none; padding: 12px 20px; border-radius: 8px; color: white; margin: 0; font-size: 15px; outline: none; user-select: text; }
-        .action-icon { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text-muted); padding: 4px; display: flex; align-items: center; justify-content: center; }
-        .action-icon:hover { color: var(--text-main); }
-        
-.popover-menu-frame { display: none; position: absolute; bottom: 65px; left: 16px; background: var(--wa-panel-bg); border: 1px solid #3b4a54; border-radius: 10px; padding: 12px; width: 300px; z-index: 50; max-height: 240px; overflow-y: auto; box-shadow: 0 12px 32px rgba(0,0,0,0.5); }
-.menu-grid-layout { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
-.grid-node-item { font-size: 26px; text-align: center; cursor: pointer; padding: 6px; border-radius: 6px; }
-.grid-node-item:hover { background: #2a3942; }
-.grid-node-item img { width: 100%; border-radius: 4px; object-fit: cover; }
-/* Voice Call Layers */
-#wa-call-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #0f171c; z-index: 100; flex-direction: column; align-items: center; justify-content: center; }
-.call-card-avatar { width: 110px; height: 110px; background: var(--wa-panel-bg); border-radius: 50%; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; font-size: 50px; border: 2px solid var(--wa-teal); overflow: hidden; }
-.call-card-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.call-user-headline { font-size: 24px; font-weight: 500; margin-bottom: 6px; }
-.call-duration-ticker { font-size: 15px; margin-bottom: 35px; color: var(--text-muted); }
-.call-recording-badge { color: #ea0038; font-weight: bold; font-size: 13px; margin-bottom: 30px; display: none; letter-spacing: 1px; }
-.call-control-row { display: flex; gap: 30px; }
-.btn-call-hangup { background: #ea0038; color: white; width: 60px; height: 60px; border-radius: 50%; border:none; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.btn-call-answer { background: var(--wa-teal); color: #111b21; width: 60px; height: 60px; border-radius: 50%; border:none; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.call-replay-box { background: var(--wa-panel-bg); border-radius: 10px; padding: 15px; margin-top: 30px; display: none; text-align: center; border: 1px solid #3b4a54; width: 280px; }
+</body>
+</html>
 
-
-💬
-WhatsApp Web Pro
-Configure local static sandbox settings
-Add Photo
-
-AGREE AND CONTINUE
-Connecting Secure Client Web Sandbox...
-
-
-
-WhatsApp Client
-
-
-👤 + New Chat
-👥 + New Group
-
-
-👤
-Contact Name
-Voice Signal Node Call...
-🔴 REPLAY METRIC RUNNING (CAPTURING AUDIO)
-📞
-📴
-🔊 Conversation Capture Replay Logging:
-💬
-Select chat to load logs
-
-📞
-Select or spin up a chat stream room using the sidebar controls.
-😀
-🖼️
-🎙️
-Send
-
-
-let sessionUserData = { name: "User", avatar: "" };
-let localActiveChannelId = null;
-let micStreamRecorder = null;
-let micDataChunks = [];
-let networkCallRecorder = null;
-let callDataChunks = [];
-let systemHardwareStream = null;
-let channelLogsDatabase = {
-'lobby-dev': { name: "Public Group Chat", type: "group", history: [] },
-'bot-echo': { name: "WhatsApp Automated Bot", type: "private", history: [] }
-};
-// LocalStorage Extraction Logic
-if(localStorage.getItem('wa_channels_v3')) {
-try { channelLogsDatabase = JSON.parse(localStorage.getItem('wa_channels_v3')); } catch(e) {}
-}
-if(localStorage.getItem('wa_user_v3')) {
-try {
-sessionUserData = JSON.parse(localStorage.getItem('wa_user_v3'));
-window.addEventListener('DOMContentLoaded', () => { bypassLoginForm(); });
-} catch(e) {}
-}
-function saveStateToLocalStorage() {
-localStorage.setItem('wa_channels_v3', JSON.stringify(channelLogsDatabase));
-localStorage.setItem('wa_user_v3', JSON.stringify(sessionUserData));
-}
-function handleProfilePhoto(event) {
-const dataStreamReader = new FileReader();
-dataStreamReader.onload = function() {
-document.getElementById('avatar-render-frame').innerHTML = <img src="${dataStreamReader.result}">;
-sessionUserData.avatar = dataStreamReader.result;
-};
-if(event.target.files[0]) dataStreamReader.readAsDataURL(event.target.files[0]);
-}
-// Trigger cinematic launcher logic
-function triggerCinematicSequence() {
-const parsedName = document.getElementById('username-field-node').value.trim();
-if(!parsedName) return alert("Please type a valid user profile name before entry!");
-sessionUserData.name = parsedName;
-saveStateToLocalStorage();
-document.getElementById('onboarding-screen').classList.add('shattered');
-setTimeout(() => {
-const stage = document.getElementById('loadingStage');
-stage.classList.add('active');
-runEngineLoader();
-}, 500);
-}
-function runEngineLoader() {
-let progression = 0;
-const bar = document.getElementById('loadingEngineBar');
-const stream = setInterval(() => {
-if (progression >= 100) {
-clearInterval(stream);
-completeExecutionPipeline();
-} else {
-let increment = Math.floor(Math.random() * 12) + 4;
-progression += increment;
-if (progression > 100) progression = 100;
-bar.style.width = progression + '%';
-}
-}, 100);
-}
-function completeExecutionPipeline() {
-setTimeout(() => {
-const stage = document.getElementById('loadingStage');
-stage.style.transform = "scale(1.1)";
-stage.style.opacity = "0";
-setTimeout(() => {
-stage.classList.remove('active');
-bypassLoginForm();
-}, 600);
-}, 800);
-}
-function bypassLoginForm() {
-document.getElementById('onboarding-screen').style.display = 'none';
-const frame = document.getElementById('whatsapp-frame');
-frame.classList.add('loaded');
-document.getElementById('my-profile-display-node').src = sessionUserData.avatar || "placeholder.com";
-renderSidebarChannels();
-loadTargetChannel('bot-echo');
-generateAppMenus();
-}
-function renderSidebarChannels() {
-const targetContainer = document.getElementById('contacts-vertical-stack');
-targetContainer.innerHTML = '';
-for(let id in channelLogsDatabase) {
-const isActive = (localActiveChannelId === id) ? 'active' : '';
-const channelSymbol = (channelLogsDatabase[id].type === 'group') ? '👥' : '👤';
-const logArray = channelLogsDatabase[id].history;
-const dynamicSubtitle = logArray.length > 0 ? "Last message logged..." : "No conversation logs yet";
-targetContainer.innerHTML += <div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')"> <div class="row-avatar">${channelSymbol}</div> <div class="row-meta"> <div class="row-name">${channelLogsDatabase[id].name}</div> <div class="row-preview">${dynamicSubtitle}</div> </div> </div>;
-}
-}
-function loadTargetChannel(id) {
-localActiveChannelId = id;
-document.getElementById('active-chat-headline-node').innerText = channelLogsDatabase[id].name;
-document.getElementById('header-avatar-icon-target').innerText = (channelLogsDatabase[id].type === 'group') ? '👥' : '👤';
-renderSidebarChannels();
-repaintMessageLogs();
-}
-function executeTextDispatch() {
-const fieldNode = document.getElementById('text-message-input-node');
-const dataStringValue = fieldNode.value.trim();
-if(!dataStringValue) return;
-appendBubbleElement(sessionUserData.name, <p>${dataStringValue}</p>, 'sent');
-fieldNode.value = '';
-if(localActiveChannelId === 'bot-echo') {
-setTimeout(() => {
-appendBubbleElement("WhatsApp Bot", <p>Static GitHub Sandbox response generated inside 1 second: "<strong>${dataStringValue}</strong>"</p>, 'received');
-}, 400);
-}
-}
-function appendBubbleElement(author, markupBody, viewVariant) {
-const panelAreaNode = document.getElementById('chat-thread-viewport');
-const timeCode = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-const statusTicks = (viewVariant === 'sent') ? <span class="wa-ticks">✓✓</span> : '';
-panelAreaNode.innerHTML += <div class="wa-bubble ${viewVariant}"> <span class="bubble-author">${author}</span> <div>${markupBody}</div> <div class="bubble-footer"> <span>${timeCode}</span> ${statusTicks} </div> </div>;
-panelAreaNode.scrollTop = panelAreaNode.scrollHeight;
-if(localActiveChannelId) {
-channelLogsDatabase[localActiveChannelId].history.push({ author, markupBody, viewVariant });
-saveStateToLocalStorage();
-}
-}
-function repaintMessageLogs() {
-const panelAreaNode = document.getElementById('chat-thread-viewport');
-panelAreaNode.innerHTML = '';
-if (channelLogsDatabase[localActiveChannelId].history.length === 0) {
-panelAreaNode.innerHTML = <div style="text-align: center; color: var(--text-muted); margin-top: 50px; font-size: 14px;">No messages in this chat yet. Start typing below!</div>;
-return;
-}
-channelLogsDatabase[localActiveChannelId].history.forEach(block => {
-const timeCode = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-const statusTicks = (block.viewVariant === 'sent') ? <span class="wa-ticks">✓✓</span> : '';
-panelAreaNode.innerHTML += <div class="wa-bubble ${block.viewVariant}"> <span class="bubble-author">${block.author}</span> <div>${block.markupBody}</div> <div class="bubble-footer"> <span>${timeCode}</span> ${statusTicks} </div> </div>;
-});
-panelAreaNode.scrollTop = panelAreaNode.scrollHeight;
-}
-function trapInputKeypress(e) { if(e.key === 'Enter') executeTextDispatch(); }
-async function startMicAudioStream() {
-document.getElementById('mic-action-btn-node').style.color = '#ea0038';
-if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-try {
-systemHardwareStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-micStreamRecorder = new MediaRecorder(systemHardwareStream);
-micDataChunks = [];
-micStreamRecorder.ondataavailable = e => micDataChunks.push(e.data);
-micStreamRecorder.onstop = () => {
-const builtAudioBlob = new Blob(micDataChunks, { type: 'audio/mp3' });
-const browserMediaUrl = URL.createObjectURL(builtAudioBlob);
-appendBubbleElement(sessionUserData.name, <audio src="${browserMediaUrl}" controls></audio>, 'sent');
-};
-micStreamRecorder.start();
-} catch(err) { console.error(err); }
-}
-}
-function stopMicAudioStream() {
-document.getElementById('mic-action-btn-node').style.color = 'var(--wa-teal)';
-if(micStreamRecorder && micStreamRecorder.state !== 'inactive') micStreamRecorder.stop();
-if(systemHardwareStream) systemHardwareStream.getTracks().forEach(track => track.stop());
-}
-function launchVoiceCallScreen() {
-document.getElementById('wa-call-overlay').style.display = 'flex';
-document.getElementById('accept-call-btn-node').style.display = 'block';
-document.getElementById('call-graphic-target').innerHTML = sessionUserData.avatar ? <img src="${sessionUserData.avatar}"> : '👤';
-document.getElementById('call-target-title').innerText = channelLogsDatabase[localActiveChannelId].name;
-document.getElementById('call-status-label').innerText = "WhatsApp Web Voice Call Node Connection...";
-}
-async function connectWaCallSequence() {
-document.getElementById('call-status-label').innerText = "Call Connected — Monitoring Local Input Buffer";
-document.getElementById('accept-call-btn-node').style.display = 'none';
-document.getElementById('call-rec-indicator').style.display = 'block';
-if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-try {
-systemHardwareStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-networkCallRecorder = new MediaRecorder(systemHardwareStream);
-callDataChunks = [];
-networkCallRecorder.ondataavailable = e => callDataChunks.push(e.data);
-networkCallRecorder.onstop = () => {
-const fileBlobOutput = new Blob(callDataChunks, { type: 'audio/mp3' });
-document.getElementById('call-audio-playback-node').src = URL.createObjectURL(fileBlobOutput);
-document.getElementById('wa-replay-container').style.display = 'block';
-};
-networkCallRecorder.start();
-} catch(e) {}
-}
-}
-function terminateWaCallSequence() {
-if(networkCallRecorder && networkCallRecorder.state !== 'inactive') networkCallRecorder.stop();
-if(systemHardwareStream) systemHardwareStream.getTracks().forEach(track => track.stop());
-document.getElementById('call-rec-indicator').style.display = 'none';
-document.getElementById('call-status-label').innerText = "Call Closed";
-setTimeout(() => {
-document.getElementById('wa-call-overlay').style.display = 'none';
-document.getElementById('wa-replay-container').style.display = 'none';
-}, 5000);
-}
-function generateAppMenus() {
-const symbolsPackList = ['😀','😂','🔥','👍','🎉','❤️','🚀','✨','💯','👀','👑','🎨','🌟','🎈'];
-const targetEmojiNode = document.getElementById('emoji-injection-grid');
-targetEmojiNode.innerHTML = '';
-symbolsPackList.forEach(symbol => {
-targetEmojiNode.innerHTML += <div class="grid-node-item" onclick="insertEmojiCharacter('${symbol}')">${symbol}</div>;
-});
-const targetGifNode = document.getElementById('gif-injection-grid');
-targetGifNode.innerHTML = '';
-const placeholderGifAddress = "giphy.com";
-for(let i=0; i<5; i++) {
-targetGifNode.innerHTML += <div class="grid-node-item" onclick="insertGifMediaBlock('${placeholderGifAddress}')"><img src="${placeholderGifAddress}"></div>;
-}
-}
-function togglePopoverMenu(id) {
-const menu = document.getElementById(pop-${id});
-menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
-}
-function insertEmojiCharacter(chr) {
-document.getElementById('text-message-input-node').value += chr;
-togglePopoverMenu('emoji');
-}
-function insertGifMediaBlock(srcUrl) {
-appendBubbleElement(sessionUserData.name, <img src="${srcUrl}">, 'sent');
-togglePopoverMenu('gif');
-}
-function triggerChannelCreation(type) {
-const windowPromptValue = prompt(Type name value for new ${type} thread workspace:);
-if(!windowPromptValue) return;
-const dynamicKeyId = 'ch-node-' + Date.now();
-channelLogsDatabase[dynamicKeyId] = { name: windowPromptValue, type: type, history: [] };
-saveStateToLocalStorage();
-loadTargetChannel(dynamicKeyId);
-}
