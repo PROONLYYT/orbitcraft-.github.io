@@ -1,41 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PROONLYYT's Website</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #0d1117;
-            color: #c9d1d9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .container {
-            text-align: center;
-            padding: 2rem;
-            background-color: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-        h1 {
-            color: #58a6ff;
-            margin-bottom: 0.5rem;
-        }
-        p {
-            color: #8b949e;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minecraft Java Edition Web Launcher</title>
+  <style>
+    /* Reset defaults */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #111;
+    }
+
+    /* Main Launcher Screen Wrapper */
+    .launcher-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      /* Background image taken from the official launcher screen artwork */
+      background: url('https://gog.com') no-repeat center center;
+      background-size: cover;
+      padding: 40px 20px;
+      transition: transform 1.5s cubic-bezier(0.7, 0, 0.3, 1), opacity 1.2s ease;
+    }
+
+    /* Top Logo Styling */
+    .logo-container {
+      margin-top: 20px;
+      text-align: center;
+      animation: floatLogo 4s ease-in-out infinite;
+    }
+
+    .minecraft-logo {
+      max-width: 500px;
+      width: 90%;
+      filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.6));
+    }
+
+    @keyframes floatLogo {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-10px) scale(1.02); }
+    }
+
+    /* Bottom Control Bar */
+    .control-bar {
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 20px;
+      border-radius: 4px;
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    }
+
+    /* Play Button (Minecraft Green style) */
+    .play-btn {
+      width: 100%;
+      padding: 16px 32px;
+      font-size: 28px;
+      font-weight: bold;
+      color: #ffffff;
+      text-shadow: 2px 2px 0px #2a6114;
+      background: linear-gradient(to bottom, #5ba429 0%, #3c7d19 100%);
+      border: 3px solid #1e3f0d;
+      border-radius: 2px;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.4), 0 4px 10px rgba(0,0,0,0.5);
+      transition: all 0.1s ease;
+    }
+
+    .play-btn:hover {
+      background: linear-gradient(to bottom, #6bc031 0%, #46911d 100%);
+      transform: translateY(-2px);
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.4), 0 6px 14px rgba(0,0,0,0.6);
+    }
+
+    .play-btn:active {
+      transform: translateY(1px);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
+    }
+
+    .version-tag {
+      color: #aaa;
+      font-size: 14px;
+      letter-spacing: 1px;
+    }
+
+    /* INSANE LOADING SCREEN & ANIMATION ELEMENTS */
+    .loading-screen {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ef323d; /* Mojang Red */
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    /* Active Animation state triggered by JS */
+    .loading-screen.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Animated Custom Logo scale wrapper */
+    .mojang-logo-wrap {
+      width: 200px;
+      height: 200px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform: scale(0);
+    }
+
+    .loading-screen.active .mojang-logo-wrap {
+      animation: logoPopIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .mojang-svg {
+      width: 100%;
+      fill: #ffffff;
+    }
+
+    /* Custom Loading Bar */
+    .progress-container {
+      width: 300px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+      margin-top: 50px;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    .loading-screen.active .progress-container {
+      opacity: 1;
+      transition: opacity 0.5s ease 0.8s;
+    }
+
+    .progress-bar {
+      width: 0%;
+      height: 100%;
+      background: #ffffff;
+      box-shadow: 0 0 10px #ffffff;
+    }
+
+    /* Cinematic Launcher Exit */
+    .launcher-container.shattering {
+      transform: scale(1.2) rotate(1deg);
+      opacity: 0;
+      filter: blur(10px);
+    }
+
+    /* Game World Screen Simulation */
+    .game-viewport {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, #244670 0%, #111a24 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 10;
+      transition: opacity 1.5s ease;
+      color: #fff;
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .game-viewport.loaded {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    /* Keyframes for the intense intro sequences */
+    @keyframes logoPopIn {
+      0% { transform: scale(0) rotate(-45deg); filter: blur(5px); }
+      70% { transform: scale(1.1) rotate(5deg); }
+      100% { transform: scale(1) rotate(0deg); filter: blur(0); }
+    }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Welcome to PROONLYYT's Website!</h1>
-        <p>My brand new website hosted entirely on GitHub Pages is officially live.</p>
+
+  <!-- Screen 1: The Main Launcher Interface -->
+  <div class="launcher-container" id="launcherScreen">
+    <div class="logo-container">
+      <!-- High-res transparent Minecraft Java Edition Logo -->
+      <img src="https://wikimedia.org" alt="Minecraft Java" class="minecraft-logo">
     </div>
+
+    <div class="control-bar">
+      <button class="play-btn" id="playBtn">Play</button>
+      <div class="version-tag">Latest release (1.21.1)</div>
+    </div>
+  </div>
+
+  <!-- Screen 2: The Insane Full-Screen Interactive Loading Sequence -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="mojang-logo-wrap">
+      <!-- Clean vector replica of the iconic studios emblem -->
+      <svg class="mojang-svg" viewBox="0 0 24 24">
+        <path d="M20,2H4A2,2 0 0,0 2,4V20A2,2 0 0,0 4,22H20A2,2 0 0,0 22,20V4A2,2 0 0,0 20,2M12,6A4,4 0 0,1 16,10A4,4 0 0,1 12,14A4,4 0 0,1 8,10A4,4 0 0,1 12,6M18,18H6V17C6,15 10,13.9 12,13.9C14,13.9 18,15 18,17V18Z" />
+      </svg>
+    </div>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
+
+  <!-- Screen 3: Simulated Main Menu Loaded State -->
+  <div class="game-viewport" id="gameScreen">
+    Welcome to Minecraft (Main Menu Simulation Active)
+  </div>
+
+  <!-- JavaScript to trigger your custom engine mechanics -->
+  <script>
+    const playBtn = document.getElementById('playBtn');
+    const launcherScreen = document.getElementById('launcherScreen');
+    const loadingScreen = document.getElementById('loadingScreen');
+    const progressBar = document.getElementById('progressBar');
+    const gameScreen = document.getElementById('gameScreen');
+
+    playBtn.addEventListener('click', () => {
+      // 1. Kick off the launcher shattering fade animation
+      launcherScreen.classList.add('shattering');
+
+      // 2. Bring up the custom Mojang Loading screen overlay
+      setTimeout(() => {
+        loadingScreen.classList.add('active');
+        startLoadingSequence();
+      }, 400); 
+    });
+
+    function startLoadingSequence() {
+      let width = 0;
+      // Multi-stage variable loader speed to mimic actual memory asset parsing
+      const interval = setInterval(() => {
+        if (width >= 100) {
+          clearInterval(interval);
+          finishLoading();
+        } else {
+          // Generates a dynamic jagged steps increase pattern 
+          let step = Math.floor(Math.random() * 8) + 2; 
+          width += step;
+          if(width > 100) width = 100;
+          progressBar.style.width = width + '%';
+        }
+      }, 150); // Speed control variable
+    }
+
+    function finishLoading() {
+      // Fade out loading sequence and spin up the simulated sandbox environment
+      loadingScreen.style.transition = "all 0.8s ease";
+      loadingScreen.style.transform = "scale(1.5)";
+      loadingScreen.style.opacity = "0";
+      
+      setTimeout(() => {
+        loadingScreen.classList.remove('active');
+        gameScreen.classList.add('loaded');
+      }, 800);
+    }
+  </script>
 </body>
 </html>
