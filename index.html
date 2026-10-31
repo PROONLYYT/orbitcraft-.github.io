@@ -98,7 +98,6 @@
             background: var(--scrollbar-thumb-hover);
         }
 
-        /* Custom utility focus wrappers */
         *:focus-visible {
             outline: 2px solid var(--wa-teal-primary);
             outline-offset: 1px;
@@ -195,7 +194,7 @@
         }
         /* 
          =======================================================================
-         SECTION 4: PROFILE SETUP OVERLAY PANELS AND TRANSLATION FILTERS
+         SECTION 4: PROFILE SETUP OVERLAY PANELS AND INTERFACES
          =======================================================================
         */
         #onboarding-screen {
@@ -248,6 +247,9 @@
             margin-bottom: 30px;
             cursor: pointer;
             outline: none;
+            width: 140px;
+            height: 140px;
+            align-self: center;
         }
 
         .avatar-frame {
@@ -291,6 +293,44 @@
             font-size: 14px;
             margin-bottom: 25px;
             line-height: 1.4;
+        }
+
+        .wa-input {
+            width: 100%;
+            padding: 14px 20px;
+            background: var(--input-field-bg);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 15px;
+            outline: none;
+            margin-bottom: 20px;
+            transition: border-color var(--transition-speed-fast) ease;
+        }
+
+        .wa-input:focus {
+            border-color: var(--wa-teal-primary);
+        }
+
+        .wa-btn {
+            width: 100%;
+            padding: 14px 24px;
+            background: var(--wa-teal-primary);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background var(--transition-speed-fast) ease, transform 0.1s ease;
+        }
+
+        .wa-btn:hover {
+            background: var(--wa-teal-hover);
+        }
+
+        .wa-btn:active {
+            transform: scale(0.98);
         }
         /* 
          =======================================================================
@@ -473,10 +513,6 @@
             transform: translateY(-1px);
         }
 
-        .sidebar-tools .sm-btn:active {
-            transform: translateY(0);
-        }
-
         .theme-selector {
             width: 100%;
             padding: 10px 14px;
@@ -487,12 +523,8 @@
             outline: none;
             font-size: 13.5px;
             cursor: pointer;
-            transition: border-color var(--transition-speed-fast) ease;
         }
 
-        .theme-selector:focus {
-            border-color: var(--wa-teal-primary);
-        }
         .chat-scroll-stack {
             flex: 1;
             overflow-y: auto;
@@ -508,7 +540,6 @@
             gap: 16px;
             border-bottom: 1px solid var(--border-subtle);
             transition: background var(--transition-speed-fast) ease;
-            position: relative;
         }
 
         .chat-list-row:hover {
@@ -528,7 +559,6 @@
             justify-content: center;
             background: var(--input-field-bg);
             font-size: 24px;
-            box-shadow: var(--box-shadow-ambient);
             flex-shrink: 0;
         }
 
@@ -542,9 +572,6 @@
             font-size: 16.5px;
             color: var(--text-main);
             margin-bottom: 4px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .chat-list-row .row-preview {
@@ -554,7 +581,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
         /* 
          =======================================================================
          SECTION 8: CENTRAL CONVERSATION WORKSPACE ENVIRONMENT CSS
@@ -593,6 +619,7 @@
             height: 70px;
             position: relative;
         }
+
         .header-profile {
             display: flex;
             align-items: center;
@@ -614,10 +641,8 @@
             gap: 12px;
             z-index: 5;
             position: relative;
-            background: transparent;
         }
 
-        /* Messaging Split Bubble Clusters */
         .wa-bubble {
             max-width: 65%;
             padding: 11px 16px;
@@ -680,7 +705,6 @@
             margin-top: 8px;
             width: 260px;
             max-width: 100%;
-            border-radius: 4px;
         }
 
         .wa-bubble img {
@@ -688,7 +712,6 @@
             border-radius: 6px;
             margin-top: 6px;
             display: block;
-            box-shadow: var(--box-shadow-ambient);
         }
         /* 
          =======================================================================
@@ -714,14 +737,8 @@
             padding: 14px 22px;
             border-radius: 8px;
             color: #ffffff;
-            margin: 0;
             font-size: 15px;
             outline: none;
-            transition: box-shadow var(--transition-speed-fast) ease;
-        }
-
-        .input-dock-bar input[type="text"]:focus {
-            box-shadow: inset 0 0 0 1px var(--wa-teal-primary);
         }
 
         .action-icon {
@@ -734,7 +751,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: color var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease;
             border-radius: 50%;
         }
 
@@ -743,7 +759,6 @@
             background: rgba(255,255,255,0.05);
         }
 
-        /* Hardware Voice Oscilloscope Container Dock Styles */
         .audio-tracker-dock {
             display: none;
             flex: 1;
@@ -753,19 +768,12 @@
             border-radius: 8px;
             gap: 16px;
             height: 46px;
-            animation: visualizerExpand var(--transition-speed-normal) cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
-        @keyframes visualizerExpand {
-            from { transform: scaleX(0.95); opacity: 0; }
-            to { transform: scaleX(1); opacity: 1; }
         }
 
         .visualizer-canvas {
             flex: 1;
             height: 32px;
             background: transparent;
-            border-radius: 4px;
         }
 
         .recording-timer {
@@ -773,7 +781,6 @@
             color: var(--danger-red);
             font-weight: 700;
             font-family: monospace;
-            letter-spacing: 0.5px;
         }
 
         .popover-menu-frame {
@@ -789,7 +796,6 @@
             z-index: var(--layer-popover);
             max-height: 270px;
             overflow-y: auto;
-            box-shadow: var(--box-shadow-heavy);
         }
 
         .menu-grid-layout {
@@ -804,18 +810,10 @@
             cursor: pointer;
             padding: 6px;
             border-radius: 8px;
-            transition: background var(--transition-speed-fast) ease, transform var(--transition-speed-fast) ease;
         }
 
         .grid-node-item:hover {
             background: var(--input-field-bg);
-            transform: scale(1.15);
-        }
-        .grid-node-item img {
-            width: 100%;
-            border-radius: 6px;
-            object-fit: cover;
-            display: block;
         }
 
         #wa-call-overlay {
@@ -830,7 +828,6 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(20px);
         }
 
         .call-card-avatar {
@@ -845,7 +842,6 @@
             font-size: 60px;
             border: 3px solid var(--wa-teal-primary);
             overflow: hidden;
-            box-shadow: var(--box-shadow-heavy);
         }
 
         .call-card-avatar img {
@@ -858,7 +854,6 @@
             font-size: 28px;
             font-weight: 600;
             margin-bottom: 10px;
-            letter-spacing: 0.5px;
         }
 
         .call-duration-ticker {
@@ -873,12 +868,6 @@
             font-size: 14px;
             margin-bottom: 35px;
             display: none;
-            letter-spacing: 1.5px;
-            animation: pulseRecord 1.5s infinite alternate;
-        }
-
-        @keyframes pulseRecord {
-            from { opacity: 1; } to { opacity: 0.3; }
         }
 
         .call-control-row {
@@ -897,21 +886,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform var(--transition-speed-fast) ease;
         }
 
         .btn-call-hangup {
             background: var(--danger-red);
-            box-shadow: 0 8px 24px rgba(234, 0, 56, 0.4);
         }
 
         .btn-call-answer {
             background: var(--wa-teal-primary);
-            box-shadow: 0 8px 24px rgba(0, 168, 132, 0.4);
-        }
-
-        .btn-call-hangup:hover, .btn-call-answer:hover {
-            transform: scale(1.12);
         }
 
         .call-replay-box {
@@ -923,10 +905,18 @@
             text-align: center;
             border: 1px solid var(--border-subtle);
             width: 320px;
-            box-shadow: var(--box-shadow-heavy);
+        }
+
+        .wa-danger-btn {
+            background: var(--danger-red);
+            margin-top: 15px;
+        }
+        .wa-danger-btn:hover {
+            background: var(--danger-hover);
         }
     </style>
-    <!-- Live Multi-Device Network Cross-Sync Script Libraries -->
+    
+    <!-- 100% ONLINE FIREBASE LIVE FRAMEWORK CORE ENGINE DEEP INTEGRATIONS -->
     <script src="https://gstatic.com"></script>
     <script src="https://gstatic.com"></script>
 </head>
@@ -946,17 +936,6 @@
         <input type="text" id="username-field-node" class="wa-input" placeholder="Enter custom username" required>
         <button class="wa-btn" id="launchTrigger" onclick="triggerCinematicSequence()">CREATE PROFILE & LAUNCH</button>
     </div>
-    <!-- STEP 2: Asymmetrical Real-Time Synchronization Transition Screen Overlay -->
-    <div class="mojang-overlay" id="loadingStage">
-        <div class="welcome-banner">Connecting Secure Client Web Sandbox...</div>
-        <div class="engine-track">
-            <div class="engine-progress" id="loadingEngineBar"></div>
-        </div>
-    </div>
-
-    <!-- STEP 3: Complete WhatsApp Functional Application Layout Base Structure -->
-    <div id="whatsapp-frame">
-        
         <!-- Left Side Controller Navigation Navigation Stack panel -->
         <div class="sidebar-panel">
             <div class="sidebar-header">
@@ -978,13 +957,14 @@
                     <option value="theme-monochrome">⚪ Theme: Slate Monochrome</option>
                     <option value="theme-matrix">📟 Theme: Digital Matrix Terminal</option>
                 </select>
+                <!-- Hard Reset Trigger Component -->
+                <button class="wa-btn wa-danger-btn" onclick="executeCompleteSystemReset()">🔄 RESET ACCOUNT DATA</button>
             </div>
             
             <div class="chat-scroll-stack" id="contacts-vertical-stack">
                 <!-- Programmatically populated lists handle communication instances directly -->
             </div>
         </div>
-
         <!-- Central Workspace Frame Execution Canvas -->
         <div class="workspace-panel">
             
@@ -1016,7 +996,6 @@
 
             <!-- Thread Workspace Messaging Stream Viewport Window -->
             <div class="thread-scroll-view" id="chat-thread-viewport"></div>
-
             <!-- Core User Input Assembly Component Dock Bar -->
             <div class="input-dock-bar">
                 <div class="popover-menu-frame" id="pop-emoji">
@@ -1044,7 +1023,6 @@
             </div>
         </div>
     </div>
-
     <script>
         /* 
          =======================================================================
@@ -1080,13 +1058,12 @@
         let networkCallRecorder = null;
         let callDataChunks = [];
         let systemHardwareStream = null;
-        // Web Hardware Core Audio Visualizer Variable Matrices
+        
         let audioContextEngine = null;
         let audioAnalyserNode = null;
         let audioCanvasAnimationStream = null;
         let recordTimeTicker = 0;
         let timerIntervalTracker = null;
-
         // Core Fallback Database Cache Structure Map
         let channelLogsDatabase = {
             'lobby-dev': { name: "Public Group Chat", type: "group", history: [] },
@@ -1122,7 +1099,6 @@
                 dataStreamReader.readAsDataURL(event.target.files[0]);
             }
         }
-
         function modifyEngineThemeLayout(themeId) {
             document.body.className = '';
             document.body.classList.add(themeId);
@@ -1139,6 +1115,7 @@
                 if(dropMenuNode) dropMenuNode.value = savedSystemThemeCache;
             });
         }
+
         /* 
          =======================================================================
          SECTION 11: LOADING COMPILATION SEQUENCERS AND ASYMMETRICAL METRICS
@@ -1160,7 +1137,6 @@
                 runEngineLoader();
             }, 600);
         }
-
         function runEngineLoader() {
             let progression = 0;
             const bar = document.getElementById('loadingEngineBar');
@@ -1170,7 +1146,6 @@
                     clearInterval(stream);
                     completeExecutionPipeline();
                 } else {
-                    // Random fractional latency calculations to simulate remote cloud route handshakes
                     let increment = Math.floor(Math.random() * 12) + 6;
                     progression += increment;
                     if (progression > 100) progression = 100;
@@ -1268,7 +1243,6 @@
                 }, 450);
             }
         }
-
         function appendBubbleElement(author, markupBody, viewVariant) {
             const panelAreaNode = document.getElementById('chat-thread-viewport');
             if(!panelAreaNode) return;
@@ -1289,6 +1263,7 @@
                 renderSidebarChannels();
             }
         }
+
         function repaintMessageLogs() {
             const panelAreaNode = document.getElementById('chat-thread-viewport');
             if(!panelAreaNode || !localActiveChannelId) return;
@@ -1380,7 +1355,6 @@
             micDataChunks = [];
             stopMicAudioStream();
         }
-
         function runLiveVoiceWaveformTracker() {
             const visualCanvas = document.getElementById('audio-waveform-canvas');
             const contextGraphic2D = visualCanvas.getContext('2d');
@@ -1466,47 +1440,43 @@
             menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
         }
 
-function insertEmojiCharacter(chr) {
-document.getElementById('text-message-input-node').value += chr;
-togglePopoverMenu('emoji');
-}
-function insertGifMediaBlock(srcUrl) {
-appendBubbleElement(sessionUserData.name, <img src="${srcUrl}" alt="Injected Media Item">, 'sent');
-togglePopoverMenu('gif');
-}
-function triggerChannelCreation(type) {
-const windowPromptValue = prompt(Type name value for new ${type} thread workspace:);
-if(!windowPromptValue) return;
-const dynamicKeyId = 'ch-node-' + Date.now();
-channelLogsDatabase[dynamicKeyId] = { name: windowPromptValue, type: type, history: [] };
-if (useFirebaseBackend) {
-databaseRefInstance.set(channelLogsDatabase);
-} else {
-saveStateToLocalStorage();
-loadTargetChannel(dynamicKeyId);
-}
-}
+        function insertEmojiCharacter(chr) {
+            document.getElementById('text-message-input-node').value += chr;
+            togglePopoverMenu('emoji');
+        }
 
+        function insertGifMediaBlock(srcUrl) {
+            appendBubbleElement(sessionUserData.name, `<img src="${srcUrl}" alt="Injected Media Item">`, 'sent');
+            togglePopoverMenu('gif');
+        }
 
-        // =======================================================================
-// SYSTEM CORE HARD RESET UTILITY
-// =======================================================================
-function executeCompleteSystemReset() {
-    console.log("Initiating complete application data purge...");
-    
-    // Clear all LocalStorage keys used by the application
-    localStorage.removeItem('wa_user_v3');
-    localStorage.removeItem('wa_channels_v3');
-    localStorage.removeItem('wa_system_theme_v3');
-    
-    // Optional: Clear everything in local storage for this sandbox origin
-    localStorage.clear();
-    
-    console.log("Purge complete. Reloading clean sandbox engine...");
-    
-    // Force reload the page instantly to show the fresh onboarding screen
-    window.location.reload();
-}
+        function triggerChannelCreation(type) {
+            const windowPromptValue = prompt(`Type name value for new ${type} thread workspace:`);
+            if(!windowPromptValue) return;
+            const dynamicKeyId = 'ch-node-' + Date.now();
+            channelLogsDatabase[dynamicKeyId] = { name: windowPromptValue, type: type, history: [] };
+            if (useFirebaseBackend) {
+                databaseRefInstance.set(channelLogsDatabase);
+            } else {
+                saveStateToLocalStorage();
+                loadTargetChannel(dynamicKeyId);
+            }
+        }
 
-// UNCOMMENT THE LINE BELOW TO FORCE THE RESET INSTANTLY ON EVERY PAGE LOAD:
-// executeCompleteSystemReset();
+        /* 
+         =======================================================================
+         SYSTEM CORE HARD RESET UTILITY
+         =======================================================================
+        */
+        function executeCompleteSystemReset() {
+            console.log("Initiating complete application data purge...");
+            localStorage.removeItem('wa_user_v3');
+            localStorage.removeItem('wa_channels_v3');
+            localStorage.removeItem('wa_system_theme_v3');
+            localStorage.clear();
+            console.log("Purge complete. Reloading clean sandbox engine...");
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>
