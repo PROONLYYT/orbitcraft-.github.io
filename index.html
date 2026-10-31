@@ -1486,3 +1486,27 @@ saveStateToLocalStorage();
 loadTargetChannel(dynamicKeyId);
 }
 }
+
+
+        // =======================================================================
+// SYSTEM CORE HARD RESET UTILITY
+// =======================================================================
+function executeCompleteSystemReset() {
+    console.log("Initiating complete application data purge...");
+    
+    // Clear all LocalStorage keys used by the application
+    localStorage.removeItem('wa_user_v3');
+    localStorage.removeItem('wa_channels_v3');
+    localStorage.removeItem('wa_system_theme_v3');
+    
+    // Optional: Clear everything in local storage for this sandbox origin
+    localStorage.clear();
+    
+    console.log("Purge complete. Reloading clean sandbox engine...");
+    
+    // Force reload the page instantly to show the fresh onboarding screen
+    window.location.reload();
+}
+
+// UNCOMMENT THE LINE BELOW TO FORCE THE RESET INSTANTLY ON EVERY PAGE LOAD:
+// executeCompleteSystemReset();
