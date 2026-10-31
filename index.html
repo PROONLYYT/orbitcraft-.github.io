@@ -54,7 +54,6 @@
             align-items: center;
         }
 
-        /* Custom Scrollbar Viewport Engine */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -68,6 +67,42 @@
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #4f5d64;
+        }
+        /* Theme Presets Matrix mapping user variations */
+        body.theme-classic {
+            --wa-teal-primary: #00a884;
+            --wa-teal-hover: #008769;
+            --wa-bubble-out: #005c4b;
+        }
+        body.theme-midnight {
+            --wa-teal-primary: #3f51b5;
+            --wa-teal-hover: #303f9f;
+            --wa-bubble-out: #1a237e;
+            --wa-dark-bg: #0a0e17;
+            --wa-chat-bg: #020408;
+            --wa-panel-bg: #121824;
+            --input-field-bg: #1c2638;
+        }
+        body.theme-ruby {
+            --wa-teal-primary: #e91e63;
+            --wa-teal-hover: #c2185b;
+            --wa-bubble-out: #880e4f;
+            --wa-dark-bg: #1a050d;
+            --wa-chat-bg: #0d0206;
+            --wa-panel-bg: #2d0c18;
+            --input-field-bg: #3d1424;
+        }
+        body.theme-cyberpunk {
+            --wa-teal-primary: #00ffcc;
+            --wa-teal-hover: #00cc99;
+            --wa-bubble-out: #004d3d;
+            --text-main: #00ffcc;
+            --wa-dark-bg: #120136;
+            --wa-chat-bg: #03001e;
+            --wa-panel-bg: #240046;
+            --input-field-bg: #3c006f;
+            --text-muted: #ff007f;
+            --border-subtle: #ff007f;
         }
         /* 
          =======================================================================
@@ -97,7 +132,6 @@
             pointer-events: none;
         }
 
-        /* Ambient Pulsing Branding Framework */
         .wa-pulsing-logo {
             width: 90px;
             height: 90px;
@@ -139,12 +173,6 @@
             transition: all 0.3s ease;
         }
 
-        .avatar-frame:hover {
-            border-color: var(--wa-teal-primary);
-            color: var(--wa-teal-primary);
-            background: #182229;
-        }
-
         .avatar-frame img {
             width: 100%;
             height: 100%;
@@ -161,13 +189,7 @@
             color: white;
             font-size: 16px;
             outline: none;
-            transition: all 0.2s ease;
             user-select: text;
-        }
-
-        .wa-input:focus {
-            border-color: var(--wa-teal-primary);
-            box-shadow: 0 0 0 2px rgba(0, 168, 132, 0.2);
         }
 
         .wa-btn {
@@ -183,12 +205,6 @@
             letter-spacing: 0.5px;
             transition: all 0.2s ease;
         }
-
-        .wa-btn:hover {
-            background: var(--wa-teal-hover);
-            transform: translateY(-1px);
-        }
-
         /* 
          =======================================================================
          SECTION 4: ASYMMETRICAL MOJANG LOADING OVERLAY FRAMEWORK
@@ -211,50 +227,12 @@
             transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1), transform 0.8s ease;
         }
 
-        .mojang-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .welcome-banner {
-            color: #ffffff;
-            font-size: 38px;
-            font-weight: 900;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            opacity: 0;
-            transform: scale(0.85) translateY(20px);
-            text-shadow: 0 12px 36px rgba(0,0,0,0.25);
-            text-align: center;
-            padding: 0 30px;
-        }
-
-        .mojang-overlay.active .welcome-banner {
-            animation: cleanSplash 2.2s cubic-bezier(0.19, 1, 0.22, 1) forwards 0.2s;
-        }
-
-        .engine-track {
-            width: 340px;
-            height: 5px;
-            background: rgba(255, 255, 255, 0.25);
-            border-radius: 6px;
-            margin-top: 45px;
-            overflow: hidden;
-            opacity: 0;
-        }
-
-        .mojang-overlay.active .engine-track {
-            opacity: 1;
-            transition: opacity 0.4s ease 0.6s;
-        }
-
-        .engine-progress {
-            width: 0%;
-            height: 100%;
-            background: #ffffff;
-            box-shadow: 0 0 20px #ffffff;
-            transition: width 0.1s linear;
-        }
+        .mojang-overlay.active { opacity: 1; pointer-events: auto; }
+        .welcome-banner { color: #ffffff; font-size: 38px; font-weight: 900; letter-spacing: 5px; text-transform: uppercase; opacity: 0; transform: scale(0.85) translateY(20px); text-align: center; padding: 0 30px; }
+        .mojang-overlay.active .welcome-banner { animation: cleanSplash 2.2s cubic-bezier(0.19, 1, 0.22, 1) forwards 0.2s; }
+        .engine-track { width: 340px; height: 5px; background: rgba(255, 255, 255, 0.25); border-radius: 6px; margin-top: 45px; overflow: hidden; opacity: 0; }
+        .mojang-overlay.active .engine-track { opacity: 1; transition: opacity 0.4s ease 0.6s; }
+        .engine-progress { width: 0%; height: 100%; background: #ffffff; box-shadow: 0 0 20px #ffffff; transition: width 0.1s linear; }
 
         @keyframes cleanSplash {
             0% { opacity: 0; transform: scale(0.85) translateY(20px); filter: blur(4px); }
@@ -262,515 +240,100 @@
             85% { opacity: 1; transform: scale(1.02); filter: blur(0); }
             100% { opacity: 0; transform: scale(1.06) translateY(-15px); filter: blur(10px); }
         }
+
         /* 
          =======================================================================
          SECTION 5: WHATSAPP RUNTIME CORE LAYOUT VIEWPORT CSS
          =======================================================================
         */
-        #whatsapp-frame {
-            display: none;
-            width: 100vw;
-            height: 100vh;
-            background-color: var(--wa-dark-bg);
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 1s ease-out;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
+        #whatsapp-frame { display: none; width: 100vw; height: 100vh; background-color: var(--wa-dark-bg); opacity: 0; pointer-events: none; transition: opacity 1s ease-out; position: absolute; top: 0; left: 0; }
+        #whatsapp-frame.loaded { display: flex; opacity: 1; pointer-events: auto; }
+        .sidebar-panel { width: 400px; min-width: 340px; background: var(--wa-dark-bg); border-right: 1px solid var(--border-subtle); display: flex; flex-direction: column; height: 100%; }
+        .sidebar-header { padding: 16px 20px; background: var(--wa-panel-bg); display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(0,0,0,0.15); }
+        .sidebar-header img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; background: #111; }
+        .sidebar-title-node { font-weight: 700; font-size: 17px; color: var(--wa-teal-primary); }
+        .sidebar-tools { padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; border-bottom: 1px solid var(--border-subtle); background: var(--wa-dark-bg); }
+        .tools-row { display: flex; gap: 10px; width: 100%; }
+        .sidebar-tools .sm-btn { flex: 1; padding: 10px 14px; font-size: 13px; font-weight: 600; background: var(--wa-panel-bg); color: var(--text-main); border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .theme-selector { width: 100%; padding: 8px; background: var(--wa-panel-bg); color: var(--text-main); border: 1px solid var(--border-subtle); border-radius: 6px; }
+        .chat-scroll-stack { flex: 1; overflow-y: auto; background: var(--wa-dark-bg); }
+        .chat-list-row { padding: 14px 20px; cursor: pointer; display: flex; align-items: center; gap: 16px; border-bottom: 1px solid var(--border-subtle); transition: background 0.2s ease; }
+        .chat-list-row:hover { background: var(--wa-panel-bg); }
+        .chat-list-row.active { background: var(--input-field-bg); }
+        .chat-list-row .row-avatar { width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--input-field-bg); font-size: 22px; flex-shrink: 0; }
+        .chat-list-row .row-meta { flex: 1; min-width: 0; }
+        .chat-list-row .row-name { font-weight: 500; font-size: 16px; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .chat-list-row .row-preview { font-size: 13.5px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-        #whatsapp-frame.loaded {
-            display: flex;
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        /* Left Side Contact Panel Structure */
-        .sidebar-panel {
-            width: 400px;
-            min-width: 340px;
-            background: var(--wa-dark-bg);
-            border-right: 1px solid var(--border-subtle);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        .sidebar-header {
-            padding: 16px 20px;
-            background: var(--wa-panel-bg);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(0,0,0,0.15);
-        }
-
-        .sidebar-header img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            object-fit: cover;
-            background: #111;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .sidebar-title-node {
-            font-weight: 700;
-            font-size: 17px;
-            color: var(--wa-teal-primary);
-            letter-spacing: 0.3px;
-        }
-
-        .sidebar-tools {
-            padding: 14px 16px;
-            display: flex;
-            gap: 10px;
-            border-bottom: 1px solid var(--border-subtle);
-            background: #111b21;
-        }
-
-        .sidebar-tools .sm-btn {
-            flex: 1;
-            padding: 10px 14px;
-            font-size: 13px;
-            font-weight: 600;
-            background: var(--wa-panel-bg);
-            color: var(--text-main);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        .sidebar-tools .sm-btn:hover {
-            background: var(--input-field-bg);
-            border-color: rgba(0, 168, 132, 0.3);
-        }
-
-        /* Active Chat Stack Scroll Pane */
-        .chat-scroll-stack {
-            flex: 1;
-            overflow-y: auto;
-            background: var(--wa-dark-bg);
-        }
-
-        .chat-list-row {
-            padding: 14px 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            border-bottom: 1px solid var(--border-subtle);
-            transition: background 0.2s ease;
-        }
-
-        .chat-list-row:hover {
-            background: #1f2c34;
-        }
-
-        .chat-list-row.active {
-            background: #2a3942;
-        }
-
-        .chat-list-row .row-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #2a3942;
-            font-size: 22px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-            flex-shrink: 0;
-        }
-
-        .chat-list-row .row-meta {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .chat-list-row .row-name {
-            font-weight: 500;
-            font-size: 16px;
-            color: var(--text-main);
-            margin-bottom: 4px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .chat-list-row .row-preview {
-            font-size: 13.5px;
-            color: var(--text-muted);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
         /* 
          =======================================================================
          SECTION 6: CENTRAL CONVERSATION WORKSPACE ENVIRONMENT CSS
          =======================================================================
         */
-        .workspace-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: var(--wa-chat-bg);
-            position: relative;
-            height: 100%;
-        }
-
-        /* SVG Wallpaper Texture System */
-        .workspace-panel::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.05;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10zm10 8c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm40 40c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z'/%3E%3C/g%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 1;
-        }
-
-        .workspace-header {
-            padding: 14px 24px;
-            background: var(--wa-panel-bg);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            z-index: 10;
-            border-bottom: 1px solid var(--border-subtle);
-            position: relative;
-        }
-
-        .header-profile {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .header-profile .avatar-placeholder-node {
-            font-size: 24px;
-        }
-
-        .header-profile .title {
-            font-weight: 600;
-            font-size: 16.5px;
-            color: var(--text-main);
-        }
-
-        /* Core Thread Stream Display Area */
-        .thread-scroll-view {
-            flex: 1;
-            overflow-y: auto;
-            padding: 24px 40px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 5;
-            position: relative;
-            background: var(--wa-chat-bg);
-        }
-
-        /* Elegant Split WhatsApp Communication Bubbles */
-        .wa-bubble {
-            max-width: 60%;
-            padding: 10px 14px;
-            border-radius: 8px;
-            line-height: 1.45;
-            position: relative;
-            font-size: 15px;
-            display: flex;
-            flex-direction: column;
-            box-shadow: 0 1.5px 1px rgba(0,0,0,0.16);
-            z-index: 5;
-            word-wrap: break-word;
-        }
-
-        .wa-bubble.sent {
-            background: var(--wa-bubble-out);
-            align-self: flex-end;
-            border-top-right-radius: 0;
-            color: #e9edef;
-        }
-
-        .wa-bubble.received {
-            background: var(--wa-bubble-in);
-            align-self: flex-start;
-            border-top-left-radius: 0;
-            color: #e9edef;
-        }
-
-        .wa-bubble .bubble-author {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--wa-teal-primary);
-            margin-bottom: 5px;
-        }
-
-        .wa-bubble .bubble-footer {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 5px;
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 5px;
-            align-self: flex-end;
-        }
-
-        .wa-bubble .wa-ticks {
-            color: #53bdeb;
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        .wa-bubble img {
-            max-width: 100%;
-            border-radius: 6px;
-            margin-top: 6px;
-            display: block;
-        }
-
-        .wa-bubble audio {
-            margin-top: 6px;
-            max-width: 100%;
-            filter: invert(1) hue-rotate(180deg);
-        }
+        .workspace-panel { flex: 1; display: flex; flex-direction: column; background: var(--wa-chat-bg); position: relative; height: 100%; }
+        .workspace-panel::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='80' height='80'%3E%3Cpath d='M50 50c0-5.5 4.4-10 10-10s10 4.4 10 10-4.4 10-10 10c0 5.5-4.4 10-10 10s-10-4.4-10-10 4.4-10 10-10z' fill='%23fff'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1; }
+        .workspace-header { padding: 14px 24px; background: var(--wa-panel-bg); display: flex; align-items: center; justify-content: space-between; z-index: 10; border-bottom: 1px solid var(--border-subtle); }
+        .header-profile { display: flex; align-items: center; gap: 16px; }
+        .header-profile .title { font-weight: 600; font-size: 16.5px; }
+        .thread-scroll-view { flex: 1; overflow-y: auto; padding: 24px 40px; display: flex; flex-direction: column; gap: 10px; z-index: 5; background: var(--wa-chat-bg); }
+        
+        .wa-bubble { max-width: 60%; padding: 10px 14px; border-radius: 8px; line-height: 1.45; position: relative; font-size: 15px; display: flex; flex-direction: column; box-shadow: 0 1.5px 1px rgba(0,0,0,0.16); word-wrap: break-word; }
+        .wa-bubble.sent { background: var(--wa-bubble-out); align-self: flex-end; border-top-right-radius: 0; }
+        .wa-bubble.received { background: var(--wa-bubble-in); align-self: flex-start; border-top-left-radius: 0; }
+        .wa-bubble .bubble-author { font-size: 12px; font-weight: 700; color: var(--wa-teal-primary); margin-bottom: 5px; }
+        .wa-bubble .bubble-footer { display: flex; align-items: center; justify-content: flex-end; gap: 5px; font-size: 11px; color: var(--text-muted); margin-top: 5px; }
+        .wa-bubble .wa-ticks { color: #53bdeb; font-weight: bold; }
+        .wa-bubble audio { margin-top: 6px; width: 240px; }
         /* 
          =======================================================================
          SECTION 7: INPUT DOCK CONTROLS & OVERLAY CALL SYSTEM UTILITIES CSS
          =======================================================================
         */
-        .input-dock-bar {
-            padding: 12px 24px;
-            background: var(--wa-panel-bg);
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            position: relative;
-            z-index: 10;
-            border-top: 1px solid var(--border-subtle);
-        }
+        .input-dock-bar { padding: 12px 24px; background: var(--wa-panel-bg); display: flex; align-items: center; gap: 16px; position: relative; z-index: 10; border-top: 1px solid var(--border-subtle); }
+        .input-dock-bar input[type="text"] { flex: 1; background: var(--input-field-bg); border: none; padding: 14px 22px; border-radius: 8px; color: white; outline: none; font-size: 15px; user-select: text; }
+        .action-icon { background: none; border: none; font-size: 24px; cursor: pointer; color: var(--text-muted); display: flex; align-items: center; justify-content: center; }
+        
+        /* Audio Frequency Waveform Container Blueprint */
+        .audio-tracker-dock { display: none; flex: 1; align-items: center; background: var(--input-field-bg); padding: 8px 20px; border-radius: 8px; gap: 15px; height: 48px; }
+        .visualizer-canvas { flex: 1; height: 32px; background: transparent; border-radius: 4px; }
+        .recording-timer { font-size: 14px; color: var(--danger-red); font-weight: bold; font-family: monospace; }
 
-        .input-dock-bar input[type="text"] {
-            flex: 1;
-            background: var(--input-field-bg);
-            border: none;
-            padding: 14px 22px;
-            border-radius: 8px;
-            color: white;
-            margin: 0;
-            font-size: 15px;
-            outline: none;
-            user-select: text;
-        }
+        .popover-menu-frame { display: none; position: absolute; bottom: 75px; left: 24px; background: var(--wa-panel-bg); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 14px; width: 320px; z-index: 150; box-shadow: 0 16px 40px rgba(0,0,0,0.6); }
+        .menu-grid-layout { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
+        .grid-node-item { font-size: 28px; text-align: center; cursor: pointer; padding: 8px; border-radius: 8px; }
+        .grid-node-item:hover { background: var(--input-field-bg); }
 
-        .action-icon {
-            background: none;
-            border: none;
-            font-size: 24px;
-            cursor: pointer;
-            color: var(--text-muted);
-            padding: 6px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: color 0.2s ease;
-        }
-
-        .action-icon:hover {
-            color: var(--text-main);
-        }
-
-        /* Floating Dynamic Panels */
-        .popover-menu-frame {
-            display: none;
-            position: absolute;
-            bottom: 75px;
-            left: 24px;
-            background: var(--wa-panel-bg);
-            border: 1px solid #3b4a54;
-            border-radius: 12px;
-            padding: 14px;
-            width: 320px;
-            z-index: 150;
-            max-height: 260px;
-            overflow-y: auto;
-            box-shadow: 0 16px 40px rgba(0,0,0,0.6);
-        }
-
-        .menu-grid-layout {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-        }
-
-        .grid-node-item {
-            font-size: 28px;
-            text-align: center;
-            cursor: pointer;
-            padding: 8px;
-            border-radius: 8px;
-            transition: background 0.15s ease;
-        }
-
-        .grid-node-item:hover {
-            background: var(--input-field-bg);
-        }
-
-        .grid-node-item img {
-            width: 100%;
-            border-radius: 6px;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* Overlay Call Interface Management */
-        #wa-call-overlay {
-            display: none;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #0f171c;
-            z-index: 500;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .call-card-avatar {
-            width: 120px;
-            height: 120px;
-            background: var(--wa-panel-bg);
-            border-radius: 50%;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 55px;
-            border: 3px solid var(--wa-teal-primary);
-            overflow: hidden;
-            box-shadow: 0 12px 30px rgba(0,0,0,0.4);
-        }
-
-        .call-card-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .call-user-headline {
-            font-size: 26px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-        }
-
-        .call-duration-ticker {
-            font-size: 16px;
-            margin-bottom: 40px;
-            color: var(--text-muted);
-        }
-
-        .call-recording-badge {
-            color: var(--danger-red);
-            font-weight: bold;
-            font-size: 14px;
-            margin-bottom: 35px;
-            display: none;
-            letter-spacing: 1px;
-            animation: pulseRecord 1.5s infinite alternate;
-        }
-
-        @keyframes pulseRecord {
-            from { opacity: 1; } to { opacity: 0.4; }
-        }
-
-        .call-control-row {
-            display: flex;
-            gap: 35px;
-        }
-
-        .btn-call-hangup {
-            background: var(--danger-red);
-            color: white;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            border: none;
-            font-size: 26px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 20px rgba(234, 0, 56, 0.3);
-            transition: transform 0.2s ease;
-        }
-
-        .btn-call-answer {
-            background: var(--wa-teal-primary);
-            color: #111b21;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            border: none;
-            font-size: 26px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 20px rgba(0, 168, 132, 0.3);
-            transition: transform 0.2s ease;
-        }
-
-        .btn-call-hangup:hover, .btn-call-answer:hover {
-            transform: scale(1.08);
-        }
-
-        .call-replay-box {
-            background: var(--wa-panel-bg);
-            border-radius: 12px;
-            padding: 16px;
-            margin-top: 35px;
-            display: none;
-            text-align: center;
-            border: 1px solid #3b4a54;
-            width: 300px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        }
+        #wa-call-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #0f171c; z-index: 500; flex-direction: column; align-items: center; justify-content: center; }
+        .call-card-avatar { width: 120px; height: 120px; background: var(--wa-panel-bg); border-radius: 50%; margin-bottom: 25px; display: flex; align-items: center; justify-content: center; font-size: 55px; border: 3px solid var(--wa-teal-primary); overflow: hidden; }
+        .call-card-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .call-user-headline { font-size: 26px; font-weight: 600; margin-bottom: 8px; }
+        .call-duration-ticker { font-size: 16px; margin-bottom: 40px; color: var(--text-muted); }
+        .call-recording-badge { color: var(--danger-red); font-weight: bold; animation: pulseRecord 1.5s infinite alternate; display: none; margin-bottom: 35px; }
+        @keyframes pulseRecord { from { opacity: 1; } to { opacity: 0.4; } }
+        .call-control-row { display: flex; gap: 35px; }
+        .btn-call-hangup { background: var(--danger-red); color: white; width: 65px; height: 65px; border-radius: 50%; border: none; font-size: 26px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .btn-call-answer { background: var(--wa-teal-primary); color: #111b21; width: 65px; height: 65px; border-radius: 50%; border: none; font-size: 26px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .call-replay-box { background: var(--wa-panel-bg); border-radius: 12px; padding: 16px; margin-top: 35px; display: none; text-align: center; width: 300px; }
     </style>
+    <!-- Cross-Network Communication Engine Links -->
+    <script src="https://gstatic.com"></script>
+    <script src="https://gstatic.com"></script>
 </head>
-<body>
-    <!-- 
-     ===========================================================================
-     SECTION 8: HTML REPOSITION MATRIX LAYOUT STRUCTURE
-     ===========================================================================
-    -->
+<body class="theme-classic">
 
-    <!-- STEP 1: Registration Profile Setup Panel Window Container -->
+    <!-- STEP 1: Desktop User Creation Portal Interface Context -->
     <div id="onboarding-screen">
         <div class="wa-pulsing-logo">💬</div>
         <h2 style="margin-bottom: 10px; font-weight: 700; letter-spacing: 0.3px;">WhatsApp Web Pro</h2>
-        <p style="color: var(--text-muted); font-size: 14.5px; margin-bottom: 30px;">Set up your decentralized portfolio layout profiles</p>
+        <p style="color: var(--text-muted); font-size: 14.5px; margin-bottom: 30px;">Set up your live chat profile account</p>
         
         <div class="avatar-uploader" onclick="document.getElementById('avatar-file-field').click()">
             <div class="avatar-frame" id="avatar-render-frame">Choose Avatar</div>
             <input type="file" id="avatar-file-field" accept="image/*" style="display:none" onchange="handleProfilePhoto(event)">
         </div>
         
-        <input type="text" id="username-field-node" class="wa-input" placeholder="Enter full name" required>
-        <button class="wa-btn" id="launchTrigger" onclick="triggerCinematicSequence()">AGREE AND CONTINUE</button>
+        <input type="text" id="username-field-node" class="wa-input" placeholder="Enter custom username" required>
+        <button class="wa-btn" id="launchTrigger" onclick="triggerCinematicSequence()">CREATE PROFILE & LAUNCH</button>
     </div>
 
     <!-- STEP 2: Custom Asymmetrical Progression Tracking Overlay Screen -->
@@ -781,27 +344,36 @@
         </div>
     </div>
 
-    <!-- STEP 3: Complete Refitted WhatsApp Functional Core Frame -->
+    <!-- STEP 3: Complete Live Connected Viewport Frame Assembly -->
     <div id="whatsapp-frame">
-        <!-- Sidebar Navigation Left Bar Stack -->
+        
+        <!-- Navigation Sidebar Content Controller Stack -->
         <div class="sidebar-panel">
             <div class="sidebar-header">
-                <img id="my-profile-display-node" src="https://placeholder.com" alt="Active Account Avatar">
+                <img id="my-profile-display-node" src="data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='45' height='45'%3E%3Crect width='45' height='45' fill='%232a3942'/%3E%3C/svg%3E" alt="Active Account Avatar">
                 <span class="sidebar-title-node">WhatsApp Client</span>
             </div>
             <div class="sidebar-tools">
-                <button class="sm-btn" onclick="triggerChannelCreation('private')">👤 + New Chat</button>
-                <button class="sm-btn" onclick="triggerChannelCreation('group')">👥 + New Group</button>
+                <div class="tools-row">
+                    <button class="sm-btn" onclick="triggerChannelCreation('private')">👤 + New Chat</button>
+                    <button class="sm-btn" onclick="triggerChannelCreation('group')">👥 + New Group</button>
+                </div>
+                <!-- Dynamic On-The-Fly Theme Switching Menu Module -->
+                <select class="theme-selector" onchange="modifyEngineThemeLayout(this.value)">
+                    <option value="theme-classic">🟢 Theme: Classic WhatsApp</option>
+                    <option value="theme-midnight">🔵 Theme: Dark Midnight Blue</option>
+                    <option value="theme-ruby">🔴 Theme: Vibrant Ruby Red</option>
+                    <option value="theme-cyberpunk">🟪 Theme: Neon Cyberpunk</option>
+                </select>
             </div>
             <div class="chat-scroll-stack" id="contacts-vertical-stack">
-                <!-- Programmatically populated lists go here directly -->
+                <!-- Channels rows inject here programmatically via script engines -->
             </div>
         </div>
-
         <!-- Central Workspace Active Panel Viewport -->
         <div class="workspace-panel">
             
-            <!-- Contextual Audio Calling Layer Overlay Framework -->
+            <!-- Real-Time Hardware Call Overlays Structure Matrix -->
             <div id="wa-call-overlay">
                 <div class="call-card-avatar" id="call-graphic-target">👤</div>
                 <div class="call-user-headline" id="call-target-title">Contact Name</div>
@@ -812,14 +384,13 @@
                     <button class="btn-call-answer" id="accept-call-btn-node" onclick="connectWaCallSequence()">📞</button>
                     <button class="btn-call-hangup" onclick="terminateWaCallSequence()">📴</button>
                 </div>
-
                 <div class="call-replay-box" id="wa-replay-container">
                     <p style="font-size: 12.5px; color: var(--text-muted); margin-bottom: 10px;">🔊 Conversation Capture Replay Logging:</p>
                     <audio id="call-audio-playback-node" controls></audio>
                 </div>
             </div>
 
-            <!-- Active Conversation Head Frame Bar -->
+            <!-- Contextual Thread Streaming Upper Action Deck -->
             <div class="workspace-header">
                 <div class="header-profile">
                     <div style="font-size: 24px;" id="header-avatar-icon-target">💬</div>
@@ -828,11 +399,10 @@
                 <button class="action-icon" onclick="launchVoiceCallScreen()" style="color: var(--wa-teal-primary);">📞</button>
             </div>
 
-            <!-- CRITICAL STAGE FIX: Injected Core Thread Scroll View container logs -->
-            <div class="thread-scroll-view" id="chat-thread-viewport">
-                <!-- Chat bubbles stream smoothly inside this container box structure -->
-            </div>
-            <!-- Floating Navigation Accessories and Panels Dock Layout -->
+            <!-- Core Live Communication Thread Stream Box Log Output -->
+            <div class="thread-scroll-view" id="chat-thread-viewport"></div>
+
+            <!-- Bottom Multi-Access Accessory Tool Dock Framework -->
             <div class="input-dock-bar">
                 <div class="popover-menu-frame" id="pop-emoji">
                     <div class="menu-grid-layout" id="emoji-injection-grid"></div>
@@ -844,7 +414,13 @@
                 <button class="action-icon" onclick="togglePopoverMenu('emoji')">😀</button>
                 <button class="action-icon" onclick="togglePopoverMenu('gif')">🖼️</button>
                 
-                <!-- Main Communication Text Entry field -->
+                <!-- Live Voice Tracker Container Overlay Field -->
+                <div class="audio-tracker-dock" id="audio-tracker-panel-node">
+                    <span class="recording-timer" id="recording-timer-label">00:00</span>
+                    <canvas class="visualizer-canvas" id="audio-waveform-canvas"></canvas>
+                    <button class="action-icon" onclick="cancelAudioVoiceTrack()" style="color: var(--danger-red); font-size: 18px;">❌</button>
+                </div>
+
                 <input type="text" id="text-message-input-node" placeholder="Type a message..." onkeypress="trapInputKeypress(event)">
                 
                 <button class="action-icon" id="mic-action-btn-node" onmousedown="startMicAudioStream()" onmouseup="stopMicAudioStream()" title="Hold down to record audio message" style="color: var(--wa-teal-primary);">🎙️</button>
@@ -852,13 +428,32 @@
             </div>
         </div>
     </div>
-
-    <!-- 
-     ===========================================================================
-     SECTION 9: SYSTEM PIPELINE JAVASCRIPT LOGIC ENGINE
-     ===========================================================================
-    -->
     <script>
+        // =======================================================================
+        // ONLINE CROSS-DEVICE NETWORK INTERFACE DEPLOYMENT INSTRUCTIONS
+        // =======================================================================
+        // To sync your Chromebook, iPhone, and PC instantly in real-time:
+        // 1. Go to ://google.com and create a free project.
+        // 2. Add a "Realtime Database" inside the console panel.
+        // 3. Paste the provided URL reference path endpoint down inside databaseURL.
+        const firebaseConfig = {
+            databaseURL: "https://firebaseio.com" 
+        };
+
+        let useFirebaseBackend = false;
+        let databaseRefInstance = null;
+
+        if (firebaseConfig.databaseURL && !firebaseConfig.databaseURL.includes("CHOOSE-YOUR-OWN")) {
+            try {
+                firebase.initializeApp(firebaseConfig);
+                databaseRefInstance = firebase.database().ref('chat_network_v3');
+                useFirebaseBackend = true;
+                console.log("Firebase Live Multi-Device Network Router Sync established.");
+            } catch (err) {
+                console.warn("Remote sync routing fallback mismatch tracker:", err);
+            }
+        }
+
         let sessionUserData = { name: "User", avatar: "" };
         let localActiveChannelId = null;
         let micStreamRecorder = null;
@@ -866,31 +461,32 @@
         let networkCallRecorder = null;
         let callDataChunks = [];
         let systemHardwareStream = null;
+        
+        let audioContextEngine = null;
+        let audioAnalyserNode = null;
+        let audioCanvasAnimationStream = null;
+        let recordTimeTicker = 0;
+        let timerIntervalTracker = null;
 
-        // Structured Database Fallbacks
         let channelLogsDatabase = {
             'lobby-dev': { name: "Public Group Chat", type: "group", history: [] },
             'bot-echo': { name: "WhatsApp Automated Bot", type: "private", history: [] }
         };
 
-        // Complete LocalStorage Sync Layers
         if(localStorage.getItem('wa_channels_v3')) {
-            try { 
-                channelLogsDatabase = JSON.parse(localStorage.getItem('wa_channels_v3')); 
-            } catch(e) { console.error("Database syntax restore exception:", e); }
+            try { channelLogsDatabase = JSON.parse(localStorage.getItem('wa_channels_v3')); } catch(e) {}
         }
         if(localStorage.getItem('wa_user_v3')) {
             try {
                 sessionUserData = JSON.parse(localStorage.getItem('wa_user_v3'));
                 window.addEventListener('DOMContentLoaded', () => { bypassLoginForm(); });
-            } catch(e) { console.error("User payload map trace exception:", e); }
+            } catch(e) {}
         }
 
         function saveStateToLocalStorage() {
             localStorage.setItem('wa_channels_v3', JSON.stringify(channelLogsDatabase));
             localStorage.setItem('wa_user_v3', JSON.stringify(sessionUserData));
         }
-
         function handleProfilePhoto(event) {
             const dataStreamReader = new FileReader();
             dataStreamReader.onload = function() {
@@ -901,22 +497,20 @@
                 dataStreamReader.readAsDataURL(event.target.files[0]);
             }
         }
-        /* 
-         =======================================================================
-         SECTION 10: ASYMMETRICAL LOADING SCHEDULER MECHANICS (LAUNCH CONFIG)
-         =======================================================================
-        */
+
+        function modifyEngineThemeLayout(themeId) {
+            document.body.className = '';
+            document.body.classList.add(themeId);
+        }
+
         function triggerCinematicSequence() {
             const parsedName = document.getElementById('username-field-node').value.trim();
             if(!parsedName) return alert("Please type a valid user profile name before entry!");
             
             sessionUserData.name = parsedName;
             saveStateToLocalStorage();
-
-            // Step 1: Execute spatial blur out on active login frames
             document.getElementById('onboarding-screen').classList.add('shattered');
             
-            // Step 2: Mount loading engine overlay canvas
             setTimeout(() => {
                 const stage = document.getElementById('loadingStage');
                 stage.classList.add('active');
@@ -927,15 +521,12 @@
         function runEngineLoader() {
             let progression = 0;
             const bar = document.getElementById('loadingEngineBar');
-            
             const stream = setInterval(() => {
                 if (progression >= 100) {
                     clearInterval(stream);
                     completeExecutionPipeline();
                 } else {
-                    // Precise Asymmetrical increments mapping thread latency simulation
-                    let increment = Math.floor(Math.random() * 14) + 5;
-                    progression += increment;
+                    progression += Math.floor(Math.random() * 14) + 5;
                     if (progression > 100) progression = 100;
                     bar.style.width = progression + '%';
                 }
@@ -956,27 +547,36 @@
 
         function bypassLoginForm() {
             document.getElementById('onboarding-screen').style.display = 'none';
-            const frame = document.getElementById('whatsapp-frame');
-            frame.classList.add('loaded');
-            
+            document.getElementById('whatsapp-frame').classList.add('loaded');
             if(sessionUserData.avatar) {
                 document.getElementById('my-profile-display-node').src = sessionUserData.avatar;
             }
-            
             renderSidebarChannels();
-            loadTargetChannel('bot-echo');
+            loadTargetChannel('lobby-dev');
             generateAppMenus();
-        }
 
+            // Firebase Live Pipeline Real-Time Listening Logic Loop Hook
+            if (useFirebaseBackend) {
+                databaseRefInstance.on('value', (snapshot) => {
+                    const databasePayload = snapshot.val();
+                    if (databasePayload) {
+                        channelLogsDatabase = databasePayload;
+                        repaintMessageLogs();
+                        renderSidebarChannels();
+                    }
+                });
+            }
+        }
         function renderSidebarChannels() {
             const targetContainer = document.getElementById('contacts-vertical-stack');
+            const cachedActiveId = localActiveChannelId;
             targetContainer.innerHTML = '';
             
             for(let id in channelLogsDatabase) {
-                const isActive = (localActiveChannelId === id) ? 'active' : '';
+                const isActive = (cachedActiveId === id) ? 'active' : '';
                 const channelSymbol = (channelLogsDatabase[id].type === 'group') ? '👥' : '👤';
-                const logArray = channelLogsDatabase[id].history;
-                const dynamicSubtitle = logArray.length > 0 ? "Last message logged..." : "No conversation logs yet";
+                const logArray = channelLogsDatabase[id].history || [];
+                const dynamicSubtitle = logArray.length > 0 ? logArray[logArray.length - 1].author + ": Message trace" : "No logs yet";
                 
                 targetContainer.innerHTML += `
                     <div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')">
@@ -989,16 +589,14 @@
                 `;
             }
         }
-        /* 
-         =======================================================================
-         SECTION 11: MESSAGE RECEPTION PIPELINE & POP-OVER UI MEDIA CORES
-         =======================================================================
-        */
+
         function loadTargetChannel(id) {
             localActiveChannelId = id;
             document.getElementById('active-chat-headline-node').innerText = channelLogsDatabase[id].name;
             document.getElementById('header-avatar-icon-target').innerText = (channelLogsDatabase[id].type === 'group') ? '👥' : '👤';
-            renderSidebarChannels();
+            
+            const entries = document.querySelectorAll('.chat-list-row');
+            entries.forEach(row => row.classList.remove('active'));
             repaintMessageLogs();
         }
 
@@ -1010,53 +608,44 @@
             appendBubbleElement(sessionUserData.name, `<p>${dataStringValue}</p>`, 'sent');
             fieldNode.value = '';
 
-            // Fast local loop response simulation benchmarks under 1 second metrics
             if(localActiveChannelId === 'bot-echo') {
                 setTimeout(() => {
-                    appendBubbleElement("WhatsApp Bot", `<p>Static GitHub Sandbox response generated inside 1 second: "<strong>${dataStringValue}</strong>"</p>`, 'received');
+                    appendBubbleElement("WhatsApp Bot", `<p>Automated static loop sandbox echo trace return: "<strong>${dataStringValue}</strong>"</p>`, 'received');
                 }, 450);
             }
         }
 
         function appendBubbleElement(author, markupBody, viewVariant) {
-            const panelAreaNode = document.getElementById('chat-thread-viewport');
-            if(!panelAreaNode) return; // Structural safety gate
-            
             const timeCode = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-            const statusTicks = (viewVariant === 'sent') ? `<span class="wa-ticks">✓✓</span>` : '';
+            if(!channelLogsDatabase[localActiveChannelId].history) {
+                channelLogsDatabase[localActiveChannelId].history = [];
+            }
+            channelLogsDatabase[localActiveChannelId].history.push({ author, markupBody, viewVariant, timeCode });
             
-            panelAreaNode.innerHTML += `
-                <div class="wa-bubble ${viewVariant}">
-                    <span class="bubble-author">${author}</span>
-                    <div>${markupBody}</div>
-                    <div class="bubble-footer">
-                        <span>${timeCode}</span>
-                        ${statusTicks}
-                    </div>
-                </div>
-            `;
-            panelAreaNode.scrollTop = panelAreaNode.scrollHeight;
-            
-            if(localActiveChannelId) {
-                channelLogsDatabase[localActiveChannelId].history.push({ author, markupBody, viewVariant });
+            if (useFirebaseBackend) {
+                databaseRefInstance.set(channelLogsDatabase);
+            } else {
                 saveStateToLocalStorage();
+                repaintMessageLogs();
+                renderSidebarChannels();
             }
         }
 
         function repaintMessageLogs() {
             const panelAreaNode = document.getElementById('chat-thread-viewport');
-            if(!panelAreaNode) return;
+            if(!panelAreaNode || !localActiveChannelId) return;
             
             panelAreaNode.innerHTML = '';
-            channelLogsDatabase[localActiveChannelId].history.forEach(block => {
-                const timeCode = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            const messageHistoryList = channelLogsDatabase[localActiveChannelId].history || [];
+            
+            messageHistoryList.forEach(block => {
                 const statusTicks = (block.viewVariant === 'sent') ? `<span class="wa-ticks">✓✓</span>` : '';
                 panelAreaNode.innerHTML += `
                     <div class="wa-bubble ${block.viewVariant}">
                         <span class="bubble-author">${block.author}</span>
                         <div>${block.markupBody}</div>
                         <div class="bubble-footer">
-                            <span>${timeCode}</span>
+                            <span>${block.timeCode || ''}</span>
                             ${statusTicks}
                         </div>
                     </div>
@@ -1066,32 +655,95 @@
         }
 
         function trapInputKeypress(e) { if(e.key === 'Enter') executeTextDispatch(); }
-        /* 
-         =======================================================================
-         SECTION 12: REAL HARDWARE PERIPHERAL CAPTURE STREAM ARCHITECTURE
-         =======================================================================
-        */
+        // =======================================================================
+        // HARDWARE SOUND ENGINE + VOICE TRACKER SPECTRUM ANALYSIS LAYER
+        // =======================================================================
         async function startMicAudioStream() {
             document.getElementById('mic-action-btn-node').style.color = 'var(--danger-red)';
+            document.getElementById('text-message-input-node').style.display = 'none';
+            document.getElementById('audio-tracker-panel-node').style.display = 'flex';
+
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 try {
                     systemHardwareStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    
+                    audioContextEngine = new (window.AudioContext || window.webkitAudioContext)();
+                    let analyticalSource = audioContextEngine.createMediaStreamSource(systemHardwareStream);
+                    audioAnalyserNode = audioContextEngine.createAnalyser();
+                    audioAnalyserNode.fftSize = 64; // Smaller bucket sizes create crisp chunkier block animations
+                    analyticalSource.connect(audioAnalyserNode);
+                    
+                    runLiveVoiceWaveformTracker();
+                    
+                    recordTimeTicker = 0;
+                    timerIntervalTracker = setInterval(() => {
+                        recordTimeTicker++;
+                        let min = String(Math.floor(recordTimeTicker / 60)).padStart(2, '0');
+                        let sec = String(recordTimeTicker % 60).padStart(2, '0');
+                        document.getElementById('recording-timer-label').innerText = `${min}:${sec}`;
+                    }, 1000);
+
                     micStreamRecorder = new MediaRecorder(systemHardwareStream);
                     micDataChunks = [];
                     micStreamRecorder.ondataavailable = e => micDataChunks.push(e.data);
                     micStreamRecorder.onstop = () => {
+                        if (micDataChunks.length === 0) return;
                         const builtAudioBlob = new Blob(micDataChunks, { type: 'audio/mp3' });
-                        const browserMediaUrl = URL.createObjectURL(builtAudioBlob);
-                        appendBubbleElement(sessionUserData.name, `<audio src="${browserMediaUrl}" controls></audio>`, 'sent');
+                        
+                        // Converts tracking streams directly into deep binary payloads to pass cloud loops clean
+                        const dataUrlReader = new FileReader();
+                        dataUrlReader.readAsDataURL(builtAudioBlob);
+                        dataUrlReader.onloadend = function() {
+                            appendBubbleElement(sessionUserData.name, `<audio src="${dataUrlReader.result}" controls></audio>`, 'sent');
+                        }
                     };
                     micStreamRecorder.start();
-                } catch(err) { console.error("Hardware mic tracking blocked or missing setup:", err); }
+                } catch(err) { console.error("Media access mapping blocked:", err); }
             }
         }
 
         function stopMicAudioStream() {
             document.getElementById('mic-action-btn-node').style.color = 'var(--wa-teal-primary)';
+            document.getElementById('text-message-input-node').style.display = 'block';
+            document.getElementById('audio-tracker-panel-node').style.display = 'none';
+            clearInterval(timerIntervalTracker);
+            document.getElementById('recording-timer-label').innerText = "00:00";
+            
             if(micStreamRecorder && micStreamRecorder.state !== 'inactive') micStreamRecorder.stop();
+            if(systemHardwareStream) systemHardwareStream.getTracks().forEach(track => track.stop());
+            if(audioContextEngine) audioContextEngine.close();
+            cancelAnimationFrame(audioCanvasAnimationStream);
+        }
+
+        function cancelAudioVoiceTrack() {
+            micDataChunks = [];
+            stopMicAudioStream();
+        }
+
+        function runLiveVoiceWaveformTracker() {
+            const visualCanvas = document.getElementById('audio-waveform-canvas');
+            const contextGraphic2D = visualCanvas.getContext('2d');
+            const spectrumDataLength = audioAnalyserNode.frequencyBinCount;
+            const dataFrequencyArray = new Uint8Array(spectrumDataLength);
+
+            function repaintFrameTrackerLoop() {
+                audioCanvasAnimationStream = requestAnimationFrame(repaintFrameTrackerLoop);
+                audioAnalyserNode.getByteFrequencyData(dataFrequencyArray);
+                contextGraphic2D.clearRect(0, 0, visualCanvas.width, visualCanvas.height);
+
+                let channelWidthStep = (visualCanvas.width / spectrumDataLength) * 1.8;
+                let barHeightMetric;
+                let horizontalPositionX = 0;
+
+                for (let i = 0; i < spectrumDataLength; i++) {
+                    barHeightMetric = dataFrequencyArray[i] / 5;
+                    contextGraphic2D.fillStyle = 'var(--wa-teal-primary)';
+                    // Balanced symmetry rendering across canvas midpoints
+                    contextGraphic2D.fillRect(horizontalPositionX, (visualCanvas.height - barHeightMetric) / 2, channelWidthStep - 3, barHeightMetric);
+                    horizontalPositionX += channelWidthStep;
+                }
+            }
+            repaintFrameTrackerLoop();
         }
 
         function launchVoiceCallScreen() {
@@ -1106,7 +758,6 @@
             document.getElementById('call-status-label').innerText = "Call Connected — Live Tracking Loop Buffer Active";
             document.getElementById('accept-call-btn-node').style.display = 'none';
             document.getElementById('call-rec-indicator').style.display = 'block';
-
             if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                 try {
                     systemHardwareStream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -1119,7 +770,7 @@
                         document.getElementById('wa-replay-container').style.display = 'block';
                     };
                     networkCallRecorder.start();
-                } catch(e) { console.error("Hardware streaming initialization fault:", e); }
+                } catch(e) {}
             }
         }
 
@@ -1131,7 +782,7 @@
             setTimeout(() => {
                 document.getElementById('wa-call-overlay').style.display = 'none';
                 document.getElementById('wa-replay-container').style.display = 'none';
-            }, 5000);
+            }, 3000);
         }
 
         function generateAppMenus() {
@@ -1141,12 +792,10 @@
             symbolsPackList.forEach(symbol => {
                 targetEmojiNode.innerHTML += `<div class="grid-node-item" onclick="insertEmojiCharacter('${symbol}')">${symbol}</div>`;
             });
-
             const targetGifNode = document.getElementById('gif-injection-grid');
             targetGifNode.innerHTML = '';
-            const placeholderGifAddress = "https://giphy.com";
             for(let i=0; i<5; i++) {
-                targetGifNode.innerHTML += `<div class="grid-node-item" onclick="insertGifMediaBlock('${placeholderGifAddress}')"><img src="${placeholderGifAddress}"></div>`;
+                targetGifNode.innerHTML += `<div class="grid-node-item" onclick="insertGifMediaBlock('https://giphy.com')">🖼️</div>`;
             }
         }
 
@@ -1155,23 +804,15 @@
             menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
         }
 
-        function insertEmojiCharacter(chr) {
-            document.getElementById('text-message-input-node').value += chr;
-            togglePopoverMenu('emoji');
-        }
-
-        function insertGifMediaBlock(srcUrl) {
-            appendBubbleElement(sessionUserData.name, `<img src="${srcUrl}">`, 'sent');
-            togglePopoverMenu('gif');
-        }
+        function insertEmojiCharacter(chr) { document.getElementById('text-message-input-node').value += chr; togglePopoverMenu('emoji'); }
+        function insertGifMediaBlock(srcUrl) { appendBubbleElement(sessionUserData.name, `<img src="${srcUrl}">`, 'sent'); togglePopoverMenu('gif'); }
 
         function triggerChannelCreation(type) {
             const windowPromptValue = prompt(`Type name value for new ${type} thread workspace:`);
             if(!windowPromptValue) return;
             const dynamicKeyId = 'ch-node-' + Date.now();
             channelLogsDatabase[dynamicKeyId] = { name: windowPromptValue, type: type, history: [] };
-            saveStateToLocalStorage();
-            loadTargetChannel(dynamicKeyId);
+            if (useFirebaseBackend) { databaseRefInstance.set(channelLogsDatabase); } else { saveStateToLocalStorage(); loadTargetChannel(dynamicKeyId); }
         }
     </script>
 </body>
