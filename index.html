@@ -180,29 +180,25 @@ function saveStateToLocalStorage() {
 localStorage.setItem('wa_channels_v3', JSON.stringify(channelLogsDatabase));
 localStorage.setItem('wa_user_v3', JSON.stringify(sessionUserData));
 }
-function handleProfilePhoto(event) {
-const dataStreamReader = new FileReader();
-dataStreamReader.onload = function() {
-document.getElementById('avatar-render-frame').innerHTML = <img src="${dataStreamReader.result}">;
-sessionUserData.avatar = dataStreamReader.result;
-};
-if(event.target.files[0]) dataStreamReader.readAsDataURL(event.target.files[0]);
-}
-// Trigger your signature engine loader logic inside the launcher setup
-function triggerCinematicSequence() {
-const parsedName = document.getElementById('username-field-node').value.trim();
-if(!parsedName) return alert("Please type a valid user profile name before entry!");
-sessionUserData.name = parsedName;
-saveStateToLocalStorage();
-// Dismantle profile creation layout context
-document.getElementById('onboarding-screen').classList.add('shattered');
-// Initialize overlay engine transition sequence
-setTimeout(() => {
-const stage = document.getElementById('loadingStage');
-stage.classList.add('active');
-runEngineLoader();
-}, 500);
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 function runEngineLoader() {
 let progression = 0;
 const bar = document.getElementById('loadingEngineBar');
@@ -351,10 +347,12 @@ document.getElementById('wa-replay-container').style.display = 'none';
 function generateAppMenus() {
 const symbolsPackList = ['😀','😂','🔥','👍','🎉','❤️','🚀','✨','💯','👀','👑','🎨','🌟','🎈'];
 const targetEmojiNode = document.getElementById('emoji-injection-grid');
+targetEmojiNode.innerHTML = ''; // Clear prior entries
 symbolsPackList.forEach(symbol => {
 targetEmojiNode.innerHTML += <div class="grid-node-item" onclick="insertEmojiCharacter('${symbol}')">${symbol}</div>;
 });
 const targetGifNode = document.getElementById('gif-injection-grid');
+targetGifNode.innerHTML = ''; // Clear prior entries
 const placeholderGifAddress = "giphy.com";
 for(let i=0; i<5; i++) {
 targetGifNode.innerHTML += <div class="grid-node-item" onclick="insertGifMediaBlock('${placeholderGifAddress}')"><img src="${placeholderGifAddress}"></div>;
