@@ -3,24 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minecraft Java Edition Web Launcher</title>
+  <title>Minecraft Pro Web Client</title>
   <style>
-    /* Reset defaults */
+    /* Premium Reset & Foundation */
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      user-select: none;
     }
 
     body, html {
       width: 100%;
       height: 100%;
       overflow: hidden;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #111;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background-color: #0b0e14;
     }
 
-    /* Main Launcher Screen Wrapper */
+    /* Cinematic Game Desktop View */
     .launcher-container {
       position: relative;
       width: 100%;
@@ -29,268 +30,373 @@
       flex-direction: column;
       justify-content: space-between;
       align-items: center;
-      /* Background image taken from the official launcher screen artwork */
-      background: url('https://gog.com') no-repeat center center;
+      background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4)), 
+                  url('https://gog.com') no-repeat center center;
       background-size: cover;
-      padding: 40px 20px;
-      transition: transform 1.5s cubic-bezier(0.7, 0, 0.3, 1), opacity 1.2s ease;
+      padding: 50px 20px;
+      transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1), filter 1.5s, opacity 1s;
     }
 
-    /* Top Logo Styling */
+    /* Floating Icons8 Block Logo Dashboard */
     .logo-container {
-      margin-top: 20px;
-      text-align: center;
-      animation: floatLogo 4s ease-in-out infinite;
-    }
-
-    .minecraft-logo {
-      max-width: 500px;
-      width: 90%;
-      filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.6));
-    }
-
-    @keyframes floatLogo {
-      0%, 100% { transform: translateY(0px) scale(1); }
-      50% { transform: translateY(-10px) scale(1.02); }
-    }
-
-    /* Bottom Control Bar */
-    .control-bar {
-      width: 100%;
-      max-width: 400px;
+      margin-top: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 15px;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 20px;
-      border-radius: 4px;
-      backdrop-filter: blur(5px);
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+      animation: ambientFloat 5s ease-in-out infinite;
     }
 
-    /* Play Button (Minecraft Green style) */
-    .play-btn {
-      width: 100%;
-      padding: 16px 32px;
-      font-size: 28px;
-      font-weight: bold;
+    .minecraft-icon {
+      width: 120px;
+      height: 120px;
+      filter: drop-shadow(0px 12px 24px rgba(0,0,0,0.75));
+      transform-style: preserve-3d;
+    }
+
+    .launcher-title {
       color: #ffffff;
-      text-shadow: 2px 2px 0px #2a6114;
-      background: linear-gradient(to bottom, #5ba429 0%, #3c7d19 100%);
-      border: 3px solid #1e3f0d;
-      border-radius: 2px;
-      cursor: pointer;
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 4px;
       text-transform: uppercase;
-      letter-spacing: 2px;
-      box-shadow: inset 0 2px 0 rgba(255,255,255,0.4), 0 4px 10px rgba(0,0,0,0.5);
-      transition: all 0.1s ease;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.8), 0 0 20px rgba(255,255,255,0.2);
     }
 
-    .play-btn:hover {
-      background: linear-gradient(to bottom, #6bc031 0%, #46911d 100%);
-      transform: translateY(-2px);
-      box-shadow: inset 0 2px 0 rgba(255,255,255,0.4), 0 6px 14px rgba(0,0,0,0.6);
+    @keyframes ambientFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-12px) rotate(2deg); }
     }
 
-    .play-btn:active {
+    /* Premium Modular Control Panel */
+    .control-panel {
+      width: 100%;
+      max-width: 460px;
+      background: rgba(12, 19, 31, 0.65);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+      backdrop-filter: blur(12px);
+      text-align: center;
+    }
+
+    /* Pro Launcher Play State Elements */
+    .client-btn {
+      width: 100%;
+      padding: 18px;
+      font-size: 24px;
+      font-weight: 800;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
+      transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+    }
+
+    .client-btn:hover {
+      background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 28px rgba(76, 175, 80, 0.5);
+    }
+
+    .client-btn:active {
       transform: translateY(1px);
-      box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);
     }
 
-    .version-tag {
-      color: #aaa;
-      font-size: 14px;
+    .meta-details {
+      margin-top: 15px;
+      color: #79879c;
+      font-size: 13px;
+      font-weight: 600;
       letter-spacing: 1px;
     }
 
-    /* INSANE LOADING SCREEN & ANIMATION ELEMENTS */
-    .loading-screen {
+    /* RED MOJANG LOADING ENGINE OVERLAY */
+    .mojang-overlay {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: #ef323d; /* Mojang Red */
+      background: #ef323d; /* Signature Mojang Red */
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      z-index: 100;
+      z-index: 1000;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.5s ease;
+      transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
     }
 
-    /* Active Animation state triggered by JS */
-    .loading-screen.active {
+    .mojang-overlay.active {
       opacity: 1;
       pointer-events: auto;
     }
 
-    /* Animated Custom Logo scale wrapper */
-    .mojang-logo-wrap {
-      width: 200px;
-      height: 200px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transform: scale(0);
+    /* Cinematic Welcome Typography Engine */
+    .welcome-banner {
+      color: #ffffff;
+      font-size: 45px;
+      font-weight: 900;
+      letter-spacing: 8px;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: scale(0.7) translateY(30px);
+      text-shadow: 0 10px 30px rgba(0,0,0,0.3);
     }
 
-    .loading-screen.active .mojang-logo-wrap {
-      animation: logoPopIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    .mojang-overlay.active .welcome-banner {
+      animation: cleanSplash 2s cubic-bezier(0.19, 1, 0.22, 1) forwards 0.3s;
     }
 
-    .mojang-svg {
-      width: 100%;
-      fill: #ffffff;
-    }
-
-    /* Custom Loading Bar */
-    .progress-container {
-      width: 300px;
-      height: 6px;
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 10px;
-      margin-top: 50px;
+    /* Engine Linear Progress Metric */
+    .engine-track {
+      width: 320px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 4px;
+      margin-top: 40px;
       overflow: hidden;
       opacity: 0;
     }
 
-    .loading-screen.active .progress-container {
+    .mojang-overlay.active .engine-track {
       opacity: 1;
-      transition: opacity 0.5s ease 0.8s;
+      transition: opacity 0.4s ease 0.8s;
     }
 
-    .progress-bar {
+    .engine-progress {
       width: 0%;
       height: 100%;
       background: #ffffff;
-      box-shadow: 0 0 10px #ffffff;
+      box-shadow: 0 0 15px #ffffff;
     }
 
-    /* Cinematic Launcher Exit */
-    .launcher-container.shattering {
-      transform: scale(1.2) rotate(1deg);
+    /* Destruction / Shatter States */
+    .launcher-container.shattered {
+      transform: scale(0.95);
+      filter: blur(15px);
       opacity: 0;
-      filter: blur(10px);
     }
 
-    /* Game World Screen Simulation */
-    .game-viewport {
+    /* PROFESSIONAL PRO-TIER IN-GAME DASHBOARD ENVIRONMENT */
+    .game-desktop {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: radial-gradient(circle, #244670 0%, #111a24 100%);
+      background: radial-gradient(circle at center, #1b263b 0%, #0d131f 100%);
       display: flex;
-      justify-content: center;
-      align-items: center;
+      flex-direction: column;
+      padding: 30px;
       opacity: 0;
       pointer-events: none;
-      z-index: 10;
-      transition: opacity 1.5s ease;
-      color: #fff;
-      font-size: 24px;
-      font-weight: bold;
+      z-index: 50;
+      transition: opacity 1.2s ease-out;
     }
 
-    .game-viewport.loaded {
+    .game-desktop.loaded {
       opacity: 1;
       pointer-events: auto;
     }
 
-    /* Keyframes for the intense intro sequences */
-    @keyframes logoPopIn {
-      0% { transform: scale(0) rotate(-45deg); filter: blur(5px); }
-      70% { transform: scale(1.1) rotate(5deg); }
-      100% { transform: scale(1) rotate(0deg); filter: blur(0); }
+    .game-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 20px;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #fff;
+    }
+
+    .avatar-token {
+      width: 42px;
+      height: 42px;
+      background: #4f46e5;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+    }
+
+    /* Grid Layout for World/Server Data */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 25px;
+      margin-top: 30px;
+      flex-grow: 1;
+    }
+
+    .server-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 8px;
+      padding: 24px;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .server-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #60a5fa;
+      margin-bottom: 10px;
+    }
+
+    .server-stats {
+      font-size: 14px;
+      color: #94a3b8;
+      line-height: 1.6;
+    }
+
+    .server-action-btn {
+      margin-top: 20px;
+      background: #3b82f6;
+      border: none;
+      color: white;
+      padding: 12px;
+      border-radius: 4px;
+      font-weight: 700;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      transition: background 0.2s;
+    }
+
+    .server-action-btn:hover {
+      background: #2563eb;
+    }
+
+    /* Keyframe Engines */
+    @keyframes cleanSplash {
+      0% { opacity: 0; transform: scale(0.85) translateY(20px); filter: blur(4px); }
+      40% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+      85% { opacity: 1; transform: scale(1.02); filter: blur(0); }
+      100% { opacity: 0; transform: scale(1.08) translateY(-10px); filter: blur(8px); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Screen 1: The Main Launcher Interface -->
-  <div class="launcher-container" id="launcherScreen">
+  <!-- LAYER 1: Core Client Desktop Launcher Interface -->
+  <div class="launcher-container" id="clientFrame">
     <div class="logo-container">
-      <!-- High-res transparent Minecraft Java Edition Logo -->
-      <img src="https://wikimedia.org" alt="Minecraft Java" class="minecraft-logo">
+      <!-- High Performance Icons8 Cube Vector Resource Link applied -->
+      <img src="https://icons8.com" alt="Minecraft Core Icon" class="minecraft-icon">
+      <h1 class="launcher-title">Java Edition</h1>
     </div>
 
-    <div class="control-bar">
-      <button class="play-btn" id="playBtn">Play</button>
-      <div class="version-tag">Latest release (1.21.1)</div>
-    </div>
-  </div>
-
-  <!-- Screen 2: The Insane Full-Screen Interactive Loading Sequence -->
-  <div class="loading-screen" id="loadingScreen">
-    <div class="mojang-logo-wrap">
-      <!-- Clean vector replica of the iconic studios emblem -->
-      <svg class="mojang-svg" viewBox="0 0 24 24">
-        <path d="M20,2H4A2,2 0 0,0 2,4V20A2,2 0 0,0 4,22H20A2,2 0 0,0 22,20V4A2,2 0 0,0 20,2M12,6A4,4 0 0,1 16,10A4,4 0 0,1 12,14A4,4 0 0,1 8,10A4,4 0 0,1 12,6M18,18H6V17C6,15 10,13.9 12,13.9C14,13.9 18,15 18,17V18Z" />
-      </svg>
-    </div>
-    <div class="progress-container">
-      <div class="progress-bar" id="progressBar"></div>
+    <div class="control-panel">
+      <button class="client-btn" id="launchTrigger">Launch Client</button>
+      <div class="meta-details">Branch: Stable-1.21.1 • Network Secure</div>
     </div>
   </div>
 
-  <!-- Screen 3: Simulated Main Menu Loaded State -->
-  <div class="game-viewport" id="gameScreen">
-    Welcome to Minecraft (Main Menu Simulation Active)
+  <!-- LAYER 2: Advanced Dynamic Welcome Loading Sequence Overlay -->
+  <div class="mojang-overlay" id="loadingStage">
+    <div class="welcome-banner">Welcome to Minecraft</div>
+    <div class="engine-track">
+      <div class="engine-progress" id="loadingEngineBar"></div>
+    </div>
   </div>
 
-  <!-- JavaScript to trigger your custom engine mechanics -->
+  <!-- LAYER 3: Simulated Professional In-Game Environment Dashboard -->
+  <div class="game-desktop" id="gameFrame">
+    <div class="game-header">
+      <div class="user-profile">
+        <div class="avatar-token">P</div>
+        <div>
+          <div style="font-weight: 800; font-size: 16px;">PROONLYYT</div>
+          <div style="font-size: 12px; color: #4ade80;">Online Network Active</div>
+        </div>
+      </div>
+      <div style="color: #64748b; font-weight: 700; font-size: 14px;">Minecraft Web Engine v2.0</div>
+    </div>
+
+    <!-- Live Server Node Matrices -->
+    <div class="dashboard-grid">
+      <div class="server-card">
+        <div>
+          <div class="server-title">🟢 Hypixel Replica Node</div>
+          <div class="server-stats">
+            Status: Operational<br>
+            Players: 43,109 / 50,000<br>
+            Ping: 24ms (Excellent)
+          </div>
+        </div>
+        <button class="server-action-btn" onclick="alert('Connecting to Network Cluster...')">Connect to Server</button>
+      </div>
+
+      <div class="server-card">
+        <div>
+          <div class="server-title">⚡ Personal Survival Realm</div>
+          <div class="server-stats">
+            Status: Active<br>
+            Chunks Loaded: 1,440<br>
+            World Size: 142.8 MB
+          </div>
+        </div>
+        <button class="server-action-btn" onclick="alert('Spinning up localized world seed context...')">Enter World</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Client State Script Engine Logic -->
   <script>
-    const playBtn = document.getElementById('playBtn');
-    const launcherScreen = document.getElementById('launcherScreen');
-    const loadingScreen = document.getElementById('loadingScreen');
-    const progressBar = document.getElementById('progressBar');
-    const gameScreen = document.getElementById('gameScreen');
-
-    playBtn.addEventListener('click', () => {
-      // 1. Kick off the launcher shattering fade animation
-      launcherScreen.classList.add('shattering');
-
-      // 2. Bring up the custom Mojang Loading screen overlay
-      setTimeout(() => {
-        loadingScreen.classList.add('active');
-        startLoadingSequence();
-      }, 400); 
-    });
-
-    function startLoadingSequence() {
-      let width = 0;
-      // Multi-stage variable loader speed to mimic actual memory asset parsing
-      const interval = setInterval(() => {
-        if (width >= 100) {
-          clearInterval(interval);
-          finishLoading();
-        } else {
-          // Generates a dynamic jagged steps increase pattern 
-          let step = Math.floor(Math.random() * 8) + 2; 
-          width += step;
-          if(width > 100) width = 100;
-          progressBar.style.width = width + '%';
-        }
-      }, 150); // Speed control variable
-    }
-
-    function finishLoading() {
-      // Fade out loading sequence and spin up the simulated sandbox environment
-      loadingScreen.style.transition = "all 0.8s ease";
-      loadingScreen.style.transform = "scale(1.5)";
-      loadingScreen.style.opacity = "0";
-      
-      setTimeout(() => {
-        loadingScreen.classList.remove('active');
-        gameScreen.classList.add('loaded');
-      }, 800);
-    }
-  </script>
-</body>
-</html>
+    const launchTrigger = document.getElementById('launchTrigger');
+    const clientFrame = document.getElementById('clientFrame');
+    const loadingStage = document.getElementById('loadingStage');
+const loadingEngineBar = document.getElementById('loadingEngineBar');
+const gameFrame = document.getElementById('gameFrame');
+launchTrigger.addEventListener('click', () => {
+// Step 1: Dismantle desktop layout context
+clientFrame.classList.add('shattered');
+// Step 2: Initialize overlay engine sequence
+setTimeout(() => {
+loadingStage.classList.add('active');
+runEngineLoader();
+}, 500);
+});
+function runEngineLoader() {
+let progression = 0;
+const stream = setInterval(() => {
+if (progression >= 100) {
+clearInterval(stream);
+completeExecutionPipeline();
+} else {
+// Asymmetrical value variations mimic accurate system thread scheduling
+let increment = Math.floor(Math.random() * 12) + 4;
+progression += increment;
+if (progression > 100) progression = 100;
+loadingEngineBar.style.width = progression + '%';
+}
+}, 180); // Balanced velocity modifier
+}
+function completeExecutionPipeline() {
+// Step 3: Dissolve cinematic sequence overlay into live client view
+setTimeout(() => {
+loadingStage.style.transform = "scale(1.1)";
+loadingStage.style.opacity = "0";
+setTimeout(() => {
+loadingStage.classList.remove('active');
+gameFrame.classList.add('loaded');
+}, 600);
+}, 800); // Buffer allowing typography animation lifecycle to gracefully conclude
+}
