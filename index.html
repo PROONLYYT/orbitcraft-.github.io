@@ -1,381 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Minecraft Pro Web Client</title>
-  <style>
-    /* Premium Reset & Foundation */
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      user-select: none;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Web Pro</title>
+    <style>
+        :root {
+            --wa-teal: #00a884;
+            --wa-dark-bg: #111b21;
+            --wa-panel-bg: #202c33;
+            --wa-chat-bg: #0b141a;
+            --wa-bubble-out: #005c4b;
+            --wa-bubble-in: #202c33;
+            --text-main: #e9edef;
+            --text-muted: #8696a0;
+            --text-link: #53bdeb;
+        }
 
-    body, html {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background-color: #0b0e14;
-    }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; user-select: none; }
+        body, html { width: 100%; height: 100%; overflow: hidden; background-color: #0a1014; color: var(--text-main); display: flex; justify-content: center; align-items: center; }
 
-    /* Cinematic Game Desktop View */
-    .launcher-container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      align-items: center;
-      background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.4)), 
-                  url('https://gog.com') no-repeat center center;
-      background-size: cover;
-      padding: 50px 20px;
-      transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1), filter 1.5s, opacity 1s;
-    }
+        /* Step 1: Account Setup Layout Container */
+        #onboarding-screen { display: flex; flex-direction: column; align-items: center; background: var(--wa-panel-bg); padding: 40px; border-radius: 12px; width: 380px; box-shadow: 0 24px 64px rgba(0,0,0,0.8); border-top: 6px solid var(--wa-teal); text-align: center; transition: transform 1.8s cubic-bezier(0.77, 0, 0.175, 1), filter 1.5s, opacity 1s; }
+        #onboarding-screen.shattered { transform: scale(0.95); filter: blur(15px); opacity: 0; pointer-events: none; }
 
-    /* Floating Icons8 Block Logo Dashboard */
-    .logo-container {
-      margin-top: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 15px;
-      animation: ambientFloat 5s ease-in-out infinite;
-    }
+        /* Floating Ambient Pulser Engine Details */
+        .wa-pulsing-logo { width: 85px; height: 85px; background: var(--wa-teal); border-radius: 50%; margin-bottom: 25px; animation: ambientFloat 5s ease-in-out infinite; display: flex; align-items: center; justify-content: center; font-size: 45px; color: white; filter: drop-shadow(0px 12px 24px rgba(0,0,0,0.4)); }
+        @keyframes ambientFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(2deg); }
+        }
 
-    .minecraft-icon {
-      width: 120px;
-      height: 120px;
-      filter: drop-shadow(0px 12px 24px rgba(0,0,0,0.75));
-      transform-style: preserve-3d;
-    }
+        .avatar-uploader { position: relative; margin-bottom: 25px; cursor: pointer; }
+        .avatar-frame { width: 120px; height: 120px; border-radius: 50%; background: #111b21; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 2px dashed var(--text-muted); font-size: 13px; color: var(--text-muted); transition: 0.2s; }
+        .avatar-frame:hover { border-color: var(--wa-teal); color: var(--wa-teal); }
+        .avatar-frame img { width: 100%; height: 100%; object-fit: cover; }
 
-    .launcher-title {
-      color: #ffffff;
-      font-size: 32px;
-      font-weight: 900;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      text-shadow: 0 4px 10px rgba(0,0,0,0.8), 0 0 20px rgba(255,255,255,0.2);
-    }
+        .wa-input { width: 100%; padding: 14px 18px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #3b4a54; background: #2a3942; color: white; font-size: 16px; outline: none; transition: 0.2s; user-select: text; }
+        .wa-input:focus { border-color: var(--wa-teal); }
+        
+        .wa-btn { width: 100%; padding: 14px; border: none; border-radius: 8px; background: var(--wa-teal); color: #111b21; font-weight: bold; font-size: 16px; cursor: pointer; transition: filter 0.2s; }
+        .wa-btn:hover { filter: brightness(1.1); }
 
-    @keyframes ambientFloat {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-12px) rotate(2deg); }
-    }
+        /* Step 2: Advanced Loading Engine Screen Overlay */
+        .mojang-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #00a884; display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1), transform 0.6s ease; }
+        .mojang-overlay.active { opacity: 1; pointer-events: auto; }
 
-    /* Premium Modular Control Panel */
-    .control-panel {
-      width: 100%;
-      max-width: 460px;
-      background: rgba(12, 19, 31, 0.65);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-radius: 8px;
-      padding: 30px;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.6);
-      backdrop-filter: blur(12px);
-      text-align: center;
-    }
+        .welcome-banner { color: #ffffff; font-size: 40px; font-weight: 900; letter-spacing: 6px; text-transform: uppercase; opacity: 0; transform: scale(0.7) translateY(30px); text-shadow: 0 10px 30px rgba(0,0,0,0.2); text-align: center; padding: 0 20px; }
+        .mojang-overlay.active .welcome-banner { animation: cleanSplash 2s cubic-bezier(0.19, 1, 0.22, 1) forwards 0.3s; }
 
-    /* Pro Launcher Play State Elements */
-    .client-btn {
-      width: 100%;
-      padding: 18px;
-      font-size: 24px;
-      font-weight: 800;
-      color: #fff;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
-      transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
+        .engine-track { width: 320px; height: 4px; background: rgba(255, 255, 255, 0.25); border-radius: 4px; margin-top: 40px; overflow: hidden; opacity: 0; }
+        .mojang-overlay.active .engine-track { opacity: 1; transition: opacity 0.4s ease 0.8s; }
+        .engine-progress { width: 0%; height: 100%; background: #ffffff; box-shadow: 0 0 15px #ffffff; }
 
-    .client-btn:hover {
-      background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 28px rgba(76, 175, 80, 0.5);
-    }
+        @keyframes cleanSplash {
+            0% { opacity: 0; transform: scale(0.85) translateY(20px); filter: blur(4px); }
+            40% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+            85% { opacity: 1; transform: scale(1.02); filter: blur(0); }
+            100% { opacity: 0; transform: scale(1.08) translateY(-10px); filter: blur(8px); }
+        }
 
-    .client-btn:active {
-      transform: translateY(1px);
-    }
+        /* Step 3: Main Dashboard Interface Frame */
+        #whatsapp-frame { display: none; width: 100vw; height: 100vh; background-color: var(--wa-dark-bg); opacity: 0; pointer-events: none; transition: opacity 1.2s ease-out; }
+        #whatsapp-frame.loaded { display: flex; opacity: 1; pointer-events: auto; }
+        
+        .sidebar-panel { width: 340px; background: var(--wa-dark-bg); border-right: 1px solid #222d34; display: flex; flex-direction: column; }
+        .sidebar-header { padding: 12px 16px; background: var(--wa-panel-bg); display: flex; align-items: center; justify-content: space-between; }
+        .sidebar-header img { width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: #111; }
+        
+        .sidebar-tools { padding: 12px; display: flex; gap: 8px; border-bottom: 1px solid #222d34; background: #111b21; }
+        .sidebar-tools .sm-btn { padding: 8px 12px; font-size: 12px; background: var(--wa-panel-bg); color: var(--text-main); border: none; border-radius: 20px; cursor: pointer; }
+        .sidebar-tools .sm-btn:hover { background: #2a3942; }
 
-    .meta-details {
-      margin-top: 15px;
-      color: #79879c;
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
+        .chat-scroll-stack { flex: 1; overflow-y: auto; }
+        .chat-list-row { padding: 12px 16px; cursor: pointer; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #222d34; transition: background 0.2s; }
+        .chat-list-row:hover, .chat-list-row.active { background: var(--wa-panel-bg); }
+        .chat-list-row .row-avatar { width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #2a3942; font-size: 20px; }
+        .chat-list-row .row-meta { flex: 1; min-width: 0; }
+        .chat-list-row .row-name { font-weight: 500; font-size: 16px; color: var(--text-main); margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .chat-list-row .row-preview { font-size: 13px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        
+        .workspace-panel { flex: 1; display: flex; flex-direction: column; background: var(--wa-chat-bg); position: relative; }
+        .workspace-panel::before { content: ""; position: absolute; top:0; left:0; width:100%; height:100%; opacity: 0.04; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://w3.org' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10zm10 8c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm40 40c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); pointer-events: none; }
+        
+        .workspace-header { padding: 10px 16px; background: var(--wa-panel-bg); display: flex; align-items: center; justify-content: space-between; z-index: 10; }
+        .header-profile { display: flex; align-items: center; gap: 15px; }
+        .header-profile .title { font-weight: 500; font-size: 16px; }
+        
+        .thread-scroll-view { flex: 1; overflow-y: auto; padding: 20px 30px; display: flex; flex-direction: column; gap: 8px; z-index: 5; }
+        
+        .wa-bubble { max-width: 65%; padding: 8px 12px; border-radius: 8px; line-height: 1.4; position: relative; font-size: 14.5px; display: flex; flex-direction: column; box-shadow: 0 1px 0.5px rgba(0,0,0,0.13); }
+        .wa-bubble.sent { background: var(--wa-bubble-out); align-self: flex-end; border-top-right-radius: 0; color: #e9edef; }
+        .wa-bubble.received { background: var(--wa-bubble-in); align-self: flex-start; border-top-left-radius: 0; color: #e9edef; }
+        .wa-bubble .bubble-author { font-size: 12px; font-weight: bold; color: var(--wa-teal); margin-bottom: 4px; }
+        .wa-bubble .bubble-footer { display: flex; align-items: center; justify-content: flex-end; gap: 4px; font-size: 11px; color: var(--text-muted); margin-top: 4px; align-self: flex-end; }
+        .wa-bubble .wa-ticks { color: #53bdeb; font-weight: bold; }
+        .wa-bubble img { max-width: 100%; border-radius: 6px; margin-top: 6px; display: block; }
+        .wa-bubble audio { margin-top: 6px; max-width: 100%; filter: invert(1) hue-rotate(180deg); }
 
-    /* RED MOJANG LOADING ENGINE OVERLAY */
-    .mojang-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: #ef323d; /* Signature Mojang Red */
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.6s cubic-bezier(0.19, 1, 0.22, 1);
-    }
+        .input-dock-bar { padding: 10px 16px; background: var(--wa-panel-bg); display: flex; align-items: center; gap: 15px; position: relative; z-index: 10; }
+        .input-dock-bar input[type="text"] { flex: 1; background: #2a3942; border: none; padding: 12px 20px; border-radius: 8px; color: white; margin: 0; font-size: 15px; outline: none; user-select: text; }
+        .action-icon { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text-muted); padding: 4px; display: flex; align-items: center; justify-content: center; }
+        .action-icon:hover { color: var(--text-main); }
+        
+        .popover-menu-frame { display: none; position: absolute; bottom: 65px; left: 16px; background: var(--wa-panel-bg); border: 1px solid #3b4a54; border-radius: 10px; padding: 12px; width: 300px; z-index: 50; max-height: 240px; overflow-y: auto; box-shadow: 0 12px 32px rgba(0,0,0,0.5); }
+.menu-grid-layout { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.grid-node-item { font-size: 26px; text-align: center; cursor: pointer; padding: 6px; border-radius: 6px; }
+.grid-node-item:hover { background: #2a3942; }
+.grid-node-item img { width: 100%; border-radius: 4px; object-fit: cover; }
+/* Voice Call Layers */
+#wa-call-overlay { display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #0f171c; z-index: 100; flex-direction: column; align-items: center; justify-content: center; }
+.call-card-avatar { width: 110px; height: 110px; background: var(--wa-panel-bg); border-radius: 50%; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; font-size: 50px; border: 2px solid var(--wa-teal); overflow: hidden; }
+.call-card-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.call-user-headline { font-size: 24px; font-weight: 500; margin-bottom: 6px; }
+.call-duration-ticker { font-size: 15px; margin-bottom: 35px; color: var(--text-muted); }
+.call-recording-badge { color: #ea0038; font-weight: bold; font-size: 13px; margin-bottom: 30px; display: none; letter-spacing: 1px; }
+.call-control-row { display: flex; gap: 30px; }
+.btn-call-hangup { background: #ea0038; color: white; width: 60px; height: 60px; border-radius: 50%; border:none; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.btn-call-answer { background: var(--wa-teal); color: #111b21; width: 60px; height: 60px; border-radius: 50%; border:none; font-size: 24px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.call-replay-box { background: var(--wa-panel-bg); border-radius: 10px; padding: 15px; margin-top: 30px; display: none; text-align: center; border: 1px solid #3b4a54; width: 280px; }
 
-    .mojang-overlay.active {
-      opacity: 1;
-      pointer-events: auto;
-    }
 
-    /* Cinematic Welcome Typography Engine */
-    .welcome-banner {
-      color: #ffffff;
-      font-size: 45px;
-      font-weight: 900;
-      letter-spacing: 8px;
-      text-transform: uppercase;
-      opacity: 0;
-      transform: scale(0.7) translateY(30px);
-      text-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    }
+💬
+WhatsApp Web Pro
+Configure local static portfolio settings
+Add Photo
 
-    .mojang-overlay.active .welcome-banner {
-      animation: cleanSplash 2s cubic-bezier(0.19, 1, 0.22, 1) forwards 0.3s;
-    }
+AGREE AND CONTINUE
+Connecting Secure Client Web Sandbox...
 
-    /* Engine Linear Progress Metric */
-    .engine-track {
-      width: 320px;
-      height: 4px;
-      background: rgba(255, 255, 255, 0.25);
-      border-radius: 4px;
-      margin-top: 40px;
-      overflow: hidden;
-      opacity: 0;
-    }
 
-    .mojang-overlay.active .engine-track {
-      opacity: 1;
-      transition: opacity 0.4s ease 0.8s;
-    }
 
-    .engine-progress {
-      width: 0%;
-      height: 100%;
-      background: #ffffff;
-      box-shadow: 0 0 15px #ffffff;
-    }
+WhatsApp Client
 
-    /* Destruction / Shatter States */
-    .launcher-container.shattered {
-      transform: scale(0.95);
-      filter: blur(15px);
-      opacity: 0;
-    }
 
-    /* PROFESSIONAL PRO-TIER IN-GAME DASHBOARD ENVIRONMENT */
-    .game-desktop {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: radial-gradient(circle at center, #1b263b 0%, #0d131f 100%);
-      display: flex;
-      flex-direction: column;
-      padding: 30px;
-      opacity: 0;
-      pointer-events: none;
-      z-index: 50;
-      transition: opacity 1.2s ease-out;
-    }
+👤 + New Chat
+👥 + New Group
 
-    .game-desktop.loaded {
-      opacity: 1;
-      pointer-events: auto;
-    }
 
-    .game-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      padding-bottom: 20px;
-    }
+👤
+Contact Name
+Voice Signal Node Call...
+🔴 REPLAY METRIC RUNNING (CAPTURING AUDIO)
+📞
+📴
+🔊 Conversation Capture Replay Logging:
+💬
+Select chat to load logs
 
-    .user-profile {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      color: #fff;
-    }
+📞
+😀
+🖼️
+🎙️
+Send
 
-    .avatar-token {
-      width: 42px;
-      height: 42px;
-      background: #4f46e5;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-weight: bold;
-    }
 
-    /* Grid Layout for World/Server Data */
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 25px;
-      margin-top: 30px;
-      flex-grow: 1;
-    }
-
-    .server-card {
-      background: rgba(255, 255, 255, 0.03);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 8px;
-      padding: 24px;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .server-title {
-      font-size: 20px;
-      font-weight: 700;
-      color: #60a5fa;
-      margin-bottom: 10px;
-    }
-
-    .server-stats {
-      font-size: 14px;
-      color: #94a3b8;
-      line-height: 1.6;
-    }
-
-    .server-action-btn {
-      margin-top: 20px;
-      background: #3b82f6;
-      border: none;
-      color: white;
-      padding: 12px;
-      border-radius: 4px;
-      font-weight: 700;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      transition: background 0.2s;
-    }
-
-    .server-action-btn:hover {
-      background: #2563eb;
-    }
-
-    /* Keyframe Engines */
-    @keyframes cleanSplash {
-      0% { opacity: 0; transform: scale(0.85) translateY(20px); filter: blur(4px); }
-      40% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
-      85% { opacity: 1; transform: scale(1.02); filter: blur(0); }
-      100% { opacity: 0; transform: scale(1.08) translateY(-10px); filter: blur(8px); }
-    }
-  </style>
-</head>
-<body>
-
-  <!-- LAYER 1: Core Client Desktop Launcher Interface -->
-  <div class="launcher-container" id="clientFrame">
-    <div class="logo-container">
-      <!-- High Performance Icons8 Cube Vector Resource Link applied -->
-      <img src="https://icons8.com" alt="Minecraft Core Icon" class="minecraft-icon">
-      <h1 class="launcher-title">Java Edition</h1>
-    </div>
-
-    <div class="control-panel">
-      <button class="client-btn" id="launchTrigger">Launch Client</button>
-      <div class="meta-details">Branch: Stable-1.21.1 • Network Secure</div>
-    </div>
-  </div>
-
-  <!-- LAYER 2: Advanced Dynamic Welcome Loading Sequence Overlay -->
-  <div class="mojang-overlay" id="loadingStage">
-    <div class="welcome-banner">Welcome to Minecraft</div>
-    <div class="engine-track">
-      <div class="engine-progress" id="loadingEngineBar"></div>
-    </div>
-  </div>
-
-  <!-- LAYER 3: Simulated Professional In-Game Environment Dashboard -->
-  <div class="game-desktop" id="gameFrame">
-    <div class="game-header">
-      <div class="user-profile">
-        <div class="avatar-token">P</div>
-        <div>
-          <div style="font-weight: 800; font-size: 16px;">PROONLYYT</div>
-          <div style="font-size: 12px; color: #4ade80;">Online Network Active</div>
-        </div>
-      </div>
-      <div style="color: #64748b; font-weight: 700; font-size: 14px;">Minecraft Web Engine v2.0</div>
-    </div>
-
-    <!-- Live Server Node Matrices -->
-    <div class="dashboard-grid">
-      <div class="server-card">
-        <div>
-          <div class="server-title">🟢 Hypixel Replica Node</div>
-          <div class="server-stats">
-            Status: Operational<br>
-            Players: 43,109 / 50,000<br>
-            Ping: 24ms (Excellent)
-          </div>
-        </div>
-        <button class="server-action-btn" onclick="alert('Connecting to Network Cluster...')">Connect to Server</button>
-      </div>
-
-      <div class="server-card">
-        <div>
-          <div class="server-title">⚡ Personal Survival Realm</div>
-          <div class="server-stats">
-            Status: Active<br>
-            Chunks Loaded: 1,440<br>
-            World Size: 142.8 MB
-          </div>
-        </div>
-        <button class="server-action-btn" onclick="alert('Spinning up localized world seed context...')">Enter World</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Client State Script Engine Logic -->
-  <script>
-    const launchTrigger = document.getElementById('launchTrigger');
-    const clientFrame = document.getElementById('clientFrame');
-    const loadingStage = document.getElementById('loadingStage');
-const loadingEngineBar = document.getElementById('loadingEngineBar');
-const gameFrame = document.getElementById('gameFrame');
-launchTrigger.addEventListener('click', () => {
-// Step 1: Dismantle desktop layout context
-clientFrame.classList.add('shattered');
-// Step 2: Initialize overlay engine sequence
+let sessionUserData = { name: "User", avatar: "" };
+let localActiveChannelId = null;
+let micStreamRecorder = null;
+let micDataChunks = [];
+let networkCallRecorder = null;
+let callDataChunks = [];
+let systemHardwareStream = null;
+let channelLogsDatabase = {
+'lobby-dev': { name: "Public Group Chat", type: "group", history: [] },
+'bot-echo': { name: "WhatsApp Automated Bot", type: "private", history: [] }
+};
+// LocalStorage Extraction Logic
+if(localStorage.getItem('wa_channels_v3')) {
+try { channelLogsDatabase = JSON.parse(localStorage.getItem('wa_channels_v3')); } catch(e) {}
+}
+if(localStorage.getItem('wa_user_v3')) {
+try {
+sessionUserData = JSON.parse(localStorage.getItem('wa_user_v3'));
+window.addEventListener('DOMContentLoaded', () => { bypassLoginForm(); });
+} catch(e) {}
+}
+function saveStateToLocalStorage() {
+localStorage.setItem('wa_channels_v3', JSON.stringify(channelLogsDatabase));
+localStorage.setItem('wa_user_v3', JSON.stringify(sessionUserData));
+}
+function handleProfilePhoto(event) {
+const dataStreamReader = new FileReader();
+dataStreamReader.onload = function() {
+document.getElementById('avatar-render-frame').innerHTML = <img src="${dataStreamReader.result}">;
+sessionUserData.avatar = dataStreamReader.result;
+};
+if(event.target.files[0]) dataStreamReader.readAsDataURL(event.target.files[0]);
+}
+// Trigger your signature engine loader logic inside the launcher setup
+function triggerCinematicSequence() {
+const parsedName = document.getElementById('username-field-node').value.trim();
+if(!parsedName) return alert("Please type a valid user profile name before entry!");
+sessionUserData.name = parsedName;
+saveStateToLocalStorage();
+// Dismantle profile creation layout context
+document.getElementById('onboarding-screen').classList.add('shattered');
+// Initialize overlay engine transition sequence
 setTimeout(() => {
-loadingStage.classList.add('active');
+const stage = document.getElementById('loadingStage');
+stage.classList.add('active');
 runEngineLoader();
 }, 500);
-});
+}
 function runEngineLoader() {
 let progression = 0;
+const bar = document.getElementById('loadingEngineBar');
 const stream = setInterval(() => {
 if (progression >= 100) {
 clearInterval(stream);
@@ -385,18 +215,168 @@ completeExecutionPipeline();
 let increment = Math.floor(Math.random() * 12) + 4;
 progression += increment;
 if (progression > 100) progression = 100;
-loadingEngineBar.style.width = progression + '%';
+bar.style.width = progression + '%';
 }
-}, 180); // Balanced velocity modifier
+}, 100);
 }
 function completeExecutionPipeline() {
-// Step 3: Dissolve cinematic sequence overlay into live client view
 setTimeout(() => {
-loadingStage.style.transform = "scale(1.1)";
-loadingStage.style.opacity = "0";
+const stage = document.getElementById('loadingStage');
+stage.style.transform = "scale(1.1)";
+stage.style.opacity = "0";
 setTimeout(() => {
-loadingStage.classList.remove('active');
-gameFrame.classList.add('loaded');
+stage.classList.remove('active');
+bypassLoginForm();
 }, 600);
-}, 800); // Buffer allowing typography animation lifecycle to gracefully conclude
+}, 800);
+}
+function bypassLoginForm() {
+document.getElementById('onboarding-screen').style.display = 'none';
+const frame = document.getElementById('whatsapp-frame');
+frame.classList.add('loaded');
+document.getElementById('my-profile-display-node').src = sessionUserData.avatar || "placeholder.com";
+renderSidebarChannels();
+loadTargetChannel('bot-echo');
+generateAppMenus();
+}
+function renderSidebarChannels() {
+const targetContainer = document.getElementById('contacts-vertical-stack');
+targetContainer.innerHTML = '';
+for(let id in channelLogsDatabase) {
+const isActive = (localActiveChannelId === id) ? 'active' : '';
+const channelSymbol = (channelLogsDatabase[id].type === 'group') ? '👥' : '👤';
+const logArray = channelLogsDatabase[id].history;
+const dynamicSubtitle = logArray.length > 0 ? "Last message logged..." : "No conversation logs yet";
+targetContainer.innerHTML += <div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')"> <div class="row-avatar">${channelSymbol}</div> <div class="row-meta"> <div class="row-name">${channelLogsDatabase[id].name}</div> <div class="row-preview">${dynamicSubtitle}</div> </div> </div>;
+}
+}
+function loadTargetChannel(id) {
+localActiveChannelId = id;
+document.getElementById('active-chat-headline-node').innerText = channelLogsDatabase[id].name;
+document.getElementById('header-avatar-icon-target').innerText = (channelLogsDatabase[id].type === 'group') ? '👥' : '👤';
+renderSidebarChannels();
+repaintMessageLogs();
+}
+function executeTextDispatch() {
+const fieldNode = document.getElementById('text-message-input-node');
+const dataStringValue = fieldNode.value.trim();
+if(!dataStringValue) return;
+appendBubbleElement(sessionUserData.name, <p>${dataStringValue}</p>, 'sent');
+fieldNode.value = '';
+if(localActiveChannelId === 'bot-echo') {
+setTimeout(() => {
+appendBubbleElement("WhatsApp Bot", <p>Static GitHub Sandbox response generated inside 1 second: "<strong>${dataStringValue}</strong>"</p>, 'received');
+}, 400);
+}
+}
+function appendBubbleElement(author, markupBody, viewVariant) {
+const panelAreaNode = document.getElementById('chat-thread-viewport');
+const timeCode = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+const statusTicks = (viewVariant === 'sent') ? <span class="wa-ticks">✓✓</span> : '';
+panelAreaNode.innerHTML += <div class="wa-bubble ${viewVariant}"> <span class="bubble-author">${author}</span> <div>${markupBody}</div> <div class="bubble-footer"> <span>${timeCode}</span> ${statusTicks} </div> </div>;
+panelAreaNode.scrollTop = panelAreaNode.scrollHeight;
+if(localActiveChannelId) {
+channelLogsDatabase[localActiveChannelId].history.push({ author, markupBody, viewVariant });
+saveStateToLocalStorage();
+}
+}
+function repaintMessageLogs() {
+const panelAreaNode = document.getElementById('chat-thread-viewport');
+panelAreaNode.innerHTML = '';
+channelLogsDatabase[localActiveChannelId].history.forEach(block => {
+const timeCode = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+const statusTicks = (block.viewVariant === 'sent') ? <span class="wa-ticks">✓✓</span> : '';
+panelAreaNode.innerHTML += <div class="wa-bubble ${block.viewVariant}"> <span class="bubble-author">${block.author}</span> <div>${block.markupBody}</div> <div class="bubble-footer"> <span>${timeCode}</span> ${statusTicks} </div> </div>;
+});
+panelAreaNode.scrollTop = panelAreaNode.scrollHeight;
+}
+function trapInputKeypress(e) { if(e.key === 'Enter') executeTextDispatch(); }
+async function startMicAudioStream() {
+document.getElementById('mic-action-btn-node').style.color = '#ea0038';
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+try {
+systemHardwareStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+micStreamRecorder = new MediaRecorder(systemHardwareStream);
+micDataChunks = [];
+micStreamRecorder.ondataavailable = e => micDataChunks.push(e.data);
+micStreamRecorder.onstop = () => {
+const builtAudioBlob = new Blob(micDataChunks, { type: 'audio/mp3' });
+const browserMediaUrl = URL.createObjectURL(builtAudioBlob);
+appendBubbleElement(sessionUserData.name, <audio src="${browserMediaUrl}" controls></audio>, 'sent');
+};
+micStreamRecorder.start();
+} catch(err) {}
+}
+}
+function stopMicAudioStream() {
+document.getElementById('mic-action-btn-node').style.color = 'var(--wa-teal)';
+if(micStreamRecorder && micStreamRecorder.state !== 'inactive') micStreamRecorder.stop();
+}
+function launchVoiceCallScreen() {
+document.getElementById('wa-call-overlay').style.display = 'flex';
+document.getElementById('accept-call-btn-node').style.display = 'block';
+document.getElementById('call-graphic-target').innerHTML = sessionUserData.avatar ? <img src="${sessionUserData.avatar}"> : '👤';
+document.getElementById('call-target-title').innerText = channelLogsDatabase[localActiveChannelId].name;
+document.getElementById('call-status-label').innerText = "WhatsApp Web Voice Call Node Connection...";
+}
+async function connectWaCallSequence() {
+document.getElementById('call-status-label').innerText = "Call Connected — Monitoring Local Input Buffer";
+document.getElementById('accept-call-btn-node').style.display = 'none';
+document.getElementById('call-rec-indicator').style.display = 'block';
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+try {
+systemHardwareStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+networkCallRecorder = new MediaRecorder(systemHardwareStream);
+callDataChunks = [];
+networkCallRecorder.ondataavailable = e => callDataChunks.push(e.data);
+networkCallRecorder.onstop = () => {
+const fileBlobOutput = new Blob(callDataChunks, { type: 'audio/mp3' });
+document.getElementById('call-audio-playback-node').src = URL.createObjectURL(fileBlobOutput);
+document.getElementById('wa-replay-container').style.display = 'block';
+};
+networkCallRecorder.start();
+} catch(e) {}
+}
+}
+function terminateWaCallSequence() {
+if(networkCallRecorder && networkCallRecorder.state !== 'inactive') networkCallRecorder.stop();
+if(systemHardwareStream) systemHardwareStream.getTracks().forEach(track => track.stop());
+document.getElementById('call-rec-indicator').style.display = 'none';
+document.getElementById('call-status-label').innerText = "Call Closed";
+setTimeout(() => {
+document.getElementById('wa-call-overlay').style.display = 'none';
+document.getElementById('wa-replay-container').style.display = 'none';
+}, 5000);
+}
+function generateAppMenus() {
+const symbolsPackList = ['😀','😂','🔥','👍','🎉','❤️','🚀','✨','💯','👀','👑','🎨','🌟','🎈'];
+const targetEmojiNode = document.getElementById('emoji-injection-grid');
+symbolsPackList.forEach(symbol => {
+targetEmojiNode.innerHTML += <div class="grid-node-item" onclick="insertEmojiCharacter('${symbol}')">${symbol}</div>;
+});
+const targetGifNode = document.getElementById('gif-injection-grid');
+const placeholderGifAddress = "giphy.com";
+for(let i=0; i<5; i++) {
+targetGifNode.innerHTML += <div class="grid-node-item" onclick="insertGifMediaBlock('${placeholderGifAddress}')"><img src="${placeholderGifAddress}"></div>;
+}
+}
+function togglePopoverMenu(id) {
+const menu = document.getElementById(pop-${id});
+menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+}
+function insertEmojiCharacter(chr) {
+document.getElementById('text-message-input-node').value += chr;
+togglePopoverMenu('emoji');
+}
+function insertGifMediaBlock(srcUrl) {
+appendBubbleElement(sessionUserData.name, <img src="${srcUrl}">, 'sent');
+togglePopoverMenu('gif');
+}
+function triggerChannelCreation(type) {
+const windowPromptValue = prompt(Type name value for new ${type} thread workspace:);
+if(!windowPromptValue) return;
+const dynamicKeyId = 'ch-node-' + Date.now();
+channelLogsDatabase[dynamicKeyId] = { name: windowPromptValue, type: type, history: [] };
+saveStateToLocalStorage();
+loadTargetChannel(dynamicKeyId);
 }
