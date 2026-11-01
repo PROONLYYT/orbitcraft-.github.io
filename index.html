@@ -22,7 +22,7 @@
             --pink-neon: #ff007f;
         }
 
-        /* Custom WebKit Pointer Target Mapping utilizing transparent-rendered pointer data */
+        /* Transparent Custom Pointer Asset Layer mapping mouse actions */
         *, body, html, button, input {
             cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://w3.org" width="32" height="32" viewBox="0 0 32 32"><path d="M4,2 L26,16 L16,19 L11,29 Z" fill="black" stroke="white" stroke-width="2.5" stroke-linejoin="round"/></svg>'), auto !important;
         }
@@ -39,10 +39,7 @@
             display: flex;
             user-select: none;
         }
-    </style>
-</head>
-<body>
-    <style>
+
         /* Cinematic Loading Portal Splash Overlay */
         #splash-loading-portal {
             position: fixed;
@@ -109,7 +106,7 @@
             50% { transform: scale(1.08); filter: drop-shadow(0 0 20px rgba(88,101,242,0.6)); }
         }
 
-        /* Master Application View Grid Frame Mount */
+        /* Master Application Grid Frame layout wrapper */
         #app-frame {
             display: flex;
             width: 100vw;
@@ -123,7 +120,9 @@
         }
     </style>
     <style>
-        /* LEFT SIDEBAR NAVIGATION CSS */
+        /* ==========================================
+           SECTION 2: LEFT SIDEBAR NAVIGATION CSS
+           ========================================== */
         .sidebar-panel {
             width: 320px;
             min-width: 280px;
@@ -291,7 +290,9 @@
         }
     </style>
     <style>
-        /* CENTRAL WORKSPACE CHAT PANEL CSS */
+        /* ==========================================
+           SECTION 3: CENTRAL WORKSPACE CHAT PANEL CSS
+           ========================================== */
         .workspace-panel {
             flex: 1;
             display: flex;
@@ -347,741 +348,955 @@
 
         .msg-bubble.sent {
             background: var(--primary-accent);
-align-self: flex-end;
-border-bottom-right-radius: 0;
-}
-.msg-bubble.received {
-background: #2b2d31;
-align-self: flex-start;
-border-bottom-left-radius: 0;
-}
-.msg-author {
-font-size: 12px;
-font-weight: 700;
-color: #ffffff;
-margin-bottom: 4px;
-}
-.msg-footer {
-font-size: 10.5px;
-color: rgba(255, 255, 255, 0.6);
-margin-top: 6px;
-align-self: flex-end;
-}
-/* VOICE & VIDEO REAL HARDWARE MEDIA GRID CSS */
-.call-action-btn {
-background: var(--primary-accent);
-border: none;
-font-size: 14px;
-font-weight: 600;
-color: white;
-padding: 8px 16px;
-border-radius: 4px;
-cursor: pointer;
-transition: background 0.2s;
-display: flex;
-align-items: center;
-gap: 8px;
-}
-.call-action-btn:hover {
-background: var(--primary-hover);
-}
-#call-interface-layer {
-display: none;
-flex-direction: column;
-background: #111214;
-padding: 16px;
-border-bottom: 1px solid var(--border-subtle);
-box-sizing: border-box;
-}
-.media-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 16px;
-min-height: 260px;
-}
-@media (max-width: 768px) {
-.media-grid { grid-template-columns: 1fr; }
-}
-.media-window {
-background: #1e1f22;
-border-radius: 8px;
-position: relative;
-display: flex;
-align-items: center;
-justify-content: center;
-border: 2px solid #2b2d31;
-overflow: hidden;
-height: 260px;
-}
-.live-video-element {
-width: 100%;
-height: 100%;
-object-fit: cover;
-position: absolute;
-top: 0;
-left: 0;
-z-index: 1;
-background: #000;
-}
-.stream-canvas-mock {
-width: 100%;
-height: 100%;
-position: absolute;
-background: linear-gradient(45deg, #111214, #2b2d31);
-display: flex;
-align-items: center;
-justify-content: center;
-transition: background 0.3s ease;
-top: 0;
-left: 0;
-}
-.stream-label {
-position: absolute;
-bottom: 10px;
-left: 10px;
-background: rgba(0,0,0,0.8);
-padding: 6px 12px;
-border-radius: 4px;
-font-size: 12px;
-color: #fff;
-z-index: 2;
-font-weight: 600;
-border-left: 3px solid var(--primary-accent);
-}
-.avatar-placeholder-call {
-width: 68px;
-height: 68px;
-border-radius: 50%;
-background: var(--primary-accent);
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 28px;
-z-index: 1;
-transition: all 0.3s ease;
-}
-.call-controls-bar {
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 12px;
-margin-top: 14px;
-background: #181b22;
-padding: 10px 16px;
-border-radius: 8px;
-flex-wrap: wrap;
-}
-.control-btn {
-background: #2b2d31;
-border: none;
-color: white;
-padding: 10px 16px;
-border-radius: 6px;
-cursor: pointer;
-font-weight: 600;
-font-size: 13px;
-display: flex;
-align-items: center;
-gap: 6px;
-transition: background 0.2s;
-}
-.control-btn:hover { background: #35373c; }
-.control-btn.active-state { background: var(--danger-red); }
-.control-btn.active-state:hover { background: var(--danger-hover); }
-.call-timer-node {
-color: var(--text-main);
-font-family: monospace;
-font-size: 14px;
-background: #111214;
-padding: 6px 12px;
-border-radius: 4px;
-font-weight: 700;
-}
+            align-self: flex-end;
+            border-bottom-right-radius: 0;
+        }
 
+        .msg-bubble.received {
+            background: #2b2d31;
+            align-self: flex-start;
+            border-bottom-left-radius: 0;
+        }
 
-/* INPUT DOCK BAR */
-.input-dock-bar {
-padding: 16px 24px;
-background: var(--bg-panel);
-display: flex;
-align-items: center;
-gap: 12px;
-border-top: 1px solid var(--border-subtle);
-height: 75px;
-box-sizing: border-box;
-}
-.input-dock-bar input[type="text"] {
-flex: 1;
-background: var(--input-bg);
-border: 1px solid var(--border-subtle);
-padding: 14px 18px;
-border-radius: 6px;
-color: #ffffff;
-font-size: 14.5px;
-outline: none;
-transition: border-color 0.2s;
-}
-.input-dock-bar input[type="text"]:focus {
-border-color: var(--primary-accent);
-}
-.send-btn {
-background: var(--primary-accent);
-color: white;
-border: none;
-padding: 12px 24px;
-border-radius: 6px;
-font-weight: 600;
-cursor: pointer;
-transition: background 0.2s;
-}
-.send-btn:hover { var(--primary-hover); }
-/* FULL INTEGRATED PREMIUM BARS & SHOP SCREEN STRUCTURES */
-#nexus-shop-screen {
-position: fixed;
-top: 0;
-left: 0;
-width: 100vw;
-height: 100vh;
-background-color: var(--bg-dark);
-z-index: 5000;
-display: none;
-flex-direction: column;
-box-sizing: border-box;
-}
-.shop-header-navbar {
-height: 75px;
-background: var(--bg-panel);
-border-bottom: 2px solid var(--border-subtle);
-display: flex;
-align-items: center;
-justify-content: space-between;
-padding: 0 30px;
-box-sizing: border-box;
-}
-.back-nav-link {
-font-size: 15px;
-font-weight: 800;
-color: var(--text-muted);
-text-transform: uppercase;
-text-decoration: none;
-display: flex;
-align-items: center;
-gap: 8px;
-background: rgba(255,255,255,0.04);
-padding: 10px 16px;
-border-radius: 6px;
-border: 1px solid var(--border-subtle);
-}
-.back-nav-link:hover {
-color: #ffffff;
-background: rgba(255,255,255,0.08);
-}
-.shop-headline-title {
-font-weight: 900;
-font-size: 22px;
-letter-spacing: 1px;
-background: linear-gradient(45deg, #fff, var(--text-muted));
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-}
-.balance-container-pill {
-background: rgba(245, 166, 35, 0.1);
-border: 2px solid var(--gold-accent);
-padding: 10px 20px;
-border-radius: 30px;
-font-weight: 800;
-color: var(--gold-accent);
-font-size: 15px;
-display: flex;
-align-items: center;
-gap: 8px;
-box-shadow: 0 0 12px rgba(245,166,35,0.2);
-}
-.shop-showcase-scroller {
-flex: 1;
-overflow-y: auto;
-padding: 40px;
-box-sizing: border-box;
-}
-.shop-items-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-gap: 24px;
-max-width: 1400px;
-margin: 0 auto;
-}
-/* Neon Bordered Item Storage Containers Matching Upload Layouts */
-.shop-item-card {
-background: var(--bg-panel);
-border: 2px solid var(--border-subtle);
-border-radius: 12px;
-padding: 24px;
-display: flex;
-flex-direction: column;
-position: relative;
-overflow: hidden;
-transition: transform 0.3s ease, border-color 0.3s ease;
-}
-.shop-item-card:hover {
-transform: translateY(-4px);
-border-color: var(--primary-accent);
-}
-.item-badge-exclusive {
-position: absolute;
-top: 12px;
-left: 12px;
-background: #ffffff;
-color: #000000;
-font-size: 9px;
-font-weight: 900;
-padding: 4px 8px;
-border-radius: 4px;
-text-transform: uppercase;
-letter-spacing: 0.5px;
-}
-.item-graphic-wrapper {
-height: 140px;
-background: radial-gradient(circle, rgba(88,101,242,0.15) 0%, transparent 70%);
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 54px;
-margin-bottom: 16px;
-position: relative;
-}
-/* Glowing Custom Portal Ring FX over original icons */
-.item-graphic-ring {
-position: absolute;
-width: 100px;
-height: 100px;
-border-radius: 50%;
-border: 2px dashed rgba(88, 101, 242, 0.4);
-animation: rotateRing 12s linear infinite;
-}
-@keyframes rotateRing { 100% { transform: rotate(360deg); } }
-.item-meta-name {
-font-size: 18px;
-font-weight: 700;
-margin-bottom: 6px;
-color: #ffffff;
-}
-.item-meta-desc {
-font-size: 13px;
-color: var(--text-muted);
-line-height: 1.4;
-margin-bottom: 20px;
-flex: 1;
-}
-.item-action-row {
-display: flex;
-align-items: center;
-justify-content: space-between;
-margin-top: auto;
-}
-.item-price-tag {
-font-weight: 800;
-font-size: 16px;
-display: flex;
-align-items: center;
-gap: 4px;
-}
-.buy-action-trigger {
-background: var(--primary-accent);
-color: white;
-border: none;
-padding: 10px 18px;
-border-radius: 6px;
-font-weight: 700;
-font-size: 13px;
-cursor: pointer;
-transition: background 0.2s;
-}
-.buy-action-trigger:hover {
-background: var(--primary-hover);
-}
-.buy-action-trigger.unlocked {
-background: var(--success-green) !important;
-}
-🔮
-NexusChat Architecture
+        .msg-author {
+            font-size: 12px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
 
+        .msg-footer {
+            font-size: 10.5px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 6px;
+            align-self: flex-end;
+        }
 
+        /* ==========================================
+           SECTION 4: VOICE & VIDEO CALLING GRID CSS
+           ========================================== */
+        .call-action-btn {
+            background: var(--primary-accent);
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
+        .call-action-btn:hover {
+            background: var(--primary-hover);
+        }
 
-N
-Connecting...
+        #call-interface-layer {
+            display: none;
+            flex-direction: column;
+            background: #111214;
+            padding: 16px;
+            border-bottom: 1px solid var(--border-subtle);
+            box-sizing: border-box;
+        }
 
-🛒 Open Nexus Shop
-💬 + New Channel
-🔄 Reset Profile Session
-⧉
-Global Public Lobby
+        .media-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            min-height: 260px;
+        }
 
-🔊 Connect Live Streams
-🔮
+        @media (max-width: 768px) {
+            .media-grid { grid-template-columns: 1fr; }
+        }
 
-Camera Interface Offline
+        .media-window {
+            background: #1e1f22;
+            border-radius: 8px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #2b2d31;
+            overflow: hidden;
+            height: 260px;
+        }
 
-🖥️
+        .live-video-element {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            background: #000;
+        }
 
-Screen Capture Pipe Offline
+        .stream-canvas-mock {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background: linear-gradient(45deg, #111214, #2b2d31);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s ease;
+            top: 0;
+            left: 0;
+        }
 
-🔊 Unmuted
-📹 Enable Camera
-🖥️ Share Screen
-Disconnect
-00:00
+        .stream-label {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.8);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: #fff;
+            z-index: 2;
+            font-weight: 600;
+            border-left: 3px solid var(--primary-accent);
+        }
 
-Send Message
+        .avatar-placeholder-call {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background: var(--primary-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            z-index: 1;
+            transition: all 0.3s ease;
+        }
 
+        .call-controls-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 14px;
+            background: #181b22;
+            padding: 10px 16px;
+            border-radius: 8px;
+            flex-wrap: wrap;
+        }
 
-← Go Back
-NEXUS MULTIVERSE STOREFRONT
+        .control-btn {
+            background: #2b2d31;
+            border: none;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+        }
 
-🔮 Balance:
-0 Orbs (Beta Free Active)
+        .control-btn:hover { background: #35373c; }
+        .control-btn.active-state { background: var(--danger-red); }
+        .control-btn.active-state:hover { background: var(--danger-hover); }
 
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-function playSynthFrequency(frequency, type, duration, volume = 0.25) {
-try {
-const osc = audioCtx.createOscillator();
-const gain = audioCtx.createGain();
-osc.type = type;
-osc.frequency.value = frequency;
-gain.gain.setValueAtTime(volume, audioCtx.currentTime);
-gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-osc.connect(gain);
-gain.connect(audioCtx.destination);
-osc.start();
-osc.stop(audioCtx.currentTime + duration);
-} catch (e) {
-console.log("Audio engine baseline awaiting verification.");
-}
-}
-function triggerMsgAlertTone() {
-playSynthFrequency(750, 'sine', 0.15, 0.30);
-setTimeout(() => playSynthFrequency(980, 'sine', 0.18, 0.30), 50);
-}
-function triggerToggleMuteTone(isMuted) {
-if (isMuted) {
-playSynthFrequency(480, 'triangle', 0.15, 0.35);
-setTimeout(() => playSynthFrequency(350, 'triangle', 0.18, 0.35), 50);
-} else {
-playSynthFrequency(350, 'triangle', 0.15, 0.35);
-setTimeout(() => playSynthFrequency(480, 'triangle', 0.18, 0.35), 50);
-}
-}
-// Mock DB tracking taken usernames inside local framework instance
-const claimedGlobalBetaNames = ["Admin", "NexusBot", "CrewMember", "Root", "Moderator", "CEO"];
-let currentProfileSessionName = "";
-let activeChannelId = 'global-lobby';
-let channelDatabase = {
-'global-lobby': { name: "Global Public Lobby", history: [] },
-'crew-vc': { name: "Crew Elite Lounge", history: [] }
-};
-// Real Hardware Tracks State Matrix
-let localHardwareVideoStream = null;
-let localHardwareDisplayStream = null;
-let isCallActive = false;
-let isAudioMuted = false;
-let isCameraActive = false;
-let isScreenSharing = false;
-let callTimerInterval = null;
-let elapsedCallSeconds = 0;
-// Premium Shop Catalog Array (10+ Base Variant Matrix items)
-let betaWalletBalanceOrbs = 50000; // Gift free orbs for Beta testing bounds
-const shopInventoryMatrix = [
-{ id: 'nexus-elite', name: 'Nexus Elite Tier', desc: 'Premium subscription matching chat layouts with advanced room scaling. Formatted like Nitro.', cost: 'Free (Beta Frame)', priceUSD: '$5.00', icon: '👑', exclusive: true },
-{ id: 'magic-mists', name: 'Magic Mists Bundle', desc: 'Saturates your client call profile with layered particle fields and aura rings.', cost: '3500 Orbs', priceUSD: 'Free', icon: '✨', exclusive: true },
-{ id: 'cyber-neon', name: 'Cyberpunk Neon Matrix', desc: 'Changes entire workspace headers into custom matrix code animations.', cost: '1200 Orbs', priceUSD: 'Free', icon: '🌌', exclusive: false },
-{ id: 'bass-booster', name: 'Holographic Voice Synth', desc: 'Amplifies internal sound outputs and increases localized frequency feedback.', cost: '800 Orbs', priceUSD: 'Free', icon: '🔊', exclusive: false },
-{ id: 'gold-crown', name: 'Legacy Founder Icon', desc: 'Appends a permanent shining golden badge layout right next to your display string.', cost: '10000 Orbs', priceUSD: 'Free', icon: '🥇', exclusive: true },
-{ id: 'glitch-pack', name: 'Anisotropic Chat Glitch Theme', desc: 'Enables real-time CSS distortion animations across target sent logs.', cost: '2500 Orbs', priceUSD: 'Free', icon: '👾', exclusive: false },
-{ id: 'quantum-ping', name: 'Quantum Priority Connection', desc: 'Bypasses internal routing steps to keep alert intervals down to zero ms.', cost: '1500 Orbs', priceUSD: 'Free', icon: '⚡', exclusive: false }
-];
-window.addEventListener('DOMContentLoaded', () => {
-evaluateUserIdentityState();
-generateStorefrontCards();
-});
-// Handles Unique Name Check & Append Tags
-function evaluateUserIdentityState() {
-let cachedName = localStorage.getItem('nexuschat_user_v5');
-if (!cachedName || cachedName.trim() === "") {
-let promptedName = prompt("Choose your Unique display name for NexusChat Beta:");
-if (!promptedName || promptedName.trim() === "") {
-promptedName = "Guest" + Math.floor(1000 + Math.random() * 9000);
-}
-let cleanedName = promptedName.replace(/\s+/g, '');
-// Verify uniqueness against internal index registers
-if (claimedGlobalBetaNames.some(u => u.toLowerCase() === cleanedName.toLowerCase())) {
-alert("This profile name label is taken! Appending official Beta tags to protect unique tracking.");
-cleanedName += "#" + Math.floor(1000 + Math.random() * 9000);
-}
-cachedName = cleanedName;
-localStorage.setItem('nexuschat_user_v5', cachedName);
-}
-currentProfileSessionName = cachedName;
-document.getElementById('splash-user-target').innerText = currentProfileSessionName;
-document.getElementById('my-username-node').innerText = currentProfileSessionName;
-document.getElementById('my-avatar-node').innerText = currentProfileSessionName.charAt(0).toUpperCase();
-runCinematicProgressBar();
-}
-function runCinematicProgressBar() {
-let progress = 0;
-const fillBar = document.getElementById('splash-bar-fill');
-const loaderInterval = setInterval(() => {
-if (progress >= 100) {
-clearInterval(loaderInterval);
-terminateLoadingSplashSequence();
-} else {
-progress += Math.floor(Math.random() * 20) + 8;
-if (progress > 100) progress = 100;
-if (fillBar) fillBar.style.width = progress + '%';
-}
-}, 60);
-}
-function terminateLoadingSplashSequence() {
-setTimeout(() => {
-document.getElementById('splash-loading-portal').classList.add('hidden');
-document.getElementById('app-frame').classList.add('visible');
-renderSidebarChannels();
-loadTargetChannel(activeChannelId);
-}, 300);
-}
-// Shop Overlay Routing Logic
-function openPremiumStorefront() {
-playSynthFrequency(580, 'sine', 0.2, 0.2);
-document.getElementById('nexus-shop-screen').style.display = 'flex';
-}
-function closePremiumStorefront() {
-playSynthFrequency(440, 'sine', 0.15, 0.15);
-document.getElementById('nexus-shop-screen').style.display = 'none';
-}
-function generateStorefrontCards() {
-const container = document.getElementById('shop-items-grid-target');
-if (!container) return;
-container.innerHTML = '';
-shopInventoryMatrix.forEach(item => {
-const badgeHTML = item.exclusive ? <div class="item-badge-exclusive">ORBS EXCLUSIVE</div> : '';
-const displayPrice = item.id === 'nexus-elite' ? Elite: ${item.priceUSD} : item.cost;
-container.innerHTML += <div class="shop-item-card"> ${badgeHTML} <div class="item-graphic-wrapper"> <div class="item-graphic-ring"></div> <span style="z-index:2;">${item.icon}</span> </div> <div class="item-meta-name">${item.name}</div> <div class="item-meta-desc">${item.desc}</div> <div class="item-action-row"> <div class="item-price-tag">🔮 ${displayPrice}</div> <button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Claim Free</button> </div> </div>;
-});
-}
-function executeItemPurchase(itemId) {
-const targetBtn = document.getElementById(btn-claim-${itemId});
-playSynthFrequency(880, 'sine', 0.3, 0.4);
-if (targetBtn) {
-targetBtn.innerText = "✓ Unlocked";
-targetBtn.classList.add('unlocked');
-targetBtn.disabled = true;
-}
-appendBubbleElement("System Store", Successfully locked [${itemId}] modifications to your active profile container layout!, "received");
-}
-// Channels & Chat Render Logic
-function renderSidebarChannels() {
-const container = document.getElementById('contacts-vertical-stack');
-if(!container) return;
-container.innerHTML = '';
-for (let id in channelDatabase) {
-const isActive = (id === activeChannelId) ? 'active' : '';
-container.innerHTML += <div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')"> <div class="row-avatar">#</div> <div class="row-meta"> <div class="row-name">${channelDatabase[id].name}</div> <div class="row-preview">Open communication logs...</div> </div> </div>;
-}
-}
-function loadTargetChannel(id) {
-if (!channelDatabase[id]) return;
-activeChannelId = id;
-document.getElementById('active-chat-headline-node').innerText = channelDatabase[id].name;
-repaintMessageLogs();
-renderSidebarChannels();
-}
-function executeTextDispatch() {
-const inputField = document.getElementById('text-message-input-node');
-const dataString = inputField.value.trim();
-if (!dataString) return;
-appendBubbleElement(currentProfileSessionName, dataString, "sent");
-inputField.value = '';
-setTimeout(() => {
-const automatedPool = [
-"WebRTC active media tracks mapping looks perfect across your device pipeline.",
-"The custom graphics and animated layers are running seamlessly on GitHub static layouts!",
-"Everything is synchronized in local system environment arrays."
-];
-const selectedText = automatedPool[Math.floor(Math.random() * automatedPool.length)];
-appendBubbleElement("Beta Tester", selectedText, "received");
-}, 1000);
-}
-function appendBubbleElement(author, content, variant) {
-if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
-const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-channelDatabase[activeChannelId].history.push({ author, content, variant, timeCode });
-if (variant === 'received') triggerMsgAlertTone();
-repaintMessageLogs();
-}
-function repaintMessageLogs() {
-const viewTarget = document.getElementById('chat-thread-viewport');
-if(!viewTarget) return;
-viewTarget.innerHTML = '';
-const logs = channelDatabase[activeChannelId].history || [];
-logs.forEach(msg => {
-viewTarget.innerHTML += <div class="msg-bubble ${msg.variant}"> <span class="msg-author">${msg.author}</span> <div>${msg.content}</div> <div class="msg-footer">${msg.timeCode}</div> </div>;
-});
-viewTarget.scrollTop = viewTarget.scrollHeight;
-}
-function trapInputKeypress(e) {
-if (e.key === 'Enter') executeTextDispatch();
-}
-function triggerChannelCreation() {
-const titleInput = prompt("Enter name for new custom chat room:");
-if (!titleInput || titleInput.trim() === "") return;
-const generatedId = 'ch-node-' + Date.now();
-channelDatabase[generatedId] = { name: titleInput.trim(), history: [] };
-loadTargetChannel(generatedId);
-}
-function performProfileHardwareReset() {
-localStorage.removeItem('nexuschat_user_v5');
-window.location.reload();
-}
-/* REAL WEBRTC HARDWARE CONTROLLER LOGIC PACK */
-async function toggleVoiceVideoCall() {
-const layerBlock = document.getElementById('call-interface-layer');
-const joinBtn = document.querySelector('.call-action-btn');
-isCallActive = !isCallActive;
-if (isCallActive) {
-layerBlock.style.display = 'flex';
-joinBtn.innerText = "❌ Disconnect Call";
-joinBtn.style.background = "var(--danger-red)";
-initiateChronometerClock();
-playSynthFrequency(520, 'sine', 0.2, 0.25);
-} else {
-layerBlock.style.display = 'none';
-joinBtn.innerText = "🔊 Connect Live Streams";
-joinBtn.style.background = "var(--primary-accent)";
-terminateChronometerClock();
-cleanupHardwareTracks();
-playSynthFrequency(320, 'sine', 0.2, 0.25);
-}
-}
-async function toggleWebcamState() {
-const videoElement = document.getElementById('hardware-webcam-stream');
-const camBtn = document.getElementById('webcam-video-toggle');
-const mockBox = document.getElementById('webcam-canvas');
-const label = document.getElementById('webcam-label');
-if (!isCallActive) return alert("Please enter the live call channel stream frame first.");
-isCameraActive = !isCameraActive;
-triggerToggleMuteTone(!isCameraActive);
-if (isCameraActive) {
-try {
-localHardwareVideoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-videoElement.srcObject = localHardwareVideoStream;
-mockBox.style.display = 'none';
-camBtn.innerText = "📹 Disable Camera";
-camBtn.classList.add('active-state');
-label.innerText = "Live System Camera Feed (Active)";
-} catch (err) {
-console.error("Camera device mapping error: ", err);
-alert("Could not access your physical webcam device. Check security permissions inside your browser bar.");
-isCameraActive = false;
-}
-} else {
-if (localHardwareVideoStream) {
-localHardwareVideoStream.getTracks().forEach(track => track.stop());
-}
-videoElement.srcObject = null;
-mockBox.style.display = 'flex';
-camBtn.innerText = "📹 Enable Camera";
-camBtn.classList.remove('active-state');
-label.innerText = "Camera Interface Offline";
-}
-}
-async function toggleScreenShareState() {
-const shareElement = document.getElementById('hardware-screenshare-stream');
-const screenBtn = document.getElementById('screenshare-video-toggle');
-const mockBox = document.getElementById('screenshare-canvas');
-const label = document.getElementById('screenshare-label');
-if (!isCallActive) return alert("Please enter the live call channel stream frame first.");
-isScreenSharing = !isScreenSharing;
-playSynthFrequency(600, 'triangle', 0.1, 0.2);
-if (isScreenSharing) {
-try {
-localHardwareDisplayStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-shareElement.srcObject = localHardwareDisplayStream;
-mockBox.style.display = 'none';
-screenBtn.innerText = "🖥️ Stop Sharing";
-screenBtn.classList.add('active-state');
-label.innerText = "Display Canvas Sharing Live";
-// Sync state clean up if user clicks the native browser "Stop Sharing" overlay banner
-localHardwareDisplayStream.getVideoTracks()[0].onended = () => {
-if (isScreenSharing) toggleScreenShareState();
-};
-} catch (err) {
-console.error("Screen Share capture block: ", err);
-isScreenSharing = false;
-}
-} else {
-if (localHardwareDisplayStream) {
-localHardwareDisplayStream.getTracks().forEach(track => track.stop());
-}
-shareElement.srcObject = null;
-mockBox.style.display = 'flex';
-screenBtn.innerText = "🖥️ Share Screen";
-screenBtn.classList.remove('active-state');
-label.innerText = "Screen Capture Pipe Offline";
-}
-}
-function toggleMuteState() {
-isAudioMuted = !isAudioMuted;
-const muteBtn = document.getElementById('mute-audio-toggle');
-if (localHardwareVideoStream) {
-localHardwareVideoStream.getAudioTracks().forEach(track => {
-track.enabled = !isAudioMuted;
-});
-}
-if (isAudioMuted) {
-muteBtn.innerText = "🎙️ Audio Muted";
-muteBtn.classList.add('active-state');
-} else {
-muteBtn.innerText = "🔊 Unmuted";
-muteBtn.classList.remove('active-state');
-}
-triggerToggleMuteTone(isAudioMuted);
-}
-function cleanupHardwareTracks() {
-if (localHardwareVideoStream) {
-localHardwareVideoStream.getTracks().forEach(track => track.stop());
-localHardwareVideoStream = null;
-}
-if (localHardwareDisplayStream) {
-localHardwareDisplayStream.getTracks().forEach(track => track.stop());
-localHardwareDisplayStream = null;
-}
-document.getElementById('hardware-webcam-stream').srcObject = null;
-document.getElementById('hardware-screenshare-stream').srcObject = null;
-document.getElementById('webcam-canvas').style.display = 'flex';
-document.getElementById('screenshare-canvas').style.display = 'flex';
-isCameraActive = false;
-isScreenSharing = false;
-isAudioMuted = false;
-const camBtn = document.getElementById('webcam-video-toggle');
-const screenBtn = document.getElementById('screenshare-video-toggle');
-const muteBtn = document.getElementById('mute-audio-toggle');
-if (camBtn) camBtn.classList.remove('active-state');
-if (screenBtn) screenBtn.classList.remove('active-state');
-if (muteBtn) {
-muteBtn.innerText = "🔊 Unmuted";
-muteBtn.classList.remove('active-state');
-}
-}
-function initiateChronometerClock() {
-elapsedCallSeconds = 0;
-const durationClock = document.getElementById('call-duration-clock');
-callTimerInterval = setInterval(() => {
-elapsedCallSeconds++;
-let displayMinutes = String(Math.floor(elapsedCallSeconds / 60)).padStart(2, '0');
-let displaySeconds = String(elapsedCallSeconds % 60).padStart(2, '0');
-if (durationClock) durationClock.innerText = ${displayMinutes}:${displaySeconds};
-}, 1000);
-}
-function terminateChronometerClock() {
-clearInterval(callTimerInterval);
-document.getElementById('call-duration-clock').innerText = "00:00";
-}
+        .call-timer-node {
+            color: var(--text-main);
+            font-family: monospace;
+            font-size: 14px;
+            background: #111214;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .input-dock-bar {
+            padding: 16px 24px;
+            background: var(--bg-panel);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-top: 1px solid var(--border-subtle);
+            height: 75px;
+            box-sizing: border-box;
+        }
+
+        .input-dock-bar input[type="text"] {
+            flex: 1;
+            background: var(--input-bg);
+            border: 1px solid var(--border-subtle);
+            padding: 14px 18px;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 14.5px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-dock-bar input[type="text"]:focus {
+            border-color: var(--primary-accent);
+        }
+
+        .send-btn {
+            background: var(--primary-accent);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .send-btn:hover { background: var(--primary-hover); }
+    </style>
+    <style>
+        /* ==========================================================
+           SECTION 5: INTEGRATED PREMIUM BARS & SHOP SCREEN STRUCTURES
+           ========================================================== */
+        #nexus-shop-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-dark);
+            z-index: 5000;
+            display: none;
+            flex-direction: column;
+            box-sizing: border-box;
+        }
+
+        .shop-header-navbar {
+            height: 75px;
+            background: var(--bg-panel);
+            border-bottom: 2px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            box-sizing: border-box;
+        }
+
+        .back-nav-link {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.04);
+            padding: 10px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .back-nav-link:hover {
+            color: #ffffff;
+            background: rgba(255,255,255,0.08);
+        }
+
+        .shop-headline-title {
+            font-weight: 900;
+            font-size: 22px;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .balance-container-pill {
+            background: rgba(245, 166, 35, 0.1);
+            border: 2px solid var(--gold-accent);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 800;
+            color: var(--gold-accent);
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 12px rgba(245,166,35,0.2);
+        }
+
+        .shop-showcase-scroller {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px;
+            box-sizing: border-box;
+        }
+
+        .shop-items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Neon Bordered Item Storage Containers Matching Upload Layouts */
+        .shop-item-card {
+            background: var(--bg-panel);
+            border: 2px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .shop-item-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-accent);
+        }
+
+        .item-badge-exclusive {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: #ffffff;
+            color: #000000;
+            font-size: 9px;
+            font-weight: 900;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .item-graphic-wrapper {
+            height: 140px;
+            background: radial-gradient(circle, rgba(88,101,242,0.15) 0%, transparent 70%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 54px;
+            margin-bottom: 16px;
+            position: relative;
+        }
+
+        /* Glowing Custom Portal Ring FX over original icons */
+        .item-graphic-ring {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 2px dashed rgba(88, 101, 242, 0.4);
+            animation: rotateRing 12s linear infinite;
+        }
+
+        @keyframes rotateRing { 100% { transform: rotate(360deg); } }
+
+        .item-meta-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #ffffff;
+        }
+
+        .item-meta-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 20px;
+            flex: 1;
+        }
+
+        .item-action-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        .item-price-tag {
+            font-weight: 800;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .buy-action-trigger {
+            background: var(--primary-accent);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .buy-action-trigger:hover {
+            background: var(--primary-hover);
+        }
+
+        .buy-action-trigger.unlocked {
+            background: var(--success-green) !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==========================================
+       SECTION 6: CINEMATIC SPLASH & PORTAL MOUNT
+       ========================================== -->
+    <div id="splash-loading-portal">
+        <div class="splash-logo">🔮</div>
+        <div class="splash-headline">NexusChat Architecture</div>
+        <div class="splash-user-subtitle" id="splash-user-target"></div>
+        <div class="progress-track-wrapper">
+            <div class="progress-bar-fill" id="splash-bar-fill"></div>
+        </div>
+    </div>
+
+    <!-- Master Grid Window View Framework Container -->
+    <div id="app-frame">
+        
+        <!-- Left Column Control Roster Dashboard Panel Stack -->
+        <div class="sidebar-panel">
+            <div class="sidebar-header">
+                <div class="profile-node-area">
+                    <div class="user-tag-avatar" id="my-avatar-node">N</div>
+                    <div class="sidebar-title" id="my-username-node">Connecting...</div>
+                </div>
+            </div>
+            
+            <div class="sidebar-tools">
+                <button class="shop-trigger-btn" onclick="openPremiumStorefront()">🛒 Open Nexus Shop</button>
+                <button class="sm-btn" onclick="triggerChannelCreation()">💬 + New Channel</button>
+                <button class="sm-btn danger" onclick="performProfileHardwareReset()">🔄 Reset Profile Session</button>
+            </div>
+            
+            <div class="contacts-vertical-stack" id="contacts-vertical-stack">
+                <!-- Programmatically populated via runtime script modules -->
+            </div>
+        </div>
+        <!-- ==========================================
+           SECTION 7: CENTRAL WORKSPACE VIEW PANEL HTML
+           ========================================== -->
+        <div class="workspace-panel">
+            <div class="workspace-header">
+                <div class="header-profile">
+                    <div style="font-size: 20px; color: var(--pink-neon); font-weight: 900;">⧉</div>
+                    <div class="title" id="active-chat-headline-node">Global Public Lobby</div>
+                </div>
+                <button class="call-action-btn" onclick="toggleVoiceVideoCall()">🔊 Connect Live Streams</button>
+            </div>
+
+            <!-- Real Hardware Multimedia Call Interface Layer Overlay Grid -->
+            <div id="call-interface-layer">
+                <div class="media-grid">
+                    <div class="media-window">
+                        <video id="hardware-webcam-stream" class="live-video-element" autoplay playsinline muted></video>
+                        <div class="stream-canvas-mock" id="webcam-canvas">
+                            <div class="avatar-placeholder-call" id="webcam-avatar">🔮</div>
+                        </div>
+                        <div class="stream-label" id="webcam-label">Camera Interface Offline</div>
+                    </div>
+                    <div class="media-window">
+                        <video id="hardware-screenshare-stream" class="live-video-element" autoplay playsinline></video>
+                        <div class="stream-canvas-mock" id="screenshare-canvas" style="background: #111115;">
+                            <div style="font-size: 32px; z-index: 1; opacity: 0.25;">🖥️</div>
+                        </div>
+                        <div class="stream-label" id="screenshare-label">Screen Capture Pipe Offline</div>
+                    </div>
+                </div>
+
+                <div class="call-controls-bar">
+                    <button class="control-btn" id="mute-audio-toggle" onclick="toggleMuteState()">🔊 Unmuted</button>
+                    <button class="control-btn" id="webcam-video-toggle" onclick="toggleWebcamState()">📹 Enable Camera</button>
+                    <button class="control-btn" id="screenshare-video-toggle" onclick="toggleScreenShareState()">🖥️ Share Screen</button>
+                    <button class="control-btn active-state" onclick="toggleVoiceVideoCall()">Disconnect</button>
+                    <div class="call-timer-node" id="call-duration-clock">00:00</div>
+                </div>
+            </div>
+
+            <!-- Message Activity Log Viewport Container Feed -->
+            <div class="thread-scroll-view" id="chat-thread-viewport"></div>
+
+            <!-- Primary Chat Stream Message Input Dock Layout -->
+            <div class="input-dock-bar">
+                <input type="text" id="text-message-input-node" placeholder="Type a message into active stream..." onkeypress="trapInputKeypress(event)">
+                <button class="send-btn" onclick="executeTextDispatch()">Send Message</button>
+            </div>
+        </div>
+    </div> <!-- Closes app-frame layout framework wrapper -->
+    <!-- ==========================================================
+       SECTION 8: STANDALONE PREMIUM FULL SCREEN SHOP COMPONENT
+       ========================================================== -->
+    <div id="nexus-shop-screen">
+        <!-- Top Sticky Header Navigation Bar Ribbon Layout -->
+        <div class="shop-header-navbar">
+            <a href="#" class="back-nav-link" onclick="closePremiumStorefront()">← Go Back</a>
+            <div class="shop-headline-title">NEXUS MULTIVERSE STOREFRONT</div>
+            
+            <!-- Real-Time Point Account Tracking Metrics (Free Beta Setup Indicator) -->
+            <div class="balance-container-pill">
+                <span>🔮 Balance:</span>
+                <span id="shop-balance-display-node">50,000 Orbs (Beta Free Active)</span>
+            </div>
+        </div>
+
+        <!-- Scrollable Premium Showcase Product Grid Display Frame -->
+        <div class="shop-showcase-scroller">
+            <div class="shop-items-grid" id="shop-items-grid-target">
+                <!-- Programmatically populated with Premium Items via internal JavaScript lists -->
+            </div>
+        </div>
+    </div>
+    <!-- ==========================================================
+       SECTION 9: AUDIO ARCHITECTURE RUNTIME ENGINE & MATRIX STATE
+       ========================================================== -->
+    <script>
+        // High-Fidelity Audio Synthesis Engine Context Setup
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        function playSynthFrequency(frequency, type, duration, volume = 0.25) {
+            try {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.value = frequency;
+                gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) { 
+                console.log("Audio engine baseline awaiting user validation event loop."); 
+            }
+        }
+
+        // Louder, stylized alerts matching notification contexts
+        function triggerMsgAlertTone() {
+            playSynthFrequency(750, 'sine', 0.15, 0.30);
+            setTimeout(() => playSynthFrequency(980, 'sine', 0.18, 0.30), 50);
+        }
+
+        function triggerToggleMuteTone(isMuted) {
+            if (isMuted) {
+                playSynthFrequency(480, 'triangle', 0.15, 0.35);
+                setTimeout(() => playSynthFrequency(350, 'triangle', 0.18, 0.35), 50);
+            } else {
+                playSynthFrequency(350, 'triangle', 0.15, 0.35);
+                setTimeout(() => playSynthFrequency(480, 'triangle', 0.18, 0.35), 50);
+            }
+        }
+
+        // Preserved Global User Claim Matrix Filters
+        const claimedGlobalBetaNames = ["Admin", "NexusBot", "CrewMember", "Root", "Moderator", "CEO"];
+
+        // Central Application Core Runtime Parameters Matrix State
+        let currentProfileSessionName = "";
+        let activeChannelId = 'global-lobby';
+        let channelDatabase = {
+            'global-lobby': { name: "Global Public Lobby", history: [] },
+            'crew-vc': { name: "Crew Elite Lounge", history: [] }
+        };
+
+        // Hardware Tracking Device Handlers
+        let localHardwareVideoStream = null;
+        let localHardwareDisplayStream = null;
+        let isCallActive = false;
+        let isAudioMuted = false;
+        let isCameraActive = false;
+        let isScreenSharing = false;
+        let callTimerInterval = null;
+        let elapsedCallSeconds = 0;
+
+        // Functional Premium Shop Stock Inventory Cards (100% Free Beta Flags)
+        let betaWalletBalanceOrbs = 50000;
+        const shopInventoryMatrix = [
+            { id: 'nexus-elite', name: 'Nexus Elite Tier', desc: 'Premium subscription matching chat layouts with advanced room scaling. Formatted like Nitro.', cost: 'Free (Beta Frame)', priceUSD: '$5.00', icon: '👑', exclusive: true },
+            { id: 'magic-mists', name: 'Magic Mists Bundle', desc: 'Saturates your client call profile with layered particle fields and aura rings.', cost: '3500 Orbs', priceUSD: 'Free', icon: '✨', exclusive: true },
+            { id: 'cyber-neon', name: 'Cyberpunk Neon Matrix', desc: 'Changes entire workspace headers into custom matrix code animations.', cost: '1200 Orbs', priceUSD: 'Free', icon: '🌌', exclusive: false },
+            { id: 'bass-booster', name: 'Holographic Voice Synth', desc: 'Amplifies internal sound outputs and increases localized frequency feedback.', cost: '800 Orbs', priceUSD: 'Free', icon: '🔊', exclusive: false },
+            { id: 'gold-crown', name: 'Legacy Founder Icon', desc: 'Appends a permanent shining golden badge layout right next to your display string.', cost: '10000 Orbs', priceUSD: 'Free', icon: '🥇', exclusive: true },
+            { id: 'glitch-pack', name: 'Anisotropic Chat Glitch Theme', desc: 'Enables real-time CSS distortion animations across target sent logs.', cost: '2500 Orbs', priceUSD: 'Free', icon: '👾', exclusive: false },
+            { id: 'quantum-ping', name: 'Quantum Priority Connection', desc: 'Bypasses internal routing steps to keep alert intervals down to zero ms.', cost: '1500 Orbs', priceUSD: 'Free', icon: '⚡', exclusive: false }
+        ];
+        window.addEventListener('DOMContentLoaded', () => {
+            evaluateUserIdentityState();
+            generateStorefrontCards();
+        });
+
+        // Unique Name Check & Validation Loop Filtering
+        function evaluateUserIdentityState() {
+            let cachedName = localStorage.getItem('nexuschat_user_v5');
+            
+            if (!cachedName || cachedName.trim() === "") {
+                let promptedName = prompt("Choose your Unique display name for NexusChat Beta:");
+                if (!promptedName || promptedName.trim() === "") {
+                    promptedName = "Guest" + Math.floor(1000 + Math.random() * 9000);
+                }
+                
+                let cleanedName = promptedName.replace(/\s+/g, '');
+                
+                // Block matching names via global static criteria indexes
+                if (claimedGlobalBetaNames.some(u => u.toLowerCase() === cleanedName.toLowerCase())) {
+                    alert("This profile name label is taken! Appending official Beta tags to protect unique tracking.");
+                    cleanedName += "#" + Math.floor(1000 + Math.random() * 9000);
+                }
+                
+                cachedName = cleanedName;
+                localStorage.setItem('nexuschat_user_v5', cachedName);
+            }
+
+            currentProfileSessionName = cachedName;
+            document.getElementById('splash-user-target').innerText = currentProfileSessionName;
+            document.getElementById('my-username-node').innerText = currentProfileSessionName;
+            document.getElementById('my-avatar-node').innerText = currentProfileSessionName.charAt(0).toUpperCase();
+
+            runCinematicProgressBar();
+        }
+
+        function runCinematicProgressBar() {
+            let progress = 0;
+            const fillBar = document.getElementById('splash-bar-fill');
+            const loaderInterval = setInterval(() => {
+                if (progress >= 100) {
+                    clearInterval(loaderInterval);
+                    terminateLoadingSplashSequence();
+                } else {
+                    progress += Math.floor(Math.random() * 20) + 8;
+                    if (progress > 100) progress = 100;
+                    if (fillBar) fillBar.style.width = progress + '%';
+                }
+            }, 60);
+        }
+
+        function terminateLoadingSplashSequence() {
+            setTimeout(() => {
+                document.getElementById('splash-loading-portal').classList.add('hidden');
+                document.getElementById('app-frame').classList.add('visible');
+                renderSidebarChannels();
+                loadTargetChannel(activeChannelId);
+            }, 300);
+        }
+
+        // Tabless Layout Controller Module Routines
+        function openPremiumStorefront() {
+            playSynthFrequency(580, 'sine', 0.2, 0.2);
+            document.getElementById('nexus-shop-screen').style.display = 'flex';
+        }
+
+        function closePremiumStorefront() {
+            playSynthFrequency(440, 'sine', 0.15, 0.15);
+            document.getElementById('nexus-shop-screen').style.display = 'none';
+        }
+
+        // Populates Custom Shop Grid Interface Elements
+        function generateStorefrontCards() {
+            const container = document.getElementById('shop-items-grid-target');
+            if (!container) return;
+            container.innerHTML = '';
+
+            shopInventoryMatrix.forEach(item => {
+                const badgeHTML = item.exclusive ? `<div class="item-badge-exclusive">ORBS EXCLUSIVE</div>` : '';
+                const displayPrice = item.id === 'nexus-elite' ? `Elite: ${item.priceUSD}` : item.cost;
+                
+                container.innerHTML += `
+                    <div class="shop-item-card">
+                        ${badgeHTML}
+                        <div class="item-graphic-wrapper">
+                            <div class="item-graphic-ring"></div>
+                            <span style="z-index:2;">${item.icon}</span>
+                        </div>
+                        <div class="item-meta-name">${item.name}</div>
+                        <div class="item-meta-desc">${item.desc}</div>
+                        <div class="item-action-row">
+                            <div class="item-price-tag">🔮 ${displayPrice}</div>
+                            <button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Claim Free</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function executeItemPurchase(itemId) {
+            const targetBtn = document.getElementById(`btn-claim-${itemId}`);
+            playSynthFrequency(880, 'sine', 0.3, 0.4);
+            if (targetBtn) {
+                targetBtn.innerText = "✓ Unlocked";
+                targetBtn.classList.add('unlocked');
+                targetBtn.disabled = true;
+            }
+            appendBubbleElement("System Store", `Successfully locked [${itemId}] modifications to your active profile container layout!`, "received");
+        }
+
+        // Communication Log Roster List Processing Nodes
+        function renderSidebarChannels() {
+            const container = document.getElementById('contacts-vertical-stack');
+            if(!container) return;
+            container.innerHTML = '';
+            
+            for (let id in channelDatabase) {
+                const isActive = (id === activeChannelId) ? 'active' : '';
+                container.innerHTML += `
+                    <div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')">
+                        <div class="row-avatar">#</div>
+                        <div class="row-meta">
+                            <div class="row-name">${channelDatabase[id].name}</div>
+                            <div class="row-preview">Open communication logs...</div>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function loadTargetChannel(id) {
+            if (!channelDatabase[id]) return;
+            activeChannelId = id;
+            document.getElementById('active-chat-headline-node').innerText = channelDatabase[id].name;
+            repaintMessageLogs();
+            renderSidebarChannels();
+        }
+
+        function executeTextDispatch() {
+            const inputField = document.getElementById('text-message-input-node');
+            const dataString = inputField.value.trim();
+            if (!dataString) return;
+
+            appendBubbleElement(currentProfileSessionName, dataString, "sent");
+            inputField.value = '';
+
+            setTimeout(() => {
+                const automatedPool = [
+                    "WebRTC active media tracks mapping looks perfect across your device pipeline.",
+                    "The custom graphics and animated layers are running seamlessly on GitHub static layouts!",
+                    "Everything is synchronized in local system environment arrays."
+                ];
+                const selectedText = automatedPool[Math.floor(Math.random() * automatedPool.length)];
+                appendBubbleElement("Beta Tester", selectedText, "received");
+            }, 1000);
+        }
+
+        function appendBubbleElement(author, content, variant) {
+            if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
+            const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            channelDatabase[activeChannelId].history.push({ author, content, variant, timeCode });
+            
+            if (variant === 'received') triggerMsgAlertTone();
+            repaintMessageLogs();
+        }
+
+        function repaintMessageLogs() {
+            const viewTarget = document.getElementById('chat-thread-viewport');
+            if(!viewTarget) return;
+            viewTarget.innerHTML = '';
+            
+            const logs = channelDatabase[activeChannelId].history || [];
+            logs.forEach(msg => {
+                viewTarget.innerHTML += `
+                    <div class="msg-bubble ${msg.variant}">
+                        <span class="msg-author">${msg.author}</span>
+                        <div>${msg.content}</div>
+                        <div class="msg-footer">${msg.timeCode}</div>
+                    </div>
+                `;
+            });
+            viewTarget.scrollTop = viewTarget.scrollHeight;
+        }
+
+        function trapInputKeypress(e) {
+            if (e.key === 'Enter') executeTextDispatch();
+        }
+
+        function triggerChannelCreation() {
+            const titleInput = prompt("Enter name for new custom chat room:");
+            if (!titleInput || titleInput.trim() === "") return;
+            const generatedId = 'ch-node-' + Date.now();
+            channelDatabase[generatedId] = { name: titleInput.trim(), history: [] };
+            loadTargetChannel(generatedId);
+        }
+
+        function performProfileHardwareReset() {
+            localStorage.removeItem('nexuschat_user_v5');
+            window.location.reload();
+        }
+        /* ==========================================================
+           SECTION 10: REAL WEBRTC HARDWARE CONTROLLER LOGIC PACK
+           ========================================================== */
+        async function toggleVoiceVideoCall() {
+            const layerBlock = document.getElementById('call-interface-layer');
+            const joinBtn = document.querySelector('.call-action-btn');
+            
+            isCallActive = !isCallActive;
+            if (isCallActive) {
+                layerBlock.style.display = 'flex';
+                joinBtn.innerText = "❌ Disconnect Call";
+                joinBtn.style.background = "var(--danger-red)";
+                initiateChronometerClock();
+                playSynthFrequency(520, 'sine', 0.2, 0.25);
+            } else {
+                layerBlock.style.display = 'none';
+                joinBtn.innerText = "🔊 Connect Live Streams";
+                joinBtn.style.background = "var(--primary-accent)";
+                terminateChronometerClock();
+                cleanupHardwareTracks();
+                playSynthFrequency(320, 'sine', 0.2, 0.25);
+            }
+        }
+
+        async function toggleWebcamState() {
+            const videoElement = document.getElementById('hardware-webcam-stream');
+            const camBtn = document.getElementById('webcam-video-toggle');
+            const mockBox = document.getElementById('webcam-canvas');
+            const label = document.getElementById('webcam-label');
+
+            if (!isCallActive) return alert("Please enter the live call channel stream frame first.");
+
+            isCameraActive = !isCameraActive;
+            triggerToggleMuteTone(!isCameraActive);
+
+            if (isCameraActive) {
+                try {
+                    // Requests real system access for webcam and mic streams simultaneously
+                    localHardwareVideoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                    videoElement.srcObject = localHardwareVideoStream;
+                    mockBox.style.display = 'none';
+                    camBtn.innerText = "📹 Disable Camera";
+                    camBtn.classList.add('active-state');
+                    label.innerText = "Live System Camera Feed (Active)";
+                } catch (err) {
+                    console.error("Camera device mapping error: ", err);
+                    alert("Could not access your physical webcam device. Check security permissions inside your browser bar.");
+                    isCameraActive = false;
+                }
+            } else {
+                if (localHardwareVideoStream) {
+                    localHardwareVideoStream.getTracks().forEach(track => track.stop());
+                }
+                videoElement.srcObject = null;
+                mockBox.style.display = 'flex';
+                camBtn.innerText = "📹 Enable Camera";
+                camBtn.classList.remove('active-state');
+                label.innerText = "Camera Interface Offline";
+            }
+        }
+
+        async function toggleScreenShareState() {
+            const shareElement = document.getElementById('hardware-screenshare-stream');
+            const screenBtn = document.getElementById('screenshare-video-toggle');
+            const mockBox = document.getElementById('screenshare-canvas');
+            const label = document.getElementById('screenshare-label');
+
+            if (!isCallActive) return alert("Please enter the live call channel stream frame first.");
+
+            isScreenSharing = !isScreenSharing;
+            playSynthFrequency(600, 'triangle', 0.1, 0.2);
+
+            if (isScreenSharing) {
+                try {
+                    // Triggers the native web browser window selection modal overlay
+                    localHardwareDisplayStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+                    shareElement.srcObject = localHardwareDisplayStream;
+                    mockBox.style.display = 'none';
+                    screenBtn.innerText = "🖥️ Stop Sharing";
+                    screenBtn.classList.add('active-state');
+                    label.innerText = "Display Canvas Sharing Live";
+
+                    // Detects if the user hits the browser's built-in "Stop Sharing" overlay banner
+                    localHardwareDisplayStream.getVideoTracks()[0].onended = () => {
+                        if (isScreenSharing) toggleScreenShareState();
+                    };
+                } catch (err) {
+                    console.error("Screen Share capture block: ", err);
+                    isScreenSharing = false;
+                }
+            } else {
+                if (localHardwareDisplayStream) {
+                    localHardwareDisplayStream.getTracks().forEach(track => track.stop());
+                }
+                shareElement.srcObject = null;
+                mockBox.style.display = 'flex';
+                screenBtn.innerText = "🖥️ Share Screen";
+                screenBtn.classList.remove('active-state');
+                label.innerText = "Screen Capture Pipe Offline";
+            }
+        }
+
+        function toggleMuteState() {
+            isAudioMuted = !isAudioMuted;
+            const muteBtn = document.getElementById('mute-audio-toggle');
+            
+            if (localHardwareVideoStream) {
+                localHardwareVideoStream.getAudioTracks().forEach(track => {
+                    track.enabled = !isAudioMuted;
+                });
+            }
+
+            if (isAudioMuted) {
+                muteBtn.innerText = "🎙️ Audio Muted";
+                muteBtn.classList.add('active-state');
+            } else {
+                muteBtn.innerText = "🔊 Unmuted";
+                muteBtn.classList.remove('active-state');
+            }
+            triggerToggleMuteTone(isAudioMuted);
+        }
+
+        function cleanupHardwareTracks() {
+            if (localHardwareVideoStream) {
+                localHardwareVideoStream.getTracks().forEach(track => track.stop());
+                localHardwareVideoStream = null;
+            }
+            if (localHardwareDisplayStream) {
+                localHardwareDisplayStream.getTracks().forEach(track => track.stop());
+                localHardwareDisplayStream = null;
+            }
+            document.getElementById('hardware-webcam-stream').srcObject = null;
+            document.getElementById('hardware-screenshare-stream').srcObject = null;
+            document.getElementById('webcam-canvas').style.display = 'flex';
+            document.getElementById('screenshare-canvas').style.display = 'flex';
+            
+            isCameraActive = false;
+            isScreenSharing = false;
+            isAudioMuted = false;
+
+            const camBtn = document.getElementById('webcam-video-toggle');
+            const screenBtn = document.getElementById('screenshare-video-toggle');
+            const muteBtn = document.getElementById('mute-audio-toggle');
+
+            if (camBtn) camBtn.classList.remove('active-state');
+            if (screenBtn) screenBtn.classList.remove('active-state');
+            if (muteBtn) {
+                muteBtn.innerText = "🔊 Unmuted";
+                muteBtn.classList.remove('active-state');
+            }
+        }
+
+        function initiateChronometerClock() {
+            elapsedCallSeconds = 0;
+            const durationClock = document.getElementById('call-duration-clock');
+            callTimerInterval = setInterval(() => {
+                elapsedCallSeconds++;
+                let displayMinutes = String(Math.floor(elapsedCallSeconds / 60)).padStart(2, '0');
+                let displaySeconds = String(elapsedCallSeconds % 60).padStart(2, '0');
+                if (durationClock) durationClock.innerText = `${displayMinutes}:${displaySeconds}`;
+            }, 1000);
+        }
+
+        function terminateChronometerClock() {
+            clearInterval(callTimerInterval);
+            document.getElementById('call-duration-clock').innerText = "00:00";
+        }
+    </script>
+</body>
+</html>
