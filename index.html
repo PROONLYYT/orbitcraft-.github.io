@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NexusChat Messenger Client</title>
     <link rel="icon" type="image/png" href="favicon.png">
-    
+
     <style>
         :root {
             /* Premium Glassmorphic Obsidian-Cyan Design Tokens */
             --bg-dark: #07090e;
             --bg-dark-gradient: linear-gradient(135deg, #07090e 0%, #0a1118 100%);
-            --bg-panel: rgba(10, 20, 30, 0.7);
-            --bg-sidebar: rgba(6, 10, 15, 0.9);
+            --bg-panel: rgba(10, 20, 30, 0.65);
+            --bg-sidebar: rgba(6, 10, 15, 0.85);
             --primary-accent: #00ffff;
             --primary-hover: #00cccc;
             --primary-glow: rgba(0, 255, 255, 0.4);
@@ -23,19 +23,25 @@
             --success-green: #00ff66;
             --border-subtle: rgba(0, 255, 255, 0.15);
             --border-active: rgba(0, 255, 255, 0.6);
-            --input-bg: rgba(5, 10, 15, 0.85);
+            --input-bg: rgba(5, 10, 15, 0.8);
             --gold-accent: #f5a623;
             --pink-neon: #ff007f;
+            
+            /* Custom Login Identity Matrix Specific Tokens */
+            --login-card-bg: #181920;
+            --login-input-bg: #1f2026;
+            --login-btn-primary: #5865f2;
+            --login-btn-hover: #4752c4;
             
             /* UI Sizing Anchors */
             --nav-rail-width: 75px;
             --sidebar-width: 280px;
         }
 
-        /* Global Structural Overrides & Reset Rules */
-        *, body, html, button, input, select {
+        /* Hardware Custom Pointer Implementation Rules */
+        *, body, html, button, input, select, textarea, a {
             box-sizing: border-box;
-            cursor: default;
+            cursor: url('Cursor.png') 4 4, default !important;
         }
 
         body, html {
@@ -150,14 +156,14 @@
             50% { transform: scale(1.06); filter: drop-shadow(0 0 24px var(--primary-accent)); }
         }
 
-        /* Discord-Style Glassmorphic Onboarding Interface Overlay */
+        /* Reconstructed Workspace Identity Screen Overlay */
         #secure-login-gate-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: linear-gradient(145deg, #040814 0%, #0d1326 100%);
+            background: #111217;
             z-index: 8000;
             display: flex;
             align-items: center;
@@ -174,171 +180,65 @@
         }
 
         .login-card-glassmorphic-wrapper {
-            width: 480px;
-            background: rgba(15, 25, 45, 0.6);
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            padding: 40px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            width: 440px;
+            background: var(--login-card-bg);
+            border-radius: 8px;
+            padding: 32px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
             gap: 20px;
-            position: relative;
-        }
-
-        .onboarding-step {
-            display: none;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .onboarding-step.active-step {
-            display: flex;
         }
 
         .login-card-header {
             text-align: center;
         }
 
-        .login-brand-logo-node {
-            width: 56px;
-            height: 56px;
-            object-fit: contain;
-            margin-bottom: 12px;
-        }
-
         .login-title-h1 {
-            font-size: 26px;
-            font-weight: 800;
+            font-size: 24px;
+            font-weight: 700;
             color: #ffffff;
-            margin: 0 0 6px 0;
-            letter-spacing: 0.5px;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.5px;
         }
 
         .login-subtitle-p {
-            font-size: 13.5px;
-            color: var(--text-muted);
+            font-size: 13px;
+            color: #949ba4;
             margin: 0;
+            line-height: 1.4;
         }
-
-        .oauth-providers-button-stack {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-
-        .oauth-provider-btn {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-main);
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 12.5px;
-            font-weight: 600;
-            cursor: pointer !important;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .oauth-provider-btn:hover {
-            background: rgba(0, 255, 255, 0.05);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 8px var(--primary-glow);
-        }
-
-        .login-divider-row {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin: 10px 0;
-        }
-
-        .login-divider-row::before, .login-divider-row::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-        }
-        .login-divider-row:not(:empty)::before { margin-right: 12px; }
-        .login-divider-row:not(:empty)::after { margin-left: 12px; }
 
         .registration-input-group-form {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 20px;
         }
 
         .form-label-node {
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            color: #b5bac1;
             margin-bottom: 8px;
             display: block;
         }
 
-        .form-text-input-field, .form-select-field {
+        .form-text-input-field {
             width: 100%;
-            background: var(--input-bg);
-            border: 1px solid var(--border-subtle);
-            padding: 12px 14px;
-            border-radius: 6px;
-            color: #ffffff;
-            font-size: 14px;
+            background: var(--login-input-bg);
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            padding: 10px 12px;
+            border-radius: 4px;
+            color: #dbdee1;
+            font-size: 15px;
             outline: none;
-            transition: all 0.2s ease;
+            transition: border-color 0.2s ease;
         }
 
-        .form-text-input-field:focus, .form-select-field:focus {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 8px var(--primary-glow);
-        }
-
-        .form-select-field option {
-            background: #0f172a;
-            color: #ffffff;
-        }
-
-        .dob-select-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
-            gap: 10px;
-        }
-
-        .gender-options-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-        }
-
-        .gender-btn {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-main);
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 600;
-            text-align: center;
-            cursor: pointer !important;
-            transition: all 0.2s ease;
-        }
-
-        .gender-btn:hover, .gender-btn.selected {
-            border-color: var(--primary-accent);
-            background: rgba(0, 255, 255, 0.08);
-            color: #ffffff;
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+        .form-text-input-field:focus {
+            border-color: #5865f2;
         }
 
         .avatar-file-upload-trigger-container {
@@ -348,19 +248,19 @@
         }
 
         .avatar-upload-preview-frame {
-            width: 54px;
-            height: 54px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
+            background: #2b2d31;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--text-muted);
-            font-size: 14px;
-            font-weight: 700;
+            color: #949ba4;
+            font-size: 16px;
+            font-weight: 600;
             flex-shrink: 0;
             overflow: hidden;
+            border: none;
         }
 
         .avatar-upload-preview-frame img {
@@ -370,66 +270,35 @@
         }
 
         .custom-file-input-facade-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-subtle);
-            padding: 10px 14px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-main);
-            cursor: pointer !important;
-            transition: all 0.2s ease;
+            background: #4e5058;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: 500;
+            color: #ffffff;
+            transition: background 0.2s ease;
         }
 
         .custom-file-input-facade-btn:hover {
-            border-color: var(--text-muted);
-            background: rgba(255,255,255,0.06);
-        }
-
-        .wizard-nav-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
+            background: #6d6f78;
         }
 
         .submit-portal-access-btn {
-            background: transparent;
-            color: var(--primary-accent);
-            border: 1px solid var(--primary-accent);
-            padding: 14px 28px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer !important;
-            transition: all 0.2s ease;
-            box-shadow: 0 0 8px var(--primary-glow);
+            width: 100%;
+            background: var(--login-btn-primary);
+            color: #ffffff;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: background 0.2s ease;
+            margin-top: 10px;
         }
 
         .submit-portal-access-btn:hover {
-            background: var(--primary-hover);
-            color: #000000;
-            box-shadow: 0 0 16px var(--primary-accent);
-        }
-
-        .step-indicators-wrapper {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-top: 12px;
-        }
-
-        .step-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: background 0.3s ease;
-        }
-
-        .step-dot.active {
-            background: var(--primary-accent);
-            box-shadow: 0 0 8px var(--primary-accent);
+            background: var(--login-btn-hover);
         }
 
         /* Master Application Layout Window Frame */
@@ -470,7 +339,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer !important;
             color: var(--text-muted);
             font-size: 20px;
             position: relative;
@@ -520,7 +388,6 @@
             align-items: center;
             gap: 10px;
             min-width: 0;
-            width: 100%;
         }
 
         .user-tag-avatar {
@@ -546,25 +413,10 @@
             object-fit: cover;
         }
 
-        .profile-meta-text-block {
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            flex: 1;
-        }
-
         .sidebar-title {
             font-weight: 700;
             font-size: 14px;
             color: var(--text-main);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .sidebar-subtitle-tag {
-            font-size: 11px;
-            color: var(--text-muted);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -588,7 +440,6 @@
             color: var(--text-main);
             border: 1px solid var(--border-subtle);
             border-radius: 6px;
-            cursor: pointer !important;
             transition: all 0.2s ease;
             text-align: left;
         }
@@ -624,7 +475,6 @@
             color: var(--primary-accent);
             border: 1px solid var(--primary-accent);
             border-radius: 6px;
-            cursor: pointer !important;
             transition: all 0.2s ease;
             text-align: center;
             box-shadow: 0 0 6px var(--primary-glow);
@@ -644,7 +494,6 @@
 
         .chat-list-row {
             padding: 12px 16px;
-            cursor: pointer !important;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -845,7 +694,6 @@
             font-size: 18px;
             padding: 8px;
             border-radius: 6px;
-            cursor: pointer !important;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
@@ -901,7 +749,6 @@
             font-size: 20px;
             padding: 6px;
             border-radius: 4px;
-            cursor: pointer !important;
             transition: background 0.15s ease, transform 0.1s ease;
         }
 
@@ -918,7 +765,6 @@
             border-radius: 6px;
             font-weight: 600;
             font-size: 13px;
-            cursor: pointer !important;
             transition: all 0.2s ease;
             box-shadow: 0 0 4px var(--primary-glow);
         }
@@ -934,7 +780,6 @@
             color: var(--text-muted);
             background: transparent;
             box-shadow: none;
-            cursor: not-allowed !important;
         }
 
         .call-action-btn {
@@ -945,7 +790,6 @@
             color: var(--primary-accent);
             padding: 8px 16px;
             border-radius: 4px;
-            cursor: pointer !important;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
@@ -972,7 +816,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 16px;
-            min-height: 280px;
+            min-height: 260px;
         }
 
         @media (max-width: 768px) {
@@ -988,7 +832,7 @@
             justify-content: center;
             border: 1px solid var(--border-subtle);
             overflow: hidden;
-            height: 280px;
+            height: 260px;
             box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
         }
 
@@ -1054,7 +898,6 @@
             object-fit: cover;
             border-radius: 50%;
         }
-
         .call-controls-bar {
             display: flex;
             justify-content: center;
@@ -1067,14 +910,12 @@
             flex-wrap: wrap;
             border: 1px solid var(--border-subtle);
         }
-
         .control-btn {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-subtle);
             color: var(--text-main);
             padding: 10px 16px;
             border-radius: 6px;
-            cursor: pointer !important;
             font-weight: 600;
             font-size: 12px;
             display: flex;
@@ -1082,23 +923,19 @@
             gap: 6px;
             transition: all 0.2s ease;
         }
-
         .control-btn:hover {
             background: rgba(0, 255, 255, 0.05);
             border-color: var(--primary-accent);
             color: #fff;
         }
-
         .control-btn.active-state {
             background: rgba(255, 51, 68, 0.2);
             border-color: var(--danger-red);
             color: #fff;
         }
-
         .control-btn.active-state:hover {
             background: var(--danger-red);
         }
-
         .call-timer-node {
             color: var(--primary-accent);
             font-family: monospace;
@@ -1109,7 +946,6 @@
             font-weight: 700;
             border: 1px solid var(--border-subtle);
         }
-
         .states-hub-container-view {
             padding: 16px 24px;
             background: rgba(5, 10, 15, 0.2);
@@ -1118,13 +954,11 @@
             flex-direction: column;
             gap: 12px;
         }
-
         .states-header-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
-
         .states-row-title {
             font-size: 13px;
             font-weight: 700;
@@ -1132,14 +966,12 @@
             letter-spacing: 1px;
             color: var(--text-muted);
         }
-
         .states-carousel-scroller-track {
             display: flex;
             gap: 14px;
             overflow-x: auto;
             padding-bottom: 8px;
         }
-
         .state-content-card-node {
             width: 110px;
             height: 160px;
@@ -1154,12 +986,10 @@
             justify-content: flex-end;
             padding: 10px;
         }
-
         .state-content-card-node:hover {
             border-color: var(--primary-accent);
             box-shadow: 0 0 10px var(--primary-glow);
         }
-
         .state-media-preview-element {
             width: 100%;
             height: 100%;
@@ -1169,7 +999,6 @@
             left: 0;
             z-index: 1;
         }
-
         .state-author-tag {
             font-size: 11px;
             font-weight: 600;
@@ -1180,7 +1009,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
         #nexus-shop-screen {
             position: fixed;
             top: 0;
@@ -1194,7 +1022,6 @@
             flex-direction: column;
             box-sizing: border-box;
         }
-
         .shop-header-navbar {
             height: 75px;
             background: var(--bg-panel);
@@ -1207,7 +1034,6 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
-
         .back-nav-link {
             font-size: 13px;
             font-weight: 700;
@@ -1223,14 +1049,12 @@
             border: 1px solid var(--border-subtle);
             transition: all 0.2s ease;
         }
-
         .back-nav-link:hover {
             color: var(--primary-accent);
             border-color: var(--primary-accent);
             background: rgba(0,255,255,0.05);
             box-shadow: 0 0 8px var(--primary-glow);
         }
-
         .shop-headline-title {
             font-weight: 800;
             font-size: 18px;
@@ -1238,7 +1062,6 @@
             color: #ffffff;
             text-shadow: 0 0 10px rgba(0,255,255,0.2);
         }
-
         .balance-container-pill {
             background: rgba(245, 166, 35, 0.05);
             border: 1px solid var(--gold-accent);
@@ -1252,14 +1075,12 @@
             gap: 8px;
             box-shadow: 0 0 10px rgba(245,166,35,0.15);
         }
-
         .shop-showcase-scroller {
             flex: 1;
             overflow-y: auto;
             padding: 40px;
             box-sizing: border-box;
         }
-
         .shop-items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -1267,7 +1088,6 @@
             max-width: 1400px;
             margin: 0 auto;
         }
-
         .shop-item-card {
             background: var(--bg-panel);
             border: 1px solid var(--border-subtle);
@@ -1281,13 +1101,11 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
-
         .shop-item-card:hover {
             transform: translateY(-4px);
             border-color: var(--primary-accent);
             box-shadow: 0 6px 20px rgba(0, 255, 255, 0.15);
         }
-
         .item-badge-exclusive {
             position: absolute;
             top: 12px;
@@ -1302,7 +1120,6 @@
             letter-spacing: 0.5px;
             box-shadow: 0 0 8px var(--pink-neon);
         }
-
         .item-graphic-wrapper {
             height: 120px;
             background: radial-gradient(circle, rgba(0,255,255,0.1) 0%, transparent 70%);
@@ -1312,14 +1129,12 @@
             margin-bottom: 16px;
             position: relative;
         }
-
         .item-graphic-icon-asset {
             width: 50px;
             height: 50px;
             object-fit: contain;
             z-index: 2;
         }
-
         .item-graphic-ring {
             position: absolute;
             width: 90px;
@@ -1328,12 +1143,6 @@
             border: 1px dashed rgba(0, 255, 255, 0.2);
             animation: rotateRing 12s linear infinite;
         }
-
-        @keyframes rotateRing {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
         .item-meta-name {
             font-size: 16px;
             font-weight: 700;
@@ -1341,7 +1150,6 @@
             color: #ffffff;
             letter-spacing: 0.5px;
         }
-
         .item-meta-desc {
             font-size: 12px;
             color: var(--text-muted);
@@ -1349,20 +1157,17 @@
             margin-bottom: 20px;
             flex: 1;
         }
-
         .item-action-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-top: auto;
         }
-
         .item-price-tag {
             font-weight: 700;
             font-size: 14px;
             color: var(--gold-accent);
         }
-
         .buy-action-trigger {
             background: transparent;
             color: var(--primary-accent);
@@ -1371,29 +1176,31 @@
             border-radius: 6px;
             font-weight: 700;
             font-size: 12px;
-            cursor: pointer !important;
             transition: all 0.2s ease;
         }
-
         .buy-action-trigger:hover {
             background: var(--primary-hover);
             color: #000000;
             box-shadow: 0 0 10px var(--primary-accent);
         }
-
         .buy-action-trigger.unlocked {
             background: rgba(0, 255, 102, 0.1) !important;
             border-color: var(--success-green) !important;
             color: var(--success-green) !important;
         }
+
+        @keyframes rotateRing {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
 
-    <!-- Cinematic Progress Portal Splash Overlay -->
-    <div id="splash-loading-portal" class="hidden">
+    <!-- Cinematic Loading Portal Splash Overlay -->
+    <div id="splash-loading-portal">
         <div class="splash-logo-container">
-            <img src="favicon.png" class="splash-logo-img" alt="Nexus Architecture Logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%2300ffff\'><path d=\'M12 2L2 22h20L12 2z\'/></svg>'">
+            <img src="favicon.png" class="splash-logo-img" alt="Nexus Architecture Logo">
         </div>
         <div class="splash-headline">NexusChat Client</div>
         <div class="splash-user-subtitle" id="splash-user-target">Initializing Platform...</div>
@@ -1402,95 +1209,34 @@
         </div>
     </div>
 
-    <!-- Discord-Style Wizard Identity Gate -->
+    <!-- Redesigned High-Fidelity Workspace Identity Screen Overlay -->
     <div id="secure-login-gate-overlay">
         <div class="login-card-glassmorphic-wrapper">
-            
-            <!-- STEP 1: Basic Credentials -->
-            <div class="onboarding-step active-step" id="onboarding-step-1">
-                <div class="login-card-header">
-                    <h1 class="login-title-h1">Create an Account</h1>
-                    <p class="login-subtitle-p">Join the next generation secure messaging network</p>
-                </div>
-                <div class="registration-input-group-form">
-                    <div>
-                        <label class="form-label-node">Unique Handle Tag Name</label>
-                        <input type="text" id="portal-username-input-node" class="form-text-input-field" placeholder="e.g., CyberGhost" required>
-                    </div>
-                </div>
-                <div class="login-divider-row">or quick authenticate</div>
-                <div class="oauth-providers-button-stack">
-                    <button class="oauth-provider-btn" onclick="simulateOAuthLogin('Discord')">Discord Access</button>
-                    <button class="oauth-provider-btn" onclick="simulateOAuthLogin('Google')">Google Secure</button>
-                </div>
-                <div class="wizard-nav-row" style="justify-content: flex-end;">
-                    <button class="submit-portal-access-btn" onclick="advanceOnboardingStep(2)">Continue</button>
-                </div>
+            <div class="login-card-header">
+                <h1 class="login-title-h1">Create Workspace Identity</h1>
+                <p class="login-subtitle-p">Build your custom client user block variables to enter NexusChat</p>
             </div>
 
-            <!-- STEP 2: Demographic Matrix Profile -->
-            <div class="onboarding-step" id="onboarding-step-2">
-                <div class="login-card-header">
-                    <h1 class="login-title-h1">Demographics Profile</h1>
-                    <p class="login-subtitle-p">Verify identity parameters to filter real connections</p>
+            <form class="registration-input-group-form" onsubmit="event.preventDefault();">
+                <div>
+                    <label class="form-label-node">Display Handle Name</label>
+                    <input type="text" id="portal-username-input-node" class="form-text-input-field" placeholder="e.g. NexusDeveloper" required>
                 </div>
-                <div class="registration-input-group-form">
-                    <div>
-                        <label class="form-label-node">Date of Birth (Age Validation)</label>
-                        <div class="dob-select-grid">
-                            <select id="dob-month" class="form-select-field"></select>
-                            <select id="dob-day" class="form-select-field"></select>
-                            <select id="dob-year" class="form-select-field"></select>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="form-label-node">Gender Alignment Identification</label>
-                        <div class="gender-options-grid">
-                            <button class="gender-btn" onclick="selectGender(this, 'Male')">Male</button>
-                            <button class="gender-btn" onclick="selectGender(this, 'Female')">Female</button>
-                            <button class="gender-btn" onclick="selectGender(this, 'Non-Binary')">Non-Binary</button>
-                        </div>
+                
+                <div>
+                    <label class="form-label-node">Avatar Resource Asset</label>
+                    <div class="avatar-file-upload-trigger-container">
+                        <div class="avatar-upload-preview-frame" id="portal-avatar-preview-box">?</div>
+                        <input type="file" id="portal-avatar-file-input" accept="image/*" style="display: none;" onchange="handleLocalAvatarSelection(event)">
+                        <button type="button" class="custom-file-input-facade-btn" onclick="document.getElementById('portal-avatar-file-input').click()">Upload File Asset</button>
                     </div>
                 </div>
-                <div class="wizard-nav-row">
-                    <button class="oauth-provider-btn" style="width: auto;" onclick="advanceOnboardingStep(1)">Back</button>
-                    <button class="submit-portal-access-btn" onclick="advanceOnboardingStep(3)">Continue</button>
-                </div>
-            </div>
 
-            <!-- STEP 3: Profile Asset Construction -->
-            <div class="onboarding-step" id="onboarding-step-3">
-                <div class="login-card-header">
-                    <h1 class="login-title-h1">Personalize Avatar</h1>
-                    <p class="login-subtitle-p">Upload structural asset modifications to profile node</p>
-                </div>
-                <div class="registration-input-group-form">
-                    <div>
-                        <label class="form-label-node">Profile Avatar Image Source</label>
-                        <div class="avatar-file-upload-trigger-container">
-                            <div class="avatar-upload-preview-frame" id="portal-avatar-preview-box">N</div>
-                            <input type="file" id="portal-avatar-file-input" accept="image/*" style="display: none;" onchange="handleLocalAvatarSelection(event)">
-                            <button type="button" class="custom-file-input-facade-btn" onclick="document.getElementById('portal-avatar-file-input').click()">Choose Local File</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="wizard-nav-row">
-                    <button class="oauth-provider-btn" style="width: auto;" onclick="advanceOnboardingStep(2)">Back</button>
-                    <button class="submit-portal-access-btn" onclick="executeManualProfileCommit()">Initialize Session</button>
-                </div>
-            </div>
-
-            <!-- Wizard Step Indicators Tracker -->
-            <div class="step-indicators-wrapper">
-                <div class="step-dot active" id="dot-step-1"></div>
-                <div class="step-dot" id="dot-step-2"></div>
-                <div class="step-dot" id="dot-step-3"></div>
-            </div>
-
+                <button type="button" class="submit-portal-access-btn" onclick="executeManualProfileCommit()">Enter App Matrix</button>
+            </form>
         </div>
     </div>
 
-    <!-- Master Application Dashboard Core -->
     <div id="app-frame">
         <div class="global-nav-rail">
             <div class="rail-tab-item active" id="tab-node-chat" onclick="switchGlobalRailContext('chat')" title="Home/Chat">💬</div>
@@ -1504,10 +1250,7 @@
             <div class="sidebar-header">
                 <div class="profile-node-area">
                     <div class="user-tag-avatar" id="my-avatar-node">N</div>
-                    <div class="profile-meta-text-block">
-                        <div class="sidebar-title" id="my-username-node">Connecting...</div>
-                        <div class="sidebar-subtitle-tag" id="my-demographics-node">Age: -- | Gender: --</div>
-                    </div>
+                    <div class="sidebar-title" id="my-username-node">Connecting Pipeline...</div>
                 </div>
             </div>
             
@@ -1529,7 +1272,6 @@
                 <button class="call-action-btn" onclick="toggleVoiceVideoCall()">Connect Live Streams</button>
             </div>
 
-            <!-- Engagement Pipeline Layer -->
             <div class="states-hub-container-view" id="states-hub-engagement-view">
                 <div class="states-header-row">
                     <span class="states-row-title">Live Connections Engagement Feed</span>
@@ -1539,7 +1281,6 @@
                 <div class="states-carousel-scroller-track" id="states-carousel-scroller-track"></div>
             </div>
 
-            <!-- Interactive Broadcaster Workspace -->
             <div id="call-interface-layer">
                 <div class="media-grid">
                     <div class="media-window" id="webcam-hardware-window-node">
@@ -1588,7 +1329,6 @@
         </div>
     </div>
 
-    <!-- Multiverse Storefront Interface View -->
     <div id="nexus-shop-screen">
         <div class="shop-header-navbar">
             <a href="#" class="back-nav-link" onclick="closePremiumStorefront()">← Go Back</a>
@@ -1646,9 +1386,6 @@
             }
         }
 
-        // Onboarding System Variables
-        let selectedGenderAlignment = "";
-        let calculatedUserAge = null;
         let currentProfileSessionName = "";
         let currentProfileAvatarUrl = "";
         let activeGlobalRailTab = "chat"; 
@@ -1698,96 +1435,22 @@
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
-            initializeDobSelectors();
             generateStorefrontCards();
             populateEmojiPickerGrid();
             evaluateCachedProfileState();
         });
 
-        // Initialize Demographic Selectors
-        function initializeDobSelectors() {
-            const mSelect = document.getElementById('dob-month');
-            const dSelect = document.getElementById('dob-day');
-            const ySelect = document.getElementById('dob-year');
-            
-            const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-            months.forEach((m, idx) => {
-                mSelect.innerHTML += `<option value="${idx + 1}">${m}</option>`;
-            });
-            for(let i=1; i<=31; i++) {
-                dSelect.innerHTML += `<option value="${i}">${i}</option>`;
-            }
-            const currentYear = new Date().getFullYear();
-            for(let i=currentYear; i>=currentYear-100; i--) {
-                ySelect.innerHTML += `<option value="${i}">${i}</option>`;
-            }
-        }
-
-        function advanceOnboardingStep(stepNumber) {
-            // Field confirmation parameters
-            if (stepNumber === 2) {
-                const name = document.getElementById('portal-username-input-node').value.trim();
-                if (!name) {
-                    alert("Please provide a valid account connection handle!");
-                    return;
-                }
-                currentProfileSessionName = name;
-            }
-            if (stepNumber === 3) {
-                if (!selectedGenderAlignment) {
-                    alert("Please select a gender verification identity vector!");
-                    return;
-                }
-                calculateAgeMetric();
-            }
-
-            document.querySelectorAll('.onboarding-step').forEach(step => {
-                step.classList.remove('active-step');
-            });
-            document.getElementById(`onboarding-step-${stepNumber}`).classList.add('active-step');
-            
-            document.querySelectorAll('.step-dot').forEach((dot, idx) => {
-                dot.classList.toggle('active', idx + 1 === stepNumber);
-            });
-            playSynthFrequency(550, 'sine', 0.1, 0.1);
-        }
-
-        function selectGender(element, genderValue) {
-            document.querySelectorAll('.gender-btn').forEach(btn => btn.classList.remove('selected'));
-            element.classList.add('selected');
-            selectedGenderAlignment = genderValue;
-            playSynthFrequency(600, 'sine', 0.08, 0.15);
-        }
-
-        function calculateAgeMetric() {
-            const m = parseInt(document.getElementById('dob-month').value);
-            const d = parseInt(document.getElementById('dob-day').value);
-            const y = parseInt(document.getElementById('dob-year').value);
-            
-            const today = new Date();
-            let age = today.getFullYear() - y;
-            const mDiff = today.getMonth() + 1 - m;
-            if (mDiff < 0 || (mDiff === 0 && today.getDate() < d)) {
-                age--;
-            }
-            calculatedUserAge = age < 0 ? 0 : age;
-        }
-
         function evaluateCachedProfileState() {
             let cachedName = localStorage.getItem('nexuschat_user_v6');
             let cachedAvatar = localStorage.getItem('nexuschat_avatar_v6');
-            let cachedAge = localStorage.getItem('nexuschat_age_v6');
-            let cachedGender = localStorage.getItem('nexuschat_gender_v6');
             
             if (cachedName && cachedName.trim() !== "") {
                 currentProfileSessionName = cachedName;
                 currentProfileAvatarUrl = cachedAvatar || "";
-                calculatedUserAge = cachedAge || "--";
-                selectedGenderAlignment = cachedGender || "--";
                 executeProfileUIRenderSync();
-                document.getElementById('secure-login-gate-overlay').classList.add('hidden');
-                document.getElementById('splash-loading-portal').classList.remove('hidden');
                 runCinematicProgressBar();
+            } else {
+                document.getElementById('splash-loading-portal').classList.add('hidden');
             }
         }
 
@@ -1805,9 +1468,16 @@
         }
 
         function executeManualProfileCommit() {
+            const inputField = document.getElementById('portal-username-input-node');
+            let inputName = inputField.value.trim().replace(/\s+/g, '');
+            
+            if (!inputName) {
+                alert("Please enter a valid unique display string name.");
+                return;
+            }
+
+            currentProfileSessionName = inputName;
             localStorage.setItem('nexuschat_user_v6', currentProfileSessionName);
-            localStorage.setItem('nexuschat_age_v6', calculatedUserAge);
-            localStorage.setItem('nexuschat_gender_v6', selectedGenderAlignment);
             if (currentProfileAvatarUrl) {
                 localStorage.setItem('nexuschat_avatar_v6', currentProfileAvatarUrl);
             }
@@ -1819,37 +1489,15 @@
             runCinematicProgressBar();
         }
 
-        function simulateOAuthLogin(platformName) {
-            const dummyName = platformName + "User" + Math.floor(1000 + Math.random() * 9000);
-            currentProfileSessionName = dummyName;
-            calculatedUserAge = Math.floor(Math.random() * 25) + 18;
-            selectedGenderAlignment = ["Male", "Female", "Non-Binary"][Math.floor(Math.random() * 3)];
-            
-            localStorage.setItem('nexuschat_user_v6', currentProfileSessionName);
-            localStorage.setItem('nexuschat_age_v6', calculatedUserAge);
-            localStorage.setItem('nexuschat_gender_v6', selectedGenderAlignment);
-            
-            executeProfileUIRenderSync();
-            document.getElementById('secure-login-gate-overlay').classList.add('hidden');
-            document.getElementById('splash-loading-portal').classList.remove('hidden');
-            runCinematicProgressBar();
-        }
-
         function executeProfileUIRenderSync() {
             document.getElementById('splash-user-target').innerText = currentProfileSessionName;
             document.getElementById('my-username-node').innerText = currentProfileSessionName;
-            document.getElementById('my-demographics-node').innerText = `Age: ${calculatedUserAge} | ${selectedGenderAlignment}`;
             
             const avatarNode = document.getElementById('my-avatar-node');
-            const callPlaceholder = document.getElementById('webcam-avatar-placeholder-node');
-            
             if (currentProfileAvatarUrl && currentProfileAvatarUrl.trim() !== "") {
                 avatarNode.innerHTML = `<img src="${currentProfileAvatarUrl}" alt="Avatar">`;
-                if(callPlaceholder) callPlaceholder.innerHTML = `<img src="${currentProfileAvatarUrl}" alt="Avatar">`;
             } else {
-                const initial = currentProfileSessionName.charAt(0).toUpperCase() || 'N';
-                avatarNode.innerText = initial;
-                if(callPlaceholder) callPlaceholder.innerText = initial;
+                avatarNode.innerText = currentProfileSessionName.charAt(0).toUpperCase();
             }
         }
 
@@ -1908,14 +1556,7 @@
                 primaryBtn.onclick = triggerChannelCreation;
                 for (let id in channelDatabase) {
                     const isActive = (id === activeChannelId) ? 'active' : '';
-                    container.innerHTML += `
-                        <div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')"> 
-                            <div class="row-avatar">#</div> 
-                            <div class="row-meta"> 
-                                <div class="row-name">${channelDatabase[id].name}</div> 
-                                <div class="row-preview">Open communication logs...</div> 
-                            </div> 
-                        </div>`;
+                    container.innerHTML += `<div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')"> <div class="row-avatar">#</div> <div class="row-meta"> <div class="row-name">${channelDatabase[id].name}</div> <div class="row-preview">Open communication logs...</div> </div> </div>`;
                 }
             } else if (activeGlobalRailTab === 'groups') {
                 primaryBtn.style.display = "block";
@@ -1927,14 +1568,7 @@
                     renderSidebarContextPanel();
                 };
                 activeGroupHubs.forEach(group => {
-                    container.innerHTML += `
-                        <div class="chat-list-row"> 
-                            <div class="row-avatar">⧉</div> 
-                            <div class="row-meta"> 
-                                <div class="row-name">${group.name}</div> 
-                                <div class="row-preview">Active Team Workspace Node</div> 
-                            </div> 
-                        </div>`;
+                    container.innerHTML += `<div class="chat-list-row"> <div class="row-avatar">⧉</div> <div class="row-meta"> <div class="row-name">${group.name}</div> <div class="row-preview">Active Team Workspace Node</div> </div> </div>`;
                 });
             } else if (activeGlobalRailTab === 'settings') {
                 primaryBtn.style.display = "block";
@@ -1948,13 +1582,7 @@
                 connections.forEach(c => {
                     const isLinked = identityLinkingMatrix[c.id].connected;
                     const statusText = isLinked ? "Connected ✓" : "Disconnected ✗";
-                    const btnLabel = isLinked ? "Disconnect Asset" : "Run Sync Routine";
-                    container.innerHTML += `
-                        <div style="padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.02);"> 
-                            <div style="font-weight:600; font-size:13px; margin-bottom:4px;">${c.name}</div> 
-                            <div style="font-size:11px; color: ${isLinked ? 'var(--success-green)' : 'var(--text-muted)'}; margin-bottom:8px;">${statusText}</div> 
-                            <button class="sm-btn" onclick="toggleIdentityLinkageRow('${c.id}')">${btnLabel}</button> 
-                        </div>`;
+                    container.innerHTML += `<div style="padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.02);"> <div style="font-weight:600; font-size:13px; margin-bottom:4px;">${c.name}</div> <div style="font-size:11px; color: ${isLinked ? 'var(--success-green)' : 'var(--text-muted)'}; margin-bottom:8px;">${statusText}</div> </div>`;
                 });
             } else if (activeGlobalRailTab === 'integrations') {
                 primaryBtn.style.display = "none";
@@ -1962,28 +1590,16 @@
             }
         }
 
-        function loadTargetChannel(id) {
-            activeChannelId = id;
-            const activeNode = document.getElementById('active-chat-headline-node');
-            if (activeNode && channelDatabase[id]) {
-                activeNode.innerText = channelDatabase[id].name;
-            }
+        function loadTargetChannel(channelId) {
+            if (!channelDatabase[channelId]) return;
+            activeChannelId = channelId;
+            document.getElementById('active-chat-headline-node').innerText = channelDatabase[channelId].name;
+            
+            const rows = document.querySelectorAll('.chat-list-row');
+            rows.forEach(row => row.classList.remove('active'));
+            
             renderSidebarContextPanel();
             repaintMessageLogs();
-        }
-
-        function toggleIdentityLinkageRow(providerId) {
-            playSynthFrequency(600, 'sine', 0.15, 0.2);
-            if (identityLinkingMatrix[providerId].connected) {
-                identityLinkingMatrix[providerId].connected = false;
-                identityLinkingMatrix[providerId].name = null;
-                appendBubbleElement("System Settings", `Purged [${providerId}] secure validation structures cleanly.`, "received");
-            } else {
-                identityLinkingMatrix[providerId].connected = true;
-                identityLinkingMatrix[providerId].name = "Synced Profile Handle";
-                appendBubbleElement("System Settings", `Linked alternative authentication pipeline for [${providerId}] successfully!`, "received");
-            }
-            renderSidebarContextPanel();
         }
 
         function populateEmojiPickerGrid() {
@@ -2005,6 +1621,7 @@
             overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
         }
 
+        /* Continuous user-facing messaging dispatch mechanism */
         function injectEmojiSymbolToInputBox(emojiSymbol) {
             const textInput = document.getElementById('text-message-input-node');
             if (!textInput) return;
@@ -2041,9 +1658,9 @@
             
             setTimeout(() => {
                 const automatedPool = [
-                    "WebRTC live video streams stream directly over decentralized media pipes matrix perfectly!",
-                    "The demographic account variables are safely contained within hardware memory stacks.",
-                    "Everything is synchronized in local ecosystem arrays."
+                    "WebRTC active media tracks mapping looks perfect across your device pipeline.",
+                    "The custom graphics and animated layers are running seamlessly on GitHub static layouts!",
+                    "Everything is synchronized in local system environment arrays."
                 ];
                 const selectedText = automatedPool[Math.floor(Math.random() * automatedPool.length)];
                 appendBubbleElement("Beta Tester", selectedText, "received");
@@ -2091,8 +1708,6 @@
         function performProfileHardwareReset() {
             localStorage.removeItem('nexuschat_user_v6');
             localStorage.removeItem('nexuschat_avatar_v6');
-            localStorage.removeItem('nexuschat_age_v6');
-            localStorage.removeItem('nexuschat_gender_v6');
             window.location.reload();
         }
 
@@ -2129,20 +1744,7 @@
             container.innerHTML = '';
             shopInventoryMatrix.forEach(item => {
                 const badgeHTML = item.exclusive ? `<div class="item-badge-exclusive">EXCLUSIVE</div>` : '';
-                container.innerHTML += `
-                    <div class="shop-item-card"> 
-                        ${badgeHTML} 
-                        <div class="item-graphic-wrapper"> 
-                            <div class="item-graphic-ring"></div> 
-                            <img src="${item.icon}" class="item-graphic-icon-asset" alt="Shop Icon Asset" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23f5a623\'><path d=\'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\'/></svg>'"> 
-                        </div> 
-                        <div class="item-meta-name">${item.name}</div> 
-                        <div class="item-meta-desc">${item.desc}</div> 
-                        <div class="item-action-row"> 
-                            <div class="item-price-tag">🔮 ${item.cost}</div> 
-                            <button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Claim Free</button> 
-                        </div> 
-                    </div>`;
+                container.innerHTML += `<div class="shop-item-card"> ${badgeHTML} <div class="item-graphic-wrapper"> <div class="item-graphic-ring"></div> <img src="${item.icon}" class="item-graphic-icon-asset" alt="Shop Icon Asset"> </div> <div class="item-meta-name">${item.name}</div> <div class="item-meta-desc">${item.desc}</div> <div class="item-action-row"> <div class="item-price-tag">🔮 ${item.cost}</div> <button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Claim Free</button> </div> </div>`;
             });
         }
 
@@ -2249,6 +1851,7 @@
             }
             const averageVolume = frequencySum / bufferLen;
             const targetContainer = document.getElementById('webcam-hardware-window-node');
+            
             if (targetContainer) {
                 if (averageVolume > 25) {
                     targetContainer.classList.add('speaking-active');
@@ -2345,6 +1948,7 @@
             isCameraActive = false;
             isScreenSharing = false;
             isAudioMuted = false;
+            
             const camBtn = document.getElementById('webcam-video-toggle');
             const screenBtn = document.getElementById('screenshare-video-toggle');
             const muteBtn = document.getElementById('mute-audio-toggle');
