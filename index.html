@@ -2,15 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>NexusChat Enterprise Platform Client</title>
     
-    <!-- Importing PeerJS for serverless WebRTC real-time connection architecture -->
+    <!-- ========================================================================= -->
+    <!-- PRIMARY NETWORK INFRASTRUCTURE INJECTIONS                                 -->
+    <!-- ========================================================================= -->
+    <!-- PeerJS: High-performance peer-to-peer WebRTC orchestration layer          -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.4.7/peerjs.min.js"></script>
-    
-    <!-- Importing MQTT over WebSockets for automatic real-time online user discovery -->
+    <!-- MQTT: Real-time PubSub cluster replication and distributed discovery     -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/4.3.7/mqtt.min.js"></script>
     
+    <!-- ========================================================================= -->
+    <!-- MASTER ARCHITECTURAL CASUIST STYLING TOKENS                               -->
+    <!-- ========================================================================= -->
     <style>
         :root {
             /* --- PRIMARY NEXUS CHROMATIC CORE DESIGN TOKENS --- */
@@ -19,9 +24,9 @@
             --bg-dark-medium: #0d121d;
             --bg-dark-light: #141b29;
             --bg-dark-gradient: linear-gradient(135deg, #030508 0%, #0d121d 50%, #141b29 100%);
-            --bg-panel-glass: rgba(10, 20, 30, 0.65);
-            --bg-sidebar-glass: rgba(6, 10, 15, 0.85);
-            --bg-input-glass: rgba(4, 8, 12, 0.9);
+            --bg-panel-glass: rgba(10, 20, 30, 0.75);
+            --bg-sidebar-glass: rgba(6, 10, 15, 0.9);
+            --bg-input-glass: rgba(4, 8, 12, 0.95);
             
             /* --- NEON CHROMATIC CODES --- */
             --primary-accent: #00ffff;
@@ -56,7 +61,7 @@
             --border-pink: rgba(255, 0, 127, 0.4);
             
             --nav-rail-width: 75px;
-            --sidebar-width: 300px;
+            --sidebar-width: 310px;
             --border-radius-lg: 16px;
             --border-radius-md: 10px;
             --border-radius-sm: 6px;
@@ -88,12 +93,10 @@
             display: flex;
             user-select: none;
             -webkit-user-select: none;
-            
-            /* Injecting Custom Cursor Behavior with Standard Fallbacks */
             cursor: var(--custom-cursor-url), default !important;
         }
 
-        /* Ensuring all clickable interface points preserve the custom cursor matrix */
+        /* Clickable system anchors preservation of custom pointers */
         button, input, textarea, select, a, [onclick], .rail-tab-item, .chat-list-row, .emoji-grid-item-cell, .buy-action-trigger {
             cursor: var(--custom-cursor-url), pointer !important;
         }
@@ -109,13 +112,8 @@
         }
 
         /* --- ADVANCED SCANNABLE SCROLLBAR ELEMENTS --- */
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.3);
-        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.3); }
         ::-webkit-scrollbar-thumb {
             background: rgba(0, 255, 255, 0.15);
             border-radius: var(--border-radius-lg);
@@ -126,7 +124,7 @@
             box-shadow: 0 0 8px var(--primary-accent);
         }
 
-        /* --- CINEMATIC OVERLAY SPLASH AND ACCELERATION SYSTEM --- */
+        /* --- CINEMATIC OVERLAY SPLASH SYSTEM --- */
         #splash-loading-portal {
             position: fixed;
             top: 0;
@@ -218,17 +216,13 @@
             transition: width 0.08s linear;
         }
 
-        @keyframes rotateRing {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
+        @keyframes rotateRing { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
         @keyframes pulseLogoCore {
             0%, 100% { transform: scale(1); filter: drop-shadow(0 0 12px rgba(0,255,255,0.3)); }
             50% { transform: scale(1.1); filter: drop-shadow(0 0 28px var(--primary-accent)); }
         }
 
-        /* --- AUTHENTICATION SECURITY PORTAL LAYERS --- */
+        /* --- AUTHENTICATION SECURITY LAYER --- */
         #secure-login-gate-overlay {
             position: fixed;
             top: 0;
@@ -293,12 +287,7 @@
             line-height: 1.6;
         }
 
-        .oauth-providers-button-stack {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
+        .oauth-providers-button-stack { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .oauth-provider-btn {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-subtle);
@@ -313,7 +302,6 @@
             gap: 8px;
             transition: var(--transition-snappy);
         }
-
         .oauth-provider-btn:hover {
             background: rgba(0, 255, 255, 0.06);
             border-color: var(--primary-accent);
@@ -331,21 +319,13 @@
             letter-spacing: 2px;
             text-transform: uppercase;
         }
-
         .login-divider-row::before, .login-divider-row::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            content: ''; flex: 1; border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
         .login-divider-row::before { margin-right: 16px; }
         .login-divider-row::after { margin-left: 16px; }
 
-        .registration-input-group-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
+        .registration-input-group-form { display: flex; flex-direction: column; gap: 20px; }
         .form-label-node {
             font-size: 11px;
             font-weight: 700;
@@ -355,7 +335,6 @@
             margin-bottom: 8px;
             display: block;
         }
-
         .form-text-input-field {
             width: 100%;
             background: var(--bg-input-glass);
@@ -366,53 +345,9 @@
             font-size: 14px;
             transition: var(--transition-snappy);
         }
-
         .form-text-input-field:focus {
             border-color: var(--primary-accent);
             box-shadow: 0 0 12px var(--primary-glow);
-        }
-
-        .avatar-file-upload-trigger-container {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .avatar-upload-preview-frame {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-accent);
-            font-size: 16px;
-            font-weight: 700;
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-
-        .avatar-upload-preview-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .custom-file-input-facade-btn {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-subtle);
-            padding: 12px 16px;
-            border-radius: var(--border-radius-sm);
-            font-size: 12px;
-            font-weight: 600;
-            transition: var(--transition-snappy);
-        }
-
-        .custom-file-input-facade-btn:hover {
-            border-color: var(--text-muted);
-            background: rgba(255, 255, 255, 0.08);
         }
 
         .submit-portal-access-btn {
@@ -430,7 +365,6 @@
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
             margin-top: 10px;
         }
-
         .submit-portal-access-btn:hover {
             background: var(--primary-hover);
             color: #000000;
@@ -438,7 +372,7 @@
             transform: translateY(-1px);
         }
 
-        /* --- APPLICATION CENTRAL GRAPHICAL WORKSPACE --- */
+        /* --- MASTER LAYOUT CONSTELLATION CONTAINER --- */
         #app-frame {
             display: flex;
             width: 100vw;
@@ -448,12 +382,9 @@
             transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        #app-frame.visible {
-            opacity: 1;
-            transform: scale(1);
-        }
+        #app-frame.visible { opacity: 1; transform: scale(1); }
 
-        /* NAVIGATION RAIL PANEL */
+        /* APPLICATION NAVIGATION RAILS */
         .global-nav-rail {
             width: var(--nav-rail-width);
             height: 100%;
@@ -465,15 +396,10 @@
             padding: 24px 0;
             gap: 20px;
             z-index: 100;
+            flex-shrink: 0;
         }
 
-        .rail-brand-node {
-            width: 36px;
-            height: 36px;
-            margin-bottom: 16px;
-            filter: drop-shadow(0 0 8px var(--primary-glow));
-        }
-
+        .rail-brand-node { width: 36px; height: 36px; margin-bottom: 16px; filter: drop-shadow(0 0 8px var(--primary-glow)); }
         .rail-tab-item {
             width: 50px;
             height: 50px;
@@ -487,7 +413,6 @@
             font-size: 20px;
             transition: var(--transition-fluid);
         }
-
         .rail-tab-item:hover {
             color: var(--primary-accent);
             background: var(--primary-dim);
@@ -495,7 +420,6 @@
             transform: scale(1.12);
             box-shadow: 0 0 16px var(--primary-glow);
         }
-
         .rail-tab-item.active {
             color: #000000;
             background: var(--primary-accent);
@@ -503,7 +427,7 @@
             box-shadow: 0 0 20px var(--primary-accent);
         }
 
-        /* CORE CONTEXT SIDEBAR PANEL */
+        /* CONTROL PANEL SIDEBAR SECTION */
         .sidebar-panel {
             width: var(--sidebar-width);
             min-width: var(--sidebar-width);
@@ -514,6 +438,8 @@
             height: 100%;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
+            transition: var(--transition-fluid);
+            flex-shrink: 0;
         }
 
         .sidebar-header {
@@ -526,14 +452,7 @@
             height: 75px;
         }
 
-        .profile-node-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            min-width: 0;
-            width: 100%;
-        }
-
+        .profile-node-area { display: flex; align-items: center; gap: 12px; min-width: 0; width: 100%; }
         .user-tag-avatar {
             width: 40px;
             height: 40px;
@@ -551,19 +470,7 @@
             overflow: hidden;
         }
 
-        .user-tag-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .sidebar-profile-info {
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            flex: 1;
-        }
-
+        .sidebar-profile-info { display: flex; flex-direction: column; min-width: 0; flex: 1; }
         .sidebar-title {
             font-weight: 700;
             font-size: 14px;
@@ -573,21 +480,9 @@
             text-overflow: ellipsis;
         }
 
-        .sidebar-status-pill {
-            font-size: 11px;
-            color: var(--success-green);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            margin-top: 2px;
-        }
-
+        .sidebar-status-pill { font-size: 11px; color: var(--success-green); display: flex; align-items: center; gap: 4px; margin-top: 2px; }
         .sidebar-status-dot {
-            width: 6px;
-            height: 6px;
-            background: var(--success-green);
-            border-radius: 50%;
-            box-shadow: 0 0 6px var(--success-green);
+            width: 6px; height: 6px; background: var(--success-green); border-radius: 50%; box-shadow: 0 0 6px var(--success-green);
         }
 
         .sidebar-tools {
@@ -599,116 +494,54 @@
             border-bottom: 1px solid var(--border-subtle);
         }
 
-        .contacts-vertical-stack {
-            flex: 1;
-            overflow-y: auto;
-            padding: 12px 0;
-        }
+        .contacts-vertical-stack { flex: 1; overflow-y: auto; padding: 12px 0; }
 
-        /* ACTION LINKS & INTERFACES FOR ROBUST DIRECT BUTTON CONTROLS */
-        .user-row-controls {
-            display: flex;
-            gap: 6px;
-            margin-top: 4px;
-        }
-
+        /* DIRECT CONTROLS ACTION OVERLAY DESIGN */
+        .user-row-controls { display: flex; gap: 8px; margin-top: 8px; width: 100%; }
         .inline-action-btn {
-            background: rgba(0, 255, 255, 0.1);
+            flex: 1;
+            background: rgba(0, 255, 255, 0.08);
             border: 1px solid var(--border-subtle);
             color: var(--primary-accent);
             font-size: 11px;
-            padding: 4px 8px;
-            border-radius: 4px;
+            padding: 6px 10px;
+            border-radius: var(--border-radius-sm);
             font-weight: 700;
             text-transform: uppercase;
+            text-align: center;
             transition: var(--transition-snappy);
         }
-
         .inline-action-btn:hover {
-            background: var(--primary-accent);
-            color: #000;
-            box-shadow: 0 0 8px var(--primary-glow);
+            background: var(--primary-accent); color: #000; box-shadow: 0 0 10px var(--primary-glow);
         }
-
         .inline-action-btn.call-variant {
-            background: rgba(0, 255, 102, 0.1);
-            border-color: rgba(0, 255, 102, 0.3);
-            color: var(--success-green);
+            background: rgba(0, 255, 102, 0.08); border-color: rgba(0, 255, 102, 0.3); color: var(--success-green);
         }
-
         .inline-action-btn.call-variant:hover {
-            background: var(--success-green);
-            color: #000;
-            box-shadow: 0 0 8px var(--success-glow);
+            background: var(--success-green); color: #000; box-shadow: 0 0 10px var(--success-glow);
         }
 
-        /* DYNAMIC SIDEBAR LIST ROWS */
+        /* SIDEBAR LIST ROW CORE INTERFACES */
         .chat-list-row {
-            padding: 14px 20px;
+            padding: 16px 20px;
             display: flex;
-            align-items: center;
-            gap: 14px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.01);
+            flex-direction: column;
+            align-items: flex-start;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
             transition: var(--transition-snappy);
             border-left: 4px solid transparent;
+            background: rgba(255, 255, 255, 0.01);
+            margin-bottom: 4px;
         }
+        .chat-list-row:hover { background: rgba(0, 255, 255, 0.02); border-left-color: rgba(0, 255, 255, 0.25); }
+        .chat-list-row.active { background: rgba(0, 255, 255, 0.04); border-left-color: var(--primary-accent); }
 
-        .chat-list-row:hover {
-            background: rgba(0, 255, 255, 0.02);
-            border-left-color: rgba(0, 255, 255, 0.3);
-        }
+        .row-header-wrapper { display: flex; align-items: center; gap: 12px; width: 100%; }
+        .row-meta { flex: 1; min-width: 0; }
+        .row-name { font-weight: 700; font-size: 14.5px; color: #fff; margin-bottom: 2px; }
+        .row-preview { font-size: 12px; color: var(--text-muted); }
 
-        .chat-list-row.active {
-            background: rgba(0, 255, 255, 0.04);
-            border-left-color: var(--primary-accent);
-        }
-
-        .row-avatar {
-            font-size: 14px;
-            font-weight: 700;
-            width: 36px;
-            height: 36px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            flex-shrink: 0;
-            color: var(--text-muted);
-            transition: var(--transition-snappy);
-        }
-
-        .chat-list-row:hover .row-avatar, .chat-list-row.active .row-avatar {
-            color: var(--primary-accent);
-            border-color: var(--primary-accent);
-            background: var(--primary-dim);
-            box-shadow: 0 0 8px var(--primary-dim);
-        }
-
-        .row-meta {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .row-name {
-            font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 2px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .row-preview {
-            font-size: 12px;
-            color: var(--text-muted);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* --- MAIN WORKSPACE PANEL LOGIC VIEWPORT --- */
+        /* --- CENTRAL WORKSPACE PANEL RENDERING PORTS --- */
         .workspace-panel {
             flex: 1;
             display: flex;
@@ -716,6 +549,7 @@
             background: #05070b;
             position: relative;
             height: 100%;
+            min-width: 0;
         }
 
         .workspace-header {
@@ -730,49 +564,31 @@
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             z-index: 50;
+            flex-shrink: 0;
         }
 
-        .header-profile {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
+        .header-profile { display: flex; align-items: center; gap: 14px; }
+        .header-profile-icon { font-size: 20px; color: var(--primary-accent); filter: drop-shadow(0 0 6px var(--primary-glow)); }
+        .header-profile .title { font-weight: 700; font-size: 17px; letter-spacing: 0.5px; }
 
-        .header-profile-icon {
-            font-size: 20px;
-            color: var(--primary-accent);
-            filter: drop-shadow(0 0 6px var(--primary-glow));
-        }
-
-        .header-profile .title {
-            font-weight: 700;
-            font-size: 17px;
-            letter-spacing: 0.5px;
-        }
-
-        /* NETWORK ID SUB-BANNER */
+        /* REAL-TIME TERMINAL ADDRESS DESKTOP TRACK BAR */
         .network-address-banner {
             background: rgba(0, 255, 255, 0.04);
             border-bottom: 1px solid var(--border-subtle);
-            padding: 10px 28px;
+            padding: 12px 28px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             font-size: 12.5px;
             color: var(--text-cyan);
             gap: 16px;
+            flex-shrink: 0;
         }
-
         .addr-pill-box {
-            background: #000;
-            border: 1px dashed var(--primary-accent);
-            padding: 4px 10px;
-            border-radius: var(--border-radius-sm);
-            font-family: monospace;
-            color: #fff;
+            background: #000; border: 1px dashed var(--primary-accent); padding: 4px 10px; border-radius: var(--border-radius-sm); font-family: monospace; color: #fff; text-shadow: 0 0 4px var(--primary-glow);
         }
 
-        /* CHAT VIEW ENGINE */
+        /* GENERAL COMMUNICATIONS SCROLLER CHANNEL THREAD */
         .thread-scroll-view {
             flex: 1;
             overflow-y: auto;
@@ -785,7 +601,7 @@
         }
 
         .msg-bubble {
-            max-width: 60%;
+            max-width: 75%;
             padding: 14px 18px;
             border-radius: var(--border-radius-lg);
             line-height: 1.6;
@@ -796,49 +612,20 @@
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-subtle);
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.1);
         }
-
-        .msg-bubble:hover {
-            transform: scale(1.01);
-        }
-
         .msg-bubble.sent {
             background: linear-gradient(135deg, rgba(0,255,255,0.06) 0%, rgba(0,150,255,0.03) 100%);
             border-color: rgba(0, 255, 255, 0.25);
             align-self: flex-end;
             border-bottom-right-radius: 2px;
         }
+        .msg-bubble.received { background: rgba(255, 255, 255, 0.01); align-self: flex-start; border-bottom-left-radius: 2px; }
 
-        .msg-bubble.received {
-            background: rgba(255, 255, 255, 0.01);
-            align-self: flex-start;
-            border-bottom-left-radius: 2px;
-        }
+        .msg-author { font-size: 11.5px; font-weight: 800; color: var(--primary-accent); margin-bottom: 6px; letter-spacing: 0.8px; text-transform: uppercase; }
+        .msg-bubble.sent .msg-author { color: var(--pink-neon); text-shadow: 0 0 6px var(--pink-glow); }
+        .msg-footer { font-size: 10px; color: var(--text-dark); margin-top: 8px; align-self: flex-end; font-weight: 600; }
 
-        .msg-author {
-            font-size: 11.5px;
-            font-weight: 800;
-            color: var(--primary-accent);
-            margin-bottom: 6px;
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-        }
-
-        .msg-bubble.sent .msg-author {
-            color: var(--pink-neon);
-            text-shadow: 0 0 6px var(--pink-glow);
-        }
-
-        .msg-footer {
-            font-size: 10px;
-            color: var(--text-dark);
-            margin-top: 8px;
-            align-self: flex-end;
-            font-weight: 600;
-        }
-
-        /* INPUT OPERATIONS ENGINE */
+        /* INPUT BAR SYSTEM DESIGN CONSOLE */
         .input-dock-bar {
             padding: 16px 28px;
             background: var(--bg-panel-glass);
@@ -851,8 +638,8 @@
             position: relative;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
+            flex-shrink: 0;
         }
-
         .input-dock-bar input[type="text"] {
             flex: 1;
             background: var(--bg-input-glass);
@@ -863,34 +650,15 @@
             font-size: 14.5px;
             transition: var(--transition-fluid);
         }
-
         .input-dock-bar input[type="text"]:focus {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 14px var(--primary-glow);
-            background: #020407;
+            border-color: var(--primary-accent); box-shadow: 0 0 14px var(--primary-glow); background: #020407;
         }
-
-        .emoji-trigger-node-btn {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-muted);
-            font-size: 18px;
-            padding: 10px;
-            border-radius: var(--border-radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition-snappy);
+        .send-btn {
+            background: transparent; color: var(--primary-accent); border: 1px solid var(--primary-accent); padding: 12px 24px; border-radius: var(--border-radius-sm); font-weight: 700; font-size: 13px; transition: var(--transition-snappy); box-shadow: 0 0 8px var(--primary-dim);
         }
+        .send-btn:hover { background: var(--primary-accent); color: #000; box-shadow: 0 0 15px var(--primary-accent); }
 
-        .emoji-trigger-node-btn:hover {
-            color: var(--primary-accent);
-            border-color: var(--primary-accent);
-            background: var(--primary-dim);
-            box-shadow: 0 0 10px var(--primary-dim);
-        }
-
-        /* HARDWARE STREAMS & MEDIA CONTROL STACK */
+        /* HARDWARE TRANSMISSION LAYER STREAM DECISIONS */
         #call-interface-layer {
             display: none;
             flex-direction: column;
@@ -898,213 +666,68 @@
             padding: 20px;
             border-bottom: 1px solid var(--border-subtle);
             box-sizing: border-box;
-            animation: slideDown 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            flex-shrink: 0;
         }
-
-        @keyframes slideDown {
-            from { transform: translateY(-20px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .media-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            min-height: 280px;
-        }
-
+        .media-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; min-height: 240px; }
         .media-window {
-            background: #020406;
-            border-radius: var(--border-radius-md);
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--border-subtle);
-            overflow: hidden;
-            height: 280px;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
-            transition: var(--transition-fluid);
+            background: #020406; border-radius: var(--border-radius-md); position: relative; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-subtle); overflow: hidden; height: 240px; box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
         }
-
-        .live-video-element {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            background: #000;
-        }
-
+        .live-video-element { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 1; background: #000; }
         .stream-canvas-mock {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            background: radial-gradient(circle, rgba(10,20,30,0.8) 0%, rgba(4,6,10,1) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            top: 0;
-            left: 0;
+            width: 100%; height: 100%; position: absolute; background: radial-gradient(circle, rgba(10,20,30,0.8) 0%, rgba(4,6,10,1) 100%); display: flex; align-items: center; justify-content: center; top: 0; left: 0;
         }
-
         .stream-label {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            background: rgba(4,6,10,0.85);
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 11px;
-            color: #fff;
-            z-index: 2;
-            font-weight: 600;
-            border: 1px solid var(--border-subtle);
-            border-left: 3px solid var(--primary-accent);
-            letter-spacing: 0.5px;
+            position: absolute; bottom: 10px; left: 10px; background: rgba(4,6,10,0.85); padding: 6px 12px; border-radius: 4px; font-size: 11px; color: #fff; z-index: 2; font-weight: 600; border: 1px solid var(--border-subtle); border-left: 3px solid var(--primary-accent);
         }
-
-        .avatar-placeholder-call {
-            width: 68px;
-            height: 68px;
-            border-radius: 50%;
-            background: rgba(0, 255, 255, 0.05);
-            border: 1px solid var(--primary-accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
-            box-shadow: 0 0 16px var(--primary-glow);
-        }
-
         .call-controls-bar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            margin-top: 14px;
-            background: rgba(10, 20, 30, 0.5);
-            padding: 10px 16px;
-            border-radius: 8px;
-            flex-wrap: wrap;
-            border: 1px solid var(--border-subtle);
+            display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 14px; background: rgba(10, 20, 30, 0.5); padding: 10px 16px; border-radius: 8px; border: 1px solid var(--border-subtle);
         }
-
         .control-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-main);
-            padding: 12px 18px;
-            border-radius: var(--border-radius-sm);
-            font-weight: 600;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: var(--transition-snappy);
+            background: rgba(255, 255, 255, 0.03); border: 1px solid var(--border-subtle); color: var(--text-main); padding: 10px 16px; border-radius: var(--border-radius-sm); font-weight: 600; font-size: 12px; transition: var(--transition-snappy);
         }
-
-        .control-btn:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 10px var(--primary-dim);
-        }
-
-        .control-btn.active-state {
-            background: rgba(255, 51, 68, 0.15);
-            border-color: var(--danger-red);
-            color: #fff;
-            box-shadow: 0 0 12px var(--danger-glow);
-        }
-
+        .control-btn:hover { background: rgba(255, 255, 255, 0.06); border-color: var(--primary-accent); }
+        .control-btn.active-state { background: rgba(255, 51, 68, 0.15); border-color: var(--danger-red); color: #fff; }
         .call-timer-node {
-            color: var(--primary-accent);
-            font-family: monospace;
-            font-size: 13px;
-            background: rgba(0,0,0,0.4);
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-weight: 700;
-            border: 1px solid var(--border-subtle);
+            color: var(--primary-accent); font-family: monospace; font-size: 13px; background: rgba(0,0,0,0.4); padding: 6px 12px; border-radius: 4px; font-weight: 700; border: 1px solid var(--border-subtle);
         }
 
-        /* --- REALTIME INCOMING NETWORK CALL MODAL --- */
-        #incoming-call-portal-overlay {
-            position: fixed;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-150%);
-            width: 380px;
-            background: rgba(6, 12, 22, 0.95);
-            border: 2px solid var(--primary-accent);
-            box-shadow: 0 0 30px var(--primary-glow);
-            border-radius: var(--border-radius-md);
-            padding: 20px;
-            z-index: 999999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+        .sm-btn {
+            width: 100%; padding: 12px; font-size: 13px; font-weight: 700; background: rgba(255, 255, 255, 0.02); color: var(--text-main); border: 1px solid var(--border-subtle); border-radius: var(--border-radius-sm); transition: var(--transition-snappy); text-align: center;
+        }
+        .sm-btn:hover { background: rgba(0, 255, 255, 0.08); border-color: var(--primary-accent); }
+        .sm-btn.danger { background: rgba(255, 51, 68, 0.05); color: var(--danger-red); border-color: rgba(255, 51, 68, 0.2); }
+        .sm-btn.danger:hover { background: var(--danger-red); color: #fff; border-color: var(--danger-red); }
+
+        /* Mobile Layout Split Controls Toggle Bar Button (Visible on thin mobile screens only) */
+        #mobile-layout-sidebar-toggle-bar {
+            display: none; width: 100%; height: 50px; background: #090e17; border-bottom: 1px solid var(--border-subtle); align-items: center; padding: 0 20px; box-sizing: border-box; flex-shrink: 0;
         }
 
-        #incoming-call-portal-overlay.active {
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .incoming-call-actions {
-            display: flex;
-            gap: 14px;
-            width: 100%;
-        }
-
-        .incoming-btn {
-            flex: 1;
-            padding: 10px;
-            border-radius: var(--border-radius-sm);
-            font-weight: 700;
-            font-size: 13px;
-            text-transform: uppercase;
-            text-align: center;
-        }
-
-        .incoming-btn.accept { background: var(--success-green); color: #000; }
-        .incoming-btn.decline { background: var(--danger-red); color: #fff; }
-
-        #nexus-shop-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #030509;
-            background-image: radial-gradient(circle at 50% 0%, #0c182b 0%, #030509 100%);
-            z-index: 50000;
-            display: none;
-            flex-direction: column;
-            box-sizing: border-box;
-        }
-
-        @media (max-width: 768px) {
-            body, html { overflow-y: auto; }
+        /* --- DYNAMIC STRUCTURAL RESPONSIVENESS AND LIFECYCLE REPLICATION FOR SMARTPHONES --- */
+        @media (max-width: 820px) {
             #app-frame { flex-direction: column; }
-            .global-nav-rail { width: 100%; height: 65px; flex-direction: row; justify-content: space-around; padding: 0 16px; }
-            .sidebar-panel { width: 100%; height: auto; }
-            .workspace-panel { height: calc(100vh - 65px); }
+            #mobile-layout-sidebar-toggle-bar { display: flex; justify-content: space-between; }
+            .global-nav-rail { width: 100%; height: 65px; flex-direction: row; justify-content: space-around; padding: 0 10px; border-right: none; border-top: 1px solid var(--border-subtle); order: 2; }
+            .rail-brand-node { display: none; }
+            .rail-tab-item { width: 44px; height: 44px; margin-bottom: 0; }
+            .sidebar-panel { width: 100%; height: calc(100vh - 115px); border-right: none; border-bottom: 1px solid var(--border-subtle); display: flex; order: 1; }
+            .sidebar-panel.mobile-collapsed { display: none !important; }
+            .workspace-panel { height: calc(100vh - 115px); display: flex; order: 1; }
+            .workspace-panel.mobile-collapsed { display: none !important; }
+            .network-address-banner { flex-direction: column; align-items: flex-start; gap: 8px; padding: 10px 20px; }
+            .media-grid { grid-template-columns: 1fr; }
+            .input-dock-bar { padding: 12px 20px; }
+            .msg-bubble { max-width: 85%; }
         }
     </style>
 </head>
 <body>
 
-    <!-- REAL-TIME INCOMING NETWORK CALL INTERFACE PORTAL -->
+    <!-- REAL-TIME INCOMING NETWORK CALL INTERFACE OVERLAY PORTAL -->
     <div id="incoming-call-portal-overlay">
-        <div style="font-size: 24px;">📞</div>
-        <div style="font-weight: 800; font-size: 16px; color: #fff;">Incoming Stream Invitation</div>
-        <div id="incoming-caller-id-label" style="font-size: 12px; color: var(--text-muted); font-family: monospace;">Node: Fetching Handle...</div>
+        <div style="font-size: 24px; animation: pulseLogoCore 1s infinite;">📞</div>
+        <div style="font-weight: 800; font-size: 16px; color: #fff; letter-spacing:0.5px;">Incoming Stream Request</div>
+        <div id="incoming-caller-id-label" style="font-size: 12px; color: var(--text-muted); font-family: monospace;">Node: Awaiting Verification Link...</div>
         <div class="incoming-call-actions">
             <button class="incoming-btn accept" onclick="NexusAppEngine.MediaCore.acceptIncomingCall()">Accept</button>
             <button class="incoming-btn decline" onclick="NexusAppEngine.MediaCore.declineIncomingCall()">Decline</button>
@@ -1134,7 +757,7 @@
                     <div class="nexus-brand-image-frame"></div>
                 </div>
                 <h1 class="login-title-h1">Authentication Gate</h1>
-                <p class="login-subtitle-p">Create a custom display handle to list yourself automatically in the real-time online global lobby feed.</p>
+                <p class="login-subtitle-p">Create a custom display handle identity. The real-time background presence replication core will publish your terminal to all active mobile devices instantly.</p>
             </div>
 
             <div class="oauth-providers-button-stack">
@@ -1149,16 +772,6 @@
                     <label class="form-label-node">Profile Display Tag Handle</label>
                     <input type="text" id="portal-username-input-node" class="form-text-input-field" placeholder="Enter alphanumeric string alias..." required maxlength="25">
                 </div>
-                
-                <div>
-                    <label class="form-label-node">Biometric / Avatar Resource File Target</label>
-                    <div class="avatar-file-upload-trigger-container">
-                        <div class="avatar-upload-preview-frame" id="portal-avatar-preview-box">Ø</div>
-                        <input type="file" id="portal-avatar-file-input" accept="image/*" style="display: none;" onchange="NexusAppEngine.Auth.processLocalAvatar(event)">
-                        <button type="button" class="custom-file-input-facade-btn" onclick="document.getElementById('portal-avatar-file-input').click()">Load Local Frame</button>
-                    </div>
-                </div>
-
                 <button type="button" class="submit-portal-access-btn" onclick="NexusAppEngine.Auth.commitManualAccount()">Instantiate Security Session</button>
             </form>
         </div>
@@ -1166,6 +779,12 @@
 
     <!-- APPLICATION GLOBAL MASTER WINDOW SYSTEM FRAME -->
     <div id="app-frame">
+        <!-- MOBILE VIEWPORT NAVIGATION OVERLAY ACTION LINK BAR -->
+        <div id="mobile-layout-sidebar-toggle-bar">
+            <button class="inline-action-btn" style="max-width:140px;" id="mobile-view-state-btn" onclick="NexusAppEngine.UI.toggleMobileViewSplit()">Show Workspace</button>
+            <div style="font-size:12px; font-weight:800; color:var(--primary-accent);" id="mobile-navigation-center-tag">LOBBY FEED ACTIVE</div>
+        </div>
+
         <!-- APP REVOLUTIONARY SIDE RAIL -->
         <div class="global-nav-rail">
             <div class="rail-brand-node">
@@ -1190,17 +809,17 @@
                 </div>
             </div>
             
-            <div class="sidebar-tools" id="sidebar-context-controls-box">
+            <div class="sidebar-tools">
                 <div style="font-size: 11px; font-weight:800; letter-spacing:1px; color:var(--primary-accent); margin-bottom: 2px; text-transform:uppercase;">Online Discovery Feed</div>
-                <div style="font-size: 10px; color:var(--text-muted); line-height:1.4;">Click any active connection block below to open text tunnels or trigger video streams natively.</div>
+                <div style="font-size: 11.5px; color:var(--text-muted); line-height:1.4;">Active peer directory sync cluster online across mobile nodes.</div>
             </div>
             
-            <!-- Live Discovery List Target Stack -->
+            <!-- Live Discovery List Target Stack Container -->
             <div class="contacts-vertical-stack" id="contacts-vertical-stack"></div>
         </div>
 
         <!-- CENTRAL LOGICAL CHAT THREAD WORKSPACE PANEL CONTAINER -->
-        <div class="workspace-panel">
+        <div class="workspace-panel mobile-collapsed">
             <div class="workspace-header">
                 <div class="header-profile">
                     <div class="header-profile-icon">⧉</div>
@@ -1210,8 +829,8 @@
 
             <!-- REAL-TIME LIVE TARGET NETWORK LINK BAR -->
             <div class="network-address-banner">
-                <div>Your Live Nexus Terminal Address: <span id="my-peer-id-display" class="addr-pill-box">Generating Node ID...</span></div>
-                <div style="font-size:11px; color:var(--text-muted);" id="active-target-node-display-label">Active Node Focus: None</div>
+                <div>Terminal Token Address: <span id="my-peer-id-display" class="addr-pill-box">Generating Node ID...</span></div>
+                <div style="font-size:11.5px; color:var(--text-muted);" id="active-target-node-display-label">Active Node Focus: None</div>
             </div>
 
             <!-- WEBRTC HARDWARE ENGINES VIDEO LAYOUT INTERFACE LAYER -->
@@ -1245,7 +864,7 @@
 
             <!-- MASTER INPUT DATA STREAM CONSOLE BAR DOCK -->
             <div class="input-dock-bar">
-                <input type="text" id="text-message-input-node" placeholder="Select an online peer to activate the encrypted text channel pipeline..." onkeypress="NexusAppEngine.DataEngine.trapInputKeys(event)">
+                <input type="text" id="text-message-input-node" placeholder="Select an online peer from the left feed directory..." onkeypress="NexusAppEngine.DataEngine.trapInputKeys(event)">
                 <button class="send-btn" id="send-message-dispatch-btn" onclick="NexusAppEngine.DataEngine.dispatchTextPacket()">Dispatch Transmission</button>
                 <div class="cooldown-progress-track">
                     <div class="cooldown-progress-fill" id="cooldown-progress-fill-bar"></div>
@@ -1254,24 +873,33 @@
         </div>
     </div>
 
-    <!-- SYSTEM CORE RUNTIME LOGIC -->
+    <!-- SYSTEM SUBSYSTEM REPLICATION CODE GENERATION ENGINE MODULES -->
     <script>
         const NexusAppEngine = (function() {
             'use strict';
 
+            // Internal immutable configuration states
             const State = {
                 user: { name: "", avatar: "" },
                 activeTab: "chat",
-                targetPeerId: null,      // Tracks who we are calling/chatting with currently
+                targetPeerId: null,
                 targetPeerName: "None",
                 cooldownActive: false,
                 isCallActive: false,
                 isAudioMuted: false,
                 callSeconds: 0,
-                chatHistories: {}       // Separated chat history logs by unique Peer ID
+                chatHistories: {},
+                currentMobileScreen: "sidebar" // Track layout splits on small screen devices
             };
 
-            // Global Real-time Broker Discovery Configurations
+            const Databases = {
+                channels: {
+                    'global-lobby': { name: "Encrypted Network P2P Pipeline", history: [] }
+                },
+                emojis: ["😀","😃","😄","😁","😆"]
+            };
+
+            // Network sockets pointers
             let mqttClient = null;
             let peerInstance = null;
             let meshDataConnection = null;
@@ -1282,12 +910,14 @@
             let callInterval = null;
             let localStream = null;
 
-            // Generate an isolated system namespace directory on the public broker network
-            const DISCOVERY_TOPIC = "nexuschat/enterprise/lobby/v9";
+            // Free public brokers have short timeout loops. To prevent mobile browsers from sleeping
+            // we configure a double verification architecture. We listen to standard topic broadcasts,
+            // but store users inside a permanent hash dictionary tracking high precision unix timestamps.
+            const TOPIC_NAMESPACE = "nexuschat/enterprise/lobby/v11_fixed";
             let globalOnlineUsersMap = {};
 
             const Utils = {
-                log: function(msg) { console.log(`[NEXUS-CORE]: ${msg}`); },
+                log: function(msg) { console.log(`[NEXUS-REPLICATION-ENGINE]: ${msg}`); },
                 sound: function(freq, type, duration, vol = 0.1) {
                     try {
                         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1302,102 +932,167 @@
                 }
             };
 
-            // --- REAL-TIME LOBBY PRESENCE HUB MANAGEMENT ---
+            // =========================================================================
+            // LOBBY PRESENCE HUB ENGINE WITH SELF-HEALING RECONNECTED VARIABLE LIFECYCLES
+            // =========================================================================
             const PresenceGrid = {
                 connectLobbyBroker: function(myPeerId) {
-                    Utils.log("Wiring secure automatic presence discovery systems...");
+                    Utils.log("Wiring distributed WebSockets presence loops across public endpoint nodes...");
                     
-                    // Hook into a public multi-user signaling WebSockets hub cluster
-                    mqttClient = mqtt.connect("wss://broker.hivemq.com:8043/mqtt");
+                    // Public HiveMQ broker connection configuration parameters
+                    mqttClient = mqtt.connect("wss://broker.hivemq.com:8043/mqtt", {
+                        keepalive: 15, // Ultra-short heartbeat interval to explicitly force mobile background keeping
+                        reconnectPeriod: 1000,
+                        connectTimeout: 30 * 1000,
+                        clean: true
+                    });
 
                     mqttClient.on('connect', () => {
-                        Utils.log("Global lobby directory connection locked.");
-                        mqttClient.subscribe(DISCOVERY_TOPIC);
+                        Utils.log("Synchronization broker channel locked. Subscribing to node vectors...");
+                        mqttClient.subscribe(TOPIC_NAMESPACE, { qos: 0 });
                         
-                        // Repeatedly announce our identity handle so everyone sees us live
-                        setInterval(() => {
-                            if (!State.user.name) return;
-                            mqttClient.publish(DISCOVERY_TOPIC, JSON.stringify({
-                                peerId: myPeerId,
-                                username: State.user.name,
-                                timestamp: Date.now()
-                            }));
-                        }, 2500);
+                        // Push initialization burst transmission packet instantly
+                        this.broadcastIdentityPacket(myPeerId);
                     });
+
+                    // Fast internal interval tick ensures text loops update continuously even on mobile sleep wake states
+                    setInterval(() => {
+                        if (mqttClient && mqttClient.connected && State.user.name) {
+                            this.broadcastIdentityPacket(myPeerId);
+                        }
+                    }, 1800);
 
                     mqttClient.on('message', (topic, dataPacket) => {
                         try {
-                            const parsed = JSON.parse(dataPacket.toString());
+                            const packetString = dataPacket.toString();
+                            const parsed = JSON.parse(packetString);
+                            
                             if (parsed.peerId && parsed.peerId !== myPeerId) {
-                                // Save or refresh an active user's lease window
+                                // Extract and register/refresh user entry inside master directory collection map
                                 globalOnlineUsersMap[parsed.peerId] = {
-                                    username: parsed.username,
+                                    username: parsed.username || "Anonymous Node",
                                     lastSeen: Date.now()
                                 };
                                 NavigationModule.renderSidebar();
                             }
-                        } catch (e) {}
+                        } catch (err) {
+                            Utils.log("Exception caught processing broker incoming socket buffers: " + err.message);
+                        }
                     });
 
-                    // Regularly filter out people who closed their browser or lost connection
+                    mqttClient.on('error', (err) => {
+                        Utils.log("Distributed directory socket reports channel error: " + err.message);
+                    });
+
+                    mqttClient.on('close', () => {
+                        Utils.log("Lobby socket connection closed. Self-healing state triggered.");
+                    });
+
+                    // Explicitly sweeping lease frames to trim users who shut down connection pipelines cleanly
                     setInterval(() => {
-                        const cutoff = Date.now() - 7000;
-                        let updated = false;
-                        for (let id in globalOnlineUsersMap) {
-                            if (globalOnlineUsersMap[id].lastSeen < cutoff) {
-                                delete globalOnlineUsersMap[id];
-                                if (State.targetPeerId === id) {
+                        const safetyLeaseWindow = Date.now() - 6500; // Users who missed 3 interval windows are pulled
+                        let structureModified = false;
+                        
+                        for (let activeId in globalOnlineUsersMap) {
+                            if (globalOnlineUsersMap[activeId].lastSeen < safetyLeaseWindow) {
+                                Utils.log(`Sweeping expired connection link: ${activeId} due to lease threshold breach.`);
+                                delete globalOnlineUsersMap[activeId];
+                                
+                                if (State.targetPeerId === activeId) {
                                     State.targetPeerId = null;
                                     document.getElementById('active-chat-headline-node').innerText = "Global Gateway Router Lobby";
                                 }
-                                updated = true;
+                                structureModified = true;
                             }
                         }
-                        if (updated) NavigationModule.renderSidebar();
-                    }, 3000);
+                        if (structureModified) NavigationModule.renderSidebar();
+                    }, 2000);
+                },
+                broadcastIdentityPacket: function(myPeerId) {
+                    if (!State.user.name) return;
+                    const identityPayload = {
+                        peerId: myPeerId,
+                        username: State.user.name,
+                        deviceVector: /Mobi|Android|iPhone/i.test(navigator.userAgent) ? "Mobile" : "Desktop",
+                        timestamp: Date.now()
+                    };
+                    mqttClient.publish(TOPIC_NAMESPACE, JSON.stringify(identityPayload));
                 }
             };
 
+            // =========================================================================
+            // PEER-TO-PEER WEBRTC PIPELINE SIGNAL MATRIX INTERFACES
+            // =========================================================================
             const NetworkRouter = {
                 initializePeerCloud: function() {
-                    peerInstance = new Peer();
+                    Utils.log("Instantiating independent client signaling token references...");
+                    
+                    // Generate configuration options with public routing fallbacks
+                    peerInstance = new Peer({
+                        config: {
+                            'iceServers': [
+                                { url: 'stun:stun.l.google.com:19302' },
+                                { url: 'stun:stun1.l.google.com:19302' }
+                            ]
+                        }
+                    });
 
                     peerInstance.on('open', (uniqueId) => {
+                        Utils.log("Global peer connection interface locked. Terminal Node: " + uniqueId);
                         document.getElementById('my-peer-id-display').innerText = uniqueId;
                         document.getElementById('system-pipeline-latency').innerText = "Cloud Online";
                         
-                        // Instantiate presence logic on successful P2P pipeline completion
+                        // Handshake with automatic user directory presence layers
                         PresenceGrid.connectLobbyBroker(uniqueId);
                     });
 
                     peerInstance.on('connection', (incomingConn) => {
                         meshDataConnection = incomingConn;
                         this.bindDataPipelineEvents();
+                        
+                        const incomingSenderName = globalOnlineUsersMap[incomingConn.peer]?.username || "Remote Participant";
+                        DataModule.pushBubble("Network System", `Linked active communications text line with user [${incomingSenderName}].`, 'received');
                     });
 
                     peerInstance.on('call', (incomingCall) => {
                         Utils.sound(520, 'sine', 0.4, 0.15);
                         incomingCallReference = incomingCall;
                         
-                        const senderName = globalOnlineUsersMap[incomingCall.peer]?.username || "Unknown Node";
+                        const senderName = globalOnlineUsersMap[incomingCall.peer]?.username || "Remote Terminal Node";
                         const overlay = document.getElementById('incoming-call-portal-overlay');
-                        document.getElementById('incoming-caller-id-label').innerText = `User: ${senderName} (${incomingCall.peer})`;
-                        if (overlay) overlay.classList.add('active');
+                        if (overlay) {
+                            document.getElementById('incoming-caller-id-label').innerText = `User identity: ${senderName} [${incomingCall.peer}]`;
+                            overlay.classList.add('active');
+                        }
+                    });
+
+                    peerInstance.on('error', (err) => {
+                        Utils.log("WebRTC framework layer report exception: " + err.type);
                     });
                 },
                 setDirectActiveFocus: function(targetPeerId, targetUsername) {
+                    Utils.log(`Redirecting input pipeline matrices. Target anchor context: ${targetPeerId}`);
                     State.targetPeerId = targetPeerId;
                     State.targetPeerName = targetUsername;
                     
                     document.getElementById('active-chat-headline-node').innerText = `Encrypted Line: ${targetUsername}`;
                     document.getElementById('active-target-node-display-label').innerText = `Active Node Focus: ${targetPeerId}`;
                     
-                    // Instantiate direct handshake link natively
-                    meshDataConnection = peerInstance.connect(targetPeerId);
+                    // On mobile, automatically bring workspace to focus when user selects someone
+                    if (window.innerWidth <= 820) {
+                        State.currentMobileScreen = "workspace";
+                        UIModule.syncMobileLayoutViewports();
+                    }
+
+                    meshDataConnection = peerInstance.connect(targetPeerId, {
+                        reliable: true
+                    });
                     this.bindDataPipelineEvents();
                     DataModule.repaintLogs();
                 },
                 bindDataPipelineEvents: function() {
+                    if (!meshDataConnection) return;
+
                     meshDataConnection.on('data', (packet) => {
                         if (packet && packet.type === 'chat') {
                             if (!State.chatHistories[packet.senderId]) State.chatHistories[packet.senderId] = [];
@@ -1409,9 +1104,15 @@
                                 timeCode: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
                             });
                             
-                            Utils.sound(750, 'sine', 0.1, 0.1);
-                            if (State.targetPeerId === packet.senderId) DataModule.repaintLogs();
+                            Utils.sound(880, 'sine', 0.1, 0.08);
+                            if (State.targetPeerId === packet.senderId) {
+                                DataModule.repaintLogs();
+                            }
                         }
+                    });
+
+                    meshDataConnection.on('close', () => {
+                        Utils.log("Direct workspace node communications stream closed cleanly.");
                     });
                 }
             };
@@ -1421,7 +1122,7 @@
                     this.checkCache();
                 },
                 checkCache: function() {
-                    const cachedName = localStorage.getItem('nexus_v8_username');
+                    const cachedName = localStorage.getItem('nexus_v9_username');
                     if (cachedName && cachedName.trim() !== "") {
                         State.user.name = cachedName;
                         AuthModule.syncUI();
@@ -1441,13 +1142,13 @@
                             NavigationModule.renderSidebar();
                             NetworkRouter.initializePeerCloud();
                         } else {
-                            progress += 25;
+                            progress += 20;
                             if (fillBar) fillBar.style.width = progress + '%';
                         }
-                    }, 30);
+                    }, 40);
                 },
                 purgeData: function() {
-                    localStorage.removeItem('nexus_v8_username');
+                    localStorage.removeItem('nexus_v9_username');
                     window.location.reload();
                 }
             };
@@ -1457,10 +1158,10 @@
                 commitManualAccount: function() {
                     const field = document.getElementById('portal-username-input-node');
                     const value = field.value.trim().replace(/\s+/g, '');
-                    if (!value) return alert("Provide a valid display handle configuration string.");
+                    if (!value) return alert("Provide a valid profile character configuration string parameter.");
                     
                     State.user.name = value;
-                    localStorage.setItem('nexus_v8_username', value);
+                    localStorage.setItem('nexus_v9_username', value);
                     
                     this.syncUI();
                     document.getElementById('secure-login-gate-overlay').classList.add('hidden');
@@ -1470,7 +1171,7 @@
                 triggerOAuth: function(provider) {
                     const mockAlias = `${provider}User_${Math.floor(100 + Math.random() * 900)}`;
                     State.user.name = mockAlias;
-                    localStorage.setItem('nexus_v8_username', mockAlias);
+                    localStorage.setItem('nexus_v9_username', mockAlias);
                     this.syncUI();
                     document.getElementById('secure-login-gate-overlay').classList.add('hidden');
                     document.getElementById('splash-loading-portal').classList.remove('hidden');
@@ -1498,26 +1199,28 @@
 
                     if (State.activeTab === 'chat') {
                         let dynamicElementsCounter = 0;
-                        for (let id in globalOnlineUsersMap) {
+                        for (let keyId in globalOnlineUsersMap) {
                             dynamicElementsCounter++;
-                            const uObj = globalOnlineUsersMap[id];
-                            const isFocusedActive = (State.targetPeerId === id) ? 'active' : '';
+                            const targetUserRecord = globalOnlineUsersMap[keyId];
+                            const isRowSelectedStyle = (State.targetPeerId === keyId) ? 'active' : '';
                             
                             stack.innerHTML += `
-                                <div class="chat-list-row ${isFocusedActive}">
-                                    <div class="row-avatar">⚡</div>
-                                    <div class="row-meta">
-                                        <div class="row-name">${uObj.username}</div>
-                                        <div class="row-preview" style="color:var(--success-green); font-size:11px;">Active Terminal Linked</div>
-                                        <div class="user-row-controls">
-                                            <button class="inline-action-btn" onclick="NexusAppEngine.NetworkRouter.setDirectActiveFocus('${id}', '${uObj.username}')">Open Chat</button>
-                                            <button class="inline-action-btn call-variant" onclick="NexusAppEngine.MediaCore.triggerOneClickCall('${id}')">Call Node</button>
+                                <div class="chat-list-row ${isRowSelectedStyle}">
+                                    <div class="row-header-wrapper">
+                                        <div class="row-avatar">💠</div>
+                                        <div class="row-meta">
+                                            <div class="row-name">${targetUserRecord.username}</div>
+                                            <div class="row-preview" style="color:var(--success-green); font-weight:600;">Participant Token Synchronized</div>
                                         </div>
+                                    </div>
+                                    <div class="user-row-controls">
+                                        <button class="inline-action-btn" onclick="NexusAppEngine.NetworkRouter.setDirectActiveFocus('${keyId}', '${targetUserRecord.username}')">Open Chat</button>
+                                        <button class="inline-action-btn call-variant" onclick="NexusAppEngine.MediaCore.triggerOneClickCall('${keyId}')">Call Node</button>
                                     </div>
                                 </div>`;
                         }
                         if (dynamicElementsCounter === 0) {
-                            stack.innerHTML = `<div style="padding:24px; font-size:12px; text-align:center; color:var(--text-dark);">Waiting for remote node matrices to join topic vectors...</div>`;
+                            stack.innerHTML = `<div style="padding:32px 20px; font-size:12px; text-align:center; color:var(--text-dark); font-weight:600;">No active matrix pipelines found in room topic cluster. Open another client instance to connect variables.</div>`;
                         }
                     } else {
                         stack.innerHTML = `
@@ -1530,58 +1233,67 @@
 
             const DataModule = {
                 dispatchTextPacket: function() {
-                    if (!State.targetPeerId) return alert("Select an online participant from the live discovery catalog feed first.");
+                    if (!State.targetPeerId) return alert("Select an online matrix user entity from the active presence catalog channel list.");
                     
-                    const node = document.getElementById('text-message-input-node');
-                    const text = node.value.trim();
-                    if (!text) return;
+                    const textNode = document.getElementById('text-message-input-node');
+                    const valueData = textNode.value.trim();
+                    if (!valueData) return;
 
                     if (!State.chatHistories[State.targetPeerId]) State.chatHistories[State.targetPeerId] = [];
-                    const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    const timeCodeText = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                     
                     State.chatHistories[State.targetPeerId].push({
                         author: State.user.name,
-                        content: text,
+                        content: valueData,
                         variant: 'sent',
-                        timeCode: timeCode
+                        timeCode: timeCodeText
                     });
 
-                    node.value = '';
+                    textNode.value = '';
                     this.repaintLogs();
 
+                    // Send payload downstream over active P2P WebSocket session
                     if (meshDataConnection && meshDataConnection.open) {
                         meshDataConnection.send({
                             type: 'chat',
                             senderId: peerInstance.id,
                             senderName: State.user.name,
-                            body: text
+                            body: valueData
                         });
                     }
                 },
+                pushBubble: function(author, content, variant) {
+                    if (!State.targetPeerId) return;
+                    if (!State.chatHistories[State.targetPeerId]) State.chatHistories[State.targetPeerId] = [];
+                    const code = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    State.chatHistories[State.targetPeerId].push({ author, content, variant, timeCode: code });
+                    this.repaintLogs();
+                },
                 repaintLogs: function() {
-                    const box = document.getElementById('chat-thread-viewport');
-                    if (!box) return;
-                    box.innerHTML = '';
+                    const view = document.getElementById('chat-thread-viewport');
+                    if (!view || !State.targetPeerId) return;
+                    view.innerHTML = '';
                     
-                    const logs = State.chatHistories[State.targetPeerId] || [];
-                    logs.forEach(m => {
-                        box.innerHTML += `
+                    const entries = State.chatHistories[State.targetPeerId] || [];
+                    entries.forEach(m => {
+                        view.innerHTML += `
                             <div class="msg-bubble ${m.variant}">
                                 <span class="msg-author">${m.author}</span>
                                 <div>${m.content}</div>
                                 <div class="msg-footer">${m.timeCode}</div>
                             </div>`;
                     });
-                    box.scrollTop = box.scrollHeight;
+                    view.scrollTop = view.scrollHeight;
                 },
                 trapInputKeys: function(e) { if (e.key === 'Enter') this.dispatchTextPacket(); }
             };
 
             const MediaModule = {
                 triggerOneClickCall: async function(destinationPeerId) {
-                    const layer = document.getElementById('call-interface-layer');
+                    Utils.log(`Launching upstream WebRTC voice video media transaction to: ${destinationPeerId}`);
+                    const callLayerNode = document.getElementById('call-interface-layer');
                     State.isCallActive = true;
-                    if (layer) layer.style.display = "flex";
+                    if (callLayerNode) callLayerNode.style.display = "flex";
                     this.startTimer();
 
                     try {
@@ -1591,8 +1303,13 @@
                         
                         activeMediaCall = peerInstance.call(destinationPeerId, localStream);
                         this.bindMediaCallStreams(activeMediaCall);
-                    } catch (e) {
-                        alert("Device hardware interface permission parameters required.");
+                        
+                        if (window.innerWidth <= 820) {
+                            State.currentMobileScreen = "workspace";
+                            UIModule.syncMobileLayoutViewports();
+                        }
+                    } catch (err) {
+                        alert("Physical device permissions are required to capture layout elements.");
                         this.killTracks();
                     }
                 },
@@ -1611,7 +1328,12 @@
                         incomingCallReference.answer(localStream);
                         activeMediaCall = incomingCallReference;
                         this.bindMediaCallStreams(activeMediaCall);
-                    } catch (e) {
+                        
+                        if (window.innerWidth <= 820) {
+                            State.currentMobileScreen = "workspace";
+                            UIModule.syncMobileLayoutViewports();
+                        }
+                    } catch (err) {
                         this.killTracks();
                     }
                 },
@@ -1621,8 +1343,8 @@
                 },
                 bindMediaCallStreams: function(callObj) {
                     callObj.on('stream', (remoteStream) => {
-                        const remoteVideo = document.getElementById('hardware-remote-stream');
-                        if (remoteVideo) remoteVideo.srcObject = remoteStream;
+                        const targetRemoteVideoNode = document.getElementById('hardware-remote-stream');
+                        if (targetRemoteVideoNode) targetRemoteVideoNode.srcObject = remoteStream;
                         document.getElementById('screenshare-canvas').style.display = "none";
                     });
                     callObj.on('close', () => { this.killTracks(); });
@@ -1630,12 +1352,12 @@
                 toggleCallState: function() { this.killTracks(); },
                 startTimer: function() {
                     State.callSeconds = 0;
-                    const display = document.getElementById('call-duration-clock');
+                    const clockLabel = document.getElementById('call-duration-clock');
                     callInterval = setInterval(() => {
                         State.callSeconds++;
-                        let mins = String(Math.floor(State.callSeconds / 60)).padStart(2, '0');
-                        let secs = String(State.callSeconds % 60).padStart(2, '0');
-                        if (display) display.innerText = `${mins}:${secs}`;
+                        let minutes = String(Math.floor(State.callSeconds / 60)).padStart(2, '0');
+                        let seconds = String(State.callSeconds % 60).padStart(2, '0');
+                        if (clockLabel) clockLabel.innerText = `${minutes}:${seconds}`;
                     }, 1000);
                 },
                 stopTimer: function() { if (callInterval) clearInterval(callInterval); },
@@ -1659,6 +1381,33 @@
                 }
             };
 
+            const UIModule = {
+                toggleMobileViewSplit: function() {
+                    State.currentMobileScreen = (State.currentMobileScreen === "sidebar") ? "workspace" : "sidebar";
+                    this.syncMobileLayoutViewports();
+                },
+                syncMobileLayoutViewports: function() {
+                    const sidePanel = document.querySelector('.sidebar-panel');
+                    const workPanel = document.querySelector('.workspace-panel');
+                    const toggleBtn = document.getElementById('mobile-view-state-btn');
+                    const headerTag = document.getElementById('mobile-navigation-center-tag');
+                    
+                    if (!sidePanel || !workPanel) return;
+
+                    if (State.currentMobileScreen === "sidebar") {
+                        sidePanel.classList.remove('mobile-collapsed');
+                        workPanel.classList.add('mobile-collapsed');
+                        if (toggleBtn) toggleBtn.innerText = "Show Workspace";
+                        if (headerTag) headerTag.innerText = "LOBBY FEED ACTIVE";
+                    } else {
+                        sidePanel.classList.add('mobile-collapsed');
+                        workPanel.classList.remove('mobile-collapsed');
+                        if (toggleBtn) toggleBtn.innerText = "Show Directory";
+                        if (headerTag) headerTag.innerText = `CHAT: ${State.targetPeerName.toUpperCase()}`;
+                    }
+                }
+            };
+
             return {
                 System: { purgeLocalHardwareContainers: () => SystemModule.purgeData() },
                 Auth: {
@@ -1667,8 +1416,7 @@
                     triggerOAuth: (provider) => AuthModule.triggerOAuth(provider)
                 },
                 Navigation: {
-                    switchTab: (id) => NavigationModule.switchTab(id),
-                    loadChannel: (id) => NetworkRouter.setDirectActiveFocus(id, globalOnlineUsersMap[id]?.username || "Peer")
+                    switchTab: (id) => NavigationModule.switchTab(id)
                 },
                 NetworkRouter: { setDirectActiveFocus: (id, name) => NetworkRouter.setDirectActiveFocus(id, name) },
                 DataEngine: {
@@ -1682,10 +1430,12 @@
                     toggleMute: () => MediaModule.toggleMute(),
                     toggleCallState: () => MediaModule.toggleCallState()
                 },
+                UI: { toggleMobileViewSplit: () => UIModule.toggleMobileViewSplit() },
                 Startup: () => SystemModule.init()
             };
         })();
 
+        // Bootstrap execution anchor points on DOM loaded trigger
         window.addEventListener('DOMContentLoaded', () => { NexusAppEngine.Startup(); });
     </script>
 </body>
