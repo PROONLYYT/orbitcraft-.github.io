@@ -8,6 +8,9 @@
     <!-- Importing PeerJS for serverless WebRTC real-time connection architecture -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.4.7/peerjs.min.js"></script>
     
+    <!-- Importing MQTT over WebSockets for automatic real-time online user discovery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/4.3.7/mqtt.min.js"></script>
+    
     <style>
         :root {
             /* --- PRIMARY NEXUS CHROMATIC CORE DESIGN TOKENS --- */
@@ -602,7 +605,44 @@
             padding: 12px 0;
         }
 
-        /* DYNAMIC SCANNABLE SIDEBAR LIST ROWS */
+        /* ACTION LINKS & INTERFACES FOR ROBUST DIRECT BUTTON CONTROLS */
+        .user-row-controls {
+            display: flex;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .inline-action-btn {
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--border-subtle);
+            color: var(--primary-accent);
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: var(--transition-snappy);
+        }
+
+        .inline-action-btn:hover {
+            background: var(--primary-accent);
+            color: #000;
+            box-shadow: 0 0 8px var(--primary-glow);
+        }
+
+        .inline-action-btn.call-variant {
+            background: rgba(0, 255, 102, 0.1);
+            border-color: rgba(0, 255, 102, 0.3);
+            color: var(--success-green);
+        }
+
+        .inline-action-btn.call-variant:hover {
+            background: var(--success-green);
+            color: #000;
+            box-shadow: 0 0 8px var(--success-glow);
+        }
+
+        /* DYNAMIC SIDEBAR LIST ROWS */
         .chat-list-row {
             padding: 14px 20px;
             display: flex;
@@ -654,7 +694,7 @@
         .row-name {
             font-weight: 600;
             font-size: 14px;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -710,9 +750,9 @@
             letter-spacing: 0.5px;
         }
 
-        /* REAL-TIME NETWORK TARGET LINKING DISPLAY BAR */
+        /* NETWORK ID SUB-BANNER */
         .network-address-banner {
-            background: rgba(0, 255, 255, 0.05);
+            background: rgba(0, 255, 255, 0.04);
             border-bottom: 1px solid var(--border-subtle);
             padding: 10px 28px;
             display: flex;
@@ -729,24 +769,6 @@
             padding: 4px 10px;
             border-radius: var(--border-radius-sm);
             font-family: monospace;
-            color: #fff;
-            user-select: text;
-            -webkit-user-select: text;
-        }
-
-        .connect-input-matrix-row {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .connect-field-box {
-            background: var(--bg-input-glass);
-            border: 1px solid var(--border-subtle);
-            padding: 6px 12px;
-            border-radius: var(--border-radius-sm);
-            font-size: 12px;
-            width: 200px;
             color: #fff;
         }
 
@@ -868,33 +890,6 @@
             box-shadow: 0 0 10px var(--primary-dim);
         }
 
-        .emoji-picker-matrix-overlay {
-            position: absolute;
-            bottom: 90px;
-            right: 28px;
-            width: 340px;
-            height: 260px;
-            background: rgba(5, 9, 16, 0.98);
-            border: 1px solid var(--border-active);
-            border-radius: var(--border-radius-md);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
-            display: none;
-            flex-direction: column;
-            z-index: 1000;
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-        }
-
-        .emoji-picker-header {
-            padding: 12px 16px;
-            font-size: 11px;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            border-bottom: 1px solid var(--border-subtle);
-            text-transform: uppercase;
-        }
-
         /* HARDWARE STREAMS & MEDIA CONTROL STACK */
         #call-interface-layer {
             display: none;
@@ -930,11 +925,6 @@
             height: 280px;
             box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
             transition: var(--transition-fluid);
-        }
-
-        .media-window.speaking-active {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 20px var(--primary-glow), inset 0 0 30px rgba(0, 255, 255, 0.1);
         }
 
         .live-video-element {
@@ -989,13 +979,6 @@
             box-shadow: 0 0 16px var(--primary-glow);
         }
 
-        .avatar-placeholder-call img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
         .call-controls-bar {
             display: flex;
             justify-content: center;
@@ -1034,10 +1017,6 @@
             border-color: var(--danger-red);
             color: #fff;
             box-shadow: 0 0 12px var(--danger-glow);
-        }
-
-        .control-btn.active-state:hover {
-            background: var(--danger-red);
         }
 
         .call-timer-node {
@@ -1093,88 +1072,9 @@
             text-align: center;
         }
 
-        .incoming-btn.accept {
-            background: var(--success-green);
-            color: #000;
-        }
+        .incoming-btn.accept { background: var(--success-green); color: #000; }
+        .incoming-btn.decline { background: var(--danger-red); color: #fff; }
 
-        .incoming-btn.decline {
-            background: var(--danger-red);
-            color: #fff;
-        }
-
-        .states-hub-container-view {
-            padding: 16px 24px;
-            background: rgba(5, 10, 15, 0.2);
-            border-bottom: 1px solid var(--border-subtle);
-            display: none;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .states-header-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .states-row-title {
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-        }
-
-        .states-carousel-scroller-track {
-            display: flex;
-            gap: 14px;
-            overflow-x: auto;
-            padding-bottom: 8px;
-        }
-
-        .state-content-card-node {
-            width: 110px;
-            height: 160px;
-            border-radius: 8px;
-            border: 1px solid var(--border-subtle);
-            background: var(--input-bg);
-            flex-shrink: 0;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 10px;
-        }
-
-        .state-content-card-node:hover {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 10px var(--primary-glow);
-        }
-
-        .state-media-preview-element {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-
-        .state-author-tag {
-            font-size: 11px;
-            font-weight: 600;
-            color: #ffffff;
-            z-index: 2;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* --- MULTIVERSE TRANSACTIONAL OVERLAY SCREEN --- */
         #nexus-shop-screen {
             position: fixed;
             top: 0;
@@ -1187,237 +1087,14 @@
             display: none;
             flex-direction: column;
             box-sizing: border-box;
-            animation: fadeIn 0.5s ease-out;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; } to { opacity: 1; }
-        }
-
-        .shop-header-navbar {
-            height: 75px;
-            background: var(--bg-panel-glass);
-            border-bottom: 1px solid var(--border-subtle);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 30px;
-            box-sizing: border-box;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-
-        .back-nav-link {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255,255,255,0.02);
-            padding: 10px 16px;
-            border-radius: 6px;
-            border: 1px solid var(--border-subtle);
-            transition: all 0.2s ease;
-        }
-
-        .back-nav-link:hover {
-            color: var(--primary-accent);
-            border-color: var(--primary-accent);
-            background: rgba(0,255,255,0.05);
-            box-shadow: 0 0 8px var(--primary-glow);
-        }
-
-        .shop-headline-title {
-            font-weight: 800;
-            font-size: 18px;
-            letter-spacing: 2px;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(0,255,255,0.2);
-        }
-
-        .balance-container-pill {
-            background: rgba(245, 166, 35, 0.05);
-            border: 1px solid var(--gold-accent);
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-weight: 700;
-            color: var(--gold-accent);
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 0 10px rgba(245,166,35,0.15);
-        }
-
-        .shop-showcase-scroller {
-            flex: 1;
-            overflow-y: auto;
-            padding: 40px;
-            box-sizing: border-box;
-        }
-
-        .shop-items-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .shop-item-card {
-            background: var(--bg-panel-glass);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease, box-shadow 0.3s ease;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-
-        .shop-item-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary-accent);
-            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.15);
-        }
-
-        .item-badge-exclusive {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: var(--pink-neon);
-            color: #ffffff;
-            font-size: 9px;
-            font-weight: 800;
-            padding: 4px 8px;
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 0 8px var(--pink-neon);
-        }
-
-        .item-graphic-wrapper {
-            height: 120px;
-            background: radial-gradient(circle, rgba(0,255,255,0.1) 0%, transparent 70%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-            position: relative;
-        }
-
-        .item-graphic-ring {
-            position: absolute;
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            border: 1px dashed rgba(0, 255, 255, 0.2);
-            animation: rotateRing 12s linear infinite;
-        }
-
-        .item-meta-name {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #ffffff;
-            letter-spacing: 0.5px;
-        }
-
-        .item-meta-desc {
-            font-size: 12px;
-            color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 20px;
-            flex: 1;
-        }
-
-        .item-action-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: auto;
-        }
-
-        .item-price-tag {
-            font-weight: 700;
-            font-size: 14px;
-            color: var(--gold-accent);
-        }
-
-        .buy-action-trigger {
-            background: transparent;
-            color: var(--primary-accent);
-            border: 1px solid var(--primary-accent);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 12px;
-            transition: all 0.2s ease;
-        }
-
-        .buy-action-trigger:hover {
-            background: var(--primary-hover);
-            color: #000000;
-            box-shadow: 0 0 10px var(--primary-accent);
-        }
-
-        .buy-action-trigger.unlocked {
-            background: rgba(0, 255, 102, 0.1) !important;
-            border-color: var(--success-green) !important;
-            color: var(--success-green) !important;
-        }
-
-        /* SETTINGS MATRIX GRID CONFIGURATORS */
-        .settings-container-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-            padding: 24px;
-        }
-
-        .settings-card-group {
-            background: rgba(255, 255, 255, 0.01);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--border-radius-md);
-            padding: 20px;
-        }
-
-        .settings-card-title {
-            font-size: 13px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--primary-accent);
-            margin-bottom: 16px;
-        }
-
-        .settings-toggle-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.02);
-        }
-
-        .settings-toggle-label {
-            font-size: 13.5px;
-            font-weight: 600;
-        }
-
-        /* --- EXPLICIT COMPACT INTERACTIVE LAYOUT RESPONSIVENESS --- */
         @media (max-width: 768px) {
             body, html { overflow-y: auto; }
             #app-frame { flex-direction: column; }
             .global-nav-rail { width: 100%; height: 65px; flex-direction: row; justify-content: space-around; padding: 0 16px; }
             .sidebar-panel { width: 100%; height: auto; }
             .workspace-panel { height: calc(100vh - 65px); }
-            .media-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -1425,9 +1102,9 @@
 
     <!-- REAL-TIME INCOMING NETWORK CALL INTERFACE PORTAL -->
     <div id="incoming-call-portal-overlay">
-        <div style="font-size: 24px; animation: pulseLogoCore 1s infinite;">📞</div>
-        <div style="font-weight: 800; font-size: 16px; color: #fff;">Incoming Nexus Stream</div>
-        <div id="incoming-caller-id-label" style="font-size: 12px; color: var(--text-muted); font-family: monospace;">Peer: Unknown Node</div>
+        <div style="font-size: 24px;">📞</div>
+        <div style="font-weight: 800; font-size: 16px; color: #fff;">Incoming Stream Invitation</div>
+        <div id="incoming-caller-id-label" style="font-size: 12px; color: var(--text-muted); font-family: monospace;">Node: Fetching Handle...</div>
         <div class="incoming-call-actions">
             <button class="incoming-btn accept" onclick="NexusAppEngine.MediaCore.acceptIncomingCall()">Accept</button>
             <button class="incoming-btn decline" onclick="NexusAppEngine.MediaCore.declineIncomingCall()">Decline</button>
@@ -1457,16 +1134,12 @@
                     <div class="nexus-brand-image-frame"></div>
                 </div>
                 <h1 class="login-title-h1">Authentication Gate</h1>
-                <p class="login-subtitle-p">Provide active display handles to instantiate your real-time peer cloud profile.</p>
+                <p class="login-subtitle-p">Create a custom display handle to list yourself automatically in the real-time online global lobby feed.</p>
             </div>
 
             <div class="oauth-providers-button-stack">
-                <button class="oauth-provider-btn" onclick="NexusAppEngine.Auth.triggerOAuth('Discord')">
-                    <span>Discord Access</span>
-                </button>
-                <button class="oauth-provider-btn" onclick="NexusAppEngine.Auth.triggerOAuth('Microsoft')">
-                    <span>Microsoft Identity</span>
-                </button>
+                <button class="oauth-provider-btn" onclick="NexusAppEngine.Auth.triggerOAuth('Discord')"><span>Discord Access</span></button>
+                <button class="oauth-provider-btn" onclick="NexusAppEngine.Auth.triggerOAuth('Microsoft')"><span>Microsoft Identity</span></button>
             </div>
 
             <div class="login-divider-row">or generate encryption profile</div>
@@ -1499,10 +1172,7 @@
                 <div class="nexus-brand-image-frame"></div>
             </div>
             <div class="rail-tab-item active" id="tab-node-chat" onclick="NexusAppEngine.Navigation.switchTab('chat')" title="Communications Hub Router">💬</div>
-            <div class="rail-tab-item" id="tab-node-groups" onclick="NexusAppEngine.Navigation.switchTab('groups')" title="Orchestrator Ecosystem Cluster">👥</div>
-            <div class="rail-tab-item" id="tab-node-states" onclick="NexusAppEngine.Navigation.switchTab('states')" title="Live Feed Transmission Grid">🌐</div>
             <div class="rail-tab-item" id="tab-node-settings" onclick="NexusAppEngine.Navigation.switchTab('settings')" title="Matrix Engine Configurations">⚙️</div>
-            <div class="rail-tab-item" id="tab-node-integrations" onclick="NexusAppEngine.Navigation.switchTab('integrations')" title="Plugins & Extensibility Node">🔌</div>
         </div>
         
         <!-- SIDE CONTEXT INFORMATION CONTROL BLOCK PANEL -->
@@ -1521,11 +1191,11 @@
             </div>
             
             <div class="sidebar-tools" id="sidebar-context-controls-box">
-                <button class="shop-trigger-btn" onclick="NexusAppEngine.Storefront.openStore()">Open Nexus Multiverse Marketplace</button>
-                <button class="sm-btn" id="sidebar-action-primary-btn" onclick="NexusAppEngine.DataEngine.triggerPrimaryAction()">+ Generate Channel Matrix</button>
-                <button class="sm-btn danger" onclick="NexusAppEngine.System.purgeLocalHardwareContainers()">Purge Active Local States</button>
+                <div style="font-size: 11px; font-weight:800; letter-spacing:1px; color:var(--primary-accent); margin-bottom: 2px; text-transform:uppercase;">Online Discovery Feed</div>
+                <div style="font-size: 10px; color:var(--text-muted); line-height:1.4;">Click any active connection block below to open text tunnels or trigger video streams natively.</div>
             </div>
             
+            <!-- Live Discovery List Target Stack -->
             <div class="contacts-vertical-stack" id="contacts-vertical-stack"></div>
         </div>
 
@@ -1536,52 +1206,36 @@
                     <div class="header-profile-icon">⧉</div>
                     <div class="title" id="active-chat-headline-node">Global Gateway Router Lobby</div>
                 </div>
-                <button class="call-action-btn" onclick="NexusAppEngine.MediaCore.toggleCallState()">Connect Media Stream Vectors</button>
             </div>
 
             <!-- REAL-TIME LIVE TARGET NETWORK LINK BAR -->
             <div class="network-address-banner">
-                <div>Your Live Nexus Address: <span id="my-peer-id-display" class="addr-pill-box">Generating Node Link...</span></div>
-                <div class="connect-input-matrix-row">
-                    <input type="text" id="target-peer-connection-input" class="connect-field-box" placeholder="Paste Friend's Nexus Address...">
-                    <button class="call-action-btn" style="padding: 4px 10px; font-size: 11px;" onclick="NexusAppEngine.NetworkRouter.linkToTargetNode()">Link Target Node</button>
-                </div>
-            </div>
-
-            <!-- LIVE GRID TRANSMISSION FEED ENGAGEMENT COMPONENT VIEW -->
-            <div class="states-hub-container-view" id="states-hub-engagement-view">
-                <div class="states-header-row">
-                    <span class="states-row-title">Engagement Feeds</span>
-                    <input type="file" id="states-media-file-capture-pipe" accept="video/*,image/*" style="display: none;" onchange="NexusAppEngine.DataEngine.uploadStateCapture(event)">
-                    <button class="call-action-btn" style="padding: 4px 10px; font-size: 11px;" onclick="document.getElementById('states-media-file-capture-pipe').click()">Push New Vector Transmission</button>
-                </div>
-                <div class="states-carousel-scroller-track" id="states-carousel-scroller-track"></div>
+                <div>Your Live Nexus Terminal Address: <span id="my-peer-id-display" class="addr-pill-box">Generating Node ID...</span></div>
+                <div style="font-size:11px; color:var(--text-muted);" id="active-target-node-display-label">Active Node Focus: None</div>
             </div>
 
             <!-- WEBRTC HARDWARE ENGINES VIDEO LAYOUT INTERFACE LAYER -->
             <div id="call-interface-layer">
                 <div class="media-grid">
-                    <div class="media-window" id="webcam-hardware-window-node">
+                    <div class="media-window">
                         <video id="hardware-webcam-stream" class="live-video-element" autoplay playsinline muted></video>
                         <div class="stream-canvas-mock" id="webcam-canvas">
-                            <div class="avatar-placeholder-call" id="webcam-avatar-placeholder-node">Ω</div>
+                            <div class="avatar-placeholder-call">Ω</div>
                         </div>
-                        <div class="stream-label" id="webcam-label">Local Video Output Offline</div>
+                        <div class="stream-label">Local Broadcast Video</div>
                     </div>
                     <div class="media-window">
-                        <!-- Remote Live incoming stream video pipe element -->
                         <video id="hardware-remote-stream" class="live-video-element" autoplay playsinline></video>
-                        <div class="stream-canvas-mock" id="screenshare-canvas" style="background: #020406;">
+                        <div class="stream-canvas-mock" id="screenshare-canvas">
                             <div style="font-size: 36px; opacity: 0.2; color: var(--primary-accent);">🛰️</div>
                         </div>
-                        <div class="stream-label" id="screenshare-label">Remote Network Node Feed</div>
+                        <div class="stream-label">Live Remote Video Node Feed</div>
                     </div>
                 </div>
 
                 <div class="call-controls-bar">
                     <button class="control-btn" id="mute-audio-toggle" onclick="NexusAppEngine.MediaCore.toggleMute()">Audio Unmuted</button>
-                    <button class="control-btn" id="webcam-video-toggle" onclick="NexusAppEngine.MediaCore.toggleWebcam()">Initialize Camera Component</button>
-                    <button class="control-btn active-state" onclick="NexusAppEngine.MediaCore.toggleCallState()">Kill Media Vectors</button>
+                    <button class="control-btn active-state" onclick="NexusAppEngine.MediaCore.toggleCallState()">Disconnect Stream Vectors</button>
                     <div class="call-timer-node" id="call-duration-clock">00:00</div>
                 </div>
             </div>
@@ -1591,36 +1245,12 @@
 
             <!-- MASTER INPUT DATA STREAM CONSOLE BAR DOCK -->
             <div class="input-dock-bar">
-                <input type="text" id="text-message-input-node" placeholder="Type a message or transmission sequence packet..." onkeypress="NexusAppEngine.DataEngine.trapInputKeys(event)">
-                
-                <button type="button" class="emoji-trigger-node-btn" onclick="NexusAppEngine.UI.toggleEmojiTray()" title="Inject Emoji Packet">😀</button>
-                
-                <div class="emoji-picker-matrix-overlay" id="emoji-picker-matrix-overlay">
-                    <div class="emoji-picker-header">Alphanumeric Symbol Bank</div>
-                    <div class="emoji-grid-scroller" id="emoji-grid-scroller-target"></div>
-                </div>
-
+                <input type="text" id="text-message-input-node" placeholder="Select an online peer to activate the encrypted text channel pipeline..." onkeypress="NexusAppEngine.DataEngine.trapInputKeys(event)">
                 <button class="send-btn" id="send-message-dispatch-btn" onclick="NexusAppEngine.DataEngine.dispatchTextPacket()">Dispatch Transmission</button>
-                
                 <div class="cooldown-progress-track">
                     <div class="cooldown-progress-fill" id="cooldown-progress-fill-bar"></div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <!-- MARKETPLACE OVERLAY POPUP LAYER -->
-    <div id="nexus-shop-screen">
-        <div class="shop-header-navbar">
-            <a href="#" class="back-nav-link" onclick="NexusAppEngine.Storefront.closeStore()">← Revert Context</a>
-            <div class="shop-headline-title">Nexus Interstellar Storefront</div>
-            <div class="balance-container-pill">
-                <span>Credit Node Matrix:</span>
-                <span id="shop-balance-display-node">100,000 Nodes Allocated</span>
-            </div>
-        </div>
-        <div class="shop-showcase-scroller">
-            <div class="shop-items-grid" id="shop-items-grid-target"></div>
         </div>
     </div>
 
@@ -1630,42 +1260,19 @@
             'use strict';
 
             const State = {
-                user: { name: "", avatar: "", status: "online" },
+                user: { name: "", avatar: "" },
                 activeTab: "chat",
-                activeChannel: "global-lobby",
+                targetPeerId: null,      // Tracks who we are calling/chatting with currently
+                targetPeerName: "None",
                 cooldownActive: false,
                 isCallActive: false,
                 isAudioMuted: false,
-                isCameraActive: false,
                 callSeconds: 0,
-                balanceOrbs: 100000,
-                systemConfig: {
-                    hardwareAcceleration: true,
-                    highFidelityAudio: true,
-                    quantumMockCrypto: true,
-                    autoReconnect: true,
-                    diagnosticLogs: false
-                }
+                chatHistories: {}       // Separated chat history logs by unique Peer ID
             };
 
-            const Databases = {
-                channels: {
-                    'global-lobby': { name: "Encrypted Network P2P Pipeline", history: [] }
-                },
-                groups: [
-                    { id: 'grp-1', name: 'Strategic Infrastructure Grid' }
-                ],
-                shopItems: [
-                    { id: 'premium-frame', name: 'Obsidian Premium User Border', desc: 'Wires custom neon graphic vector overlays into active participant view blocks.', price: 5000, claimed: false }
-                ],
-                emojis: ["😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","😍","🥰","😎","🤩","🥳"],
-                statesFeed: [],
-                integrations: [
-                    { name: "PeerJS Mesh Gateway Server", status: "Active Connected", verified: true }
-                ]
-            };
-
-            // Global P2P Infrastructure Architecture references
+            // Global Real-time Broker Discovery Configurations
+            let mqttClient = null;
             let peerInstance = null;
             let meshDataConnection = null;
             let activeMediaCall = null;
@@ -1674,107 +1281,149 @@
             let audioCtx = null;
             let callInterval = null;
             let localStream = null;
-            let audioSource = null;
-            let audioAnalyser = null;
-            let animationFrameId = null;
+
+            // Generate an isolated system namespace directory on the public broker network
+            const DISCOVERY_TOPIC = "nexuschat/enterprise/lobby/v9";
+            let globalOnlineUsersMap = {};
 
             const Utils = {
-                log: function(msg, level = 'info') {
-                    console.log(`[NEXUS-ENGINE] [${level.toUpperCase()}]: ${msg}`);
-                },
+                log: function(msg) { console.log(`[NEXUS-CORE]: ${msg}`); },
                 sound: function(freq, type, duration, vol = 0.1) {
                     try {
                         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
                         const osc = audioCtx.createOscillator();
                         const gain = audioCtx.createGain();
-                        osc.type = type;
-                        osc.frequency.value = freq;
+                        osc.type = type; osc.frequency.value = freq;
                         gain.gain.setValueAtTime(vol, audioCtx.currentTime);
                         gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-                        osc.connect(gain);
-                        gain.connect(audioCtx.destination);
-                        osc.start();
-                        osc.stop(audioCtx.currentTime + duration);
+                        osc.connect(gain); gain.connect(audioCtx.destination);
+                        osc.start(); osc.stop(audioCtx.currentTime + duration);
                     } catch (e) {}
                 }
             };
 
-            // --- NETWORKING DATA ROUTER ENGINE MATRIX (PEERJS LAYER) ---
+            // --- REAL-TIME LOBBY PRESENCE HUB MANAGEMENT ---
+            const PresenceGrid = {
+                connectLobbyBroker: function(myPeerId) {
+                    Utils.log("Wiring secure automatic presence discovery systems...");
+                    
+                    // Hook into a public multi-user signaling WebSockets hub cluster
+                    mqttClient = mqtt.connect("wss://broker.hivemq.com:8043/mqtt");
+
+                    mqttClient.on('connect', () => {
+                        Utils.log("Global lobby directory connection locked.");
+                        mqttClient.subscribe(DISCOVERY_TOPIC);
+                        
+                        // Repeatedly announce our identity handle so everyone sees us live
+                        setInterval(() => {
+                            if (!State.user.name) return;
+                            mqttClient.publish(DISCOVERY_TOPIC, JSON.stringify({
+                                peerId: myPeerId,
+                                username: State.user.name,
+                                timestamp: Date.now()
+                            }));
+                        }, 2500);
+                    });
+
+                    mqttClient.on('message', (topic, dataPacket) => {
+                        try {
+                            const parsed = JSON.parse(dataPacket.toString());
+                            if (parsed.peerId && parsed.peerId !== myPeerId) {
+                                // Save or refresh an active user's lease window
+                                globalOnlineUsersMap[parsed.peerId] = {
+                                    username: parsed.username,
+                                    lastSeen: Date.now()
+                                };
+                                NavigationModule.renderSidebar();
+                            }
+                        } catch (e) {}
+                    });
+
+                    // Regularly filter out people who closed their browser or lost connection
+                    setInterval(() => {
+                        const cutoff = Date.now() - 7000;
+                        let updated = false;
+                        for (let id in globalOnlineUsersMap) {
+                            if (globalOnlineUsersMap[id].lastSeen < cutoff) {
+                                delete globalOnlineUsersMap[id];
+                                if (State.targetPeerId === id) {
+                                    State.targetPeerId = null;
+                                    document.getElementById('active-chat-headline-node').innerText = "Global Gateway Router Lobby";
+                                }
+                                updated = true;
+                            }
+                        }
+                        if (updated) NavigationModule.renderSidebar();
+                    }, 3000);
+                }
+            };
+
             const NetworkRouter = {
                 initializePeerCloud: function() {
-                    Utils.log("Instantiating remote signaling connection topology...", "info");
-                    
-                    // Creates an unmanaged real-time public routing endpoint wrapper
                     peerInstance = new Peer();
 
                     peerInstance.on('open', (uniqueId) => {
-                        Utils.log("Secure signal mapping node locked. ID: " + uniqueId, "info");
                         document.getElementById('my-peer-id-display').innerText = uniqueId;
                         document.getElementById('system-pipeline-latency').innerText = "Cloud Online";
+                        
+                        // Instantiate presence logic on successful P2P pipeline completion
+                        PresenceGrid.connectLobbyBroker(uniqueId);
                     });
 
-                    // Listens for real-time live network inbound chat pipes
                     peerInstance.on('connection', (incomingConn) => {
                         meshDataConnection = incomingConn;
                         this.bindDataPipelineEvents();
-                        DataModule.pushBubble("System Network", `Linked with incoming node tunnel cleanly!`, 'received');
                     });
 
-                    // Listens for real-time live incoming audio/video media pipelines
                     peerInstance.on('call', (incomingCall) => {
-                        Utils.sound(500, 'sine', 0.5, 0.2);
+                        Utils.sound(520, 'sine', 0.4, 0.15);
                         incomingCallReference = incomingCall;
                         
-                        // Show Accept/Decline overlay at the top of the interface
+                        const senderName = globalOnlineUsersMap[incomingCall.peer]?.username || "Unknown Node";
                         const overlay = document.getElementById('incoming-call-portal-overlay');
-                        document.getElementById('incoming-caller-id-label').innerText = "Node: " + incomingCall.peer;
+                        document.getElementById('incoming-caller-id-label').innerText = `User: ${senderName} (${incomingCall.peer})`;
                         if (overlay) overlay.classList.add('active');
                     });
-
-                    peerInstance.on('error', (err) => {
-                        Utils.log("Signaling matrix pipeline failure: " + err.type, "error");
-                        alert("Network Matrix Exception: " + err.message);
-                    });
                 },
-                linkToTargetNode: function() {
-                    const targetInput = document.getElementById('target-peer-connection-input').value.trim();
-                    if (!targetInput) return alert("Please specify a target Nexus Address destination.");
+                setDirectActiveFocus: function(targetPeerId, targetUsername) {
+                    State.targetPeerId = targetPeerId;
+                    State.targetPeerName = targetUsername;
                     
-                    DataModule.pushBubble("System Network", `Attempting connection mapping to node: ${targetInput}...`, 'sent');
+                    document.getElementById('active-chat-headline-node').innerText = `Encrypted Line: ${targetUsername}`;
+                    document.getElementById('active-target-node-display-label').innerText = `Active Node Focus: ${targetPeerId}`;
                     
-                    meshDataConnection = peerInstance.connect(targetInput);
+                    // Instantiate direct handshake link natively
+                    meshDataConnection = peerInstance.connect(targetPeerId);
                     this.bindDataPipelineEvents();
+                    DataModule.repaintLogs();
                 },
                 bindDataPipelineEvents: function() {
-                    meshDataConnection.on('open', () => {
-                        DataModule.pushBubble("System Network", "Secure data packet pipe established successfully!", "received");
-                    });
-
                     meshDataConnection.on('data', (packet) => {
                         if (packet && packet.type === 'chat') {
-                            DataModule.pushBubble(packet.sender, packet.body, 'received');
+                            if (!State.chatHistories[packet.senderId]) State.chatHistories[packet.senderId] = [];
+                            
+                            State.chatHistories[packet.senderId].push({
+                                author: packet.senderName,
+                                content: packet.body,
+                                variant: 'received',
+                                timeCode: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                            });
+                            
+                            Utils.sound(750, 'sine', 0.1, 0.1);
+                            if (State.targetPeerId === packet.senderId) DataModule.repaintLogs();
                         }
-                    });
-
-                    meshDataConnection.on('close', () => {
-                        DataModule.pushBubble("System Network", "Active node tunnel severed.", 'received');
-                        meshDataConnection = null;
                     });
                 }
             };
 
             const SystemModule = {
                 init: function() {
-                    StorefrontModule.render();
-                    UIModule.populateEmojiGrid();
                     this.checkCache();
                 },
                 checkCache: function() {
-                    const cachedName = localStorage.getItem('nexus_v7_username');
-                    const cachedAvatar = localStorage.getItem('nexus_v7_avatar');
+                    const cachedName = localStorage.getItem('nexus_v8_username');
                     if (cachedName && cachedName.trim() !== "") {
                         State.user.name = cachedName;
-                        State.user.avatar = cachedAvatar || "";
                         AuthModule.syncUI();
                         this.triggerSplashLoader();
                     } else {
@@ -1790,42 +1439,28 @@
                             document.getElementById('splash-loading-portal').classList.add('hidden');
                             document.getElementById('app-frame').classList.add('visible');
                             NavigationModule.renderSidebar();
-                            NavigationModule.loadChannel(State.activeChannel);
-                            
-                            // Wires real-time mesh connection loop after loading screens
                             NetworkRouter.initializePeerCloud();
                         } else {
-                            progress += Math.floor(Math.random() * 15) + 5;
-                            if (progress > 100) progress = 100;
+                            progress += 25;
                             if (fillBar) fillBar.style.width = progress + '%';
                         }
-                    }, 40);
+                    }, 30);
                 },
                 purgeData: function() {
-                    localStorage.removeItem('nexus_v7_username');
-                    localStorage.removeItem('nexus_v7_avatar');
+                    localStorage.removeItem('nexus_v8_username');
                     window.location.reload();
                 }
             };
 
             const AuthModule = {
-                processLocalAvatar: function(e) {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    const reader = new FileReader();
-                    reader.onload = function(evt) {
-                        document.getElementById('portal-avatar-preview-box').innerHTML = `<img src="${evt.target.result}" alt="Preview">`;
-                        State.user.avatar = evt.target.result;
-                    };
-                    reader.readAsDataURL(file);
-                },
+                processLocalAvatar: function(e) {},
                 commitManualAccount: function() {
                     const field = document.getElementById('portal-username-input-node');
                     const value = field.value.trim().replace(/\s+/g, '');
-                    if (!value) return alert("Invalid identifier configuration profile name.");
+                    if (!value) return alert("Provide a valid display handle configuration string.");
+                    
                     State.user.name = value;
-                    localStorage.setItem('nexus_v7_username', value);
-                    if (State.user.avatar) localStorage.setItem('nexus_v7_avatar', State.user.avatar);
+                    localStorage.setItem('nexus_v8_username', value);
                     
                     this.syncUI();
                     document.getElementById('secure-login-gate-overlay').classList.add('hidden');
@@ -1833,9 +1468,9 @@
                     SystemModule.triggerSplashLoader();
                 },
                 triggerOAuth: function(provider) {
-                    const mockAlias = `${provider}User_${Math.floor(1000 + Math.random() * 9000)}`;
+                    const mockAlias = `${provider}User_${Math.floor(100 + Math.random() * 900)}`;
                     State.user.name = mockAlias;
-                    localStorage.setItem('nexus_v7_username', mockAlias);
+                    localStorage.setItem('nexus_v8_username', mockAlias);
                     this.syncUI();
                     document.getElementById('secure-login-gate-overlay').classList.add('hidden');
                     document.getElementById('splash-loading-portal').classList.remove('hidden');
@@ -1844,93 +1479,92 @@
                 syncUI: function() {
                     document.getElementById('splash-user-target').innerText = State.user.name;
                     document.getElementById('my-username-node').innerText = State.user.name;
-                    const box = document.getElementById('my-avatar-node');
-                    if (State.user.avatar) {
-                        box.innerHTML = `<img src="${State.user.avatar}" alt="User Avatar">`;
-                    } else {
-                        box.innerText = State.user.name.charAt(0).toUpperCase();
-                    }
+                    document.getElementById('my-avatar-node').innerText = State.user.name.charAt(0).toUpperCase();
                 }
             };
 
             const NavigationModule = {
                 switchTab: function(tabId) {
-                    const tabs = ["chat", "groups", "states", "settings", "integrations"];
-                    tabs.forEach(t => {
-                        const target = document.getElementById(`tab-node-${t}`);
-                        if (target) target.classList.remove('active');
-                    });
+                    const tabs = ["chat", "settings"];
+                    tabs.forEach(t => document.getElementById(`tab-node-${t}`).classList.remove('active'));
                     State.activeTab = tabId;
-                    const node = document.getElementById(`tab-node-${tabId}`);
-                    if (node) node.classList.add('active');
+                    document.getElementById(`tab-node-${tabId}`).classList.add('active');
                     this.renderSidebar();
-                },
-                loadChannel: function(chanId) {
-                    State.activeChannel = chanId;
-                    DataModule.repaintLogs();
                 },
                 renderSidebar: function() {
                     const stack = document.getElementById('contacts-vertical-stack');
-                    const primaryBtn = document.getElementById('sidebar-action-primary-btn');
-                    if (!stack || !primaryBtn) return;
+                    if (!stack) return;
                     stack.innerHTML = '';
 
-                    if (State.activeTab === 'chat' || State.activeTab === 'states') {
-                        primaryBtn.style.display = "block";
-                        primaryBtn.innerText = "+ Create Channel Pipeline";
-                        
-                        for (let key in Databases.channels) {
+                    if (State.activeTab === 'chat') {
+                        let dynamicElementsCounter = 0;
+                        for (let id in globalOnlineUsersMap) {
+                            dynamicElementsCounter++;
+                            const uObj = globalOnlineUsersMap[id];
+                            const isFocusedActive = (State.targetPeerId === id) ? 'active' : '';
+                            
                             stack.innerHTML += `
-                                <div class="chat-list-row active" onclick="NexusAppEngine.Navigation.loadChannel('${key}')">
-                                    <div class="row-avatar">#</div>
+                                <div class="chat-list-row ${isFocusedActive}">
+                                    <div class="row-avatar">⚡</div>
                                     <div class="row-meta">
-                                        <div class="row-name">${Databases.channels[key].name}</div>
-                                        <div class="row-preview">Live peer mesh link channel active...</div>
+                                        <div class="row-name">${uObj.username}</div>
+                                        <div class="row-preview" style="color:var(--success-green); font-size:11px;">Active Terminal Linked</div>
+                                        <div class="user-row-controls">
+                                            <button class="inline-action-btn" onclick="NexusAppEngine.NetworkRouter.setDirectActiveFocus('${id}', '${uObj.username}')">Open Chat</button>
+                                            <button class="inline-action-btn call-variant" onclick="NexusAppEngine.MediaCore.triggerOneClickCall('${id}')">Call Node</button>
+                                        </div>
                                     </div>
                                 </div>`;
                         }
+                        if (dynamicElementsCounter === 0) {
+                            stack.innerHTML = `<div style="padding:24px; font-size:12px; text-align:center; color:var(--text-dark);">Waiting for remote node matrices to join topic vectors...</div>`;
+                        }
                     } else {
-                        stack.innerHTML = `<div style="padding:16px; text-align:center; color:var(--text-muted); font-size:12px;">Ecosystem layers scaled. Use primary routing interface.</div>`;
+                        stack.innerHTML = `
+                            <div style="padding:20px;">
+                                <button class="sm-btn danger" onclick="NexusAppEngine.System.purgeLocalHardwareContainers()">Purge Active Local States</button>
+                            </div>`;
                     }
                 }
             };
 
             const DataModule = {
-                triggerPrimaryAction: function() {
-                    alert("Nexus serverless pipeline enforces integrated single-room peer matrix scaling currently.");
-                },
                 dispatchTextPacket: function() {
+                    if (!State.targetPeerId) return alert("Select an online participant from the live discovery catalog feed first.");
+                    
                     const node = document.getElementById('text-message-input-node');
                     const text = node.value.trim();
                     if (!text) return;
 
-                    // Prints to your viewport bubble stack natively
-                    this.pushBubble(State.user.name, text, 'sent');
-                    node.value = '';
+                    if (!State.chatHistories[State.targetPeerId]) State.chatHistories[State.targetPeerId] = [];
+                    const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    
+                    State.chatHistories[State.targetPeerId].push({
+                        author: State.user.name,
+                        content: text,
+                        variant: 'sent',
+                        timeCode: timeCode
+                    });
 
-                    // Forwards packet downstream to verified connection mesh targets
+                    node.value = '';
+                    this.repaintLogs();
+
                     if (meshDataConnection && meshDataConnection.open) {
                         meshDataConnection.send({
                             type: 'chat',
-                            sender: State.user.name,
+                            senderId: peerInstance.id,
+                            senderName: State.user.name,
                             body: text
                         });
-                    } else {
-                        this.pushBubble("System Diagnostic", "Message cached locally. Link target node to build synchronized tunnel streams.", "received");
                     }
-                },
-                pushBubble: function(author, message, variant) {
-                    const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                    Databases.channels[State.activeChannel].history.push({ author, content: message, variant, timeCode });
-                    if (variant === 'received') Utils.sound(800, 'sine', 0.12, 0.1);
-                    this.repaintLogs();
                 },
                 repaintLogs: function() {
                     const box = document.getElementById('chat-thread-viewport');
                     if (!box) return;
                     box.innerHTML = '';
-                    const messages = Databases.channels[State.activeChannel].history || [];
-                    messages.forEach(m => {
+                    
+                    const logs = State.chatHistories[State.targetPeerId] || [];
+                    logs.forEach(m => {
                         box.innerHTML += `
                             <div class="msg-bubble ${m.variant}">
                                 <span class="msg-author">${m.author}</span>
@@ -1940,49 +1574,11 @@
                     });
                     box.scrollTop = box.scrollHeight;
                 },
-                trapInputKeys: function(e) {
-                    if (e.key === 'Enter') this.dispatchTextPacket();
-                }
+                trapInputKeys: function(e) { if (e.key === 'Enter') this.dispatchTextPacket(); }
             };
 
             const MediaModule = {
-                toggleCallState: async function() {
-                    const layer = document.getElementById('call-interface-layer');
-                    if (!layer) return;
-                    
-                    if (!State.isCallActive) {
-                        // Launching a real-time call
-                        const targetInput = document.getElementById('target-peer-connection-input').value.trim();
-                        if (!targetInput) return alert("Please specify a target Nexus Address to initialize live stream variables.");
-
-                        State.isCallActive = true;
-                        layer.style.display = "flex";
-                        this.startTimer();
-
-                        try {
-                            localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                            document.getElementById('hardware-webcam-stream').srcObject = localStream;
-                            document.getElementById('webcam-canvas').style.display = "none";
-                            
-                            // Initialize actual network audio/video stream parameters
-                            activeMediaCall = peerInstance.call(targetInput, localStream);
-                            this.bindMediaCallStreams(activeMediaCall);
-                        } catch (e) {
-                            alert("Camera/Mic device permissions required for video calls.");
-                            this.killTracks();
-                        }
-                    } else {
-                        // Hanging up the call
-                        State.isCallActive = false;
-                        layer.style.display = "none";
-                        this.stopTimer();
-                        this.killTracks();
-                    }
-                },
-                acceptIncomingCall: async function() {
-                    const overlay = document.getElementById('incoming-call-portal-overlay');
-                    if (overlay) overlay.classList.remove('active');
-                    
+                triggerOneClickCall: async function(destinationPeerId) {
                     const layer = document.getElementById('call-interface-layer');
                     State.isCallActive = true;
                     if (layer) layer.style.display = "flex";
@@ -1993,18 +1589,34 @@
                         document.getElementById('hardware-webcam-stream').srcObject = localStream;
                         document.getElementById('webcam-canvas').style.display = "none";
                         
-                        // Answer the incoming call object with our local stream metrics
+                        activeMediaCall = peerInstance.call(destinationPeerId, localStream);
+                        this.bindMediaCallStreams(activeMediaCall);
+                    } catch (e) {
+                        alert("Device hardware interface permission parameters required.");
+                        this.killTracks();
+                    }
+                },
+                acceptIncomingCall: async function() {
+                    document.getElementById('incoming-call-portal-overlay').classList.remove('active');
+                    const layer = document.getElementById('call-interface-layer');
+                    State.isCallActive = true;
+                    if (layer) layer.style.display = "flex";
+                    this.startTimer();
+
+                    try {
+                        localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                        document.getElementById('hardware-webcam-stream').srcObject = localStream;
+                        document.getElementById('webcam-canvas').style.display = "none";
+                        
                         incomingCallReference.answer(localStream);
                         activeMediaCall = incomingCallReference;
                         this.bindMediaCallStreams(activeMediaCall);
                     } catch (e) {
-                        alert("Could not initialize local devices to accept data calls.");
                         this.killTracks();
                     }
                 },
                 declineIncomingCall: function() {
-                    const overlay = document.getElementById('incoming-call-portal-overlay');
-                    if (overlay) overlay.classList.remove('active');
+                    document.getElementById('incoming-call-portal-overlay').classList.remove('active');
                     if (incomingCallReference) incomingCallReference.close();
                 },
                 bindMediaCallStreams: function(callObj) {
@@ -2013,11 +1625,9 @@
                         if (remoteVideo) remoteVideo.srcObject = remoteStream;
                         document.getElementById('screenshare-canvas').style.display = "none";
                     });
-
-                    callObj.on('close', () => {
-                        this.killTracks();
-                    });
+                    callObj.on('close', () => { this.killTracks(); });
                 },
+                toggleCallState: function() { this.killTracks(); },
                 startTimer: function() {
                     State.callSeconds = 0;
                     const display = document.getElementById('call-duration-clock');
@@ -2028,17 +1638,10 @@
                         if (display) display.innerText = `${mins}:${secs}`;
                     }, 1000);
                 },
-                stopTimer: function() {
-                    if (callInterval) clearInterval(callInterval);
-                },
-                toggleWebcam: function() {
-                    alert("Use primary Connect Media Stream button to trigger integrated dynamic layout permissions maps.");
-                },
+                stopTimer: function() { if (callInterval) clearInterval(callInterval); },
                 toggleMute: function() {
                     State.isAudioMuted = !State.isAudioMuted;
-                    if (localStream) {
-                        localStream.getAudioTracks().forEach(t => t.enabled = !State.isAudioMuted);
-                    }
+                    if (localStream) localStream.getAudioTracks().forEach(t => t.enabled = !State.isAudioMuted);
                     document.getElementById('mute-audio-toggle').innerText = State.isAudioMuted ? "Audio Muted" : "Audio Unmuted";
                 },
                 killTracks: function() {
@@ -2050,25 +1653,10 @@
                     document.getElementById('webcam-canvas').style.display = "flex";
                     document.getElementById('screenshare-canvas').style.display = "flex";
                     
-                    State.isCallActive = false;
-                    State.isCameraActive = false;
-                    State.isAudioMuted = false;
-                    
+                    State.isCallActive = false; State.isAudioMuted = false;
                     document.getElementById('call-interface-layer').style.display = "none";
                     this.stopTimer();
                 }
-            };
-
-            const StorefrontModule = {
-                openStore: function() { document.getElementById('nexus-shop-screen').style.display = "flex"; },
-                closeStore: function() { document.getElementById('nexus-shop-screen').style.display = "none"; },
-                render: function() {},
-                purchase: function() {}
-            };
-
-            const UIModule = {
-                populateEmojiGrid: function() {},
-                toggleEmojiTray: function() {}
             };
 
             return {
@@ -2080,28 +1668,25 @@
                 },
                 Navigation: {
                     switchTab: (id) => NavigationModule.switchTab(id),
-                    loadChannel: (id) => NavigationModule.loadChannel(id)
+                    loadChannel: (id) => NetworkRouter.setDirectActiveFocus(id, globalOnlineUsersMap[id]?.username || "Peer")
                 },
-                NetworkRouter: { linkToTargetNode: () => NetworkRouter.linkToTargetNode() },
+                NetworkRouter: { setDirectActiveFocus: (id, name) => NetworkRouter.setDirectActiveFocus(id, name) },
                 DataEngine: {
                     dispatchTextPacket: () => DataModule.dispatchTextPacket(),
                     trapInputKeys: (e) => DataModule.trapInputKeys(e)
                 },
                 MediaCore: {
-                    toggleCallState: () => MediaModule.toggleCallState(),
+                    triggerOneClickCall: (id) => MediaModule.triggerOneClickCall(id),
                     acceptIncomingCall: () => MediaModule.acceptIncomingCall(),
                     declineIncomingCall: () => MediaModule.declineIncomingCall(),
-                    toggleMute: () => MediaModule.toggleMute()
+                    toggleMute: () => MediaModule.toggleMute(),
+                    toggleCallState: () => MediaModule.toggleCallState()
                 },
-                Storefront: { openStore: () => StorefrontModule.openStore(), closeStore: () => StorefrontModule.closeStore() },
-                UI: { toggleEmojiTray: () => {} },
                 Startup: () => SystemModule.init()
             };
         })();
 
-        window.addEventListener('DOMContentLoaded', () => {
-            NexusAppEngine.Startup();
-        });
+        window.addEventListener('DOMContentLoaded', () => { NexusAppEngine.Startup(); });
     </script>
 </body>
 </html>
