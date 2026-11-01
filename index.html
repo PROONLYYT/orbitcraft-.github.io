@@ -639,6 +639,58 @@
             align-self: flex-end;
         }
 
+        /* Voice Message Audio Node Controller Styles */
+        .voice-memo-node-frame {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-top: 4px;
+            min-width: 200px;
+        }
+        
+        .voice-play-trigger-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--primary-accent);
+            border: none;
+            color: #000000;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+        
+        .voice-waveform-simulation {
+            flex: 1;
+            height: 16px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+        
+        .waveform-bar-element {
+            flex: 1;
+            background: rgba(0, 255, 255, 0.4);
+            border-radius: 2px;
+            transition: height 0.15s ease;
+        }
+        
+        .waveform-bar-element.active-pulse {
+            background: var(--primary-accent);
+            animation: simulateVoiceWave 0.6s ease infinite alternate;
+        }
+
+        @keyframes simulateVoiceWave {
+            0% { height: 4px; }
+            100% { height: 16px; }
+        }
+
         .input-dock-bar {
             padding: 16px 24px;
             background: var(--bg-panel);
@@ -687,7 +739,7 @@
             box-shadow: 0 0 8px var(--primary-accent);
         }
 
-        .emoji-trigger-node-btn {
+        .emoji-trigger-node-btn, .mic-record-trigger-btn {
             background: transparent;
             border: 1px solid var(--border-subtle);
             color: var(--text-muted);
@@ -698,12 +750,26 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 38px;
+            height: 38px;
         }
 
-        .emoji-trigger-node-btn:hover {
+        .emoji-trigger-node-btn:hover, .mic-record-trigger-btn:hover {
             color: var(--primary-accent);
             border-color: var(--primary-accent);
             background: rgba(0, 255, 255, 0.05);
+        }
+        
+        .mic-record-trigger-btn.recording-active {
+            color: var(--danger-red);
+            border-color: var(--danger-red);
+            background: rgba(255, 51, 68, 0.1);
+            animation: pulseRecordBorder 1s infinite alternate;
+        }
+
+        @keyframes pulseRecordBorder {
+            from { box-shadow: 0 0 4px rgba(255, 51, 68, 0.2); }
+            to { box-shadow: 0 0 12px rgba(255, 51, 68, 0.6); }
         }
 
         .emoji-picker-matrix-overlay {
@@ -1311,6 +1377,8 @@
             <div class="thread-scroll-view" id="chat-thread-viewport"></div>
 
             <div class="input-dock-bar">
+                <button type="button" class="mic-record-trigger-btn" id="voice-memo-toggle-btn" onclick="toggleVoiceMessageRecording()" title="Record Voice Message">🎤</button>
+
                 <input type="text" id="text-message-input-node" placeholder="Type a message into active stream..." onkeypress="trapInputKeypress(event)">
                 
                 <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Emoji">😀</button>
@@ -1392,6 +1460,11 @@
         let activeChannelId = 'global-lobby';
         let isCooldownActive = false;
 
+        /* Voice Recording System State Machine */
+        let voiceMediaRecorder = null;
+        let voiceRecordedChunks = [];
+        let isVoiceRecording = false;
+
         let identityLinkingMatrix = {
             google: { connected: false, name: null, avatar: null },
             discord: { connected: false, name: null, avatar: null },
@@ -1438,7 +1511,27 @@
             generateStorefrontCards();
             populateEmojiPickerGrid();
             evaluateCachedProfileState();
+            setupAutomatedNetworkPeerSimulation();
         });
+
+        /* Real-Time Online Chat Network Communication Simulator */
+        function setupAutomatedNetworkPeerSimulation() {
+            setInterval(() => {
+                const networkActivePeers = ["AlphaOmega", "Specter_X", "CyberGhost", "MatrixRunner"];
+                const mockPhrases = [
+                    "Wired network connectivity status checks out 100% online.",
+                    "Just tested the media pipeline, WebRTC channels are wide open!",
+                    "Drop a voice message, verifying the binary compression stack.",
+                    "Interface loop matches the remote server layout flawlessly."
+                ];
+                
+                if (Math.random() > 0.6) {
+                    const peer = networkActivePeers[Math.floor(Math.random() * networkActivePeers.length)];
+                    const phrase = mockPhrases[Math.floor(Math.random() * mockPhrases.length)];
+                    appendBubbleElement(peer, phrase, "received");
+                }
+            }, 9000);
+        }
 
         function evaluateCachedProfileState() {
             let cachedName = localStorage.getItem('nexuschat_user_v6');
@@ -1621,7 +1714,6 @@
             overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        /* Continuous user-facing messaging dispatch mechanism */
         function injectEmojiSymbolToInputBox(emojiSymbol) {
             const textInput = document.getElementById('text-message-input-node');
             if (!textInput) return;
@@ -1657,21 +1749,71 @@
             }
             
             setTimeout(() => {
-                const automatedPool = [
-                    "WebRTC active media tracks mapping looks perfect across your device pipeline.",
-                    "The custom graphics and animated layers are running seamlessly on GitHub static layouts!",
-                    "Everything is synchronized in local system environment arrays."
-                ];
-                const selectedText = automatedPool[Math.floor(Math.random() * automatedPool.length)];
-                appendBubbleElement("Beta Tester", selectedText, "received");
-            }, 1000);
-            
-            setTimeout(() => {
                 isCooldownActive = false;
                 inputField.disabled = false;
                 dispatchBtn.disabled = false;
                 inputField.focus();
             }, 2000);
+        }
+
+        /* Fully Embedded Functional Voice Message Recording System */
+        async function toggleVoiceMessageRecording() {
+            const recBtn = document.getElementById('voice-memo-toggle-btn');
+            if (!isVoiceRecording) {
+                // Initializing Recording Parameters
+                try {
+                    const audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    voiceRecordedChunks = [];
+                    voiceMediaRecorder = new MediaRecorder(audioStream);
+                    
+                    voiceMediaRecorder.ondataavailable = (e) => {
+                        if (e.data.size > 0) voiceRecordedChunks.push(e.data);
+                    };
+                    
+                    voiceMediaRecorder.onstop = () => {
+                        const voiceBlob = new Blob(voiceRecordedChunks, { type: 'audio/webm' });
+                        const voiceBlobURL = URL.createObjectURL(voiceBlob);
+                        
+                        // Stop tracks cleanly
+                        audioStream.getTracks().forEach(t => t.stop());
+                        
+                        injectVoiceBubbleToChatLog(currentProfileSessionName, voiceBlobURL, "sent");
+                    };
+                    
+                    voiceMediaRecorder.start();
+                    isVoiceRecording = true;
+                    recBtn.classList.add('recording-active');
+                    recBtn.innerText = "🛑";
+                    playSynthFrequency(660, 'sine', 0.1, 0.3);
+                } catch(err) {
+                    console.error("Recording system failure mapping microphone inputs:", err);
+                    alert("Unable to allocate system recording devices. Please confirm microphone access rules.");
+                }
+            } else {
+                // Halting ongoing input track conversion
+                if (voiceMediaRecorder && voiceMediaRecorder.state !== "inactive") {
+                    voiceMediaRecorder.stop();
+                }
+                isVoiceRecording = false;
+                recBtn.classList.remove('recording-active');
+                recBtn.innerText = "🎤";
+                playSynthFrequency(440, 'sine', 0.15, 0.2);
+            }
+        }
+
+        function injectVoiceBubbleToChatLog(author, blobURL, variant) {
+            if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
+            const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            
+            channelDatabase[activeChannelId].history.push({ 
+                author, 
+                content: "", 
+                variant, 
+                timeCode,
+                voiceURL: blobURL 
+            });
+            
+            repaintMessageLogs();
         }
 
         function appendBubbleElement(author, content, variant) {
@@ -1687,10 +1829,45 @@
             if(!viewTarget) return;
             viewTarget.innerHTML = '';
             const logs = channelDatabase[activeChannelId].history || [];
-            logs.forEach(msg => {
-                viewTarget.innerHTML += `<div class="msg-bubble ${msg.variant}"> <span class="msg-author">${msg.author}</span> <div>${msg.content}</div> <div class="msg-footer">${msg.timeCode}</div> </div>`;
+            
+            logs.forEach((msg, idx) => {
+                if (msg.voiceURL) {
+                    // Injecting functional custom voice tracking system blocks
+                    viewTarget.innerHTML += `
+                        <div class="msg-bubble ${msg.variant}">
+                            <span class="msg-author">${msg.author}</span>
+                            <div class="voice-memo-node-frame">
+                                <button class="voice-play-trigger-btn" onclick="playTargetVoiceTrack('${msg.voiceURL}', this)">▶</button>
+                                <div class="voice-waveform-simulation">
+                                    <div class="waveform-bar-element" style="height: 40%"></div>
+                                    <div class="waveform-bar-element" style="height: 70%"></div>
+                                    <div class="waveform-bar-element" style="height: 50%"></div>
+                                    <div class="waveform-bar-element" style="height: 90%"></div>
+                                    <div class="waveform-bar-element" style="height: 60%"></div>
+                                    <div class="waveform-bar-element" style="height: 80%"></div>
+                                </div>
+                            </div>
+                            <div class="msg-footer">${msg.timeCode}</div>
+                        </div>`;
+                } else {
+                    viewTarget.innerHTML += `<div class="msg-bubble ${msg.variant}"> <span class="msg-author">${msg.author}</span> <div>${msg.content}</div> <div class="msg-footer">${msg.timeCode}</div> </div>`;
+                }
             });
             viewTarget.scrollTop = viewTarget.scrollHeight;
+        }
+
+        function playTargetVoiceTrack(trackURL, elementNode) {
+            const voiceAudio = new Audio(trackURL);
+            const waveBars = elementNode.parentElement.querySelectorAll('.waveform-bar-element');
+            
+            elementNode.innerText = "⏸";
+            waveBars.forEach(bar => bar.classList.add('active-pulse'));
+            
+            voiceAudio.play();
+            voiceAudio.onended = () => {
+                elementNode.innerText = "▶";
+                waveBars.forEach(bar => bar.classList.remove('active-pulse'));
+            };
         }
 
         function trapInputKeypress(e) {
