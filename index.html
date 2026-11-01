@@ -3,1981 +3,2373 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusChat - Premium Discord Client App Matrix</title>
+    <title>NexusChat Messenger Client</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    
     <style>
         :root {
-            /* Discord Core Layout Theme Color Branding Palettes */
-            --brand-blurple: #5865F2;
-            --brand-blurple-hover: #4752C4;
-            --status-green: #23A55A;
-            --status-idle: #F0B232;
-            --status-dnd: #F23F43;
-            --status-offline: #80848E;
+            /* Premium Glassmorphic Obsidian-Cyan Design Tokens */
+            --bg-dark: #07090e;
+            --bg-dark-gradient: linear-gradient(135deg, #07090e 0%, #0a1118 100%);
+            --bg-panel: rgba(10, 20, 30, 0.7);
+            --bg-sidebar: rgba(6, 10, 15, 0.9);
+            --primary-accent: #00ffff;
+            --primary-hover: #00cccc;
+            --primary-glow: rgba(0, 255, 255, 0.4);
+            --text-main: #f2f3f5;
+            --text-muted: #8a9aa8;
+            --danger-red: #ff3344;
+            --danger-hover: #cc2233;
+            --success-green: #00ff66;
+            --border-subtle: rgba(0, 255, 255, 0.15);
+            --border-active: rgba(0, 255, 255, 0.6);
+            --input-bg: rgba(5, 10, 15, 0.85);
+            --gold-accent: #f5a623;
+            --pink-neon: #ff007f;
             
-            /* Background Window Grid Surface Vectors */
-            --bg-guilds: #1E1F22;
-            --bg-sidebar: #2B2D31;
-            --bg-chat: #313338;
-            --bg-members: #2B2D31;
-            --bg-panels: #232428;
-            --bg-modifier-hover: rgba(78, 80, 88, 0.25);
-            --bg-modifier-selected: rgba(78, 80, 88, 0.55);
-            --bg-input: #383A40;
-            
-            /* Typography Scale System Anchors */
-            --text-normal: #DBDEE1;
-            --text-muted: #949BA4;
-            --text-link: #00A8FC;
-            --text-white: #FFFFFF;
-            --header-primary: #F2F3F5;
-            --header-secondary: #B5BAC1;
-            
-            /* Layout Structure Matrix Boundaries */
-            --border-subtle: rgba(78, 80, 88, 0.35);
-            --text-warning: #E0B232;
+            /* UI Sizing Anchors */
+            --nav-rail-width: 75px;
+            --sidebar-width: 280px;
         }
 
-        /* Master Structure Box Calculation Reset Rules */
-        *, *::before, *::after {
+        /* Global Structural Overrides & Reset Rules */
+        *, body, html, button, input, select {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            -webkit-user-select: none;
-            user-select: none;
+            cursor: default;
         }
 
         body, html {
             width: 100%;
             height: 100%;
-            background-color: var(--bg-chat);
-            color: var(--text-normal);
+            margin: 0;
+            padding: 0;
+            background: var(--bg-dark);
+            background-image: var(--bg-dark-gradient);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             overflow: hidden;
             display: flex;
+            user-select: none;
+            -webkit-user-select: none;
         }
 
-        button, input {
-            font-family: inherit;
-            color: inherit;
-            background: none;
-            border: none;
-            outline: none;
-        }
-
-        /* Scannable Discord Custom Typography Scrollbar Elements */
+        /* Scannable Scrollbar Elements */
         ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: var(--bg-guilds);
-            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.2);
         }
         ::-webkit-scrollbar-thumb {
-            background: #1a1b1e;
+            background: rgba(0, 255, 255, 0.2);
             border-radius: 4px;
-            border: 2px solid transparent;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #111214;
+            background: var(--primary-accent);
         }
 
-        /* Full Screen Animated Splash Portal Overlay Screen */
-        #splash-portal {
+        /* Cinematic Loading Portal Splash Overlay Styles */
+        #splash-loading-portal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #1e1f22;
+            background: #04060a;
             z-index: 9999;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s ease;
         }
 
-        #splash-portal.hidden {
+        #splash-loading-portal.hidden {
             opacity: 0;
+            transform: scale(1.05);
             pointer-events: none;
         }
 
-        .splash-logo-wrapper {
-            position: relative;
-            width: 100px;
-            height: 100px;
+        .splash-logo-container {
+            width: 80px;
+            height: 80px;
             margin-bottom: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
-        .splash-spinner {
-            width: 90px;
-            height: 90px;
-            border: 4px solid rgba(88, 101, 242, 0.1);
-            border-top: 4px solid var(--brand-blurple);
-            border-radius: 50%;
-            animation: spinMatrix 1s linear infinite;
-            position: absolute;
+        .splash-logo-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            animation: pulseLogo 2s ease-in-out infinite;
         }
 
-        .splash-img-node {
-            width: 52px;
-            height: 52px;
-            border-radius: 14px;
-            object-fit: cover;
-            z-index: 2;
-            animation: pulseScaleAsset 2s ease-in-out infinite;
-        }
-
-        .splash-title {
-            color: var(--text-white);
-            font-size: 22px;
+        .splash-headline {
+            font-size: 32px;
             font-weight: 800;
-            letter-spacing: 0.5px;
+            letter-spacing: 2px;
+            color: #ffffff;
             margin-bottom: 8px;
+            text-align: center;
+            text-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
         }
 
-        .splash-subtitle {
+        .splash-user-subtitle {
+            font-size: 16px;
+            color: var(--primary-accent);
+            font-weight: 500;
+            margin-bottom: 30px;
+            min-height: 24px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .progress-track-wrapper {
+            width: 280px;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid rgba(0, 255, 255, 0.1);
+        }
+
+        .progress-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-hover), var(--primary-accent));
+            box-shadow: 0 0 16px var(--primary-accent);
+            transition: width 0.1s linear;
+        }
+
+        @keyframes pulseLogo {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.2)); }
+            50% { transform: scale(1.06); filter: drop-shadow(0 0 24px var(--primary-accent)); }
+        }
+
+        /* Discord-Style Glassmorphic Onboarding Interface Overlay */
+        #secure-login-gate-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(145deg, #040814 0%, #0d1326 100%);
+            z-index: 8000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s ease;
+        }
+
+        #secure-login-gate-overlay.hidden {
+            opacity: 0;
+            transform: scale(0.96);
+            pointer-events: none;
+        }
+
+        .login-card-glassmorphic-wrapper {
+            width: 480px;
+            background: rgba(15, 25, 45, 0.6);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 255, 255, 0.05);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+        }
+
+        .onboarding-step {
+            display: none;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .onboarding-step.active-step {
+            display: flex;
+        }
+
+        .login-card-header {
+            text-align: center;
+        }
+
+        .login-brand-logo-node {
+            width: 56px;
+            height: 56px;
+            object-fit: contain;
+            margin-bottom: 12px;
+        }
+
+        .login-title-h1 {
+            font-size: 26px;
+            font-weight: 800;
+            color: #ffffff;
+            margin: 0 0 6px 0;
+            letter-spacing: 0.5px;
+        }
+
+        .login-subtitle-p {
+            font-size: 13.5px;
             color: var(--text-muted);
+            margin: 0;
+        }
+
+        .oauth-providers-button-stack {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .oauth-provider-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 12.5px;
+            font-weight: 600;
+            cursor: pointer !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .oauth-provider-btn:hover {
+            background: rgba(0, 255, 255, 0.05);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 8px var(--primary-glow);
+        }
+
+        .login-divider-row {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin: 10px 0;
+        }
+
+        .login-divider-row::before, .login-divider-row::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .login-divider-row:not(:empty)::before { margin-right: 12px; }
+        .login-divider-row:not(:empty)::after { margin-left: 12px; }
+
+        .registration-input-group-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .form-label-node {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-text-input-field, .form-select-field {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1px solid var(--border-subtle);
+            padding: 12px 14px;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        .form-text-input-field:focus, .form-select-field:focus {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 8px var(--primary-glow);
+        }
+
+        .form-select-field option {
+            background: #0f172a;
+            color: #ffffff;
+        }
+
+        .dob-select-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .gender-options-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .gender-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+            padding: 12px;
+            border-radius: 6px;
             font-size: 13px;
-            letter-spacing: 0.3px;
+            font-weight: 600;
+            text-align: center;
+            cursor: pointer !important;
+            transition: all 0.2s ease;
         }
 
-        @keyframes spinMatrix {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        @keyframes pulseScaleAsset {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(88, 101, 242, 0.3)); }
-            50% { transform: scale(1.08); filter: drop-shadow(0 0 16px rgba(88, 101, 242, 0.6)); }
+        .gender-btn:hover, .gender-btn.selected {
+            border-color: var(--primary-accent);
+            background: rgba(0, 255, 255, 0.08);
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
         }
 
-        /* Core Application Split Grid Window Frame Layout */
-        #app-container {
+        .avatar-file-upload-trigger-container {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .avatar-upload-preview-frame {
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 700;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .avatar-upload-preview-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .custom-file-input-facade-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer !important;
+            transition: all 0.2s ease;
+        }
+
+        .custom-file-input-facade-btn:hover {
+            border-color: var(--text-muted);
+            background: rgba(255,255,255,0.06);
+        }
+
+        .wizard-nav-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .submit-portal-access-btn {
+            background: transparent;
+            color: var(--primary-accent);
+            border: 1px solid var(--primary-accent);
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer !important;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 8px var(--primary-glow);
+        }
+
+        .submit-portal-access-btn:hover {
+            background: var(--primary-hover);
+            color: #000000;
+            box-shadow: 0 0 16px var(--primary-accent);
+        }
+
+        .step-indicators-wrapper {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .step-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: background 0.3s ease;
+        }
+
+        .step-dot.active {
+            background: var(--primary-accent);
+            box-shadow: 0 0 8px var(--primary-accent);
+        }
+
+        /* Master Application Layout Window Frame */
+        #app-frame {
             display: flex;
             width: 100vw;
             height: 100vh;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.5s ease;
+            background: var(--bg-dark-gradient);
         }
 
-        #app-container.visible {
+        #app-frame.visible {
             opacity: 1;
         }
 
-        /* COLUMN 1: Vertical Left Navigation Feature Grid Rail */
-        .guilds-rail {
-            width: 72px;
-            background-color: var(--bg-guilds);
+        /* Vertical Global 5-Tab Rails Frame Layout */
+        .global-nav-rail {
+            width: var(--nav-rail-width);
+            height: 100%;
+            background: rgba(3, 6, 10, 0.95);
+            border-right: 1px solid var(--border-subtle);
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 12px 0;
-            gap: 8px;
-            flex-shrink: 0;
-            overflow-y: auto;
+            padding: 16px 0;
+            gap: 18px;
+            z-index: 10;
         }
 
-        .guild-item-wrapper {
-            position: relative;
+        /* Hover-Scale Tab Item Physics Core */
+        .rail-tab-item {
             width: 48px;
             height: 48px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-
-        .guild-pill {
-            position: absolute;
-            left: -12px;
-            width: 8px;
-            height: 8px;
-            background-color: var(--text-white);
-            border-radius: 0 4px 4px 0;
-            transition: height 0.2s ease, transform 0.2s ease;
-            transform: scaleX(0);
-            transform-origin: left center;
-        }
-
-        .guild-item-wrapper:hover .guild-pill {
-            transform: scaleX(1);
-            height: 20px;
-        }
-
-        .guild-item-wrapper.active .guild-pill {
-            transform: scaleX(1);
-            height: 40px;
-        }
-
-        .guild-icon-image {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            object-fit: cover;
-            cursor: pointer;
-            transition: border-radius 0.2s ease, background-color 0.2s ease;
-        }
-
-        .guild-icon-image:hover, .guild-item-wrapper.active .guild-icon-image {
-            border-radius: 16px;
-        }
-
-        .guild-icon-placeholder-button {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background-color: var(--bg-sidebar);
-            color: var(--header-primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 18px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: border-radius 0.2s ease, background-color 0.2s ease, color 0.2s ease;
-        }
-
-        .guild-icon-placeholder-button:hover {
-            border-radius: 16px;
-            background-color: var(--brand-blurple);
-            color: var(--text-white);
-        }
-
-        .guild-separator {
-            width: 32px;
-            height: 2px;
-            background-color: var(--border-subtle);
-            margin: 4px 0;
-            border-radius: 1px;
-        }
-
-        .guild-badge {
-            position: absolute;
-            bottom: -2px;
-            right: -2px;
-            background-color: var(--status-dnd);
-            color: var(--text-white);
-            font-size: 11px;
-            font-weight: 800;
-            padding: 2px 5px;
-            border-radius: 10px;
-            border: 3px solid var(--bg-guilds);
-        }
-
-        /* COLUMN 2: Navigation Categories & Channel Logs Sidebar List */
-        .sidebar-channels {
-            width: 240px;
-            background-color: var(--bg-sidebar);
-            display: flex;
-            flex-direction: column;
-            flex-shrink: 0;
-            height: 100%;
-        }
-
-        .server-header-btn {
-            width: 100%;
-            height: 48px;
-            padding: 0 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-weight: 700;
-            font-size: 14.5px;
-            color: var(--text-white);
-            box-shadow: 0 1px 2px rgba(0,0,0,0.2);
-            border-bottom: 1px solid rgba(0,0,0,0.2);
-            cursor: pointer;
-            transition: background-color 0.1s linear;
-        }
-        .server-header-btn:hover {
-            background-color: var(--bg-modifier-hover);
-        }
-
-        .channels-scroll-area {
-            flex: 1;
-            overflow-y: auto;
-            padding: 12px 8px;
-        }
-
-        .category-row {
-            display: flex;
-            align-items: center;
-            padding: 6px 2px;
-            font-size: 11.5px;
-            font-weight: 700;
+            cursor: pointer !important;
             color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-        }
-        .category-row:hover {
-            color: var(--header-primary);
-        }
-        .category-arrow {
-            font-size: 8px;
-            margin-right: 6px;
-            color: var(--text-muted);
-        }
-
-        .channel-list-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 6px 8px;
-            border-radius: 4px;
-            margin-bottom: 2px;
-            cursor: pointer;
-            color: var(--text-muted);
-            font-size: 14px;
-            font-weight: 500;
-        }
-        .channel-list-item:hover {
-            background-color: var(--bg-modifier-hover);
-            color: var(--text-normal);
-        }
-        .channel-list-item.active {
-            background-color: var(--bg-modifier-selected);
-            color: var(--text-white);
-        }
-
-        .channel-meta-left {
-            display: flex;
-            align-items: center;
-            min-width: 0;
-        }
-        .channel-hash-icon {
-            font-size: 15px;
-            margin-right: 6px;
-            color: var(--text-muted);
-            font-weight: 400;
-        }
-        .channel-list-item.active .channel-hash-icon {
-            color: var(--text-white);
-        }
-        .channel-label-text {
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        /* Account Status Bar Control Block Footer Component Area */
-        .user-status-footer-panel {
-            height: 52px;
-            background-color: var(--bg-panels);
-            display: flex;
-            align-items: center;
-            padding: 0 8px;
-            justify-content: space-between;
-            gap: 4px;
-            border-top: 1px solid rgba(0,0,0,0.15);
-        }
-
-        .footer-account-node {
-            display: flex;
-            align-items: center;
-            padding: 4px;
-            border-radius: 4px;
-            cursor: pointer;
-            min-width: 0;
-            flex: 1;
-        }
-        .footer-account-node:hover {
-            background-color: var(--bg-modifier-hover);
-        }
-
-        .avatar-status-wrapper {
+            font-size: 20px;
             position: relative;
-            width: 32px;
-            height: 32px;
-            margin-right: 8px;
-            flex-shrink: 0;
-        }
-        .avatar-img-circle-element {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            background-color: var(--brand-blurple);
-        }
-        .status-badge-dot {
-            position: absolute;
-            bottom: -1px;
-            right: -1px;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background-color: var(--status-green);
-            border: 2px solid var(--bg-panels);
-            transition: background-color 0.2s ease;
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
         }
 
-        .account-meta-strings {
+        .rail-tab-item:hover {
+            color: var(--primary-accent);
+            background: rgba(0, 255, 255, 0.05);
+            border-color: var(--primary-accent);
+            transform: scale(1.15);
+            box-shadow: 0 0 14px var(--primary-glow);
+        }
+
+        .rail-tab-item.active {
+            color: #ffffff;
+            background: var(--primary-hover);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Standard Sub-context Left Sidebar panel */
+        .sidebar-panel {
+            width: var(--sidebar-width);
+            min-width: var(--sidebar-width);
+            background: var(--bg-sidebar);
+            border-right: 1px solid var(--border-subtle);
             display: flex;
             flex-direction: column;
-            min-width: 0;
-        }
-        .account-display-name {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--header-primary);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .account-discriminator-sub {
-            font-size: 11px;
-            color: var(--text-muted);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .footer-controls-stack {
-            display: flex;
-            align-items: center;
-            color: var(--text-muted);
-        }
-        .footer-utility-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        .footer-utility-btn:hover {
-            background-color: var(--bg-modifier-hover);
-            color: var(--text-normal);
-        }
-        .footer-utility-btn.active-dnd {
-            color: var(--status-dnd);
-        }
-
-        /* COLUMN 3: Central Chat Pipeline Logging Matrix Area Panel */
-        .chat-workspace-viewport {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background-color: var(--bg-chat);
             height: 100%;
-            min-width: 0;
-            position: relative;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
-        .chat-top-navbar {
-            height: 48px;
-            padding: 0 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid rgba(0,0,0,0.18);
-            box-shadow: 0 1px 1px rgba(0,0,0,0.08);
-            z-index: 5;
-            flex-shrink: 0;
-        }
-
-        .navbar-channel-identity {
-            display: flex;
-            align-items: center;
-            font-weight: 600;
-            font-size: 15px;
-            color: var(--text-white);
-        }
-        .navbar-hash {
-            font-size: 18px;
-            color: var(--text-muted);
-            margin-right: 8px;
-            font-weight: 400;
-        }
-
-        .navbar-actions-dock {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            color: var(--text-muted);
-        }
-        .navbar-action-icon-trigger {
-            font-size: 18px;
-            cursor: pointer;
-            transition: color 0.1s linear;
-        }
-        .navbar-action-icon-trigger:hover {
-            color: var(--text-normal);
-        }
-
-        /* Extended Audio/Video Call Streaming Canvas Tray Frame */
-        #webrtc-call-bay {
-            display: none;
-            background-color: #111214;
+        .sidebar-header {
             padding: 16px;
+            background: rgba(15, 25, 35, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             border-bottom: 1px solid var(--border-subtle);
-            flex-direction: column;
-            gap: 12px;
-            flex-shrink: 0;
+            height: 70px;
         }
 
-        .media-streams-layout-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        @media (max-width: 800px) {
-            .media-streams-layout-grid { grid-template-columns: 1fr; }
-        }
-
-        .video-box-card {
-            background-color: var(--bg-sidebar);
-            border-radius: 8px;
-            height: 220px;
-            position: relative;
-            overflow: hidden;
+        .profile-node-area {
             display: flex;
             align-items: center;
-            justify-content: center;
-            border: 2px solid transparent;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
-        }
-        .video-box-card.speaking-ring {
-            border-color: var(--status-green);
-            box-shadow: 0 0 14px rgba(35, 165, 90, 0.5);
-        }
-
-        .html5-video-hardware-element {
+            gap: 10px;
+            min-width: 0;
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            background: #000;
-            z-index: 1;
         }
 
-        .video-avatar-mock-layer {
-            position: absolute;
-            width: 68px;
-            height: 68px;
-            border-radius: 50%;
-            object-fit: cover;
-            z-index: 2;
-        }
-
-        .video-label-tag {
-            position: absolute;
-            bottom: 8px;
-            left: 8px;
-            background-color: rgba(0,0,0,0.7);
-            color: var(--text-white);
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 11.5px;
-            font-weight: 600;
-            z-index: 3;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .call-controls-alignment-row {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            background-color: var(--bg-panels);
-            padding: 8px;
-            border-radius: 6px;
-            border: 1px solid rgba(0,0,0,0.2);
-        }
-
-        .call-control-round-btn {
+        .user-tag-avatar {
             width: 36px;
             height: 36px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 1px solid var(--primary-accent);
             border-radius: 50%;
-            background-color: var(--bg-input);
-            color: var(--text-normal);
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
             font-size: 14px;
-            transition: all 0.15s ease;
-        }
-        .call-control-round-btn:hover {
-            background-color: var(--bg-modifier-selected);
-            color: var(--text-white);
-        }
-        .call-control-round-btn.disconnect-btn {
-            background-color: var(--status-dnd);
-            color: var(--text-white);
-        }
-        .call-control-round-btn.disconnect-btn:hover {
-            background-color: #b82b2f;
-        }
-        .call-control-round-btn.active-toggle-state {
-            background-color: var(--text-white);
-            color: #000;
+            font-weight: 700;
+            color: var(--primary-accent);
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+            flex-shrink: 0;
+            overflow: hidden;
         }
 
-        .call-duration-timer-stamp {
-            color: var(--text-muted);
-            font-family: monospace;
-            font-size: 13px;
-            margin-left: 12px;
-            font-weight: 600;
-        }
-
-        /* Stream logs viewport timeline layout scroller */
-        .messages-timeline-scroller {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-
-        .message-chat-row {
-            display: flex;
-            position: relative;
-            padding-left: 54px;
-            min-height: 44px;
-        }
-        .message-chat-row:hover {
-            background-color: rgba(255,255,255,0.015);
-        }
-
-        .msg-absolute-avatar {
-            position: absolute;
-            left: 4px;
-            top: 2px;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+        .user-tag-avatar img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            background-color: var(--bg-guilds);
         }
 
-        .msg-contents-block {
+        .profile-meta-text-block {
             display: flex;
             flex-direction: column;
             min-width: 0;
+            flex: 1;
         }
 
-        .msg-header-row {
-            display: flex;
-            align-items: baseline;
-            margin-bottom: 4px;
+        .sidebar-title {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
-        .msg-username-string {
-            font-size: 14.5px;
-            font-weight: 600;
-            color: var(--text-white);
-            margin-right: 8px;
-            cursor: pointer;
-        }
-        .msg-username-string:hover {
-            text-decoration: underline;
-        }
-        .msg-timestamp-string {
+
+        .sidebar-subtitle-tag {
             font-size: 11px;
             color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .msg-body-text-content {
-            font-size: 15px;
-            line-height: 1.45;
-            color: var(--text-normal);
-            word-wrap: break-word;
-            white-space: pre-wrap;
+        .sidebar-tools {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            background: rgba(5, 10, 15, 0.3);
+            border-bottom: 1px solid var(--border-subtle);
         }
 
-        .msg-body-text-content.system-alert {
-            color: var(--status-idle);
-            font-style: italic;
-            font-weight: 500;
+        .sm-btn {
+            width: 100%;
+            padding: 10px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-main);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            cursor: pointer !important;
+            transition: all 0.2s ease;
+            text-align: left;
         }
 
-        /* Base Floating Layout Chat Entry Form Bar Dock Components */
-        .chat-input-container-dock {
-            padding: 0 16px 24px 16px;
-            flex-shrink: 0;
-            position: relative;
-            z-index: 4;
+        .sm-btn:hover {
+            background: rgba(0, 255, 255, 0.08);
+            border-color: var(--primary-accent);
+            color: #ffffff;
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.15);
         }
 
-        .chat-input-textarea-facade {
-            background-color: var(--bg-input);
-            border-radius: 8px;
+        .sm-btn.danger {
+            background: rgba(255, 51, 68, 0.05);
+            color: var(--danger-red);
+            border-color: rgba(255, 51, 68, 0.2);
+        }
+
+        .sm-btn.danger:hover {
+            background: var(--danger-red);
+            border-color: var(--danger-red);
+            color: white;
+            box-shadow: 0 0 8px rgba(255, 51, 68, 0.3);
+        }
+
+        .shop-trigger-btn {
+            width: 100%;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: transparent;
+            color: var(--primary-accent);
+            border: 1px solid var(--primary-accent);
+            border-radius: 6px;
+            cursor: pointer !important;
+            transition: all 0.2s ease;
+            text-align: center;
+            box-shadow: 0 0 6px var(--primary-glow);
+        }
+
+        .shop-trigger-btn:hover {
+            background: var(--primary-hover);
+            color: #000000;
+            box-shadow: 0 0 14px var(--primary-accent);
+        }
+
+        .contacts-vertical-stack {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+
+        .chat-list-row {
+            padding: 12px 16px;
+            cursor: pointer !important;
             display: flex;
             align-items: center;
-            padding: 10px 16px;
-            gap: 14px;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            transition: background 0.2s ease, border-left 0.2s ease;
+            border-left: 3px solid transparent;
         }
 
-        .chat-input-textarea-facade input[type="text"] {
-            flex: 1;
-            font-size: 15px;
-            color: var(--text-normal);
-            background: none;
-            border: none;
-            outline: none;
-        }
-        .chat-input-textarea-facade input[type="text"]::placeholder {
-            color: rgba(148, 155, 164, 0.45);
+        .chat-list-row:hover, .chat-list-row.active {
+            background: rgba(0, 255, 255, 0.03);
+            border-left-color: var(--primary-accent);
         }
 
-        .input-inline-action-icon {
-            font-size: 18px;
+        .row-avatar {
+            font-size: 14px;
+            font-weight: 700;
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
             color: var(--text-muted);
-            cursor: pointer;
-            transition: color 0.1s linear;
+        }
+
+        .chat-list-row:hover .row-avatar, .chat-list-row.active .row-avatar {
+            color: var(--primary-accent);
+            border-color: var(--primary-accent);
+        }
+
+        .row-meta {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .row-name {
+            font-weight: 600;
+            font-size: 13.5px;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .row-preview {
+            font-size: 11px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .workspace-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-dark);
+            position: relative;
+            height: 100%;
+        }
+
+        .workspace-header {
+            padding: 14px 24px;
+            background: var(--bg-panel);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-subtle);
+            height: 70px;
+            box-sizing: border-box;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .header-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-profile .title {
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .thread-scroll-view {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            box-sizing: border-box;
+        }
+
+        .msg-bubble {
+            max-width: 65%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            line-height: 1.5;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            word-wrap: break-word;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .msg-bubble.sent {
+            background: rgba(0, 255, 255, 0.05);
+            border-color: rgba(0, 255, 255, 0.3);
+            align-self: flex-end;
+            border-bottom-right-radius: 0;
+        }
+
+        .msg-bubble.received {
+            background: rgba(255, 255, 255, 0.02);
+            align-self: flex-start;
+            border-bottom-left-radius: 0;
+        }
+
+        .msg-author {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary-accent);
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .msg-bubble.sent .msg-author {
+            color: #ffffff;
+        }
+
+        .msg-footer {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            align-self: flex-end;
+        }
+
+        .input-dock-bar {
+            padding: 16px 24px;
+            background: var(--bg-panel);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-top: 1px solid var(--border-subtle);
+            height: 75px;
+            box-sizing: border-box;
+            position: relative;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .input-dock-bar input[type="text"] {
+            flex: 1;
+            background: var(--input-bg);
+            border: 1px solid var(--border-subtle);
+            padding: 12px 16px;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-dock-bar input[type="text"]:focus {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 8px var(--primary-glow);
+        }
+
+        .cooldown-progress-track {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.02);
+            pointer-events: none;
+        }
+
+        .cooldown-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--primary-accent);
+            box-shadow: 0 0 8px var(--primary-accent);
+        }
+
+        .emoji-trigger-node-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            font-size: 18px;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer !important;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .input-inline-action-icon:hover {
-            color: var(--text-normal);
+
+        .emoji-trigger-node-btn:hover {
+            color: var(--primary-accent);
+            border-color: var(--primary-accent);
+            background: rgba(0, 255, 255, 0.05);
         }
 
-        /* Floating Popover Matrix Emoji Selector Tray Layout */
-        .emoji-popover-panel-overlay {
+        .emoji-picker-matrix-overlay {
             position: absolute;
-            bottom: 80px;
-            right: 16px;
-            width: 300px;
-            height: 250px;
-            background-color: var(--bg-sidebar);
-            border: 1px solid rgba(0,0,0,0.4);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            bottom: 85px;
+            right: 24px;
+            width: 320px;
+            height: 240px;
+            background: rgba(10, 16, 26, 0.95);
+            border: 1px solid var(--border-active);
             border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
             display: none;
             flex-direction: column;
             z-index: 1000;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
         }
 
-        .emoji-popover-header {
-            padding: 10px 14px;
-            font-size: 12px;
+        .emoji-picker-header {
+            padding: 10px 12px;
+            font-size: 11px;
             font-weight: 700;
+            letter-spacing: 1px;
             color: var(--text-muted);
-            text-transform: uppercase;
             border-bottom: 1px solid var(--border-subtle);
-            letter-spacing: 0.5px;
+            text-transform: uppercase;
         }
 
-        .emoji-matrix-grid-scroll {
+        .emoji-grid-scroller {
             flex: 1;
             overflow-y: auto;
-            padding: 8px;
+            padding: 10px;
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 4px;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
         }
 
-        .emoji-grid-cell-block {
+        .emoji-grid-item-cell {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
-            padding: 4px;
+            font-size: 20px;
+            padding: 6px;
             border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.1s ease;
-        }
-        .emoji-grid-cell-block:hover {
-            background-color: var(--bg-modifier-hover);
+            cursor: pointer !important;
+            transition: background 0.15s ease, transform 0.1s ease;
         }
 
-        .cooldown-micro-bar {
-            height: 3px;
-            width: 100%;
-            background-color: transparent;
-            position: absolute;
-            bottom: 21px;
-            left: 0;
-            padding: 0 16px;
-            pointer-events: none;
-        }
-        .cooldown-micro-fill {
-            height: 100%;
-            width: 0%;
-            background-color: var(--brand-blurple);
-            border-radius: 2px;
+        .emoji-grid-item-cell:hover {
+            background: rgba(0, 255, 255, 0.15);
+            transform: scale(1.15);
         }
 
-        /* COLUMN 4: Active Roster Members Server Side Panel Column */
-        .roster-members-sidebar {
-            width: 240px;
-            background-color: var(--bg-members);
-            display: flex;
-            flex-direction: column;
-            flex-shrink: 0;
-            padding: 16px 8px;
-            overflow-y: auto;
-            height: 100%;
-            border-left: 1px solid rgba(0,0,0,0.12);
-        }
-        @media (max-width: 1024px) {
-            .roster-members-sidebar { display: none; }
+        .send-btn {
+            background: transparent;
+            color: var(--primary-accent);
+            border: 1px solid var(--primary-accent);
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer !important;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 4px var(--primary-glow);
         }
 
-        .roster-group-label {
-            font-size: 12px;
-            font-weight: 700;
+        .send-btn:hover {
+            background: var(--primary-hover);
+            color: #000000;
+            box-shadow: 0 0 12px var(--primary-accent);
+        }
+
+        .send-btn:disabled {
+            border-color: var(--border-subtle);
             color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding-left: 8px;
-            margin-bottom: 8px;
+            background: transparent;
+            box-shadow: none;
+            cursor: not-allowed !important;
         }
 
-        .roster-member-row {
+        .call-action-btn {
+            background: transparent;
+            border: 1px solid var(--primary-accent);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary-accent);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer !important;
+            transition: all 0.2s ease;
             display: flex;
             align-items: center;
-            padding: 6px 8px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-bottom: 2px;
-        }
-        .roster-member-row:hover {
-            background-color: var(--bg-modifier-hover);
+            gap: 8px;
+            box-shadow: 0 0 6px var(--primary-glow);
         }
 
-        .roster-member-name {
-            font-size: 14px;
-            font-weight: 500;
+        .call-action-btn:hover {
+            background: var(--primary-hover);
+            color: #000000;
+            box-shadow: 0 0 14px var(--primary-accent);
+        }
+
+        #call-interface-layer {
+            display: none;
+            flex-direction: column;
+            background: rgba(4, 6, 10, 0.9);
+            padding: 16px;
+            border-bottom: 1px solid var(--border-subtle);
+            box-sizing: border-box;
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            min-height: 280px;
+        }
+
+        @media (max-width: 768px) {
+            .media-grid { grid-template-columns: 1fr; }
+        }
+
+        .media-window {
+            background: var(--input-bg);
+            border-radius: 8px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-subtle);
+            overflow: hidden;
+            height: 280px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+        }
+
+        .media-window.speaking-active {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 16px var(--primary-glow), inset 0 0 20px rgba(0, 255, 255, 0.1);
+        }
+
+        .live-video-element {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            background: #000;
+        }
+
+        .stream-canvas-mock {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background: radial-gradient(circle, rgba(10,20,30,0.8) 0%, rgba(4,6,10,1) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 0;
+            left: 0;
+        }
+
+        .stream-label {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(4,6,10,0.85);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #fff;
+            z-index: 2;
+            font-weight: 600;
+            border: 1px solid var(--border-subtle);
+            border-left: 3px solid var(--primary-accent);
+            letter-spacing: 0.5px;
+        }
+
+        .avatar-placeholder-call {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid var(--primary-accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+            box-shadow: 0 0 16px var(--primary-glow);
+        }
+        .avatar-placeholder-call img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .call-controls-bar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-top: 14px;
+            background: rgba(10, 20, 30, 0.5);
+            padding: 10px 16px;
+            border-radius: 8px;
+            flex-wrap: wrap;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+            padding: 10px 16px;
+            border-radius: 6px;
+            cursor: pointer !important;
+            font-weight: 600;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .control-btn:hover {
+            background: rgba(0, 255, 255, 0.05);
+            border-color: var(--primary-accent);
+            color: #fff;
+        }
+
+        .control-btn.active-state {
+            background: rgba(255, 51, 68, 0.2);
+            border-color: var(--danger-red);
+            color: #fff;
+        }
+
+        .control-btn.active-state:hover {
+            background: var(--danger-red);
+        }
+
+        .call-timer-node {
+            color: var(--primary-accent);
+            font-family: monospace;
+            font-size: 13px;
+            background: rgba(0,0,0,0.4);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-weight: 700;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .states-hub-container-view {
+            padding: 16px 24px;
+            background: rgba(5, 10, 15, 0.2);
+            border-bottom: 1px solid var(--border-subtle);
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .states-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .states-row-title {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             color: var(--text-muted);
+        }
+
+        .states-carousel-scroller-track {
+            display: flex;
+            gap: 14px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+        }
+
+        .state-content-card-node {
+            width: 110px;
+            height: 160px;
+            border-radius: 8px;
+            border: 1px solid var(--border-subtle);
+            background: var(--input-bg);
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 10px;
+        }
+
+        .state-content-card-node:hover {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .state-media-preview-element {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .state-author-tag {
+            font-size: 11px;
+            font-weight: 600;
+            color: #ffffff;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        .roster-member-row:hover .roster-member-name {
-            color: var(--text-white);
-        }
-        .roster-member-row.online-status .roster-member-name {
-            color: var(--text-normal);
-        }
 
-        /* Premium Marketplace Storefront Dialog Container View */
         #nexus-shop-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: var(--bg-chat);
-            z-index: 6000;
+            background-color: var(--bg-dark);
+            background-image: var(--bg-dark-gradient);
+            z-index: 5000;
             display: none;
             flex-direction: column;
+            box-sizing: border-box;
         }
 
-        .shop-navbar-top {
-            height: 48px;
-            background-color: var(--bg-sidebar);
+        .shop-header-navbar {
+            height: 75px;
+            background: var(--bg-panel);
+            border-bottom: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 20px;
-            border-bottom: 1px solid rgba(0,0,0,0.3);
+            padding: 0 30px;
+            box-sizing: border-box;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
-        .shop-escape-link {
+        .back-nav-link {
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 700;
             color: var(--text-muted);
-            cursor: pointer;
+            text-transform: uppercase;
+            text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 6px;
-        }
-        .shop-escape-link:hover {
-            color: var(--text-white);
+            gap: 8px;
+            background: rgba(255,255,255,0.02);
+            padding: 10px 16px;
+            border-radius: 6px;
+            border: 1px solid var(--border-subtle);
+            transition: all 0.2s ease;
         }
 
-        .shop-wallet-pill {
-            background-color: rgba(240, 178, 50, 0.1);
-            border: 1px solid var(--status-idle);
-            color: var(--status-idle);
-            font-size: 12px;
+        .back-nav-link:hover {
+            color: var(--primary-accent);
+            border-color: var(--primary-accent);
+            background: rgba(0,255,255,0.05);
+            box-shadow: 0 0 8px var(--primary-glow);
+        }
+
+        .shop-headline-title {
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow: 0 0 10px rgba(0,255,255,0.2);
+        }
+
+        .balance-container-pill {
+            background: rgba(245, 166, 35, 0.05);
+            border: 1px solid var(--gold-accent);
+            padding: 8px 16px;
+            border-radius: 30px;
             font-weight: 700;
-            padding: 4px 12px;
-            border-radius: 12px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            color: var(--gold-accent);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 10px rgba(245,166,35,0.15);
         }
 
-        .shop-main-scroller {
+        .shop-showcase-scroller {
             flex: 1;
             overflow-y: auto;
-            padding: 40px 20px;
+            padding: 40px;
+            box-sizing: border-box;
         }
 
-        .shop-showcase-title {
-            color: var(--text-white);
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 6px;
-            text-align: center;
-            letter-spacing: 0.5px;
-        }
-        .shop-showcase-subtitle {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 32px;
-            text-align: center;
-        }
-
-        .shop-grid-layout {
+        .shop-items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 24px;
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
-        .shop-product-card {
-            background-color: var(--bg-sidebar);
-            border-radius: 8px;
+        .shop-item-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
             padding: 24px;
             display: flex;
             flex-direction: column;
-            border: 1px solid transparent;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            transition: all 0.2s ease;
-        }
-        .shop-product-card:hover {
-            border-color: var(--brand-blurple);
-            transform: translateY(-2px);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease, box-shadow 0.3s ease;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
-        .product-image-frame {
+        .shop-item-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--primary-accent);
+            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.15);
+        }
+
+        .item-badge-exclusive {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--pink-neon);
+            color: #ffffff;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 0 8px var(--pink-neon);
+        }
+
+        .item-graphic-wrapper {
             height: 120px;
-            border-radius: 6px;
+            background: radial-gradient(circle, rgba(0,255,255,0.1) 0%, transparent 70%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             margin-bottom: 16px;
-            object-fit: cover;
-            width: 100%;
-            background-color: var(--bg-guilds);
+            position: relative;
         }
 
-        .product-title {
+        .item-graphic-icon-asset {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            z-index: 2;
+        }
+
+        .item-graphic-ring {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            border: 1px dashed rgba(0, 255, 255, 0.2);
+            animation: rotateRing 12s linear infinite;
+        }
+
+        @keyframes rotateRing {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .item-meta-name {
             font-size: 16px;
             font-weight: 700;
-            color: var(--text-white);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
+            color: #ffffff;
+            letter-spacing: 0.5px;
         }
-        .product-desc {
-            font-size: 13px;
+
+        .item-meta-desc {
+            font-size: 12px;
             color: var(--text-muted);
-            line-height: 1.45;
+            line-height: 1.5;
             margin-bottom: 20px;
             flex: 1;
         }
 
-        .product-action-row {
+        .item-action-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-top: auto;
         }
-        .product-cost-label {
+
+        .item-price-tag {
             font-weight: 700;
-            color: var(--status-idle);
             font-size: 14px;
+            color: var(--gold-accent);
         }
 
-        .product-purchase-btn {
-            background-color: var(--brand-blurple);
-            color: var(--text-white);
+        .buy-action-trigger {
+            background: transparent;
+            color: var(--primary-accent);
+            border: 1px solid var(--primary-accent);
             padding: 8px 16px;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.15s ease;
-        }
-        .product-purchase-btn:hover {
-            background-color: var(--brand-blurple-hover);
-        }
-        .product-purchase-btn.unlocked-state {
-            background-color: var(--status-green) !important;
-            cursor: default;
-        }
-
-        /* Profile Selection Form Security Access Gate Overlays */
-        #profile-setup-gate {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: #1e1f22;
-            z-index: 7000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        #profile-setup-gate.hidden {
-            display: none;
-        }
-
-        .setup-card-box {
-            width: 400px;
-            background-color: var(--bg-sidebar);
-            border-radius: 8px;
-            padding: 32px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-            text-align: center;
-        }
-
-        .setup-header-title {
-            color: var(--text-white);
-            font-size: 24px;
-            font-weight: 800;
-            margin-bottom: 8px;
-        }
-        .setup-header-subtitle {
-            color: var(--text-muted);
-            font-size: 13.5px;
-            margin-bottom: 24px;
-            line-height: 1.4;
-        }
-
-        .setup-form-input-block {
-            text-align: left;
-            margin-bottom: 20px;
-        }
-        .setup-input-label {
-            display: block;
-            font-size: 12px;
+            border-radius: 6px;
             font-weight: 700;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
-        }
-        .setup-input-field {
-            width: 100%;
-            background-color: #1e1f22;
-            border: 1px solid rgba(0,0,0,0.4);
-            border-radius: 4px;
-            padding: 10px 12px;
-            font-size: 14px;
-            color: var(--text-normal);
-            outline: none;
-            transition: border-color 0.15s ease;
-        }
-        .setup-input-field:focus {
-            border-color: var(--brand-blurple);
-        }
-
-        .setup-avatar-row {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .setup-avatar-preview {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background-color: var(--bg-guilds);
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 700;
-            overflow: hidden;
-            flex-shrink: 0;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-        .setup-avatar-preview img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .setup-file-facade-btn {
-            background-color: var(--bg-input);
-            color: var(--text-normal);
             font-size: 12px;
-            font-weight: 600;
-            padding: 8px 14px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.15s ease;
-        }
-        .setup-file-facade-btn:hover {
-            background-color: var(--bg-modifier-hover);
+            cursor: pointer !important;
+            transition: all 0.2s ease;
         }
 
-        .setup-submit-btn {
-            width: 100%;
-            background-color: var(--brand-blurple);
-            color: var(--text-white);
-            font-size: 15px;
-            font-weight: 600;
-            padding: 12px;
-            border-radius: 4px;
-            margin-top: 12px;
-            cursor: pointer;
-            transition: background-color 0.15s ease;
+        .buy-action-trigger:hover {
+            background: var(--primary-hover);
+            color: #000000;
+            box-shadow: 0 0 10px var(--primary-accent);
         }
-        .setup-submit-btn:hover {
-            background-color: var(--brand-blurple-hover);
+
+        .buy-action-trigger.unlocked {
+            background: rgba(0, 255, 102, 0.1) !important;
+            border-color: var(--success-green) !important;
+            color: var(--success-green) !important;
         }
     </style>
 </head>
 <body>
 
-    <!-- Local Profile Construction Authentication Access Gate -->
-    <div id="profile-setup-gate">
-        <div class="setup-card-box">
-            <div class="setup-header-title">NexusChat Entry Portal</div>
-            <div class="setup-header-subtitle">Build your global handle variables profile to authenticate streaming matrices</div>
+    <!-- Cinematic Progress Portal Splash Overlay -->
+    <div id="splash-loading-portal" class="hidden">
+        <div class="splash-logo-container">
+            <img src="favicon.png" class="splash-logo-img" alt="Nexus Architecture Logo" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%2300ffff\'><path d=\'M12 2L2 22h20L12 2z\'/></svg>'">
+        </div>
+        <div class="splash-headline">NexusChat Client</div>
+        <div class="splash-user-subtitle" id="splash-user-target">Initializing Platform...</div>
+        <div class="progress-track-wrapper">
+            <div class="progress-bar-fill" id="splash-bar-fill"></div>
+        </div>
+    </div>
+
+    <!-- Discord-Style Wizard Identity Gate -->
+    <div id="secure-login-gate-overlay">
+        <div class="login-card-glassmorphic-wrapper">
             
-            <form onsubmit="event.preventDefault();">
-                <div class="setup-form-input-block">
-                    <label class="setup-input-label">Display User Handle String</label>
-                    <input type="text" id="setup-username-field" class="setup-input-field" placeholder="e.g. NexusArchitect" required>
+            <!-- STEP 1: Basic Credentials -->
+            <div class="onboarding-step active-step" id="onboarding-step-1">
+                <div class="login-card-header">
+                    <h1 class="login-title-h1">Create an Account</h1>
+                    <p class="login-subtitle-p">Join the next generation secure messaging network</p>
                 </div>
-                
-                <div class="setup-form-input-block">
-                    <label class="setup-input-label">Identity Avatar Graphic Asset</label>
-                    <div class="setup-avatar-row">
-                        <div class="setup-avatar-preview" id="setup-avatar-preview-box">?</div>
-                        <input type="file" id="setup-avatar-file-field" accept="image/*" style="display: none;" onchange="processLocalAvatarSelection(event)">
-                        <button type="button" class="setup-file-facade-btn" onclick="document.getElementById('setup-avatar-file-field').click()">Upload Graphic File</button>
+                <div class="registration-input-group-form">
+                    <div>
+                        <label class="form-label-node">Unique Handle Tag Name</label>
+                        <input type="text" id="portal-username-input-node" class="form-text-input-field" placeholder="e.g., CyberGhost" required>
                     </div>
                 </div>
+                <div class="login-divider-row">or quick authenticate</div>
+                <div class="oauth-providers-button-stack">
+                    <button class="oauth-provider-btn" onclick="simulateOAuthLogin('Discord')">Discord Access</button>
+                    <button class="oauth-provider-btn" onclick="simulateOAuthLogin('Google')">Google Secure</button>
+                </div>
+                <div class="wizard-nav-row" style="justify-content: flex-end;">
+                    <button class="submit-portal-access-btn" onclick="advanceOnboardingStep(2)">Continue</button>
+                </div>
+            </div>
 
-                <button type="button" class="setup-submit-btn" onclick="commitProfileRegistrationSession()">Authenticate Client Profile</button>
-            </form>
+            <!-- STEP 2: Demographic Matrix Profile -->
+            <div class="onboarding-step" id="onboarding-step-2">
+                <div class="login-card-header">
+                    <h1 class="login-title-h1">Demographics Profile</h1>
+                    <p class="login-subtitle-p">Verify identity parameters to filter real connections</p>
+                </div>
+                <div class="registration-input-group-form">
+                    <div>
+                        <label class="form-label-node">Date of Birth (Age Validation)</label>
+                        <div class="dob-select-grid">
+                            <select id="dob-month" class="form-select-field"></select>
+                            <select id="dob-day" class="form-select-field"></select>
+                            <select id="dob-year" class="form-select-field"></select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="form-label-node">Gender Alignment Identification</label>
+                        <div class="gender-options-grid">
+                            <button class="gender-btn" onclick="selectGender(this, 'Male')">Male</button>
+                            <button class="gender-btn" onclick="selectGender(this, 'Female')">Female</button>
+                            <button class="gender-btn" onclick="selectGender(this, 'Non-Binary')">Non-Binary</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="wizard-nav-row">
+                    <button class="oauth-provider-btn" style="width: auto;" onclick="advanceOnboardingStep(1)">Back</button>
+                    <button class="submit-portal-access-btn" onclick="advanceOnboardingStep(3)">Continue</button>
+                </div>
+            </div>
+
+            <!-- STEP 3: Profile Asset Construction -->
+            <div class="onboarding-step" id="onboarding-step-3">
+                <div class="login-card-header">
+                    <h1 class="login-title-h1">Personalize Avatar</h1>
+                    <p class="login-subtitle-p">Upload structural asset modifications to profile node</p>
+                </div>
+                <div class="registration-input-group-form">
+                    <div>
+                        <label class="form-label-node">Profile Avatar Image Source</label>
+                        <div class="avatar-file-upload-trigger-container">
+                            <div class="avatar-upload-preview-frame" id="portal-avatar-preview-box">N</div>
+                            <input type="file" id="portal-avatar-file-input" accept="image/*" style="display: none;" onchange="handleLocalAvatarSelection(event)">
+                            <button type="button" class="custom-file-input-facade-btn" onclick="document.getElementById('portal-avatar-file-input').click()">Choose Local File</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="wizard-nav-row">
+                    <button class="oauth-provider-btn" style="width: auto;" onclick="advanceOnboardingStep(2)">Back</button>
+                    <button class="submit-portal-access-btn" onclick="executeManualProfileCommit()">Initialize Session</button>
+                </div>
+            </div>
+
+            <!-- Wizard Step Indicators Tracker -->
+            <div class="step-indicators-wrapper">
+                <div class="step-dot active" id="dot-step-1"></div>
+                <div class="step-dot" id="dot-step-2"></div>
+                <div class="step-dot" id="dot-step-3"></div>
+            </div>
+
         </div>
     </div>
 
-    <!-- Cinematic App Activation Initialization Spinner View Layer Overlay -->
-    <div id="splash-portal" class="hidden">
-        <div class="splash-logo-wrapper">
-            <div class="splash-spinner"></div>
-            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=150&q=80" class="splash-img-node" alt="Nexus Brand Core Asset">
+    <!-- Master Application Dashboard Core -->
+    <div id="app-frame">
+        <div class="global-nav-rail">
+            <div class="rail-tab-item active" id="tab-node-chat" onclick="switchGlobalRailContext('chat')" title="Home/Chat">💬</div>
+            <div class="rail-tab-item" id="tab-node-groups" onclick="switchGlobalRailContext('groups')" title="Groups Ecosystem">👥</div>
+            <div class="rail-tab-item" id="tab-node-states" onclick="switchGlobalRailContext('states')" title="States Hub Engagement Stream">🌐</div>
+            <div class="rail-tab-item" id="tab-node-settings" onclick="switchGlobalRailContext('settings')" title="Account Integration Matrix Settings">⚙️</div>
+            <div class="rail-tab-item" id="tab-node-integrations" onclick="switchGlobalRailContext('integrations')" title="Extensions & Integrations Hub">🔌</div>
         </div>
-        <div class="splash-title" id="splash-headline-sync">NexusChat Matrix</div>
-        <div class="splash-subtitle">Connecting Core Database Containers...</div>
-    </div>
-
-    <!-- Master Content Workspace Core Main Window Layout View Grid Frame -->
-    <div id="app-container">
         
-        <!-- COLUMN 1: Vertical Left Navigation Feature Grid Rail -->
-        <div class="guilds-rail">
-            <div class="guild-item-wrapper active" id="guild-tab-chat" onclick="pivotGlobalGuildRail('chat')">
-                <div class="guild-pill"></div>
-                <img src="https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?auto=format&fit=crop&w=100&q=80" class="guild-icon-image" alt="Server Platform Core Node" title="NexusChat Hub Dashboard">
-                <div class="guild-badge" id="guild-unread-badge">5</div>
+        <div class="sidebar-panel">
+            <div class="sidebar-header">
+                <div class="profile-node-area">
+                    <div class="user-tag-avatar" id="my-avatar-node">N</div>
+                    <div class="profile-meta-text-block">
+                        <div class="sidebar-title" id="my-username-node">Connecting...</div>
+                        <div class="sidebar-subtitle-tag" id="my-demographics-node">Age: -- | Gender: --</div>
+                    </div>
+                </div>
             </div>
             
-            <div class="guild-separator"></div>
-
-            <div class="guild-item-wrapper" id="guild-tab-shop" onclick="toggleStorefrontModalView(true)">
-                <div class="guild-pill"></div>
-                <div class="guild-icon-placeholder-button" title="Open Marketplace Window Context">🛒</div>
+            <div class="sidebar-tools" id="sidebar-context-controls-box">
+                <button class="shop-trigger-btn" onclick="openPremiumStorefront()">Open Nexus Shop</button>
+                <button class="sm-btn" id="sidebar-action-primary-btn" onclick="triggerChannelCreation()">+ New Channel Stream</button>
+                <button class="sm-btn danger" onclick="performProfileHardwareReset()">Reset Active Session Container</button>
             </div>
-        </div>
-
-        <!-- COLUMN 2: Navigation Categories & Channel Logs Sidebar List -->
-        <div class="sidebar-channels">
-            <div class="server-header-btn" onclick="triggerServerAlertNotice()">
-                <span id="brand-server-title-node">NexusChat Architecture</span>
-                <span style="font-size: 10px; color: var(--text-muted);">▼</span>
-            </div>
-
-            <div class="channels-scroll-area">
-                <!-- Text Channels Category Header Block -->
-                <div class="category-row">
-                    <span class="category-arrow">▼</span>
-                    <span>Text Channels Workspace</span>
-                </div>
-                <div id="text-channels-injector-box">
-                    <!-- Javascript renders active row entities dynamically here -->
-                </div>
-
-                <!-- Voice Channels Category Header Block -->
-                <div style="margin-top: 18px;" class="category-row">
-                    <span class="category-arrow">▼</span>
-                    <span>Voice Communication Tracks</span>
-                </div>
-                <div id="voice-channels-injector-box">
-                    <!-- Javascript populates voice targets cleanly -->
-                </div>
-            </div>
-
-            <!-- Self User Device Control Status Grid Block Footer Panel -->
-            <div class="user-status-footer-panel">
-                <div class="footer-account-node" onclick="triggerStatusToggleCycle()">
-                    <div class="avatar-status-wrapper">
-                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" class="avatar-img-circle-element" id="footer-avatar-circle-node" alt="Profile Vector Account">
-                        <div class="status-badge-dot" id="footer-status-dot-node"></div>
-                    </div>
-                    <div class="account-meta-strings">
-                        <span class="account-display-name" id="footer-username-string-node">Connecting Node...</span>
-                        <span class="account-discriminator-sub" id="footer-status-label-node">ONLINE</span>
-                    </div>
-                </div>
-
-                <div class="footer-controls-stack">
-                    <div class="footer-utility-btn" id="footer-mic-toggle-btn" onclick="toggleAudioMuteHardware()" title="Mute/Unmute Audio Hardware Array">🎙️</div>
-                    <div class="footer-utility-btn" onclick="executeHardwareProfileWipeReset()" title="Wipe Session Cache Parameters Container">⚙️</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- COLUMN 3: Central Chat Pipeline Logging Matrix -->
-        <div class="chat-workspace-viewport">
             
-            <!-- Central Frame Window Top Header Bar Navigation -->
-            <div class="chat-top-navbar">
-                <div class="navbar-channel-identity">
-                    <span class="navbar-hash">#</span>
-                    <span id="navbar-active-channel-title">global-lobby</span>
-                </div>
+            <div class="contacts-vertical-stack" id="contacts-vertical-stack"></div>
+        </div>
 
-                <div class="navbar-actions-dock">
-                    <span class="navbar-action-icon-trigger" id="navbar-call-toggle-icon" onclick="toggleWebRTCAudioVideoCallHub()" title="Initialize WebRTC Streaming Connection Frame">📞</span>
+        <div class="workspace-panel">
+            <div class="workspace-header">
+                <div class="header-profile">
+                    <div style="font-size: 16px; color: var(--primary-accent); font-weight: 900; filter: drop-shadow(0 0 4px var(--primary-glow));">⧉</div>
+                    <div class="title" id="active-chat-headline-node">Global Public Lobby</div>
                 </div>
+                <button class="call-action-btn" onclick="toggleVoiceVideoCall()">Connect Live Streams</button>
             </div>
 
-            <!-- Expanded Live Streaming Screen Audio WebRTC Node Component Panel -->
-            <div id="webrtc-call-bay">
-                <div class="media-streams-layout-grid">
-                    <div class="video-box-card" id="hardware-webcam-card-container">
-                        <video id="hardware-camera-stream-tag" class="html5-video-hardware-element" autoplay playsinline muted></video>
-                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" class="video-avatar-mock-layer" id="webcam-avatar-placeholder" alt="Webcam Static Stream Avatar">
-                        <div class="video-label-tag" id="webcam-stream-label">Camera Streaming Device Offline</div>
+            <!-- Engagement Pipeline Layer -->
+            <div class="states-hub-container-view" id="states-hub-engagement-view">
+                <div class="states-header-row">
+                    <span class="states-row-title">Live Connections Engagement Feed</span>
+                    <input type="file" id="states-media-file-capture-pipe" accept="video/*,image/*" style="display: none;" onchange="processNewStateMediaUpload(event)">
+                    <button class="call-action-btn" style="padding: 4px 10px; font-size: 11px;" onclick="document.getElementById('states-media-file-capture-pipe').click()">Create New States</button>
+                </div>
+                <div class="states-carousel-scroller-track" id="states-carousel-scroller-track"></div>
+            </div>
+
+            <!-- Interactive Broadcaster Workspace -->
+            <div id="call-interface-layer">
+                <div class="media-grid">
+                    <div class="media-window" id="webcam-hardware-window-node">
+                        <video id="hardware-webcam-stream" class="live-video-element" autoplay playsinline muted></video>
+                        <div class="stream-canvas-mock" id="webcam-canvas">
+                            <div class="avatar-placeholder-call" id="webcam-avatar-placeholder-node">N</div>
+                        </div>
+                        <div class="stream-label" id="webcam-label">Camera Interface Offline</div>
                     </div>
-
-                    <div class="video-box-card" id="hardware-screenshare-card-container">
-                        <video id="hardware-display-stream-tag" class="html5-video-hardware-element" autoplay playsinline></video>
-                        <div class="video-avatar-mock-layer" id="screenshare-avatar-placeholder" style="background-color: #1a1b1e; display: flex; align-items: center; justify-content: center; color: var(--brand-blurple); font-size: 24px;">🖥️</div>
-                        <div class="video-label-tag" id="screenshare-stream-label">Display Capture Pipe Offline</div>
+                    <div class="media-window">
+                        <video id="hardware-screenshare-stream" class="live-video-element" autoplay playsinline></video>
+                        <div class="stream-canvas-mock" id="screenshare-canvas" style="background: #030508;">
+                            <div style="font-size: 24px; opacity: 0.15; color: var(--primary-accent);">🖥️</div>
+                        </div>
+                        <div class="stream-label" id="screenshare-label">Screen Capture Pipe Offline</div>
                     </div>
                 </div>
 
-                <div class="call-controls-alignment-row">
-                    <button class="call-control-round-btn" id="call-mic-hardware-toggle" onclick="toggleAudioMuteHardware()">🎙️</button>
-                    <button class="call-control-round-btn" id="call-camera-hardware-toggle" onclick="toggleWebcamDeviceState()">📹</button>
-                    <button class="call-control-round-btn" id="call-screen-hardware-toggle" onclick="toggleDisplayShareDeviceState()">🖥️</button>
-                    <button class="call-control-round-btn disconnect-btn" onclick="toggleWebRTCAudioVideoCallHub()">❌</button>
-                    <span class="call-duration-timer-stamp" id="call-stopwatch-node">00:00</span>
+                <div class="call-controls-bar">
+                    <button class="control-btn" id="mute-audio-toggle" onclick="toggleMuteState()">Audio Unmuted</button>
+                    <button class="control-btn" id="webcam-video-toggle" onclick="toggleWebcamState()">Enable Camera</button>
+                    <button class="control-btn" id="screenshare-video-toggle" onclick="toggleScreenShareState()">Share Screen</button>
+                    <button class="control-btn active-state" onclick="toggleVoiceVideoCall()">Disconnect Stream</button>
+                    <div class="call-timer-node" id="call-duration-clock">00:00</div>
                 </div>
             </div>
 
-            <!-- Primary Messages Logging View Box Timeline -->
-            <div class="messages-timeline-scroller" id="messages-timeline-viewport">
-                <!-- Data models injected here by runtime methods loops -->
-            </div>
+            <div class="thread-scroll-view" id="chat-thread-viewport"></div>
 
-            <!-- Base Entry Form Action Dock Messaging Input Bar Bar -->
-            <div class="chat-input-container-dock">
-                <div class="chat-input-textarea-facade">
-                    <span class="input-inline-action-icon" onclick="triggerMockAttachmentUpload()" title="Upload File Attachment Streaming Node">➕</span>
-                    <input type="text" id="chat-text-input-field" placeholder="Message active room channel stream..." onkeypress="interceptInputFieldKeypress(event)">
-                    <span class="input-inline-action-icon" onclick="toggleEmojiScrollerMatrixPopover()" title="Select Reaction Element">😀</span>
+            <div class="input-dock-bar">
+                <input type="text" id="text-message-input-node" placeholder="Type a message into active stream..." onkeypress="trapInputKeypress(event)">
+                
+                <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Emoji">😀</button>
+                
+                <div class="emoji-picker-matrix-overlay" id="emoji-picker-matrix-overlay">
+                    <div class="emoji-picker-header">Select Symbol Input</div>
+                    <div class="emoji-grid-scroller" id="emoji-grid-scroller-target"></div>
                 </div>
 
-                <!-- Floating Popover Matrix Emoji Selector Tray -->
-                <div class="emoji-popover-panel-overlay" id="emoji-popover-tray-node">
-                    <div class="emoji-popover-header">Select Symbol Reaction Matrix</div>
-                    <div class="emoji-matrix-grid-scroll" id="emoji-matrix-grid-injector"></div>
-                </div>
-
-                <div class="cooldown-micro-bar">
-                    <div class="cooldown-micro-fill" id="cooldown-micro-bar-fill"></div>
+                <button class="send-btn" id="send-message-dispatch-btn" onclick="executeTextDispatch()">Send Message</button>
+                
+                <div class="cooldown-progress-track">
+                    <div class="cooldown-progress-fill" id="cooldown-progress-fill-bar"></div>
                 </div>
             </div>
         </div>
-
-        <!-- COLUMN 4: Active Roster Members Server Panel Column -->
-        <div class="roster-members-sidebar">
-            <div class="roster-group-label">Online Active Nodes — <span id="roster-count-label">4</span></div>
-            <div id="roster-injector-box">
-                <!-- Target rows computed gracefully here -->
-            </div>
-        </div>
-
     </div>
 
-    <!-- Full Screen Premium Marketplace Shopping Dialog Frame Box Context -->
+    <!-- Multiverse Storefront Interface View -->
     <div id="nexus-shop-screen">
-        <div class="shop-navbar-top">
-            <span class="shop-escape-link" onclick="toggleStorefrontModalView(false)">← Go Back To Client Communications Panel</span>
-            <span style="font-weight: 800; font-size: 14px; letter-spacing: 0.5px; color: var(--header-primary);">NEXUS PREMIUM STOREFRONT</span>
-            <div class="shop-wallet-pill" id="shop-wallet-balance-node">50,000 ORBS AVAILABLE</div>
+        <div class="shop-header-navbar">
+            <a href="#" class="back-nav-link" onclick="closePremiumStorefront()">← Go Back</a>
+            <div class="shop-headline-title">NEXUS MULTIVERSE STOREFRONT</div>
+            
+            <div class="balance-container-pill">
+                <span>Balance:</span>
+                <span id="shop-balance-display-node">50,000 Orbs (Beta Free Active)</span>
+            </div>
         </div>
 
-        <div class="shop-main-scroller">
-            <div class="shop-showcase-title">Nexus Premium Cosmetics Hub</div>
-            <div class="shop-showcase-subtitle">Acquire deep visual parameter modifications and specialized telemetry profile variables instantly</div>
-            
-            <div class="shop-grid-layout" id="shop-grid-cards-injector"></div>
+        <div class="shop-showcase-scroller">
+            <div class="shop-items-grid" id="shop-items-grid-target"></div>
         </div>
     </div>
 
     <script>
-        /* Synthesis Web Audio Context Notification Oscillation Engine Setup */
-        let webAudioContextEngineInstance = null;
-        function constructionAudioEngineContext() {
-            if (!webAudioContextEngineInstance) {
-                webAudioContextEngineInstance = new (window.AudioContext || window.webkitAudioContext)();
+        let audioCtx;
+        function initAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             }
         }
 
-        function triggerBespokeOscillatorBeep(frequencyHz, waveformType, envelopeDecay, balanceGain = 0.12) {
+        function playSynthFrequency(frequency, type, duration, volume = 0.2) {
             try {
-                constructionAudioEngineEngineContext();
-                const soundOscillator = webAudioContextEngineInstance.createOscillator();
-                const soundGainNode = webAudioContextEngineInstance.createGain();
-                soundOscillator.type = waveformType;
-                soundOscillator.frequency.value = frequencyHz;
-                soundGainNode.gain.setValueAtTime(balanceGain, webAudioContextEngineInstance.currentTime);
-                soundGainNode.gain.exponentialRampToValueAtTime(0.0001, webAudioContextEngineInstance.currentTime + envelopeDecay);
-                soundOscillator.connect(soundGainNode);
-                soundGainNode.connect(webAudioContextEngineInstance.destination);
-                soundOscillator.start();
-                soundOscillator.stop(webAudioContextEngineInstance.currentTime + envelopeDecay);
-            } catch (err) {
-                console.log("Audio oscillation routine node error handled gracefully:", err);
+                initAudioContext();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.value = frequency;
+                gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) { 
+                console.log("Audio oscillation bypass caught: ", e); 
             }
         }
 
-        function playDiscordMessageNotificationTone() {
-            triggerBespokeOscillatorBeep(660, 'sine', 0.12, 0.12);
-            setTimeout(() => triggerBespokeOscillatorBeep(880, 'sine', 0.16, 0.12), 45);
+        function triggerMsgAlertTone() {
+            playSynthFrequency(750, 'sine', 0.15, 0.15);
+            setTimeout(() => playSynthFrequency(980, 'sine', 0.18, 0.15), 50);
         }
 
-        function playDiscordActionClickToggleTone(stateFlag) {
-            if (stateFlag) {
-                triggerBespokeOscillatorBeep(440, 'triangle', 0.08, 0.14);
-                setTimeout(() => triggerBespokeOscillatorBeep(340, 'triangle', 0.1, 0.14), 40);
+        function triggerToggleMuteTone(isMuted) {
+            if (isMuted) {
+                playSynthFrequency(480, 'triangle', 0.15, 0.2);
+                setTimeout(() => playSynthFrequency(350, 'triangle', 0.18, 0.2), 50);
             } else {
-                triggerBespokeOscillatorBeep(340, 'triangle', 0.08, 0.14);
-                setTimeout(() => triggerBespokeOscillatorBeep(440, 'triangle', 0.1, 0.14), 40);
+                playSynthFrequency(350, 'triangle', 0.15, 0.2);
+                setTimeout(() => playSynthFrequency(480, 'triangle', 0.18, 0.2), 50);
             }
         }
 
-        /* Database State Model Properties Constants */
-        let activeProfileSessionName = "";
-        let activeProfileAvatarBlob = "";
-        let currentActiveChannelId = "global-lobby";
-        let isAntiSpamCooldownActive = false;
-        let activeUserStatusMode = "online";
+        // Onboarding System Variables
+        let selectedGenderAlignment = "";
+        let calculatedUserAge = null;
+        let currentProfileSessionName = "";
+        let currentProfileAvatarUrl = "";
+        let activeGlobalRailTab = "chat"; 
+        let activeChannelId = 'global-lobby';
+        let isCooldownActive = false;
 
-        let globalChannelDatabase = {
-            'global-lobby': { name: "global-lobby", type: "text", history: [] },
-            'announcements': { name: "announcements", type: "text", history: [] },
-            'nexus-lounge': { name: "Nexus Elite Lounge", type: "voice", history: [] },
-            'engineering-deck': { name: "Engineering Core Audio Track", type: "voice", history: [] }
+        let identityLinkingMatrix = {
+            google: { connected: false, name: null, avatar: null },
+            discord: { connected: false, name: null, avatar: null },
+            microsoft: { connected: false, name: null, avatar: null }
         };
 
-        const staticMockRosterList = [
-            { name: "NexusBot", status: "online", role: "Core System Bot", url: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=80&q=80" },
-            { name: "AlphaTester", status: "idle", role: "Elite Gatekeeper", url: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=80&q=80" },
-            { name: "ShadowCrew", status: "dnd", role: "Infiltration Lead", url: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&w=80&q=80" }
+        let activeGroupHubs = [
+            { id: 'hub-alpha', name: 'Strategic Architecture' },
+            { id: 'hub-beta', name: 'Delta Engineering Crew' }
         ];
 
-        const shopCatalogInventory = [
-            { id: "frame-obsidian", name: "Obsidian Cyber Grid Overlay", description: "Injects dark vector tracking bounds around your message logging cards properties dynamically.", cost: 4500, url: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=300&q=80" },
-            { id: "neon-glow", name: "Blurple Lighting Matrix Overclock", description: "Forces active neon saturation parameters onto the core app grid control surfaces layers.", cost: 12000, url: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=300&q=80" },
-            { id: "synth-alerts", name: "Arcade Analog Telemetry Sound Pack", description: "Overwrites systemic standard notification alerts into hardware modular oscillator click nodes.", cost: 3500, url: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=300&q=80" }
+        let channelDatabase = {
+            'global-lobby': { name: "Global Public Lobby", history: [] },
+            'crew-vc': { name: "Crew Elite Lounge", history: [] }
+        };
+
+        let liveStatesContentFeed = [];
+
+        let localHardwareVideoStream = null;
+        let localHardwareDisplayStream = null;
+        let localMicrophoneAudioSource = null;
+        let localAudioAnalyserNode = null;
+        let micAnimationRequestId = null;
+        
+        let isCallActive = false;
+        let isAudioMuted = false;
+        let isCameraActive = false;
+        let isScreenSharing = false;
+        let callTimerInterval = null;
+        let elapsedCallSeconds = 0;
+
+        let betaWalletBalanceOrbs = 50000;
+        const shopInventoryMatrix = [
+            { id: 'nexus-elite', name: 'Nexus Elite Tier', desc: 'Premium custom user frame and advanced server scaling variables.', cost: 'Free (Beta Frame)', icon: 'favicon.png', exclusive: true },
+            { id: 'magic-mists', name: 'Obsidian Cyan Theme Pack', desc: 'Forces alternative custom linear lighting vectors across target panels.', cost: '3500 Orbs', icon: 'favicon.png', exclusive: false },
+            { id: 'cyber-neon', name: 'Cyberpunk Sound Pack', desc: 'Alters notification alerts into retro digital oscillation clips.', cost: '1200 Orbs', icon: 'favicon.png', exclusive: false }
         ];
 
-        const alphaEmojiSymbolsMatrix = [
-            "😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😗","😙","😚","😋","😛","😝","😜","🤪","🤨","🧐","🤓","😎","🤩","🥳","😏","😒","😞","😔","😟","😕","🙁","🙁"
+        const canonicalEmojiPack50 = [
+            "😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😗","😙","😚","😋","😛","😝","😜","🤪","🤨","🧐","🤓","😎","🤩","🥳","😏","😒","😞","😔","😟","😕","🙁","☹️","😣","😖","😫","😩","🥺","😢","😭","😤","😠","😡","🤬"
         ];
-
-        /* Hardware Media Tracking Streams Properties Engine */
-        let webrtcCallActiveFlag = false;
-        let webcamHardwareActiveFlag = false;
-        let displayShareHardwareActiveFlag = false;
-        let microphoneMuteHardwareFlag = false;
-
-        let hardwareCameraStreamObject = null;
-        let hardwareDisplayStreamObject = null;
-        let mediaStreamAudioSourceNode = null;
-        let liveAudioAnalyserNode = null;
-        let liveAudioAnimationFrameId = null;
-
-        let callDurationClockIntervalId = null;
-        let elapsedCallDurationSeconds = 0;
 
         window.addEventListener('DOMContentLoaded', () => {
-            generateMultiverseShopCards();
-            initializeEmojiSelectorGrid();
-            verifyCachedClientSession();
+            initializeDobSelectors();
+            generateStorefrontCards();
+            populateEmojiPickerGrid();
+            evaluateCachedProfileState();
         });
 
-        function verifyCachedClientSession() {
-            let cachedNameKey = localStorage.getItem('nexuschat_discord_name');
-            let cachedAvatarKey = localStorage.getItem('nexuschat_discord_avatar');
+        // Initialize Demographic Selectors
+        function initializeDobSelectors() {
+            const mSelect = document.getElementById('dob-month');
+            const dSelect = document.getElementById('dob-day');
+            const ySelect = document.getElementById('dob-year');
             
-            if (cachedNameKey && cachedNameKey.trim() !== "") {
-                activeProfileSessionName = cachedNameKey;
-                activeProfileAvatarBlob = cachedAvatarKey || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80";
-                syncActiveProfileDataViews();
-                runCinematicLoadingScreen();
-            } else {
-                /* Display configuration gate safely without error */
-                document.getElementById('profile-setup-gate').classList.remove('hidden');
+            const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+            months.forEach((m, idx) => {
+                mSelect.innerHTML += `<option value="${idx + 1}">${m}</option>`;
+            });
+            for(let i=1; i<=31; i++) {
+                dSelect.innerHTML += `<option value="${i}">${i}</option>`;
+            }
+            const currentYear = new Date().getFullYear();
+            for(let i=currentYear; i>=currentYear-100; i--) {
+                ySelect.innerHTML += `<option value="${i}">${i}</option>`;
             }
         }
 
-        function processLocalAvatarSelection(event) {
-            const uploadedFile = event.target.files[0];
-            if (!uploadedFile) return;
+        function advanceOnboardingStep(stepNumber) {
+            // Field confirmation parameters
+            if (stepNumber === 2) {
+                const name = document.getElementById('portal-username-input-node').value.trim();
+                if (!name) {
+                    alert("Please provide a valid account connection handle!");
+                    return;
+                }
+                currentProfileSessionName = name;
+            }
+            if (stepNumber === 3) {
+                if (!selectedGenderAlignment) {
+                    alert("Please select a gender verification identity vector!");
+                    return;
+                }
+                calculateAgeMetric();
+            }
 
-            const fileReader = new FileReader();
-            fileReader.onload = function(e) {
-                const previewBox = document.getElementById('setup-avatar-preview-box');
-                previewBox.innerHTML = `<img src="${e.target.result}" alt="Preview Setup View">`;
-                activeProfileAvatarBlob = e.target.result;
-            };
-            fileReader.readAsDataURL(uploadedFile);
+            document.querySelectorAll('.onboarding-step').forEach(step => {
+                step.classList.remove('active-step');
+            });
+            document.getElementById(`onboarding-step-${stepNumber}`).classList.add('active-step');
+            
+            document.querySelectorAll('.step-dot').forEach((dot, idx) => {
+                dot.classList.toggle('active', idx + 1 === stepNumber);
+            });
+            playSynthFrequency(550, 'sine', 0.1, 0.1);
         }
 
-        function commitProfileRegistrationSession() {
-            const nameInputField = document.getElementById('setup-username-field');
-            let processedName = nameInputField.value.trim().replace(/\s+/g, '');
+        function selectGender(element, genderValue) {
+            document.querySelectorAll('.gender-btn').forEach(btn => btn.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedGenderAlignment = genderValue;
+            playSynthFrequency(600, 'sine', 0.08, 0.15);
+        }
 
-            if (!processedName) {
-                alert("Please declare a valid operational display handle string.");
+        function calculateAgeMetric() {
+            const m = parseInt(document.getElementById('dob-month').value);
+            const d = parseInt(document.getElementById('dob-day').value);
+            const y = parseInt(document.getElementById('dob-year').value);
+            
+            const today = new Date();
+            let age = today.getFullYear() - y;
+            const mDiff = today.getMonth() + 1 - m;
+            if (mDiff < 0 || (mDiff === 0 && today.getDate() < d)) {
+                age--;
+            }
+            calculatedUserAge = age < 0 ? 0 : age;
+        }
+
+        function evaluateCachedProfileState() {
+            let cachedName = localStorage.getItem('nexuschat_user_v6');
+            let cachedAvatar = localStorage.getItem('nexuschat_avatar_v6');
+            let cachedAge = localStorage.getItem('nexuschat_age_v6');
+            let cachedGender = localStorage.getItem('nexuschat_gender_v6');
+            
+            if (cachedName && cachedName.trim() !== "") {
+                currentProfileSessionName = cachedName;
+                currentProfileAvatarUrl = cachedAvatar || "";
+                calculatedUserAge = cachedAge || "--";
+                selectedGenderAlignment = cachedGender || "--";
+                executeProfileUIRenderSync();
+                document.getElementById('secure-login-gate-overlay').classList.add('hidden');
+                document.getElementById('splash-loading-portal').classList.remove('hidden');
+                runCinematicProgressBar();
+            }
+        }
+
+        function handleLocalAvatarSelection(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const previewBox = document.getElementById('portal-avatar-preview-box');
+                previewBox.innerHTML = `<img src="${e.target.result}" alt="Profile Preview">`;
+                currentProfileAvatarUrl = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function executeManualProfileCommit() {
+            localStorage.setItem('nexuschat_user_v6', currentProfileSessionName);
+            localStorage.setItem('nexuschat_age_v6', calculatedUserAge);
+            localStorage.setItem('nexuschat_gender_v6', selectedGenderAlignment);
+            if (currentProfileAvatarUrl) {
+                localStorage.setItem('nexuschat_avatar_v6', currentProfileAvatarUrl);
+            }
+
+            executeProfileUIRenderSync();
+            
+            document.getElementById('secure-login-gate-overlay').classList.add('hidden');
+            document.getElementById('splash-loading-portal').classList.remove('hidden');
+            runCinematicProgressBar();
+        }
+
+        function simulateOAuthLogin(platformName) {
+            const dummyName = platformName + "User" + Math.floor(1000 + Math.random() * 9000);
+            currentProfileSessionName = dummyName;
+            calculatedUserAge = Math.floor(Math.random() * 25) + 18;
+            selectedGenderAlignment = ["Male", "Female", "Non-Binary"][Math.floor(Math.random() * 3)];
+            
+            localStorage.setItem('nexuschat_user_v6', currentProfileSessionName);
+            localStorage.setItem('nexuschat_age_v6', calculatedUserAge);
+            localStorage.setItem('nexuschat_gender_v6', selectedGenderAlignment);
+            
+            executeProfileUIRenderSync();
+            document.getElementById('secure-login-gate-overlay').classList.add('hidden');
+            document.getElementById('splash-loading-portal').classList.remove('hidden');
+            runCinematicProgressBar();
+        }
+
+        function executeProfileUIRenderSync() {
+            document.getElementById('splash-user-target').innerText = currentProfileSessionName;
+            document.getElementById('my-username-node').innerText = currentProfileSessionName;
+            document.getElementById('my-demographics-node').innerText = `Age: ${calculatedUserAge} | ${selectedGenderAlignment}`;
+            
+            const avatarNode = document.getElementById('my-avatar-node');
+            const callPlaceholder = document.getElementById('webcam-avatar-placeholder-node');
+            
+            if (currentProfileAvatarUrl && currentProfileAvatarUrl.trim() !== "") {
+                avatarNode.innerHTML = `<img src="${currentProfileAvatarUrl}" alt="Avatar">`;
+                if(callPlaceholder) callPlaceholder.innerHTML = `<img src="${currentProfileAvatarUrl}" alt="Avatar">`;
+            } else {
+                const initial = currentProfileSessionName.charAt(0).toUpperCase() || 'N';
+                avatarNode.innerText = initial;
+                if(callPlaceholder) callPlaceholder.innerText = initial;
+            }
+        }
+
+        function runCinematicProgressBar() {
+            let progress = 0;
+            const fillBar = document.getElementById('splash-bar-fill');
+            const loaderInterval = setInterval(() => {
+                if (progress >= 100) {
+                    clearInterval(loaderInterval);
+                    terminateLoadingSplashSequence();
+                } else {
+                    progress += Math.floor(Math.random() * 20) + 8;
+                    if (progress > 100) progress = 100;
+                    if (fillBar) fillBar.style.width = progress + '%';
+                }
+            }, 50);
+        }
+
+        function terminateLoadingSplashSequence() {
+            setTimeout(() => {
+                document.getElementById('splash-loading-portal').classList.add('hidden');
+                document.getElementById('app-frame').classList.add('visible');
+                renderSidebarContextPanel();
+                loadTargetChannel(activeChannelId);
+            }, 200);
+        }
+
+        function switchGlobalRailContext(targetTab) {
+            playSynthFrequency(440, 'sine', 0.1, 0.1);
+            const tabs = ["chat", "groups", "states", "settings", "integrations"];
+            tabs.forEach(t => {
+                const node = document.getElementById(`tab-node-${t}`);
+                if (node) node.classList.remove('active');
+            });
+            activeGlobalRailTab = targetTab;
+            const activeNode = document.getElementById(`tab-node-${targetTab}`);
+            if (activeNode) activeNode.classList.add('active');
+            const statesView = document.getElementById('states-hub-engagement-view');
+            if (targetTab === 'states') {
+                statesView.style.display = 'flex';
+            } else {
+                statesView.style.display = 'none';
+            }
+            renderSidebarContextPanel();
+        }
+
+        function renderSidebarContextPanel() {
+            const container = document.getElementById('contacts-vertical-stack');
+            const primaryBtn = document.getElementById('sidebar-action-primary-btn');
+            if (!container || !primaryBtn) return;
+            container.innerHTML = '';
+            
+            if (activeGlobalRailTab === 'chat' || activeGlobalRailTab === 'states') {
+                primaryBtn.style.display = "block";
+                primaryBtn.innerText = "+ New Channel Stream";
+                primaryBtn.onclick = triggerChannelCreation;
+                for (let id in channelDatabase) {
+                    const isActive = (id === activeChannelId) ? 'active' : '';
+                    container.innerHTML += `
+                        <div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')"> 
+                            <div class="row-avatar">#</div> 
+                            <div class="row-meta"> 
+                                <div class="row-name">${channelDatabase[id].name}</div> 
+                                <div class="row-preview">Open communication logs...</div> 
+                            </div> 
+                        </div>`;
+                }
+            } else if (activeGlobalRailTab === 'groups') {
+                primaryBtn.style.display = "block";
+                primaryBtn.innerText = "+ Create Team Hub";
+                primaryBtn.onclick = () => {
+                    const title = prompt("Enter custom title label for group hub:");
+                    if (!title || !title.trim()) return;
+                    activeGroupHubs.push({ id: 'hub-' + Date.now(), name: title.trim() });
+                    renderSidebarContextPanel();
+                };
+                activeGroupHubs.forEach(group => {
+                    container.innerHTML += `
+                        <div class="chat-list-row"> 
+                            <div class="row-avatar">⧉</div> 
+                            <div class="row-meta"> 
+                                <div class="row-name">${group.name}</div> 
+                                <div class="row-preview">Active Team Workspace Node</div> 
+                            </div> 
+                        </div>`;
+                });
+            } else if (activeGlobalRailTab === 'settings') {
+                primaryBtn.style.display = "block";
+                primaryBtn.innerText = "Check Status Keys";
+                primaryBtn.onclick = () => alert("Security layers running securely.");
+                const connections = [
+                    { id: 'google', name: 'Google Workspace' },
+                    { id: 'discord', name: 'Discord Gateway' },
+                    { id: 'microsoft', name: 'Microsoft Identity' }
+                ];
+                connections.forEach(c => {
+                    const isLinked = identityLinkingMatrix[c.id].connected;
+                    const statusText = isLinked ? "Connected ✓" : "Disconnected ✗";
+                    const btnLabel = isLinked ? "Disconnect Asset" : "Run Sync Routine";
+                    container.innerHTML += `
+                        <div style="padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.02);"> 
+                            <div style="font-weight:600; font-size:13px; margin-bottom:4px;">${c.name}</div> 
+                            <div style="font-size:11px; color: ${isLinked ? 'var(--success-green)' : 'var(--text-muted)'}; margin-bottom:8px;">${statusText}</div> 
+                            <button class="sm-btn" onclick="toggleIdentityLinkageRow('${c.id}')">${btnLabel}</button> 
+                        </div>`;
+                });
+            } else if (activeGlobalRailTab === 'integrations') {
+                primaryBtn.style.display = "none";
+                container.innerHTML = `<div style="padding: 16px; font-size: 12px; color: var(--text-muted); text-align: center;">No third-party packages wired to current profile context.</div>`;
+            }
+        }
+
+        function loadTargetChannel(id) {
+            activeChannelId = id;
+            const activeNode = document.getElementById('active-chat-headline-node');
+            if (activeNode && channelDatabase[id]) {
+                activeNode.innerText = channelDatabase[id].name;
+            }
+            renderSidebarContextPanel();
+            repaintMessageLogs();
+        }
+
+        function toggleIdentityLinkageRow(providerId) {
+            playSynthFrequency(600, 'sine', 0.15, 0.2);
+            if (identityLinkingMatrix[providerId].connected) {
+                identityLinkingMatrix[providerId].connected = false;
+                identityLinkingMatrix[providerId].name = null;
+                appendBubbleElement("System Settings", `Purged [${providerId}] secure validation structures cleanly.`, "received");
+            } else {
+                identityLinkingMatrix[providerId].connected = true;
+                identityLinkingMatrix[providerId].name = "Synced Profile Handle";
+                appendBubbleElement("System Settings", `Linked alternative authentication pipeline for [${providerId}] successfully!`, "received");
+            }
+            renderSidebarContextPanel();
+        }
+
+        function populateEmojiPickerGrid() {
+            const scroller = document.getElementById('emoji-grid-scroller-target');
+            if (!scroller) return;
+            scroller.innerHTML = '';
+            canonicalEmojiPack50.forEach(emoji => {
+                const cell = document.createElement('div');
+                cell.className = 'emoji-grid-item-cell';
+                cell.innerText = emoji;
+                cell.onclick = () => injectEmojiSymbolToInputBox(emoji);
+                scroller.appendChild(cell);
+            });
+        }
+
+        function toggleInlineEmojiPickerTray() {
+            const overlay = document.getElementById('emoji-picker-matrix-overlay');
+            if (!overlay) return;
+            overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function injectEmojiSymbolToInputBox(emojiSymbol) {
+            const textInput = document.getElementById('text-message-input-node');
+            if (!textInput) return;
+            textInput.value += emojiSymbol;
+            textInput.focus();
+            toggleInlineEmojiPickerTray();
+        }
+
+        function executeTextDispatch() {
+            if (isCooldownActive) {
+                alert("Spam detected. Cooldown active.");
                 return;
             }
-
-            activeProfileSessionName = processedName;
-            if (!activeProfileAvatarBlob) {
-                activeProfileAvatarBlob = "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80";
-            }
-
-            localStorage.setItem('nexuschat_discord_name', activeProfileSessionName);
-            localStorage.setItem('nexuschat_discord_avatar', activeProfileAvatarBlob);
-
-            syncActiveProfileDataViews();
-            document.getElementById('profile-setup-gate').classList.add('hidden');
-            runCinematicLoadingScreen();
-        }
-
-        function syncActiveProfileDataViews() {
-            document.getElementById('splash-headline-sync').innerText = activeProfileSessionName;
-            document.getElementById('footer-username-string-node').innerText = activeProfileSessionName;
+            const inputField = document.getElementById('text-message-input-node');
+            const dispatchBtn = document.getElementById('send-message-dispatch-btn');
+            const progressFill = document.getElementById('cooldown-progress-fill-bar');
+            const dataString = inputField.value.trim();
+            if (!dataString) return;
             
-            const circleAvatarNode = document.getElementById('footer-avatar-circle-node');
-            circleAvatarNode.src = activeProfileAvatarBlob;
-
-            const webcamPlaceholder = document.getElementById('webcam-avatar-placeholder');
-            if (webcamPlaceholder) webcamPlaceholder.src = activeProfileAvatarBlob;
-        }
-
-        function runCinematicLoadingScreen() {
-            const portalLoader = document.getElementById('splash-portal');
-            portalLoader.classList.remove('hidden');
+            appendBubbleElement(currentProfileSessionName, dataString, "sent");
+            inputField.value = '';
+            isCooldownActive = true;
+            inputField.disabled = true;
+            dispatchBtn.disabled = true;
             
-            setTimeout(() => {
-                portalLoader.classList.add('hidden');
-                document.getElementById('app-container').classList.add('visible');
-                rebuildChannelsSidebarNavigation();
-                loadTargetRoomChannel(currentActiveChannelId);
-                rebuildActiveRosterSidebar();
-                
-                appendSystemChatMessageLog("System Matrix Monitor", "Core client configuration parameters initialized under operational control vectors cleanly.", "system-alert");
-            }, 1000);
-        }
-
-        function rebuildChannelsSidebarNavigation() {
-            const textContainer = document.getElementById('text-channels-injector-box');
-            const voiceContainer = document.getElementById('voice-channels-injector-box');
-            if (!textContainer || !voiceContainer) return;
-
-            textContainer.innerHTML = "";
-            voiceContainer.innerHTML = "";
-
-            for (let id in globalChannelDatabase) {
-                const nodeRecord = globalChannelDatabase[id];
-                const activeSelectionStyleClass = (id === currentActiveChannelId) ? "active" : "";
-                
-                if (nodeRecord.type === "text") {
-                    textContainer.innerHTML += `
-                        <div class="channel-list-item ${activeSelectionStyleClass}" onclick="loadTargetRoomChannel('${id}')">
-                            <div class="channel-meta-left">
-                                <span class="channel-hash-icon">#</span>
-                                <span class="channel-label-text">${nodeRecord.name}</span>
-                            </div>
-                        </div>`;
-                } else if (nodeRecord.type === "voice") {
-                    voiceContainer.innerHTML += `
-                        <div class="channel-list-item ${activeSelectionStyleClass}" onclick="loadTargetRoomChannel('${id}')">
-                            <div class="channel-meta-left">
-                                <span class="channel-hash-icon">🔊</span>
-                                <span class="channel-label-text">${nodeRecord.name}</span>
-                            </div>
-                        </div>`;
-                }
-            }
-        }
-
-        function loadTargetRoomChannel(channelId) {
-            triggerBespokeOscillatorBeep(520, 'sine', 0.05, 0.06);
-            currentActiveChannelId = channelId;
-            
-            document.getElementById('navbar-active-channel-title').innerText = globalChannelDatabase[channelId].name;
-            
-            rebuildChannelsSidebarNavigation();
-            repaintMessagesViewportLogs();
-        }
-
-        function repaintMessagesViewportLogs() {
-            const timelineScroller = document.getElementById('messages-timeline-viewport');
-            if (!timelineScroller) return;
-
-            timelineScroller.innerHTML = "";
-            const currentLogsPool = globalChannelDatabase[currentActiveChannelId].history || [];
-
-            currentLogsPool.forEach(log => {
-                let avatarUrlString = log.avatarData ? log.avatarData : "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=80&q=80";
-
-                timelineScroller.innerHTML += `
-                    <div class="message-chat-row">
-                        <img src="${avatarUrlString}" class="msg-absolute-avatar" alt="Author User Target Face">
-                        <div class="msg-contents-block">
-                            <div class="msg-header-row">
-                                <span class="msg-username-string">${log.authorString}</span>
-                                <span class="msg-timestamp-string">${log.timestampCode}</span>
-                            </div>
-                            <div class="msg-body-text-content ${log.specialVariant || ''}">${log.messageBodyText}</div>
-                        </div>
-                    </div>`;
-            });
-
-            timelineScroller.scrollTop = timelineScroller.scrollHeight;
-        }
-
-        function appendSystemChatMessageLog(author, messageText, structuralVariant = "") {
-            const modernTimeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            
-            let messageNodeRecord = {
-                authorString: author,
-                messageBodyText: messageText,
-                timestampCode: modernTimeCode,
-                avatarData: (author === activeProfileSessionName) ? activeProfileAvatarBlob : "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=80&q=80",
-                specialVariant: structuralVariant
-            };
-
-            globalChannelDatabase[currentActiveChannelId].history.push(messageNodeRecord);
-            if (author !== activeProfileSessionName && structuralVariant !== "system-alert") {
-                playDiscordMessageNotificationTone();
-            }
-            
-            repaintMessagesViewportLogs();
-        }
-
-        function interceptInputFieldKeypress(event) {
-            if (event.key === 'Enter') dispatchChatMessage();
-        }
-
-        function dispatchChatMessage() {
-            if (isAntiSpamCooldownActive) return;
-
-            const textInputNode = document.getElementById('chat-text-input-field');
-            const cooldownFillBar = document.getElementById('cooldown-micro-bar-fill');
-            const structuralTextString = textInputNode.value.trim();
-
-            if (!structuralTextString) return;
-
-            appendSystemChatMessageLog(activeProfileSessionName, structuralTextString);
-            textInputNode.value = "";
-
-            /* Dynamic Rate Limiter Cooldown Progress Animation Bar Loops */
-            isAntiSpamCooldownActive = true;
-            textInputNode.disabled = true;
-
-            if (cooldownFillBar) {
-                cooldownFillBar.style.transition = 'none';
-                cooldownFillBar.style.width = '100%';
+            if (progressFill) {
+                progressFill.style.transition = 'none';
+                progressFill.style.width = '100%';
                 setTimeout(() => {
-                    cooldownFillBar.style.transition = 'width 1200ms linear';
-                    cooldownFillBar.style.width = '0%';
-                }, 20);
+                    progressFill.style.transition = 'width 2000ms linear';
+                    progressFill.style.width = '0%';
+                }, 10);
             }
-
+            
             setTimeout(() => {
-                isAntiSpamCooldownActive = false;
-                textInputNode.disabled = false;
-                textInputNode.focus();
-            }, 1200);
-
-            /* Simulated Async Automated Network Client Replies Handles */
-            setTimeout(() => {
-                const responsePoolStrings = [
-                    "Wired telemetry interface modules are communicating smoothly within global node arrays.",
-                    "Checking structural layout bounds variables. Testing sequence complete.",
-                    "Data latency indices reporting nominal values across communication lines."
+                const automatedPool = [
+                    "WebRTC live video streams stream directly over decentralized media pipes matrix perfectly!",
+                    "The demographic account variables are safely contained within hardware memory stacks.",
+                    "Everything is synchronized in local ecosystem arrays."
                 ];
-                const pseudoSelectedString = responsePoolStrings[Math.floor(Math.random() * responsePoolStrings.length)];
-                appendSystemChatMessageLog("NexusBot", pseudoSelectedString);
-            }, 800);
+                const selectedText = automatedPool[Math.floor(Math.random() * automatedPool.length)];
+                appendBubbleElement("Beta Tester", selectedText, "received");
+            }, 1000);
+            
+            setTimeout(() => {
+                isCooldownActive = false;
+                inputField.disabled = false;
+                dispatchBtn.disabled = false;
+                inputField.focus();
+            }, 2000);
         }
 
-        function rebuildActiveRosterSidebar() {
-            const rosterContainer = document.getElementById('roster-injector-box');
-            if (!rosterContainer) return;
+        function appendBubbleElement(author, content, variant) {
+            if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
+            const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            channelDatabase[activeChannelId].history.push({ author, content, variant, timeCode });
+            if (variant === 'received') triggerMsgAlertTone();
+            repaintMessageLogs();
+        }
 
-            rosterContainer.innerHTML = "";
-            
-            /* Render active custom registered workspace profile element */
-            rosterContainer.innerHTML += `
-                <div class="roster-member-row online-status">
-                    <div class="avatar-status-wrapper" style="width: 24px; height: 24px; margin-right: 10px;">
-                        <img src="${activeProfileAvatarBlob}" class="avatar-img-circle-element" style="border: 1px solid rgba(255,255,255,0.1);" alt="Self User">
-                        <div class="status-badge-dot" style="background-color: ${fetchStatusColor(activeUserStatusMode)}; border-width: 1px; width: 8px; height: 8px;"></div>
-                    </div>
-                    <span class="roster-member-name" style="color: var(--text-white); font-weight: 700;">${activeProfileSessionName}</span>
-                </div>`;
+        function repaintMessageLogs() {
+            const viewTarget = document.getElementById('chat-thread-viewport');
+            if(!viewTarget) return;
+            viewTarget.innerHTML = '';
+            const logs = channelDatabase[activeChannelId].history || [];
+            logs.forEach(msg => {
+                viewTarget.innerHTML += `<div class="msg-bubble ${msg.variant}"> <span class="msg-author">${msg.author}</span> <div>${msg.content}</div> <div class="msg-footer">${msg.timeCode}</div> </div>`;
+            });
+            viewTarget.scrollTop = viewTarget.scrollHeight;
+        }
 
-            /* Map and render secondary static platform entities records layers */
-            staticMockRosterList.forEach(user => {
-                let currentBadgeHex = "#80848e";
-                if (user.status === "online") currentBadgeHex = "var(--status-green)";
-                if (user.status === "idle") currentBadgeHex = "var(--status-idle)";
-                if (user.status === "dnd") currentBadgeHex = "var(--status-dnd)";
+        function trapInputKeypress(e) {
+            if (e.key === 'Enter') executeTextDispatch();
+        }
 
-                rosterContainer.innerHTML += `
-                    <div class="roster-member-row">
-                        <div class="avatar-status-wrapper" style="width: 24px; height: 24px; margin-right: 10px;">
-                            <img src="${user.url}" class="avatar-img-circle-element" alt="Roster Face Context">
-                            <div class="status-badge-dot" style="background-color: ${currentBadgeHex}; border-width: 1px; width: 8px; height: 8px;"></div>
-                        </div>
-                        <span class="roster-member-name">${user.name}</span>
+        function triggerChannelCreation() {
+            const titleInput = prompt("Enter name for new custom chat room:");
+            if (!titleInput || titleInput.trim() === "") return;
+            const generatedId = 'ch-node-' + Date.now();
+            channelDatabase[generatedId] = { name: titleInput.trim(), history: [] };
+            loadTargetChannel(generatedId);
+        }
+
+        function performProfileHardwareReset() {
+            localStorage.removeItem('nexuschat_user_v6');
+            localStorage.removeItem('nexuschat_avatar_v6');
+            localStorage.removeItem('nexuschat_age_v6');
+            localStorage.removeItem('nexuschat_gender_v6');
+            window.location.reload();
+        }
+
+        function processNewStateMediaUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const assetBlobUrl = URL.createObjectURL(file);
+            const isVideo = file.type.startsWith('video/');
+            const newStateNode = {
+                id: 'state-id-' + Date.now(),
+                author: currentProfileSessionName,
+                url: assetBlobUrl,
+                videoType: isVideo
+            };
+            liveStatesContentFeed.unshift(newStateNode);
+            repaintStatesCarouselTrack();
+        }
+
+        function repaintStatesCarouselTrack() {
+            const track = document.getElementById('states-carousel-scroller-track');
+            if (!track) return;
+            track.innerHTML = '';
+            liveStatesContentFeed.forEach(state => {
+                let mediaElementHTML = state.videoType
+                    ? `<video src="${state.url}" class="state-media-preview-element" autoplay loop muted playsinline></video>`
+                    : `<img src="${state.url}" class="state-media-preview-element" alt="State Asset">`;
+                track.innerHTML += `<div class="state-content-card-node"> ${mediaElementHTML} <div class="state-author-tag">${state.author}</div> </div>`;
+            });
+        }
+
+        function generateStorefrontCards() {
+            const container = document.getElementById('shop-items-grid-target');
+            if (!container) return;
+            container.innerHTML = '';
+            shopInventoryMatrix.forEach(item => {
+                const badgeHTML = item.exclusive ? `<div class="item-badge-exclusive">EXCLUSIVE</div>` : '';
+                container.innerHTML += `
+                    <div class="shop-item-card"> 
+                        ${badgeHTML} 
+                        <div class="item-graphic-wrapper"> 
+                            <div class="item-graphic-ring"></div> 
+                            <img src="${item.icon}" class="item-graphic-icon-asset" alt="Shop Icon Asset" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 24 24\' fill=\'%23f5a623\'><path d=\'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z\'/></svg>'"> 
+                        </div> 
+                        <div class="item-meta-name">${item.name}</div> 
+                        <div class="item-meta-desc">${item.desc}</div> 
+                        <div class="item-action-row"> 
+                            <div class="item-price-tag">🔮 ${item.cost}</div> 
+                            <button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Claim Free</button> 
+                        </div> 
                     </div>`;
             });
-
-            document.getElementById('roster-count-label').innerText = (staticMockRosterList.length + 1);
         }
 
-        function fetchStatusColor(mode) {
-            if (mode === "online") return "var(--status-green)";
-            if (mode === "idle") return "var(--status-idle)";
-            if (mode === "dnd") return "var(--status-dnd)";
-            return "var(--status-offline)";
+        function executeItemPurchase(itemId) {
+            const targetBtn = document.getElementById(`btn-claim-${itemId}`);
+            playSynthFrequency(880, 'sine', 0.3, 0.4);
+            if (targetBtn) {
+                targetBtn.innerText = "✓ Unlocked";
+                targetBtn.classList.add('unlocked');
+                targetBtn.disabled = true;
+            }
+            appendBubbleElement("System Store", `Successfully locked [${itemId}] structural asset modifications to your profile container!`, "received");
         }
 
-        function triggerStatusToggleCycle() {
-            if (activeUserStatusMode === "online") activeUserStatusMode = "idle";
-            else if (activeUserStatusMode === "idle") activeUserStatusMode = "dnd";
-            else activeUserStatusMode = "online";
+        function openPremiumStorefront() {
+            playSynthFrequency(580, 'sine', 0.2, 0.2);
+            document.getElementById('nexus-shop-screen').style.display = 'flex';
+        }
 
-            playDiscordActionClickToggleTone(true);
-            document.getElementById('footer-status-label-node').innerText = activeUserStatusMode.toUpperCase();
-            document.getElementById('footer-status-dot-node').style.backgroundColor = fetchStatusColor(activeUserStatusMode);
+        function closePremiumStorefront() {
+            playSynthFrequency(440, 'sine', 0.15, 0.15);
+            document.getElementById('nexus-shop-screen').style.display = 'none';
+        }
+
+        async function toggleVoiceVideoCall() {
+            const layerBlock = document.getElementById('call-interface-layer');
+            const joinBtn = document.querySelector('.call-action-btn');
+            isCallActive = !isCallActive;
+            if (isCallActive) {
+                layerBlock.style.display = 'flex';
+                joinBtn.innerText = "Disconnect Stream";
+                joinBtn.style.borderColor = "var(--danger-red)";
+                joinBtn.style.color = "var(--danger-red)";
+                initiateChronometerClock();
+                playSynthFrequency(520, 'sine', 0.2, 0.25);
+            } else {
+                layerBlock.style.display = 'none';
+                joinBtn.innerText = "Connect Live Streams";
+                joinBtn.style.borderColor = "var(--primary-accent)";
+                joinBtn.style.color = "var(--primary-accent)";
+                terminateChronometerClock();
+                cleanupHardwareTracks();
+                playSynthFrequency(320, 'sine', 0.2, 0.25);
+            }
+        }
+
+        async function toggleWebcamState() {
+            const videoElement = document.getElementById('hardware-webcam-stream');
+            const camBtn = document.getElementById('webcam-video-toggle');
+            const mockBox = document.getElementById('webcam-canvas');
+            const label = document.getElementById('webcam-label');
+            if (!isCallActive) return alert("Please enter the live call channel stream frame first.");
+            isCameraActive = !isCameraActive;
+            triggerToggleMuteTone(!isCameraActive);
             
-            rebuildActiveRosterSidebar();
-        }
-
-        function initializeEmojiSelectorGrid() {
-            const gridInjector = document.getElementById('emoji-matrix-grid-injector');
-            if (!gridInjector) return;
-
-            gridInjector.innerHTML = "";
-            alphaEmojiSymbolsMatrix.forEach(emoji => {
-                const buttonBlock = document.createElement('div');
-                buttonBlock.className = "emoji-grid-cell-block";
-                buttonBlock.innerText = emoji;
-                buttonBlock.onclick = () => {
-                    const stringInput = document.getElementById('chat-text-input-field');
-                    stringInput.value += emoji;
-                    stringInput.focus();
-                    toggleEmojiScrollerMatrixPopover();
-                };
-                gridInjector.appendChild(buttonBlock);
-            });
-        }
-
-        function toggleEmojiScrollerMatrixPopover() {
-            const trayNode = document.getElementById('emoji-popover-tray-node');
-            if (!trayNode) return;
-            trayNode.style.display = (trayNode.style.display === "flex") ? "none" : "flex";
-        }
-
-        /* WebRTC Real-Time Media Captures Systems Mocking Interface Loops */
-        async function toggleWebRTCAudioVideoCallHub() {
-            const streamingBayBlock = document.getElementById('webrtc-call-bay');
-            const indicatorIcon = document.getElementById('navbar-call-toggle-icon');
-
-            webrtcCallActiveFlag = !webrtcCallActiveFlag;
-            playDiscordActionClickToggleTone(webrtcCallActiveFlag);
-
-            if (webrtcCallActiveFlag) {
-                streamingBayBlock.style.display = "flex";
-                indicatorIcon.innerText = "🛑";
-                indicatorIcon.style.color = "var(--status-dnd)";
-                executeChronometerStopwatch(true);
-            } else {
-                streamingBayBlock.style.display = "none";
-                indicatorIcon.innerText = "📞";
-                indicatorIcon.style.color = "var(--text-muted)";
-                executeChronometerStopwatch(false);
-                shutdownHardwareMediaTracks();
-            }
-        }
-
-        async function toggleWebcamDeviceState() {
-            const videoTag = document.getElementById('hardware-camera-stream-tag');
-            const placeholderTag = document.getElementById('webcam-avatar-placeholder');
-            const stateBtn = document.getElementById('call-camera-hardware-toggle');
-            const labelTag = document.getElementById('webcam-stream-label');
-
-            if (!webrtcCallActiveFlag) return;
-            webcamHardwareActiveFlag = !webcamHardwareActiveFlag;
-            playDiscordActionClickToggleTone(webcamHardwareActiveFlag);
-
-            if (webcamHardwareActiveFlag) {
+            if (isCameraActive) {
                 try {
-                    hardwareCameraStreamObject = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                    videoTag.srcObject = hardwareCameraStreamObject;
-                    placeholderTag.style.display = "none";
-                    stateBtn.classList.add('active-toggle-state');
-                    labelTag.innerText = "Hardware Camera Track Interface Streaming Active";
-                    
-                    activateLiveMicrophoneAnalysis(hardwareCameraStreamObject);
+                    localHardwareVideoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                    videoElement.srcObject = localHardwareVideoStream;
+                    mockBox.style.display = 'none';
+                    camBtn.innerText = "Disable Camera";
+                    camBtn.classList.add('active-state');
+                    label.innerText = "Live System Camera Feed (Active)";
+                    initiateMicrophoneAnalysisAudioEngine(localHardwareVideoStream);
                 } catch (err) {
-                    console.error("Camera layout linking error captured gracefully:", err);
-                    alert("Unable to map local browser access permissions to systematic webcam devices array structures.");
-                    webcamHardwareActiveFlag = false;
+                    console.error("Camera device mapping failure: ", err);
+                    alert("Could not access your physical webcam device.");
+                    isCameraActive = false;
                 }
             } else {
-                if (hardwareCameraStreamObject) {
-                    hardwareCameraStreamObject.getTracks().forEach(track => track.stop());
+                if (localHardwareVideoStream) {
+                    localHardwareVideoStream.getTracks().forEach(track => track.stop());
                 }
-                videoTag.srcObject = null;
-                placeholderTag.style.display = "flex";
-                stateBtn.classList.remove('active-toggle-state');
-                labelTag.innerText = "Camera Stream Offline";
-                deactivateLiveMicrophoneAnalysis();
+                videoElement.srcObject = null;
+                mockBox.style.display = 'flex';
+                camBtn.innerText = "Enable Camera";
+                camBtn.classList.remove('active-state');
+                label.innerText = "Camera Interface Offline";
+                haltMicrophoneAnalysisAudioEngine();
             }
         }
 
-        function activateLiveMicrophoneAnalysis(streamObject) {
+        function initiateMicrophoneAnalysisAudioEngine(streamObject) {
             try {
-                constructionAudioEngineEngineContext();
-                mediaStreamAudioSourceNode = webAudioContextEngineInstance.createMediaStreamSource(streamObject);
-                liveAudioAnalyserNode = webAudioContextEngineInstance.createAnalyser();
-                liveAudioAnalyserNode.fftSize = 32;
-                mediaStreamAudioSourceNode.connect(liveAudioAnalyserNode);
-                executeAudioEqualizerLoop();
+                initAudioContext();
+                localMicrophoneAudioSource = audioCtx.createMediaStreamSource(streamObject);
+                localAudioAnalyserNode = audioCtx.createAnalyser();
+                localAudioAnalyserNode.fftSize = 64;
+                localMicrophoneAudioSource.connect(localAudioAnalyserNode);
+                executeEqualizerRenderFrameLoop();
             } catch (err) {
-                console.log("Audio metrics visualizer node mapping safe bypass handled:", err);
+                console.log("Audio visualizer node assignment error: ", err);
             }
         }
 
-        function executeAudioEqualizerLoop() {
-            if (!liveAudioAnalyserNode) return;
-
-            const processingBufferLength = liveAudioAnalyserNode.frequencyBinCount;
-            const frequencyDataArray = new Uint8Array(processingBufferLength);
-            liveAudioAnalyserNode.getByteFrequencyData(frequencyDataArray);
-
-            let intensitySum = 0;
-            for (let i = 0; i < processingBufferLength; i++) {
-                intensitySum += frequencyDataArray[i];
+        function executeEqualizerRenderFrameLoop() {
+            if (!localAudioAnalyserNode) return;
+            const bufferLen = localAudioAnalyserNode.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLen);
+            localAudioAnalyserNode.getByteFrequencyData(dataArray);
+            let frequencySum = 0;
+            for (let i = 0; i < bufferLen; i++) {
+                frequencySum += dataArray[i];
             }
-
-            const calculatedAverageVolume = intensitySum / processingBufferLength;
-            const webcamCardContainerNode = document.getElementById('hardware-webcam-card-container');
-
-            if (webcamCardContainerNode) {
-                if (calculatedAverageVolume > 18) {
-                    /* Active Voice Frame Highlight Glow Activation Pattern */
-                    webcamCardContainerNode.classList.add('speaking-ring');
+            const averageVolume = frequencySum / bufferLen;
+            const targetContainer = document.getElementById('webcam-hardware-window-node');
+            if (targetContainer) {
+                if (averageVolume > 25) {
+                    targetContainer.classList.add('speaking-active');
+                    let dynamicGlowRadius = Math.min(30, Math.floor(averageVolume / 3));
+                    targetContainer.style.boxShadow = `0 0 ${dynamicGlowRadius}px var(--primary-glow), inset 0 0 20px rgba(0, 255, 255, 0.15)`;
                 } else {
-                    webcamCardContainerNode.classList.remove('speaking-ring');
+                    targetContainer.classList.remove('speaking-active');
+                    targetContainer.style.boxShadow = 'none';
                 }
             }
-
-            liveAudioAnimationFrameId = requestAnimationFrame(executeAudioEqualizerLoop);
+            micAnimationRequestId = requestAnimationFrame(executeEqualizerRenderFrameLoop);
         }
 
-        function deactivateLiveMicrophoneAnalysis() {
-            if (liveAudioAnimationFrameId) cancelAnimationFrame(liveAudioAnimationFrameId);
-            const webcamCardContainerNode = document.getElementById('hardware-webcam-card-container');
-            if (webcamCardContainerNode) webcamCardContainerNode.classList.remove('speaking-ring');
-
-            if (mediaStreamAudioSourceNode) mediaStreamAudioSourceNode.disconnect();
-            liveAudioAnalyserNode = null;
-            mediaStreamAudioSourceNode = null;
+        function haltMicrophoneAnalysisAudioEngine() {
+            if (micAnimationRequestId) cancelAnimationFrame(micAnimationRequestId);
+            const targetContainer = document.getElementById('webcam-hardware-window-node');
+            if (targetContainer) {
+                targetContainer.classList.remove('speaking-active');
+                targetContainer.style.boxShadow = 'none';
+            }
+            if (localMicrophoneAudioSource) localMicrophoneAudioSource.disconnect();
+            localAudioAnalyserNode = null;
+            localMicrophoneAudioSource = null;
         }
 
-        async function toggleDisplayShareDeviceState() {
-            const displayVideoTag = document.getElementById('hardware-display-stream-tag');
-            const displayPlaceholderTag = document.getElementById('screenshare-avatar-placeholder');
-            const displayStateBtn = document.getElementById('call-screen-hardware-toggle');
-            const displayLabelTag = document.getElementById('screenshare-stream-label');
-
-            if (!webrtcCallActiveFlag) return;
-            displayShareHardwareActiveFlag = !displayShareHardwareActiveFlag;
-
-            if (displayShareHardwareActiveFlag) {
+        async function toggleScreenShareState() {
+            const shareElement = document.getElementById('hardware-screenshare-stream');
+            const screenBtn = document.getElementById('screenshare-video-toggle');
+            const mockBox = document.getElementById('screenshare-canvas');
+            const label = document.getElementById('screenshare-label');
+            if (!isCallActive) return alert("Please enter the live call channel stream frame first.");
+            isScreenSharing = !isScreenSharing;
+            playSynthFrequency(600, 'triangle', 0.1, 0.2);
+            
+            if (isScreenSharing) {
                 try {
-                    hardwareDisplayStreamObject = await navigator.mediaDevices.getDisplayMedia({ video: true });
-                    displayVideoTag.srcObject = hardwareDisplayStreamObject;
-                    displayPlaceholderTag.style.display = "none";
-                    displayStateBtn.classList.add('active-toggle-state');
-                    displayLabelTag.innerText = "Display Interface Capture Broadcasting Live";
-
-                    hardwareDisplayStreamObject.getVideoTracks()[0].onended = () => {
-                        if (displayShareHardwareActiveFlag) toggleDisplayShareDeviceState();
+                    localHardwareDisplayStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+                    shareElement.srcObject = localHardwareDisplayStream;
+                    mockBox.style.display = 'none';
+                    screenBtn.innerText = "Stop Sharing";
+                    screenBtn.classList.add('active-state');
+                    label.innerText = "Display Canvas Sharing Live";
+                    localHardwareDisplayStream.getVideoTracks()[0].onended = () => {
+                        if (isScreenSharing) toggleScreenShareState();
                     };
                 } catch (err) {
-                    console.error("Display share initialization framework error captured safely:", err);
-                    displayShareHardwareActiveFlag = false;
+                    console.error("Screen Share capture error: ", err);
+                    isScreenSharing = false;
                 }
             } else {
-                if (hardwareDisplayStreamObject) {
-                    hardwareDisplayStreamObject.getTracks().forEach(track => track.stop());
+                if (localHardwareDisplayStream) {
+                    localHardwareDisplayStream.getTracks().forEach(track => track.stop());
                 }
-                displayVideoTag.srcObject = null;
-                displayPlaceholderTag.style.display = "flex";
-                displayStateBtn.classList.remove('active-toggle-state');
-                displayLabelTag.innerText = "Screen Capture Pipe Offline";
+                shareElement.srcObject = null;
+                mockBox.style.display = 'flex';
+                screenBtn.innerText = "Share Screen";
+                screenBtn.classList.remove('active-state');
+                label.innerText = "Screen Capture Pipe Offline";
             }
         }
 
-        function toggleAudioMuteHardware() {
-            microphoneMuteHardwareFlag = !microphoneMuteHardwareFlag;
-            const micFooterBtn = document.getElementById('footer-mic-toggle-btn');
-            const micCallBtn = document.getElementById('call-mic-hardware-toggle');
-
-            if (hardwareCameraStreamObject) {
-                hardwareCameraStreamObject.getAudioTracks().forEach(track => {
-                    track.enabled = !microphoneMuteHardwareFlag;
+        function toggleMuteState() {
+            isAudioMuted = !isAudioMuted;
+            const muteBtn = document.getElementById('mute-audio-toggle');
+            if (localHardwareVideoStream) {
+                localHardwareVideoStream.getAudioTracks().forEach(track => {
+                    track.enabled = !isAudioMuted;
                 });
             }
-
-            let indicatorIcon = microphoneMuteHardwareFlag ? "🔇" : "🎙️";
-            if (micFooterBtn) micFooterBtn.innerText = indicatorIcon;
-            if (micCallBtn) {
-                micCallBtn.innerText = indicatorIcon;
-                if (microphoneMuteHardwareFlag) micCallBtn.classList.add('active-toggle-state');
-                else micCallBtn.classList.remove('active-toggle-state');
+            if (isAudioMuted) {
+                muteBtn.innerText = "Audio Muted";
+                muteBtn.classList.add('active-state');
+            } else {
+                muteBtn.innerText = "Audio Unmuted";
+                muteBtn.classList.remove('active-state');
             }
-
-            if (microphoneMuteHardwareFlag) micFooterBtn.classList.add('active-dnd');
-            else micFooterBtn.classList.remove('active-dnd');
+            triggerToggleMuteTone(isAudioMuted);
         }
 
-        function shutdownHardwareMediaTracks() {
-            deactivateLiveMicrophoneAnalysis();
-            if (hardwareCameraStreamObject) {
-                hardwareCameraStreamObject.getTracks().forEach(track => track.stop());
-                hardwareCameraStreamObject = null;
+        function cleanupHardwareTracks() {
+            haltMicrophoneAnalysisAudioEngine();
+            if (localHardwareVideoStream) {
+                localHardwareVideoStream.getTracks().forEach(track => track.stop());
+                localHardwareVideoStream = null;
             }
-            if (hardwareDisplayStreamObject) {
-                hardwareDisplayStreamObject.getTracks().forEach(track => track.stop());
-                hardwareDisplayStreamObject = null;
+            if (localHardwareDisplayStream) {
+                localHardwareDisplayStream.getTracks().forEach(track => track.stop());
+                localHardwareDisplayStream = null;
             }
-
-            document.getElementById('hardware-camera-stream-tag').srcObject = null;
-            document.getElementById('hardware-display-stream-tag').srcObject = null;
-            document.getElementById('webcam-avatar-placeholder').style.display = "flex";
-            document.getElementById('screenshare-avatar-placeholder').style.display = "flex";
-
-            webcamHardwareActiveFlag = false;
-            displayShareHardwareActiveFlag = false;
-            microphoneMuteHardwareFlag = false;
-
-            document.getElementById('call-camera-hardware-toggle').classList.remove('active-toggle-state');
-            document.getElementById('call-screen-hardware-toggle').classList.remove('active-toggle-state');
-            
-            const micCallBtn = document.getElementById('call-mic-hardware-toggle');
-            if (micCallBtn) {
-                micCallBtn.innerText = "🎙️";
-                micCallBtn.classList.remove('active-toggle-state');
+            document.getElementById('hardware-webcam-stream').srcObject = null;
+            document.getElementById('hardware-screenshare-stream').srcObject = null;
+            document.getElementById('webcam-canvas').style.display = 'flex';
+            document.getElementById('screenshare-canvas').style.display = 'flex';
+            isCameraActive = false;
+            isScreenSharing = false;
+            isAudioMuted = false;
+            const camBtn = document.getElementById('webcam-video-toggle');
+            const screenBtn = document.getElementById('screenshare-video-toggle');
+            const muteBtn = document.getElementById('mute-audio-toggle');
+            if (camBtn) camBtn.classList.remove('active-state');
+            if (screenBtn) screenBtn.classList.remove('active-state');
+            if (muteBtn) {
+                muteBtn.innerText = "Audio Unmuted";
+                muteBtn.classList.remove('active-state');
             }
         }
 
-        function executeChronometerStopwatch(runFlag) {
-            clearInterval(callDurationClockIntervalId);
-            if (!runFlag) {
-                elapsedCallDurationSeconds = 0;
-                document.getElementById('call-stopwatch-node').innerText = "00:00";
-                return;
-            }
-
-            const clockStampNode = document.getElementById('call-stopwatch-node');
-            callDurationClockIntervalId = setInterval(() => {
-                elapsedCallDurationSeconds++;
-                let displayMins = String(Math.floor(elapsedCallDurationSeconds / 60)).padStart(2, '0');
-                let displaySecs = String(elapsedCallDurationSeconds % 60).padStart(2, '0');
-                clockStampNode.innerText = `${displayMins}:${displaySecs}`;
+        function initiateChronometerClock() {
+            elapsedCallSeconds = 0;
+            const durationClock = document.getElementById('call-duration-clock');
+            callTimerInterval = setInterval(() => {
+                elapsedCallSeconds++;
+                let displayMinutes = String(Math.floor(elapsedCallSeconds / 60)).padStart(2, '0');
+                let displaySeconds = String(elapsedCallSeconds % 60).padStart(2, '0');
+                if (durationClock) durationClock.innerText = `${displayMinutes}:${displaySeconds}`;
             }, 1000);
         }
 
-        /* Storefront Cosmetics Grid Injectors Logic Loop */
-        function generateMultiverseShopCards() {
-            const gridInjector = document.getElementById('shop-grid-cards-injector');
-            if (!gridInjector) return;
-
-            gridInjector.innerHTML = "";
-            shopCatalogInventory.forEach(item => {
-                gridInjector.innerHTML += `
-                    <div class="shop-product-card">
-                        <img src="${item.url}" class="product-image-frame" alt="Cosmetic Pack Sample Frame View">
-                        <div class="product-title">${item.name}</div>
-                        <div class="product-desc">${item.description}</div>
-                        <div class="product-action-row">
-                            <span class="product-cost-label">🔮 ${item.cost.toLocaleString()} Orbs</span>
-                            <button class="product-purchase-btn" id="shop-btn-claim-${item.id}" onclick="executeProductPurchase('${item.id}')">Claim Variant Modifier</button>
-                        </div>
-                    </div>`;
-            });
-        }
-
-        function executeProductPurchase(itemId) {
-            const purchaseBtnNode = document.getElementById(`shop-btn-claim-${itemId}`);
-            triggerBespokeOscillatorBeep(720, 'sine', 0.2, 0.25);
-
-            if (purchaseBtnNode) {
-                purchaseBtnNode.innerText = "✓ Claimed Bundle";
-                purchaseBtnNode.classList.add('unlocked-state');
-                purchaseBtnNode.disabled = true;
-            }
-
-            appendSystemChatMessageLog("System Premium Store", `Successfully committed inventory asset assignment properties [${itemId}] to the cloud container configuration profile.`, "system-alert");
-        }
-
-        function toggleStorefrontModalView(displayVisibilityFlag) {
-            triggerBespokeOscillatorBeep(440, 'sine', 0.06, 0.08);
-            document.getElementById('nexus-shop-screen').style.display = displayVisibilityFlag ? "flex" : "none";
-        }
-
-        function triggerServerAlertNotice() {
-            alert("NexusChat Multi-Node Enterprise Client Platform variables configured optimally on production channels.");
-        }
-
-        function triggerMockAttachmentUpload() {
-            alert("Local storage directory listener initialized. Telemetry file streams allocated securely.");
-        }
-
-        function executeHardwareProfileWipeReset() {
-            if (confirm("Flush systemic active registration configuration variables from cache memory parameters?")) {
-                localStorage.removeItem('nexuschat_discord_name');
-                localStorage.removeItem('nexuschat_discord_avatar');
-                window.location.reload();
-            }
-        }
-
-        function pivotGlobalGuildRail(modeKey) {
-            triggerBespokeOscillatorBeep(360, 'sine', 0.04, 0.08);
-            if (modeKey === 'chat') {
-                document.getElementById('guild-unread-badge').style.display = "none";
-            }
+        function terminateChronometerClock() {
+            clearInterval(callTimerInterval);
+            document.getElementById('call-duration-clock').innerText = "00:00";
         }
     </script>
 </body>
