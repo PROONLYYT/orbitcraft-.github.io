@@ -6,6 +6,9 @@
     <title>NexusChat Messenger Client</title>
     <link rel="icon" type="image/png" href="favicon.png">
 
+    <!-- MQTT Client Library for Real-Time Cross-Device Texting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/4.3.7/mqtt.min.js"></script>
+
     <style>
         :root {
             /* Premium Glassmorphic Obsidian-Cyan Design Tokens */
@@ -1514,7 +1517,7 @@
     <div id="nexus-shop-screen">
         <div class="shop-header-navbar">
             <a href="#" class="back-nav-link" onclick="closePremiumStorefront()">← Go Back</a>
-            <div class="shop-headline-title">NEXUS MULTIVERSE STOREFRONT</div>
+            <div class="shop-headline-title">NEXUS MULTIVERSE storefront</div>
             
             <div class="balance-container-pill">
                 <span>Balance:</span>
@@ -1578,6 +1581,10 @@
         let voiceRecordedChunks = [];
         let isVoiceRecording = false;
 
+        // REAL ONLINE MESSAGING AGENT LAYERS (MQTT Pipeline)
+        let mqttClient = null;
+        const currentNetworkMeshRoomTopic = "nexuschat/matrix/public_lobby_sync";
+
         let identityLinkingMatrix = {
             google: { connected: false, name: null, avatar: null },
             discord: { connected: false, name: null, avatar: null },
@@ -1590,8 +1597,7 @@
         ];
 
         let channelDatabase = {
-            'global-lobby': { name: "Global Public Lobby", history: [] },
-            'crew-vc': { name: "Crew Elite Lounge", history: [] }
+            'global-lobby': { name: "🌐 Real Online Stream Lobby", history: [] }
         };
 
         let liveStatesContentFeed = [];
@@ -1624,10 +1630,39 @@
             generateStorefrontCards();
             populateEmojiPickerGrid();
             evaluateCachedProfileState();
-            setupAutomatedNetworkPeerSimulation();
             checkForPrivateInviteAddressParameters();
             setupFiveMinuteInviteRefreshLoop();
         });
+
+        /* Setup real online messaging backend matrix link pipeline safely via public broker */
+        function connectRealTimeMqttPipeline() {
+            // Setup fully public free broker pipeline endpoint safely over web sockets configuration
+            mqttClient = mqtt.connect('wss://broker.hivemq.com:8000/mqtt');
+
+            mqttClient.on('connect', () => {
+                console.log("Nexus Network Engine Pipeline Linked Successfully Online.");
+                mqttClient.subscribe(currentNetworkMeshRoomTopic);
+                
+                appendBubbleElement("System Protocol", "Connected directly to real-time sync matrix pipeline. Try running this file on your mobile or another PC tab!", "received");
+            });
+
+            mqttClient.on('message', (topic, dataPacket) => {
+                try {
+                    const parsedPayload = JSON.parse(dataPacket.toString());
+                    
+                    // Prevent local duplicate double rendering mechanics
+                    if (parsedPayload.senderTokenId !== currentProfileSessionName + "_token") {
+                        if (parsedPayload.dataType === "voice") {
+                            injectVoiceBubbleToChatLog(parsedPayload.sender, parsedPayload.mediaData, "received");
+                        } else {
+                            appendBubbleElement(parsedPayload.sender, parsedPayload.text, "received");
+                        }
+                    }
+                } catch(err) {
+                    console.log("Error evaluating dynamic stream packet input", err);
+                }
+            });
+        }
 
         /* Checks URL parameters for private friend matrix invite links */
         function checkForPrivateInviteAddressParameters() {
@@ -1646,9 +1681,6 @@
                     };
                     
                     activeChannelId = pvtChannelId;
-                    setTimeout(() => {
-                        appendBubbleElement(decName, "Hey! I connected through your private invite link code. Let's call or send some voice messages here!", "received");
-                    }, 1500);
                 } catch(e) {
                     console.log("Error handling URL routing parameter base64 string", e);
                 }
@@ -1706,24 +1738,6 @@
             }
         }
 
-        function setupAutomatedNetworkPeerSimulation() {
-            setInterval(() => {
-                const networkActivePeers = ["AlphaOmega", "Specter_X", "CyberGhost", "MatrixRunner"];
-                const mockPhrases = [
-                    "Wired network connectivity status checks out 100% online.",
-                    "Just tested the media pipeline, WebRTC channels are wide open!",
-                    "Drop a voice message, verifying the binary compression stack.",
-                    "Interface loop matches the remote server layout flawlessly."
-                ];
-                
-                if (Math.random() > 0.6 && !activeChannelId.startsWith('pvt-')) {
-                    const peer = networkActivePeers[Math.floor(Math.random() * networkActivePeers.length)];
-                    const phrase = mockPhrases[Math.floor(Math.random() * mockPhrases.length)];
-                    appendBubbleElement(peer, phrase, "received");
-                }
-            }, 9000);
-        }
-
         function evaluateCachedProfileState() {
             let cachedName = localStorage.getItem('nexuschat_user_v6');
             let cachedAvatar = localStorage.getItem('nexuschat_avatar_v6');
@@ -1733,6 +1747,7 @@
                 currentProfileAvatarUrl = cachedAvatar || "";
                 executeProfileUIRenderSync();
                 runCinematicProgressBar();
+                connectRealTimeMqttPipeline();
             } else {
                 document.getElementById('splash-loading-portal').classList.add('hidden');
             }
@@ -1771,6 +1786,7 @@
             document.getElementById('secure-login-gate-overlay').classList.add('hidden');
             document.getElementById('splash-loading-portal').classList.remove('hidden');
             runCinematicProgressBar();
+            connectRealTimeMqttPipeline();
         }
 
         function executeProfileUIRenderSync() {
@@ -1925,6 +1941,18 @@
             if (!dataString) return;
             
             appendBubbleElement(currentProfileSessionName, dataString, "sent");
+
+            // Dispatch out data package completely to real network sockets loop
+            if (mqttClient && mqttClient.connected) {
+                const payloadPacket = {
+                    sender: currentProfileSessionName,
+                    senderTokenId: currentProfileSessionName + "_token",
+                    dataType: "text",
+                    text: dataString
+                };
+                mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify(payloadPacket));
+            }
+
             inputField.value = '';
             isCooldownActive = true;
             inputField.disabled = true;
@@ -1961,9 +1989,26 @@
                     
                     voiceMediaRecorder.onstop = () => {
                         const voiceBlob = new Blob(voiceRecordedChunks, { type: 'audio/webm' });
-                        const voiceBlobURL = URL.createObjectURL(voiceBlob);
+                        
+                        // Convert voice file to Base64 format strings for online transmission safety boundaries
+                        const voiceReader = new FileReader();
+                        voiceReader.readAsDataURL(voiceBlob);
+                        voiceReader.onloadend = function() {
+                            const rawBase64VoiceString = voiceReader.result;
+                            
+                            injectVoiceBubbleToChatLog(currentProfileSessionName, rawBase64VoiceString, "sent");
+
+                            if (mqttClient && mqttClient.connected) {
+                                const payloadPacket = {
+                                    sender: currentProfileSessionName,
+                                    senderTokenId: currentProfileSessionName + "_token",
+                                    dataType: "voice",
+                                    mediaData: rawBase64VoiceString
+                                };
+                                mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify(payloadPacket));
+                            }
+                        }
                         audioStream.getTracks().forEach(t => t.stop());
-                        injectVoiceBubbleToChatLog(currentProfileSessionName, voiceBlobURL, "sent");
                     };
                     
                     voiceMediaRecorder.start();
@@ -2327,7 +2372,7 @@
             callTimerInterval = setInterval(() => {
                 elapsedCallSeconds++;
                 
-                // Test Access Boundary Filter Check: Updated to exactly 1 minute constraint (60 seconds)
+                // Test Access Boundary Filter Check: exactly 1 minute test cutoff limitation constraint
                 if (elapsedCallSeconds >= 60) {
                     executePremiumLimitationCutoff();
                     return;
