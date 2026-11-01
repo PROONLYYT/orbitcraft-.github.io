@@ -1,4 +1,552 @@
-        // Core Web Audio API Architecture Configuration
+executeProfileUIRenderSync();
+const loginGate = document.getElementById('secure-login-gate-overlay');
+const splashPortal = document.getElementById('splash-loading-portal');
+if (loginGate) loginGate.classList.add('hidden');
+if (splashPortal) splashPortal.classList.remove('hidden');
+runCinematicProgressBar();
+}
+/**
+* Syncs system state attributes across active layout document spaces
+*/
+function executeProfileUIRenderSync() {
+const targetUser = document.getElementById('splash-user-target');
+const usernameNode = document.getElementById('my-username-node');
+const avatarNode = document.getElementById('my-avatar-node');
+if (targetUser) targetUser.innerText = currentProfileSessionName;
+if (usernameNode) usernameNode.innerText = currentProfileSessionName;
+if (avatarNode) {
+if (currentProfileAvatarUrl && currentProfileAvatarUrl.trim() !== "") {
+avatarNode.innerHTML = <img src="${currentProfileAvatarUrl}" alt="Avatar">;
+} else {
+avatarNode.innerText = currentProfileSessionName.charAt(0).toUpperCase();
+}
+}
+}
+/**
+* Animates loading track metrics across splash screen views
+*/
+function runCinematicProgressBar() {
+let progress = 0;
+const fillBar = document.getElementById('splash-bar-fill');
+const loaderInterval = setInterval(() => {
+if (progress >= 100) {
+clearInterval(loaderInterval);
+terminateLoadingSplashSequence();
+} else {
+progress += Math.floor(Math.random() * 20) + 8;
+if (progress > 100) progress = 100;
+if (fillBar) fillBar.style.width = progress + '%';
+}
+}, 50);
+}
+/**
+* Clears splash view nodes and reveals active workspaces
+*/
+function terminateLoadingSplashSequence() {
+setTimeout(() => {
+const splashPortal = document.getElementById('splash-loading-portal');
+const appFrame = document.getElementById('app-frame');
+if (splashPortal) splashPortal.classList.add('hidden');
+if (appFrame) appFrame.classList.add('visible');
+renderSidebarContextPanel();
+loadTargetChannel(activeChannelId);
+}, 200);
+}
+/**
+* Switches the active navigation rail context index
+*/
+function switchGlobalRailContext(targetTab) {
+playSynthFrequency(440, 'sine', 0.1, 0.1);
+const tabs = ["chat", "groups", "states", "settings", "integrations"];
+tabs.forEach(t => {
+const node = document.getElementById(tab-node-${t});
+if (node) node.classList.remove('active');
+});
+activeGlobalRailTab = targetTab;
+const activeNode = document.getElementById(tab-node-${targetTab});
+if (activeNode) activeNode.classList.add('active');
+const statesView = document.getElementById('states-hub-engagement-view');
+if (statesView) {
+if (targetTab === 'states') {
+statesView.style.display = 'flex';
+} else {
+statesView.style.display = 'none';
+}
+}
+renderSidebarContextPanel();
+}
+/**
+* Dynamically draws sidebar lists depending on active application rail context
+*/
+function renderSidebarContextPanel() {
+const container = document.getElementById('contacts-vertical-stack');
+const primaryBtn = document.getElementById('sidebar-action-primary-btn');
+if (!container || !primaryBtn) return;
+container.innerHTML = '';
+if (activeGlobalRailTab === 'chat' || activeGlobalRailTab === 'states') {
+primaryBtn.style.display = "block";
+primaryBtn.innerText = "+ New Channel Stream";
+primaryBtn.onclick = triggerChannelCreation;
+for (let id in channelDatabase) {
+const isActive = (id === activeChannelId) ? 'active' : '';
+container.innerHTML +=  <div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')"> <div class="row-avatar">#</div> <div class="row-meta"> <div class="row-name">${channelDatabase[id].name}</div> <div class="row-preview">Open communication logs...</div> </div> </div>;
+}
+} else if (activeGlobalRailTab === 'groups') {
+primaryBtn.style.display = "block";
+primaryBtn.innerText = "+ Create Team Hub";
+primaryBtn.onclick = () => {
+const title = prompt("Enter custom title label for group hub:");
+if (!title || !title.trim()) return;
+activeGroupHubs.push({ id: 'hub-' + Date.now(), name: title.trim() });
+renderSidebarContextPanel();
+};
+activeGroupHubs.forEach(group => {
+container.innerHTML +=  <div class="chat-list-row"> <div class="row-avatar">⧉</div> <div class="row-meta"> <div class="row-name">${group.name}</div> <div class="row-preview">Active Team Workspace Node</div> </div> </div>;
+});
+} else if (activeGlobalRailTab === 'settings') {
+primaryBtn.style.display = "block";
+primaryBtn.innerText = "Check Status Keys";
+primaryBtn.onclick = () => alert("Security layers running securely.");
+const connections = [
+{ id: 'google', name: 'Google Workspace' },
+{ id: 'discord', name: 'Discord Gateway' },
+{ id: 'microsoft', name: 'Microsoft Identity' }
+];
+connections.forEach(c => {
+const isLinked = identityLinkingMatrix[c.id].connected;
+const statusText = isLinked ? "Connected ✓" : "Disconnected ✗";
+const btnLabel = isLinked ? "Disconnect Asset" : "Run Sync Routine";
+container.innerHTML +=  <div style="padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.02);"> <div style="font-weight:600; font-size:13px; margin-bottom:4px;">${c.name}</div> <div style="font-size:11px; color: ${isLinked ? 'var(--success-green)' : 'var(--text-muted)'}; margin-bottom:8px;">${statusText}</div> ${btnLabel}</button> </div>;
+});
+} else if (activeGlobalRailTab === 'integrations') {
+primaryBtn.style.display = "none";
+container.innerHTML = <div style="padding: 16px; font-size: 12px; color: var(--text-muted); text-align: center;">No third-party packages wired to current profile context.</div>;
+}
+}
+/**
+* Switches the current active workspace text room view
+*/
+function loadTargetChannel(channelId) {
+if (!channelDatabase[channelId]) return;
+activeChannelId = channelId;
+const headlineNode = document.getElementById('active-chat-headline-node');
+if (headlineNode) headlineNode.innerText = channelDatabase[channelId].name;
+if (activeGlobalRailTab === 'chat' || activeGlobalRailTab === 'states') {
+renderSidebarContextPanel();
+}
+repaintMessageLogs();
+}
+function toggleIdentityLinkageRow(providerId) {
+playSynthFrequency(600, 'sine', 0.15, 0.2);
+if (identityLinkingMatrix[providerId].connected) {
+identityLinkingMatrix[providerId].connected = false;
+identityLinkingMatrix[providerId].name = null;
+appendBubbleElement("System Settings", Purged [${providerId}] secure validation structures cleanly., "received");
+} else {
+identityLinkingMatrix[providerId].connected = true;
+identityLinkingMatrix[providerId].name = "Synced Profile Handle";
+appendBubbleElement("System Settings", Linked alternative authentication pipeline for [${providerId}] successfully!, "received");
+}
+renderSidebarContextPanel();
+}
+function populateEmojiPickerGrid() {
+const scroller = document.getElementById('emoji-grid-scroller-target');
+if (!scroller) return;
+scroller.innerHTML = '';
+canonicalEmojiPack50.forEach(emoji => {
+const cell = document.createElement('div');
+cell.className = 'emoji-grid-item-cell';
+cell.innerText = emoji;
+cell.onclick = () => injectEmojiSymbolToInputBox(emoji);
+scroller.appendChild(cell);
+});
+}
+function toggleInlineEmojiPickerTray() {
+const overlay = document.getElementById('emoji-picker-matrix-overlay');
+if (!overlay) return;
+overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
+}
+function injectEmojiSymbolToInputBox(emojiSymbol) {
+const textInput = document.getElementById('text-message-input-node');
+if (!textInput) return;
+textInput.value += emojiSymbol;
+textInput.focus();
+toggleInlineEmojiPickerTray();
+}
+/**
+* Dispatches custom input text values to logs and triggers rate limit bars
+*/
+function executeTextDispatch() {
+if (isCooldownActive) {
+alert("Spam detected. Cooldown active.");
+return;
+}
+const inputField = document.getElementById('text-message-input-node');
+const dispatchBtn = document.getElementById('send-message-dispatch-btn');
+const progressFill = document.getElementById('cooldown-progress-fill-bar');
+if (!inputField || !dispatchBtn) return;
+const dataString = inputField.value.trim();
+if (!dataString) return;
+appendBubbleElement(currentProfileSessionName, dataString, "sent");
+inputField.value = '';
+isCooldownActive = true;
+inputField.disabled = true;
+dispatchBtn.disabled = true;
+if (progressFill) {
+progressFill.style.transition = 'none';
+progressFill.style.width = '100%';
+setTimeout(() => {
+progressFill.style.transition = 'width 2000ms linear';
+progressFill.style.width = '0%';
+}, 10);
+}
+setTimeout(() => {
+const automatedPool = [
+"WebRTC active media tracks mapping looks perfect across your device pipeline.",
+"The custom graphics and animated layers are running seamlessly on GitHub static layouts!",
+"Everything is synchronized in local system environment arrays."
+];
+const selectedText = automatedPool[Math.floor(Math.random() * automatedPool.length)];
+appendBubbleElement("Beta Tester", selectedText, "received");
+}, 1000);
+setTimeout(() => {
+isCooldownActive = false;
+inputField.disabled = false;
+dispatchBtn.disabled = false;
+inputField.focus();
+}, 2000);
+}
+/**
+* Appends a message element structure to the historical workspace log cache
+*/
+function appendBubbleElement(author, content, variant) {
+if (!channelDatabase[activeChannelId].history) {
+channelDatabase[activeChannelId].history = [];
+}
+const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+channelDatabase[activeChannelId].history.push({ author, content, variant, timeCode });
+if (variant === 'received') {
+triggerMsgAlertTone();
+}
+repaintMessageLogs();
+}
+/**
+* Repaints message log caches directly onto the thread scroll view canvas
+*/
+function repaintMessageLogs() {
+const viewTarget = document.getElementById('chat-thread-viewport');
+if (!viewTarget) return;
+viewTarget.innerHTML = '';
+const logs = channelDatabase[activeChannelId].history || [];
+logs.forEach(msg => {
+viewTarget.innerHTML +=  <div class="msg-bubble ${msg.variant}"> <span class="msg-author">${msg.author}</span> <div>${msg.content}</div> <div class="msg-footer">${msg.timeCode}</div> </div>;
+});
+viewTarget.scrollTop = viewTarget.scrollHeight;
+}
+function trapInputKeypress(e) {
+if (e.key === 'Enter') executeTextDispatch();
+}
+function triggerChannelCreation() {
+const titleInput = prompt("Enter name for new custom chat room:");
+if (!titleInput || titleInput.trim() === "") return;
+const generatedId = 'ch-node-' + Date.now();
+channelDatabase[generatedId] = { name: titleInput.trim(), history: [] };
+loadTargetChannel(generatedId);
+}
+function performProfileHardwareReset() {
+localStorage.removeItem('nexuschat_user_v6');
+localStorage.removeItem('nexuschat_avatar_v6');
+window.location.reload();
+}
+/**
+* Encapsulates raw file indicators into secure object URL strings for the story reel
+*/
+function processNewStateMediaUpload(event) {
+const file = event.target.files[0];
+if (!file) return;
+const assetBlobUrl = URL.createObjectURL(file);
+const isVideo = file.type.startsWith('video/');
+const newStateNode = {
+id: 'state-id-' + Date.now(),
+author: currentProfileSessionName,
+url: assetBlobUrl,
+videoType: isVideo
+};
+liveStatesContentFeed.unshift(newStateNode);
+repaintStatesCarouselTrack();
+}
+function repaintStatesCarouselTrack() {
+const track = document.getElementById('states-carousel-scroller-track');
+if (!track) return;
+track.innerHTML = '';
+liveStatesContentFeed.forEach(state => {
+let mediaElementHTML = state.videoType
+? <video src="${state.url}" class="state-media-preview-element" autoplay loop muted playsinline></video>
+: <img src="${state.url}" class="state-media-preview-element" alt="State Asset">;
+track.innerHTML +=  <div class="state-content-card-node"> ${mediaElementHTML} <div class="state-author-tag">${state.author}</div> </div>;
+});
+}
+function generateStorefrontCards() {
+const container = document.getElementById('shop-items-grid-target');
+if (!container) return;
+container.innerHTML = '';
+shopInventoryMatrix.forEach(item => {
+const badgeHTML = item.exclusive ? 'EXCLUSIVE' : '';
+container.innerHTML +=  <div class="shop-item-card"> ${badgeHTML} <div class="item-graphic-wrapper"> <div class="item-graphic-ring"></div> <img src="${item.icon}" class="item-graphic-icon-asset" alt="Shop Icon Asset"> </div> <div class="item-meta-name">${item.name}</div> <div class="item-meta-desc">${item.desc}</div> <div class="item-action-row"> <div class="item-price-tag">🔮 ${item.cost}</div> <button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Claim Free</button> </div> </div>;
+});
+}
+function executeItemPurchase(itemId) {
+const targetBtn = document.getElementById(btn-claim-${itemId});
+playSynthFrequency(880, 'sine', 0.3, 0.4);
+if (targetBtn) {
+targetBtn.innerText = "✓ Unlocked";
+targetBtn.classList.add('unlocked');
+targetBtn.disabled = true;
+}
+appendBubbleElement("System Store", Successfully locked [${itemId}] structural asset modifications to your profile container!, "received");
+}
+function openPremiumStorefront() {
+playSynthFrequency(580, 'sine', 0.2, 0.2);
+const shop = document.getElementById('nexus-shop-screen');
+if (shop) shop.style.display = 'flex';
+}
+function closePremiumStorefront() {
+playSynthFrequency(440, 'sine', 0.15, 0.15);
+const shop = document.getElementById('nexus-shop-screen');
+if (shop) shop.style.display = 'none';
+}
+/**
+* Mounts layout frames for WebRTC interfaces
+*/
+async function toggleVoiceVideoCall() {
+const layerBlock = document.getElementById('call-interface-layer');
+const joinBtn = document.querySelector('.call-action-btn');
+if (!layerBlock || !joinBtn) return;
+isCallActive = !isCallActive;
+if (isCallActive) {
+layerBlock.style.display = 'flex';
+joinBtn.innerText = "Disconnect Stream";
+joinBtn.style.borderColor = "var(--danger-red)";
+joinBtn.style.color = "var(--danger-red)";
+initiateChronometerClock();
+playSynthFrequency(520, 'sine', 0.2, 0.25);
+} else {
+layerBlock.style.display = 'none';
+joinBtn.innerText = "Connect Live Streams";
+joinBtn.style.borderColor = "var(--primary-accent)";
+joinBtn.style.color = "var(--primary-accent)";
+terminateChronometerClock();
+cleanupHardwareTracks();
+playSynthFrequency(320, 'sine', 0.2, 0.25);
+}
+}
+/**
+* Hardware Media Device Mount Handler (Fixes Black Screen Rendering Vulnerabilities)
+*/
+async function toggleWebcamState() {
+const videoElement = document.getElementById('hardware-webcam-stream');
+const camBtn = document.getElementById('webcam-video-toggle');
+const mockBox = document.getElementById('webcam-canvas');
+const label = document.getElementById('webcam-label');
+if (!videoElement || !camBtn || !mockBox || !label) return;
+if (!isCallActive) {
+alert("Please enter the live call channel stream frame first.");
+return;
+}
+isCameraActive = !isCameraActive;
+triggerToggleMuteTone(!isCameraActive);
+if (isCameraActive) {
+try {
+// Standard media hardware resolution constraint mappings
+const constraints = {
+video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: "user" },
+audio: true
+};
+localHardwareVideoStream = await navigator.mediaDevices.getUserMedia(constraints);
+// Direct media source object injection
+videoElement.srcObject = localHardwareVideoStream;
+// Force display processing updates via synchronous play declarations
+videoElement.onloadedmetadata = () => {
+videoElement.play().catch(e => console.log("Playback engine delayed: ", e));
+};
+mockBox.style.opacity = "0";
+setTimeout(() => { mockBox.style.display = 'none'; }, 300);
+camBtn.innerText = "Disable Camera";
+camBtn.classList.add('active-state');
+label.innerText = "Live System Camera Feed (Active)";
+initiateMicrophoneAnalysisAudioEngine(localHardwareVideoStream);
+} catch (err) {
+console.error("Camera device mapping failure: ", err);
+alert("Could not access your physical webcam device. Check security authorizations.");
+isCameraActive = false;
+mockBox.style.display = 'flex';
+mockBox.style.opacity = "1";
+}
+} else {
+if (localHardwareVideoStream) {
+localHardwareVideoStream.getTracks().forEach(track => track.stop());
+}
+videoElement.srcObject = null;
+mockBox.style.display = 'flex';
+mockBox.style.opacity = "1";
+camBtn.innerText = "Enable Camera";
+camBtn.classList.remove('active-state');
+label.innerText = "Camera Interface Offline";
+haltMicrophoneAnalysisAudioEngine();
+}
+}
+function initiateMicrophoneAnalysisAudioEngine(streamObject) {
+try {
+initAudioContext();
+localMicrophoneAudioSource = audioCtx.createMediaStreamSource(streamObject);
+localAudioAnalyserNode = audioCtx.createAnalyser();
+localAudioAnalyserNode.fftSize = 64;
+localMicrophoneAudioSource.connect(localAudioAnalyserNode);
+executeEqualizerRenderFrameLoop();
+} catch (err) {
+console.log("Audio visualizer node assignment error: ", err);
+}
+}
+function executeEqualizerRenderFrameLoop() {
+if (!localAudioAnalyserNode) return;
+const bufferLen = localAudioAnalyserNode.frequencyBinCount;
+const dataArray = new Uint8Array(bufferLen);
+localAudioAnalyserNode.getByteFrequencyData(dataArray);
+let frequencySum = 0;
+for (let i = 0; i < bufferLen; i++) {
+frequencySum += dataArray[i];
+}
+const averageVolume = frequencySum / bufferLen;
+const targetContainer = document.getElementById('webcam-hardware-window-node');
+if (targetContainer) {
+if (averageVolume > 25) {
+targetContainer.classList.add('speaking-active');
+let dynamicGlowRadius = Math.min(30, Math.floor(averageVolume / 3));
+targetContainer.style.boxShadow = 0 0 ${dynamicGlowRadius}px var(--primary-glow), inset 0 0 20px rgba(0, 255, 255, 0.15);
+} else {
+targetContainer.classList.remove('speaking-active');
+targetContainer.style.boxShadow = '';
+}
+}
+micAnimationRequestId = requestAnimationFrame(executeEqualizerRenderFrameLoop);
+}
+function haltMicrophoneAnalysisAudioEngine() {
+if (micAnimationRequestId) cancelAnimationFrame(micAnimationRequestId);
+const targetContainer = document.getElementById('webcam-hardware-window-node');
+if (targetContainer) {
+targetContainer.classList.remove('speaking-active');
+targetContainer.style.boxShadow = '';
+}
+if (localMicrophoneAudioSource) localMicrophoneAudioSource.disconnect();
+localAudioAnalyserNode = null;
+localMicrophoneAudioSource = null;
+}
+async function toggleScreenShareState() {
+const shareElement = document.getElementById('hardware-screenshare-stream');
+const screenBtn = document.getElementById('screenshare-video-toggle');
+const mockBox = document.getElementById('screenshare-canvas');
+const label = document.getElementById('screenshare-label');
+if (!shareElement || !screenBtn || !mockBox || !label) return;
+if (!isCallActive) {
+alert("Please enter the live call channel stream frame first.");
+return;
+}
+isScreenSharing = !isScreenSharing;
+playSynthFrequency(600, 'triangle', 0.1, 0.2);
+if (isScreenSharing) {
+try {
+localHardwareDisplayStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+shareElement.srcObject = localHardwareDisplayStream;
+shareElement.onloadedmetadata = () => {
+shareElement.play().catch(e => console.log("Display canvas stream blocked: ", e));
+};
+mockBox.style.display = 'none';
+screenBtn.innerText = "Stop Sharing";
+screenBtn.classList.add('active-state');
+label.innerText = "Display Canvas Sharing Live";
+localHardwareDisplayStream.getVideoTracks()[0].onended = () => {
+if (isScreenSharing) toggleScreenShareState();
+};
+} catch (err) {
+console.error("Screen Share capture error: ", err);
+isScreenSharing = false;
+mockBox.style.display = 'flex';
+}
+} else {
+if (localHardwareDisplayStream) {
+localHardwareDisplayStream.getTracks().forEach(track => track.stop());
+}
+shareElement.srcObject = null;
+mockBox.style.display = 'flex';
+screenBtn.innerText = "Share Screen";
+screenBtn.classList.remove('active-state');
+label.innerText = "Screen Capture Pipe Offline";
+}
+}
+function toggleMuteState() {
+isAudioMuted = !isAudioMuted;
+const muteBtn = document.getElementById('mute-audio-toggle');
+if (!muteBtn) return;
+if (localHardwareVideoStream) {
+localHardwareVideoStream.getAudioTracks().forEach(track => {
+track.enabled = !isAudioMuted;
+});
+}
+if (isAudioMuted) {
+muteBtn.innerText = "Audio Muted";
+muteBtn.classList.add('active-state');
+} else {
+muteBtn.innerText = "Audio Unmuted";
+muteBtn.classList.remove('active-state');
+}
+triggerToggleMuteTone(isAudioMuted);
+}
+function cleanupHardwareTracks() {
+haltMicrophoneAnalysisAudioEngine();
+if (localHardwareVideoStream) {
+localHardwareVideoStream.getTracks().forEach(track => track.stop());
+localHardwareVideoStream = null;
+}
+if (localHardwareDisplayStream) {
+localHardwareDisplayStream.getTracks().forEach(track => track.stop());
+localHardwareDisplayStream = null;
+}
+const webcamEl = document.getElementById('hardware-webcam-stream');
+const screenEl = document.getElementById('hardware-screenshare-stream');
+if (webcamEl) webcamEl.srcObject = null;
+if (screenEl) screenEl.srcObject = null;
+const webcamBox = document.getElementById('webcam-canvas');
+const screenBox = document.getElementById('screenshare-canvas');
+if (webcamBox) { webcamBox.style.display = 'flex'; webcamBox.style.opacity = "1"; }
+if (screenBox) screenBox.style.display = 'flex';
+isCameraActive = false;
+isScreenSharing = false;
+isAudioMuted = false;
+const camBtn = document.getElementById('webcam-video-toggle');
+const screenBtn = document.getElementById('screenshare-video-toggle');
+const muteBtn = document.getElementById('mute-audio-toggle');
+if (camBtn) camBtn.classList.remove('active-state');
+if (screenBtn) screenBtn.classList.remove('active-state');
+if (muteBtn) {
+muteBtn.innerText = "Audio Unmuted";
+muteBtn.classList.remove('active-state');
+}
+}
+function initiateChronometerClock() {
+elapsedCallSeconds = 0;
+const durationClock = document.getElementById('call-duration-clock');
+callTimerInterval = setInterval(() => {
+elapsedCallSeconds++;
+let displayMinutes = String(Math.floor(elapsedCallSeconds / 60)).padStart(2, '0');
+let displaySeconds = String(elapsedCallSeconds % 60).padStart(2, '0');
+if (durationClock) durationClock.innerText = ${displayMinutes}:${displaySeconds};
+}, 1000);
+}
+function terminateChronometerClock() {
+clearInterval(callTimerInterval);
+const durationClock = document.getElementById('call-duration-clock');
+if (durationClock) durationClock.innerText = "00:00";
+}        // Core Web Audio API Architecture Configuration
         let audioCtx;
         
         /**
