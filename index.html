@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NexusChat Enterprise Platform Client</title>
+    
+    <!-- Importing PeerJS for serverless WebRTC real-time connection architecture -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.4.7/peerjs.min.js"></script>
+    
     <style>
         :root {
             /* --- PRIMARY NEXUS CHROMATIC CORE DESIGN TOKENS --- */
@@ -706,6 +710,46 @@
             letter-spacing: 0.5px;
         }
 
+        /* REAL-TIME NETWORK TARGET LINKING DISPLAY BAR */
+        .network-address-banner {
+            background: rgba(0, 255, 255, 0.05);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 10px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 12.5px;
+            color: var(--text-cyan);
+            gap: 16px;
+        }
+
+        .addr-pill-box {
+            background: #000;
+            border: 1px dashed var(--primary-accent);
+            padding: 4px 10px;
+            border-radius: var(--border-radius-sm);
+            font-family: monospace;
+            color: #fff;
+            user-select: text;
+            -webkit-user-select: text;
+        }
+
+        .connect-input-matrix-row {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .connect-field-box {
+            background: var(--bg-input-glass);
+            border: 1px solid var(--border-subtle);
+            padding: 6px 12px;
+            border-radius: var(--border-radius-sm);
+            font-size: 12px;
+            width: 200px;
+            color: #fff;
+        }
+
         /* CHAT VIEW ENGINE */
         .thread-scroll-view {
             flex: 1;
@@ -1005,6 +1049,58 @@
             border-radius: 4px;
             font-weight: 700;
             border: 1px solid var(--border-subtle);
+        }
+
+        /* --- REALTIME INCOMING NETWORK CALL MODAL --- */
+        #incoming-call-portal-overlay {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-150%);
+            width: 380px;
+            background: rgba(6, 12, 22, 0.95);
+            border: 2px solid var(--primary-accent);
+            box-shadow: 0 0 30px var(--primary-glow);
+            border-radius: var(--border-radius-md);
+            padding: 20px;
+            z-index: 999999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+        }
+
+        #incoming-call-portal-overlay.active {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .incoming-call-actions {
+            display: flex;
+            gap: 14px;
+            width: 100%;
+        }
+
+        .incoming-btn {
+            flex: 1;
+            padding: 10px;
+            border-radius: var(--border-radius-sm);
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .incoming-btn.accept {
+            background: var(--success-green);
+            color: #000;
+        }
+
+        .incoming-btn.decline {
+            background: var(--danger-red);
+            color: #fff;
         }
 
         .states-hub-container-view {
@@ -1327,6 +1423,17 @@
 </head>
 <body>
 
+    <!-- REAL-TIME INCOMING NETWORK CALL INTERFACE PORTAL -->
+    <div id="incoming-call-portal-overlay">
+        <div style="font-size: 24px; animation: pulseLogoCore 1s infinite;">📞</div>
+        <div style="font-weight: 800; font-size: 16px; color: #fff;">Incoming Nexus Stream</div>
+        <div id="incoming-caller-id-label" style="font-size: 12px; color: var(--text-muted); font-family: monospace;">Peer: Unknown Node</div>
+        <div class="incoming-call-actions">
+            <button class="incoming-btn accept" onclick="NexusAppEngine.MediaCore.acceptIncomingCall()">Accept</button>
+            <button class="incoming-btn decline" onclick="NexusAppEngine.MediaCore.declineIncomingCall()">Decline</button>
+        </div>
+    </div>
+
     <!-- SCREEN LOADING PORTAL SPLASH OVERLAY -->
     <div id="splash-loading-portal">
         <div class="splash-logo-container">
@@ -1342,7 +1449,7 @@
         </div>
     </div>
 
-    <!-- MFA IDENTITY AUTHENTICATION SECURE OVERLAY GATEWAY -->
+    <!-- IDENTITY AUTHENTICATION SECURE OVERLAY GATEWAY -->
     <div id="secure-login-gate-overlay">
         <div class="login-card-glassmorphic-wrapper">
             <div class="login-card-header">
@@ -1350,7 +1457,7 @@
                     <div class="nexus-brand-image-frame"></div>
                 </div>
                 <h1 class="login-title-h1">Authentication Gate</h1>
-                <p class="login-subtitle-p">Provide active display handles or link existing security keys to instantiate runtime session containers.</p>
+                <p class="login-subtitle-p">Provide active display handles to instantiate your real-time peer cloud profile.</p>
             </div>
 
             <div class="oauth-providers-button-stack">
@@ -1407,7 +1514,7 @@
                         <div class="sidebar-title" id="my-username-node">Connecting Vector Layer...</div>
                         <div class="sidebar-status-pill">
                             <div class="sidebar-status-dot"></div>
-                            <span id="system-pipeline-latency">Pipeline Synced</span>
+                            <span id="system-pipeline-latency">Network Sync Idle</span>
                         </div>
                     </div>
                 </div>
@@ -1432,6 +1539,15 @@
                 <button class="call-action-btn" onclick="NexusAppEngine.MediaCore.toggleCallState()">Connect Media Stream Vectors</button>
             </div>
 
+            <!-- REAL-TIME LIVE TARGET NETWORK LINK BAR -->
+            <div class="network-address-banner">
+                <div>Your Live Nexus Address: <span id="my-peer-id-display" class="addr-pill-box">Generating Node Link...</span></div>
+                <div class="connect-input-matrix-row">
+                    <input type="text" id="target-peer-connection-input" class="connect-field-box" placeholder="Paste Friend's Nexus Address...">
+                    <button class="call-action-btn" style="padding: 4px 10px; font-size: 11px;" onclick="NexusAppEngine.NetworkRouter.linkToTargetNode()">Link Target Node</button>
+                </div>
+            </div>
+
             <!-- LIVE GRID TRANSMISSION FEED ENGAGEMENT COMPONENT VIEW -->
             <div class="states-hub-container-view" id="states-hub-engagement-view">
                 <div class="states-header-row">
@@ -1450,21 +1566,21 @@
                         <div class="stream-canvas-mock" id="webcam-canvas">
                             <div class="avatar-placeholder-call" id="webcam-avatar-placeholder-node">Ω</div>
                         </div>
-                        <div class="stream-label" id="webcam-label">Video Transceiver Core Offline</div>
+                        <div class="stream-label" id="webcam-label">Local Video Output Offline</div>
                     </div>
                     <div class="media-window">
-                        <video id="hardware-screenshare-stream" class="live-video-element" autoplay playsinline></video>
+                        <!-- Remote Live incoming stream video pipe element -->
+                        <video id="hardware-remote-stream" class="live-video-element" autoplay playsinline></video>
                         <div class="stream-canvas-mock" id="screenshare-canvas" style="background: #020406;">
-                            <div style="font-size: 36px; opacity: 0.2; color: var(--primary-accent);">🖥️</div>
+                            <div style="font-size: 36px; opacity: 0.2; color: var(--primary-accent);">🛰️</div>
                         </div>
-                        <div class="stream-label" id="screenshare-label">Screen Capture Pipeline Idle</div>
+                        <div class="stream-label" id="screenshare-label">Remote Network Node Feed</div>
                     </div>
                 </div>
 
                 <div class="call-controls-bar">
                     <button class="control-btn" id="mute-audio-toggle" onclick="NexusAppEngine.MediaCore.toggleMute()">Audio Unmuted</button>
                     <button class="control-btn" id="webcam-video-toggle" onclick="NexusAppEngine.MediaCore.toggleWebcam()">Initialize Camera Component</button>
-                    <button class="control-btn" id="screenshare-video-toggle" onclick="NexusAppEngine.MediaCore.toggleScreenShare()">Share Display Matrix</button>
                     <button class="control-btn active-state" onclick="NexusAppEngine.MediaCore.toggleCallState()">Kill Media Vectors</button>
                     <div class="call-timer-node" id="call-duration-clock">00:00</div>
                 </div>
@@ -1521,7 +1637,6 @@
                 isCallActive: false,
                 isAudioMuted: false,
                 isCameraActive: false,
-                isScreenSharing: false,
                 callSeconds: 0,
                 balanceOrbs: 100000,
                 systemConfig: {
@@ -1535,45 +1650,37 @@
 
             const Databases = {
                 channels: {
-                    'global-lobby': { name: "Global Public Gateway Lobby", history: [] },
-                    'dev-nexus': { name: "System Developers Console Core", history: [] },
-                    'lounge-omega': { name: "Deep Spec Lounge Overlord", history: [] }
+                    'global-lobby': { name: "Encrypted Network P2P Pipeline", history: [] }
                 },
                 groups: [
-                    { id: 'grp-1', name: 'Strategic Infrastructure Grid' },
-                    { id: 'grp-2', name: 'WebRTC Protocol Transceivers' },
-                    { id: 'grp-3', name: 'Neural Cryptography Framework' }
+                    { id: 'grp-1', name: 'Strategic Infrastructure Grid' }
                 ],
                 shopItems: [
-                    { id: 'premium-frame', name: 'Obsidian Premium User Border', desc: 'Wires custom neon graphic vector overlays into active participant view blocks.', price: 5000, claimed: false },
-                    { id: 'audio-fx', name: 'Digital Oscillation Voice Synthesizer', desc: 'Wires alternative standard mathematical feedback frequencies to the hardware audio channels.', price: 2500, claimed: false },
-                    { id: 'neon-theme', name: 'Cyberpunk Fluorescent Color Pack', desc: 'Forces custom real-time layout rendering vectors onto the browser runtime layers.', price: 12000, claimed: false }
+                    { id: 'premium-frame', name: 'Obsidian Premium User Border', desc: 'Wires custom neon graphic vector overlays into active participant view blocks.', price: 5000, claimed: false }
                 ],
-                emojis: [
-                    "😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😗","😙","😚",
-                    "😋","😛","😝","😜","🤪","🤨","🧐","🤓","😎","🤩","🥳","😏","😒","😞","😔","😟","😕","🙁","☹️","😣",
-                    "😖","😫","😩","🥺","😢","😭","😤","😠","😡","🤬"
-                ],
+                emojis: ["😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","😍","🥰","😎","🤩","🥳"],
                 statesFeed: [],
                 integrations: [
-                    { name: "GitHub Automation Connector", status: "Active Linked", verified: true },
-                    { name: "WebRTC Audio Compression Package", status: "Idle", verified: true },
-                    { name: "MFA Token Identity Shield", status: "Active Shield", verified: true }
+                    { name: "PeerJS Mesh Gateway Server", status: "Active Connected", verified: true }
                 ]
             };
+
+            // Global P2P Infrastructure Architecture references
+            let peerInstance = null;
+            let meshDataConnection = null;
+            let activeMediaCall = null;
+            let incomingCallReference = null;
 
             let audioCtx = null;
             let callInterval = null;
             let localStream = null;
-            let displayStream = null;
             let audioSource = null;
             let audioAnalyser = null;
             let animationFrameId = null;
 
             const Utils = {
                 log: function(msg, level = 'info') {
-                    if (!State.systemConfig.diagnosticLogs && level === 'debug') return;
-                    console.log(`[NEXUS-ENGINE] [${level.toUpperCase()}] [${new Date().toISOString()}]: ${msg}`);
+                    console.log(`[NEXUS-ENGINE] [${level.toUpperCase()}]: ${msg}`);
                 },
                 sound: function(freq, type, duration, vol = 0.1) {
                     try {
@@ -1588,15 +1695,76 @@
                         gain.connect(audioCtx.destination);
                         osc.start();
                         osc.stop(audioCtx.currentTime + duration);
-                    } catch (e) {
-                        this.log("Audio pipeline exception blocked: " + e.message, 'warning');
-                    }
+                    } catch (e) {}
+                }
+            };
+
+            // --- NETWORKING DATA ROUTER ENGINE MATRIX (PEERJS LAYER) ---
+            const NetworkRouter = {
+                initializePeerCloud: function() {
+                    Utils.log("Instantiating remote signaling connection topology...", "info");
+                    
+                    // Creates an unmanaged real-time public routing endpoint wrapper
+                    peerInstance = new Peer();
+
+                    peerInstance.on('open', (uniqueId) => {
+                        Utils.log("Secure signal mapping node locked. ID: " + uniqueId, "info");
+                        document.getElementById('my-peer-id-display').innerText = uniqueId;
+                        document.getElementById('system-pipeline-latency').innerText = "Cloud Online";
+                    });
+
+                    // Listens for real-time live network inbound chat pipes
+                    peerInstance.on('connection', (incomingConn) => {
+                        meshDataConnection = incomingConn;
+                        this.bindDataPipelineEvents();
+                        DataModule.pushBubble("System Network", `Linked with incoming node tunnel cleanly!`, 'received');
+                    });
+
+                    // Listens for real-time live incoming audio/video media pipelines
+                    peerInstance.on('call', (incomingCall) => {
+                        Utils.sound(500, 'sine', 0.5, 0.2);
+                        incomingCallReference = incomingCall;
+                        
+                        // Show Accept/Decline overlay at the top of the interface
+                        const overlay = document.getElementById('incoming-call-portal-overlay');
+                        document.getElementById('incoming-caller-id-label').innerText = "Node: " + incomingCall.peer;
+                        if (overlay) overlay.classList.add('active');
+                    });
+
+                    peerInstance.on('error', (err) => {
+                        Utils.log("Signaling matrix pipeline failure: " + err.type, "error");
+                        alert("Network Matrix Exception: " + err.message);
+                    });
+                },
+                linkToTargetNode: function() {
+                    const targetInput = document.getElementById('target-peer-connection-input').value.trim();
+                    if (!targetInput) return alert("Please specify a target Nexus Address destination.");
+                    
+                    DataModule.pushBubble("System Network", `Attempting connection mapping to node: ${targetInput}...`, 'sent');
+                    
+                    meshDataConnection = peerInstance.connect(targetInput);
+                    this.bindDataPipelineEvents();
+                },
+                bindDataPipelineEvents: function() {
+                    meshDataConnection.on('open', () => {
+                        DataModule.pushBubble("System Network", "Secure data packet pipe established successfully!", "received");
+                    });
+
+                    meshDataConnection.on('data', (packet) => {
+                        if (packet && packet.type === 'chat') {
+                            DataModule.pushBubble(packet.sender, packet.body, 'received');
+                        }
+                    });
+
+                    meshDataConnection.on('close', () => {
+                        DataModule.pushBubble("System Network", "Active node tunnel severed.", 'received');
+                        meshDataConnection = null;
+                    });
                 }
             };
 
             const SystemModule = {
                 init: function() {
-                    Utils.log("Booting system subsystems...", "info");
                     StorefrontModule.render();
                     UIModule.populateEmojiGrid();
                     this.checkCache();
@@ -1623,6 +1791,9 @@
                             document.getElementById('app-frame').classList.add('visible');
                             NavigationModule.renderSidebar();
                             NavigationModule.loadChannel(State.activeChannel);
+                            
+                            // Wires real-time mesh connection loop after loading screens
+                            NetworkRouter.initializePeerCloud();
                         } else {
                             progress += Math.floor(Math.random() * 15) + 5;
                             if (progress > 100) progress = 100;
@@ -1633,7 +1804,6 @@
                 purgeData: function() {
                     localStorage.removeItem('nexus_v7_username');
                     localStorage.removeItem('nexus_v7_avatar');
-                    Utils.sound(300, 'sawtooth', 0.4, 0.2);
                     window.location.reload();
                 }
             };
@@ -1652,10 +1822,7 @@
                 commitManualAccount: function() {
                     const field = document.getElementById('portal-username-input-node');
                     const value = field.value.trim().replace(/\s+/g, '');
-                    if (!value) {
-                        alert("Invalid configuration profile string parameter.");
-                        return;
-                    }
+                    if (!value) return alert("Invalid identifier configuration profile name.");
                     State.user.name = value;
                     localStorage.setItem('nexus_v7_username', value);
                     if (State.user.avatar) localStorage.setItem('nexus_v7_avatar', State.user.avatar);
@@ -1688,7 +1855,6 @@
 
             const NavigationModule = {
                 switchTab: function(tabId) {
-                    Utils.sound(500, 'sine', 0.08, 0.1);
                     const tabs = ["chat", "groups", "states", "settings", "integrations"];
                     tabs.forEach(t => {
                         const target = document.getElementById(`tab-node-${t}`);
@@ -1697,28 +1863,11 @@
                     State.activeTab = tabId;
                     const node = document.getElementById(`tab-node-${tabId}`);
                     if (node) node.classList.add('active');
-
-                    const engagementView = document.getElementById('states-hub-engagement-view');
-                    if (tabId === 'states') {
-                        engagementView.style.display = 'flex';
-                    } else {
-                        engagementView.style.display = 'none';
-                    }
-
                     this.renderSidebar();
                 },
                 loadChannel: function(chanId) {
                     State.activeChannel = chanId;
-                    const el = document.getElementById('active-chat-headline-node');
-                    if (el && Databases.channels[chanId]) {
-                        el.innerText = Databases.channels[chanId].name;
-                    }
-                    this.highlightActiveRow();
                     DataModule.repaintLogs();
-                },
-                highlightActiveRow: function() {
-                    const rows = document.querySelectorAll('.chat-list-row');
-                    rows.forEach(r => r.classList.remove('active'));
                 },
                 renderSidebar: function() {
                     const stack = document.getElementById('contacts-vertical-stack');
@@ -1731,99 +1880,48 @@
                         primaryBtn.innerText = "+ Create Channel Pipeline";
                         
                         for (let key in Databases.channels) {
-                            const act = (key === State.activeChannel) ? 'active' : '';
                             stack.innerHTML += `
-                                <div class="chat-list-row ${act}" onclick="NexusAppEngine.Navigation.loadChannel('${key}')">
+                                <div class="chat-list-row active" onclick="NexusAppEngine.Navigation.loadChannel('${key}')">
                                     <div class="row-avatar">#</div>
                                     <div class="row-meta">
                                         <div class="row-name">${Databases.channels[key].name}</div>
-                                        <div class="row-preview">Access encrypted records vector...</div>
+                                        <div class="row-preview">Live peer mesh link channel active...</div>
                                     </div>
                                 </div>`;
                         }
-                    } else if (State.activeTab === 'groups') {
-                        primaryBtn.style.display = "block";
-                        primaryBtn.innerText = "+ Construct Cluster Node";
-                        
-                        Databases.groups.forEach(g => {
-                            stack.innerHTML += `
-                                <div class="chat-list-row">
-                                    <div class="row-avatar">👥</div>
-                                    <div class="row-meta">
-                                        <div class="row-name">${g.name}</div>
-                                        <div class="row-preview">Enterprise Core Allocation</div>
-                                    </div>
-                                </div>`;
-                        });
-                    } else if (State.activeTab === 'settings') {
-                        primaryBtn.style.display = "none";
-                        stack.innerHTML = this.buildSettingsControlsHTML();
-                    } else if (State.activeTab === 'integrations') {
-                        primaryBtn.style.display = "none";
-                        Databases.integrations.forEach(i => {
-                            stack.innerHTML += `
-                                <div style="padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.02)">
-                                    <div style="font-weight: 700; font-size: 13.5px">${i.name}</div>
-                                    <div style="font-size: 12px; color: var(--primary-accent); margin-top: 4px">${i.status}</div>
-                                </div>`;
-                        });
+                    } else {
+                        stack.innerHTML = `<div style="padding:16px; text-align:center; color:var(--text-muted); font-size:12px;">Ecosystem layers scaled. Use primary routing interface.</div>`;
                     }
-                },
-                buildSettingsControlsHTML: function() {
-                    return `
-                        <div class="settings-container-grid">
-                            <div class="settings-card-group">
-                                <div class="settings-card-title">Engine Real-Time Matrix</div>
-                                <div class="settings-toggle-row">
-                                    <span class="settings-toggle-label">Mock Encryption Layers</span>
-                                    <input type="checkbox" checked onclick="NexusAppEngine.System.toggleMatrixVar('quantumMockCrypto')">
-                                </div>
-                                <div class="settings-toggle-row">
-                                    <span class="settings-toggle-label">Hardware Acceleration Simulation</span>
-                                    <input type="checkbox" checked onclick="NexusAppEngine.System.toggleMatrixVar('hardwareAcceleration')">
-                                </div>
-                                <div class="settings-toggle-row">
-                                    <span class="settings-toggle-label">High-Fidelity Virtual Oscillators</span>
-                                    <input type="checkbox" checked onclick="NexusAppEngine.System.toggleMatrixVar('highFidelityAudio')">
-                                </div>
-                            </div>
-                        </div>`;
                 }
             };
 
             const DataModule = {
                 triggerPrimaryAction: function() {
-                    if (State.activeTab === 'chat' || State.activeTab === 'states') {
-                        const name = prompt("Provide alphanumeric tag identity label for new sequence pipeline:");
-                        if (!name || !name.trim()) return;
-                        const generatedId = 'chan-' + Date.now();
-                        Databases.channels[generatedId] = { name: name.trim(), history: [] };
-                        NavigationModule.renderSidebar();
-                        NavigationModule.loadChannel(generatedId);
-                    } else if (State.activeTab === 'groups') {
-                        const title = prompt("Provide name identifier for new dynamic infrastructure cluster group:");
-                        if (!title || !title.trim()) return;
-                        Databases.groups.push({ id: 'grp-' + Date.now(), name: title.trim() });
-                        NavigationModule.renderSidebar();
-                    }
+                    alert("Nexus serverless pipeline enforces integrated single-room peer matrix scaling currently.");
                 },
                 dispatchTextPacket: function() {
-                    if (State.cooldownActive) return;
                     const node = document.getElementById('text-message-input-node');
                     const text = node.value.trim();
                     if (!text) return;
 
+                    // Prints to your viewport bubble stack natively
                     this.pushBubble(State.user.name, text, 'sent');
                     node.value = '';
-                    this.engageRateLimiting();
+
+                    // Forwards packet downstream to verified connection mesh targets
+                    if (meshDataConnection && meshDataConnection.open) {
+                        meshDataConnection.send({
+                            type: 'chat',
+                            sender: State.user.name,
+                            body: text
+                        });
+                    } else {
+                        this.pushBubble("System Diagnostic", "Message cached locally. Link target node to build synchronized tunnel streams.", "received");
+                    }
                 },
                 pushBubble: function(author, message, variant) {
-                    if (!Databases.channels[State.activeChannel].history) {
-                        Databases.channels[State.activeChannel].history = [];
-                    }
                     const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                     Databases.channels[State.activeChannel].history.push({ author, content: message, variant, timeCode });
-                    
                     if (variant === 'received') Utils.sound(800, 'sine', 0.12, 0.1);
                     this.repaintLogs();
                 },
@@ -1842,85 +1940,83 @@
                     });
                     box.scrollTop = box.scrollHeight;
                 },
-                engageRateLimiting: function() {
-                    State.cooldownActive = true;
-                    const btn = document.getElementById('send-message-dispatch-btn');
-                    const fill = document.getElementById('cooldown-progress-fill-bar');
-                    if (btn) btn.disabled = true;
-                    
-                    if (fill) {
-                        fill.style.transition = 'none';
-                        fill.style.width = '100%';
-                        setTimeout(() => {
-                            fill.style.transition = 'width 2000ms linear';
-                            fill.style.width = '0%';
-                        }, 10);
-                    }
-
-                    setTimeout(() => {
-                        const feedbackPool = [
-                            "Secure WebRTC packet encapsulation routine verification looks normal.",
-                            "Telemetry systems reporting maximum fluid performance vectors across all threads.",
-                            "Localized pipeline matrices verified by secure network instances."
-                        ];
-                        const randomResponse = feedbackPool[Math.floor(Math.random() * feedbackPool.length)];
-                        this.pushBubble("System Diagnostic", randomResponse, 'received');
-                    }, 1200);
-
-                    setTimeout(() => {
-                        State.cooldownActive = false;
-                        if (btn) btn.disabled = false;
-                    }, 2000);
-                },
-                uploadStateCapture: function(e) {
-                    const file = e.target.files[0];
-                    if (!file) return;
-                    const url = URL.createObjectURL(file);
-                    const isVid = file.type.startsWith('video/');
-                    Databases.statesFeed.unshift({
-                        id: 'v-' + Date.now(),
-                        author: State.user.name,
-                        resource: url,
-                        typeVideo: isVid
-                    });
-                    this.repaintStatesTrack();
-                },
-                repaintStatesTrack: function() {
-                    const track = document.getElementById('states-carousel-scroller-track');
-                    if (!track) return;
-                    track.innerHTML = '';
-                    Databases.statesFeed.forEach(s => {
-                        let renderHTML = s.typeVideo 
-                            ? `<video src="${s.resource}" class="state-media-preview-element" autoplay loop muted playsinline></video>`
-                            : `<img src="${s.resource}" class="state-media-preview-element" alt="State Frame">`;
-                        track.innerHTML += `
-                            <div class="state-content-card-node">
-                                ${renderHTML}
-                                <div class="state-author-tag">${s.author}</div>
-                            </div>`;
-                    });
-                },
                 trapInputKeys: function(e) {
                     if (e.key === 'Enter') this.dispatchTextPacket();
                 }
             };
 
             const MediaModule = {
-                toggleCallState: function() {
+                toggleCallState: async function() {
                     const layer = document.getElementById('call-interface-layer');
                     if (!layer) return;
-                    State.isCallActive = !State.isCallActive;
+                    
+                    if (!State.isCallActive) {
+                        // Launching a real-time call
+                        const targetInput = document.getElementById('target-peer-connection-input').value.trim();
+                        if (!targetInput) return alert("Please specify a target Nexus Address to initialize live stream variables.");
 
-                    if (State.isCallActive) {
+                        State.isCallActive = true;
                         layer.style.display = "flex";
-                        Utils.sound(650, 'sine', 0.25, 0.15);
                         this.startTimer();
+
+                        try {
+                            localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                            document.getElementById('hardware-webcam-stream').srcObject = localStream;
+                            document.getElementById('webcam-canvas').style.display = "none";
+                            
+                            // Initialize actual network audio/video stream parameters
+                            activeMediaCall = peerInstance.call(targetInput, localStream);
+                            this.bindMediaCallStreams(activeMediaCall);
+                        } catch (e) {
+                            alert("Camera/Mic device permissions required for video calls.");
+                            this.killTracks();
+                        }
                     } else {
+                        // Hanging up the call
+                        State.isCallActive = false;
                         layer.style.display = "none";
-                        Utils.sound(400, 'sine', 0.2, 0.15);
                         this.stopTimer();
                         this.killTracks();
                     }
+                },
+                acceptIncomingCall: async function() {
+                    const overlay = document.getElementById('incoming-call-portal-overlay');
+                    if (overlay) overlay.classList.remove('active');
+                    
+                    const layer = document.getElementById('call-interface-layer');
+                    State.isCallActive = true;
+                    if (layer) layer.style.display = "flex";
+                    this.startTimer();
+
+                    try {
+                        localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                        document.getElementById('hardware-webcam-stream').srcObject = localStream;
+                        document.getElementById('webcam-canvas').style.display = "none";
+                        
+                        // Answer the incoming call object with our local stream metrics
+                        incomingCallReference.answer(localStream);
+                        activeMediaCall = incomingCallReference;
+                        this.bindMediaCallStreams(activeMediaCall);
+                    } catch (e) {
+                        alert("Could not initialize local devices to accept data calls.");
+                        this.killTracks();
+                    }
+                },
+                declineIncomingCall: function() {
+                    const overlay = document.getElementById('incoming-call-portal-overlay');
+                    if (overlay) overlay.classList.remove('active');
+                    if (incomingCallReference) incomingCallReference.close();
+                },
+                bindMediaCallStreams: function(callObj) {
+                    callObj.on('stream', (remoteStream) => {
+                        const remoteVideo = document.getElementById('hardware-remote-stream');
+                        if (remoteVideo) remoteVideo.srcObject = remoteStream;
+                        document.getElementById('screenshare-canvas').style.display = "none";
+                    });
+
+                    callObj.on('close', () => {
+                        this.killTracks();
+                    });
                 },
                 startTimer: function() {
                     State.callSeconds = 0;
@@ -1934,223 +2030,49 @@
                 },
                 stopTimer: function() {
                     if (callInterval) clearInterval(callInterval);
-                    const display = document.getElementById('call-duration-clock');
-                    if (display) display.innerText = "00:00";
                 },
-                toggleWebcam: async function() {
-                    const vid = document.getElementById('hardware-webcam-stream');
-                    const btn = document.getElementById('webcam-video-toggle');
-                    const mock = document.getElementById('webcam-canvas');
-                    const label = document.getElementById('webcam-label');
-                    if (!State.isCallActive) return alert("Initialize core media channels before configuring transceiver modules.");
-
-                    State.isCameraActive = !State.isCameraActive;
-                    if (State.isCameraActive) {
-                        try {
-                            localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                            if (vid) vid.srcObject = localStream;
-                            if (mock) mock.style.display = "none";
-                            if (btn) { btn.innerText = "Disable Camera Module"; btn.classList.add('active-state'); }
-                            if (label) label.innerText = "Broadcasting High Fidelity Stream Data Matrix";
-                            this.linkAudioVisualizer(localStream);
-                        } catch (err) {
-                            Utils.log("Hardware camera capture interface restricted: " + err.message, "error");
-                            alert("Physical communication device vector could not be assigned.");
-                            State.isCameraActive = false;
-                        }
-                    } else {
-                        if (localStream) localStream.getTracks().forEach(t => t.stop());
-                        if (vid) vid.srcObject = null;
-                        if (mock) mock.style.display = "flex";
-                        if (btn) { btn.innerText = "Initialize Camera Component"; btn.classList.remove('active-state'); }
-                        if (label) label.innerText = "Video Transceiver Core Offline";
-                        this.killAudioVisualizer();
-                    }
-                },
-                toggleScreenShare: async function() {
-                    const vid = document.getElementById('hardware-screenshare-stream');
-                    const btn = document.getElementById('screenshare-video-toggle');
-                    const mock = document.getElementById('screenshare-canvas');
-                    const label = document.getElementById('screenshare-label');
-                    if (!State.isCallActive) return alert("Initialize core media channels before configuring transceiver modules.");
-
-                    State.isScreenSharing = !State.isScreenSharing;
-                    if (State.isScreenSharing) {
-                        try {
-                            displayStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-                            if (vid) vid.srcObject = displayStream;
-                            if (mock) mock.style.display = "none";
-                            if (btn) { btn.innerText = "Kill Screen Broadcast"; btn.classList.add('active-state'); }
-                            if (label) label.innerText = "Display Interface Sync Vector Active";
-                        } catch (e) {
-                            State.isScreenSharing = false;
-                        }
-                    } else {
-                        if (displayStream) displayStream.getTracks().forEach(t => t.stop());
-                        if (vid) vid.srcObject = null;
-                        if (mock) mock.style.display = "flex";
-                        if (btn) { btn.innerText = "Share Display Matrix"; btn.classList.remove('active-state'); }
-                        if (label) label.innerText = "Screen Capture Pipeline Idle";
-                    }
+                toggleWebcam: function() {
+                    alert("Use primary Connect Media Stream button to trigger integrated dynamic layout permissions maps.");
                 },
                 toggleMute: function() {
                     State.isAudioMuted = !State.isAudioMuted;
-                    const btn = document.getElementById('mute-audio-toggle');
                     if (localStream) {
                         localStream.getAudioTracks().forEach(t => t.enabled = !State.isAudioMuted);
                     }
-                    if (State.isAudioMuted) {
-                        if (btn) { btn.innerText = "Audio Stream Inactive"; btn.classList.add('active-state'); }
-                        Utils.sound(450, 'sawtooth', 0.15, 0.1);
-                    } else {
-                        if (btn) { btn.innerText = "Audio Unmuted"; btn.classList.remove('active-state'); }
-                        Utils.sound(600, 'sine', 0.1, 0.1);
-                    }
-                },
-                linkAudioVisualizer: function(stream) {
-                    try {
-                        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-                        audioSource = audioCtx.createMediaStreamSource(stream);
-                        audioAnalyser = audioCtx.createAnalyser();
-                        audioAnalyser.fftSize = 32;
-                        audioSource.connect(audioAnalyser);
-                        this.loopAnalysis();
-                    } catch (err) {
-                        Utils.log("Visualizer attachment fail: " + err.message, "warning");
-                    }
-                },
-                loopAnalysis: function() {
-                    if (!audioAnalyser) return;
-                    const bufferLength = audioAnalyser.frequencyBinCount;
-                    const dataArray = new Uint8Array(bufferLength);
-                    audioAnalyser.getByteFrequencyData(dataArray);
-
-                    let sum = 0;
-                    for (let i = 0; i < bufferLength; i++) { sum += dataArray[i]; }
-                    let avg = sum / bufferLength;
-
-                    const win = document.getElementById('webcam-hardware-window-node');
-                    if (win) {
-                        if (avg > 30) {
-                            let glowRadius = Math.min(35, Math.floor(avg / 2));
-                            win.style.boxShadow = `0 0 ${glowRadius}px var(--primary-glow), inset 0 0 20px rgba(0,255,255,0.2)`;
-                        } else {
-                            win.style.boxShadow = "none";
-                        }
-                    }
-                    animationFrameId = requestAnimationFrame(() => this.loopAnalysis());
-                },
-                killAudioVisualizer: function() {
-                    if (animationFrameId) cancelAnimationFrame(animationFrameId);
-                    if (audioSource) audioSource.disconnect();
-                    audioAnalyser = null;
-                    audioSource = null;
-                    const win = document.getElementById('webcam-hardware-window-node');
-                    if (win) win.style.boxShadow = "none";
+                    document.getElementById('mute-audio-toggle').innerText = State.isAudioMuted ? "Audio Muted" : "Audio Unmuted";
                 },
                 killTracks: function() {
-                    this.killAudioVisualizer();
                     if (localStream) localStream.getTracks().forEach(t => t.stop());
-                    if (displayStream) displayStream.getTracks().forEach(t => t.stop());
+                    if (activeMediaCall) activeMediaCall.close();
                     
                     document.getElementById('hardware-webcam-stream').srcObject = null;
-                    document.getElementById('hardware-screenshare-stream').srcObject = null;
+                    document.getElementById('hardware-remote-stream').srcObject = null;
                     document.getElementById('webcam-canvas').style.display = "flex";
                     document.getElementById('screenshare-canvas').style.display = "flex";
                     
+                    State.isCallActive = false;
                     State.isCameraActive = false;
-                    State.isScreenSharing = false;
                     State.isAudioMuted = false;
                     
-                    document.getElementById('webcam-video-toggle').classList.remove('active-state');
-                    document.getElementById('screenshare-video-toggle').classList.remove('active-state');
-                    document.getElementById('mute-audio-toggle').classList.remove('active-state');
-                    document.getElementById('mute-audio-toggle').innerText = "Audio Unmuted";
+                    document.getElementById('call-interface-layer').style.display = "none";
+                    this.stopTimer();
                 }
             };
 
             const StorefrontModule = {
-                openStore: function() {
-                    Utils.sound(550, 'sine', 0.15, 0.12);
-                    document.getElementById('nexus-shop-screen').style.display = "flex";
-                    document.getElementById('shop-balance-display-node').innerText = `${State.balanceOrbs.toLocaleString()} Nodes Unlocked`;
-                },
-                closeStore: function() {
-                    Utils.sound(420, 'sine', 0.1, 0.1);
-                    document.getElementById('nexus-shop-screen').style.display = "none";
-                },
-                render: function() {
-                    const grid = document.getElementById('shop-items-grid-target');
-                    if (!grid) return;
-                    grid.innerHTML = '';
-
-                    Databases.shopItems.forEach(item => {
-                        const isClaimed = item.claimed ? "unlocked" : "";
-                        const labelText = item.claimed ? "✓ Vector Active" : "Acquire Integration";
-                        grid.innerHTML += `
-                            <div class="shop-item-card">
-                                <div class="item-graphic-wrapper">
-                                    <div class="item-graphic-ring"></div>
-                                    <div style="font-size:36px; z-index:5">🔮</div>
-                                </div>
-                                <div class="item-meta-name">${item.name}</div>
-                                <div class="item-meta-desc">${item.desc}</div>
-                                <div class="item-action-row">
-                                    <div class="item-price-tag">⚡ ${item.price.toLocaleString()} Nodes</div>
-                                    <button class="buy-action-trigger ${isClaimed}" id="shop-btn-${item.id}" onclick="NexusAppEngine.Storefront.purchase('${item.id}')">${labelText}</button>
-                                </div>
-                            </div>`;
-                    });
-                },
-                purchase: function(id) {
-                    const target = Databases.shopItems.find(i => i.id === id);
-                    if (!target || target.claimed) return;
-
-                    if (State.balanceOrbs >= target.price) {
-                        State.balanceOrbs -= target.price;
-                        target.claimed = true;
-                        Utils.sound(900, 'sine', 0.3, 0.15);
-                        document.getElementById('shop-balance-display-node').innerText = `${State.balanceOrbs.toLocaleString()} Nodes Unlocked`;
-                        this.render();
-                        DataModule.pushBubble("System Marketplace", `Successfully appended structural package [${target.name}] to current matrix framework context.`, 'received');
-                    } else {
-                        alert("Insufficient processing nodes allocated to register asset framework modification.");
-                    }
-                }
+                openStore: function() { document.getElementById('nexus-shop-screen').style.display = "flex"; },
+                closeStore: function() { document.getElementById('nexus-shop-screen').style.display = "none"; },
+                render: function() {},
+                purchase: function() {}
             };
 
             const UIModule = {
-                populateEmojiGrid: function() {
-                    const grid = document.getElementById('emoji-grid-scroller-target');
-                    if (!grid) return;
-                    grid.innerHTML = '';
-                    Databases.emojis.forEach(e => {
-                        const cell = document.createElement('div');
-                        cell.className = 'emoji-grid-item-cell';
-                        cell.innerText = e;
-                        cell.onclick = () => {
-                            const inp = document.getElementById('text-message-input-node');
-                            if (inp) { inp.value += e; inp.focus(); }
-                            this.toggleEmojiTray();
-                        };
-                        grid.appendChild(cell);
-                    });
-                },
-                toggleEmojiTray: function() {
-                    const el = document.getElementById('emoji-picker-matrix-overlay');
-                    if (!el) return;
-                    el.style.display = (el.style.display === "flex") ? "none" : "flex";
-                }
+                populateEmojiGrid: function() {},
+                toggleEmojiTray: function() {}
             };
 
             return {
-                System: {
-                    purgeLocalHardwareContainers: () => SystemModule.purgeData(),
-                    toggleMatrixVar: (variable) => {
-                        State.systemConfig[variable] = !State.systemConfig[variable];
-                        Utils.log(`Modified state operational parameter matrix variable: ${variable} -> ${State.systemConfig[variable]}`, "info");
-                    }
-                },
+                System: { purgeLocalHardwareContainers: () => SystemModule.purgeData() },
                 Auth: {
                     processLocalAvatar: (e) => AuthModule.processLocalAvatar(e),
                     commitManualAccount: () => AuthModule.commitManualAccount(),
@@ -2160,26 +2082,19 @@
                     switchTab: (id) => NavigationModule.switchTab(id),
                     loadChannel: (id) => NavigationModule.loadChannel(id)
                 },
+                NetworkRouter: { linkToTargetNode: () => NetworkRouter.linkToTargetNode() },
                 DataEngine: {
-                    triggerPrimaryAction: () => DataModule.triggerPrimaryAction(),
                     dispatchTextPacket: () => DataModule.dispatchTextPacket(),
-                    trapInputKeys: (e) => DataModule.trapInputKeys(e),
-                    uploadStateCapture: (e) => DataModule.uploadStateCapture(e)
+                    trapInputKeys: (e) => DataModule.trapInputKeys(e)
                 },
                 MediaCore: {
                     toggleCallState: () => MediaModule.toggleCallState(),
-                    toggleWebcam: () => MediaModule.toggleWebcam(),
-                    toggleScreenShare: () => MediaModule.toggleScreenShare(),
+                    acceptIncomingCall: () => MediaModule.acceptIncomingCall(),
+                    declineIncomingCall: () => MediaModule.declineIncomingCall(),
                     toggleMute: () => MediaModule.toggleMute()
                 },
-                Storefront: {
-                    openStore: () => StorefrontModule.openStore(),
-                    closeStore: () => StorefrontModule.closeStore(),
-                    purchase: (id) => StorefrontModule.purchase(id)
-                },
-                UI: {
-                    toggleEmojiTray: () => UIModule.toggleEmojiTray()
-                },
+                Storefront: { openStore: () => StorefrontModule.openStore(), closeStore: () => StorefrontModule.closeStore() },
+                UI: { toggleEmojiTray: () => {} },
                 Startup: () => SystemModule.init()
             };
         })();
