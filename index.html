@@ -3,257 +3,543 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusChat Messenger Client</title>
+    <title>NexusChat Enterprise Platform Client</title>
     <style>
         :root {
-            /* Premium Glassmorphic Obsidian-Cyan Design Tokens */
-            --bg-dark: #07090e;
-            --bg-dark-gradient: linear-gradient(135deg, #07090e 0%, #0a1118 100%);
-            --bg-panel: rgba(10, 20, 30, 0.65);
-            --bg-sidebar: rgba(6, 10, 15, 0.85);
+            /* --- PRIMARY NEXUS CHROMATIC CORE DESIGN TOKENS --- */
+            --bg-dark-absolute: #030508;
+            --bg-dark-deep: #07090e;
+            --bg-dark-medium: #0d121d;
+            --bg-dark-light: #141b29;
+            --bg-dark-gradient: linear-gradient(135deg, #030508 0%, #0d121d 50%, #141b29 100%);
+            --bg-panel-glass: rgba(10, 20, 30, 0.65);
+            --bg-sidebar-glass: rgba(6, 10, 15, 0.85);
+            --bg-input-glass: rgba(4, 8, 12, 0.9);
+            
+            /* --- NEON CHROMATIC CODES --- */
             --primary-accent: #00ffff;
             --primary-hover: #00cccc;
             --primary-glow: rgba(0, 255, 255, 0.4);
-            --text-main: #f2f3f5;
-            --text-muted: #8a9aa8;
+            --primary-dim: rgba(0, 255, 255, 0.1);
+            
+            --gold-accent: #f5a623;
+            --gold-glow: rgba(245, 166, 35, 0.3);
+            --pink-neon: #ff007f;
+            --pink-glow: rgba(255, 0, 127, 0.3);
+            --purple-cyber: #9013fe;
+            
+            /* --- SYSTEM FEEDBACK ALERTS --- */
             --danger-red: #ff3344;
             --danger-hover: #cc2233;
+            --danger-glow: rgba(255, 51, 68, 0.3);
             --success-green: #00ff66;
-            --border-subtle: rgba(0, 255, 255, 0.15);
-            --border-active: rgba(0, 255, 255, 0.6);
-            --input-bg: rgba(5, 10, 15, 0.8);
-            --gold-accent: #f5a623;
-            --pink-neon: #ff007f;
+            --success-glow: rgba(0, 255, 102, 0.3);
+            --warning-orange: #ff9900;
+
+            /* --- TYPOGRAPHY TEXT STATES --- */
+            --text-main: #f2f3f5;
+            --text-muted: #8a9aa8;
+            --text-dark: #4f5d73;
+            --text-cyan: #e0ffff;
+
+            /* --- STRUCTURAL BOUNDARIES & ANIMATIONS --- */
+            --border-subtle: rgba(0, 255, 255, 0.12);
+            --border-active: rgba(0, 255, 255, 0.5);
+            --border-gold: rgba(245, 166, 35, 0.4);
+            --border-pink: rgba(255, 0, 127, 0.4);
             
-            /* UI Sizing Anchors */
             --nav-rail-width: 75px;
-            --sidebar-width: 280px;
+            --sidebar-width: 300px;
+            --border-radius-lg: 16px;
+            --border-radius-md: 10px;
+            --border-radius-sm: 6px;
+            --transition-fluid: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --transition-snappy: all 0.15s ease-in-out;
+            
+            /* --- GLOBAL CUSTOM GRAPHICAL RESOURCE URLs --- */
+            --custom-cursor-url: url('https://i.ibb.co/Y79hZ9z/cursor.png');
+            --custom-logo-url: url('https://i.ibb.co/hCdfXyH/logo.png');
         }
 
-        /* Global Structural Overrides & Reset Rules */
-        *, body, html, button, input {
+        /* --- GLOBAL STRUCTURAL OVERRIDES & CUSTOM INTERACTIVE POINTERS --- */
+        *, *::before, *::after {
             box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body, html {
             width: 100%;
             height: 100%;
-            margin: 0;
-            padding: 0;
-            background: var(--bg-dark);
+            background-color: var(--bg-dark-absolute);
             background-image: var(--bg-dark-gradient);
             color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             overflow: hidden;
             display: flex;
             user-select: none;
             -webkit-user-select: none;
+            
+            /* Injecting Custom Cursor Behavior with Standard Fallbacks */
+            cursor: var(--custom-cursor-url), default !important;
         }
 
-        /* Scannable Scrollbar Elements */
+        /* Ensuring all clickable interface points preserve the custom cursor matrix */
+        button, input, textarea, select, a, [onclick], .rail-tab-item, .chat-list-row, .emoji-grid-item-cell, .buy-action-trigger {
+            cursor: var(--custom-cursor-url), pointer !important;
+        }
+
+        /* --- GLOBAL COMPONENT LOGO GRAPHIC STYLING --- */
+        .nexus-brand-image-frame {
+            background-image: var(--custom-logo-url);
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* --- ADVANCED SCANNABLE SCROLLBAR ELEMENTS --- */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.3);
         }
         ::-webkit-scrollbar-thumb {
-            background: rgba(0, 255, 255, 0.2);
-            border-radius: 4px;
+            background: rgba(0, 255, 255, 0.15);
+            border-radius: var(--border-radius-lg);
+            border: 1px solid rgba(0, 255, 255, 0.05);
         }
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary-accent);
+            box-shadow: 0 0 8px var(--primary-accent);
         }
-        
-        /* Cinematic Loading Portal Splash Overlay Styles */
+
+        /* --- CINEMATIC OVERLAY SPLASH AND ACCELERATION SYSTEM --- */
         #splash-loading-portal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #04060a;
-            z-index: 9999;
+            background: #020306;
+            z-index: 99999;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s ease;
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s ease-in-out;
         }
 
         #splash-loading-portal.hidden {
             opacity: 0;
-            transform: scale(1.05);
+            transform: scale(1.08) translateY(-20px);
             pointer-events: none;
         }
 
         .splash-logo-container {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 24px;
+            width: 120px;
+            height: 120px;
+            margin-bottom: 32px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
         }
 
-        .splash-logo-img {
+        .splash-logo-ring {
+            position: absolute;
             width: 100%;
             height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            color: var(--primary-accent);
-            animation: pulseLogo 2s ease-in-out infinite;
+            border-radius: 50%;
+            border: 2px dashed var(--primary-accent);
+            animation: rotateRing 15s linear infinite;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+        }
+
+        .splash-logo-core {
+            width: 64px;
+            height: 64px;
+            z-index: 2;
+            animation: pulseLogoCore 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 16px var(--primary-accent));
         }
 
         .splash-headline {
-            font-size: 32px;
-            font-weight: 800;
-            letter-spacing: 2px;
+            font-size: 36px;
+            font-weight: 900;
+            letter-spacing: 4px;
             color: #ffffff;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
             text-align: center;
-            text-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
+            text-transform: uppercase;
+            background: linear-gradient(180deg, #ffffff 0%, #a0f0f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.4));
         }
 
         .splash-user-subtitle {
-            font-size: 16px;
-            color: var(--primary-accent);
-            font-weight: 500;
-            margin-bottom: 30px;
-            min-height: 24px;
-            letter-spacing: 1px;
+            font-size: 14px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 40px;
+            letter-spacing: 2px;
             text-transform: uppercase;
+            height: 20px;
         }
 
         .progress-track-wrapper {
-            width: 280px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
+            width: 320px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: var(--border-radius-lg);
             overflow: hidden;
-            border: 1px solid rgba(0, 255, 255, 0.1);
+            border: 1px solid rgba(0, 255, 255, 0.08);
+            position: relative;
         }
 
         .progress-bar-fill {
             width: 0%;
             height: 100%;
-            background: linear-gradient(90deg, var(--primary-hover), var(--primary-accent));
-            box-shadow: 0 0 16px var(--primary-accent);
-            transition: width 0.1s linear;
+            background: linear-gradient(90deg, var(--primary-hover), var(--primary-accent), var(--pink-neon));
+            box-shadow: 0 0 20px var(--primary-accent);
+            transition: width 0.08s linear;
         }
 
-        @keyframes pulseLogo {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.2)); }
-            50% { transform: scale(1.06); filter: drop-shadow(0 0 24px var(--primary-accent)); }
+        @keyframes rotateRing {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
 
-        /* Master Application Layout Window Frame */
+        @keyframes pulseLogoCore {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 12px rgba(0,255,255,0.3)); }
+            50% { transform: scale(1.1); filter: drop-shadow(0 0 28px var(--primary-accent)); }
+        }
+
+        /* --- AUTHENTICATION SECURITY PORTAL LAYERS --- */
+        #secure-login-gate-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, #0a1124 0%, #02040a 100%);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            box-sizing: border-box;
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        #secure-login-gate-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(30px);
+        }
+
+        .login-card-glassmorphic-wrapper {
+            width: 460px;
+            background: var(--bg-panel-glass);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--border-radius-lg);
+            padding: 48px;
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .login-card-header {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .login-brand-logo-node {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 0 12px var(--primary-accent));
+        }
+
+        .login-title-h1 {
+            font-size: 28px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .login-subtitle-p {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .oauth-providers-button-stack {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .oauth-provider-btn {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--border-radius-sm);
+            color: var(--text-main);
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition-snappy);
+        }
+
+        .oauth-provider-btn:hover {
+            background: rgba(0, 255, 255, 0.06);
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--primary-dim);
+            transform: translateY(-2px);
+        }
+
+        .login-divider-row {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-dark);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .login-divider-row::before, .login-divider-row::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .login-divider-row::before { margin-right: 16px; }
+        .login-divider-row::after { margin-left: 16px; }
+
+        .registration-input-group-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-label-node {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-text-input-field {
+            width: 100%;
+            background: var(--bg-input-glass);
+            border: 1px solid var(--border-subtle);
+            padding: 14px 16px;
+            border-radius: var(--border-radius-sm);
+            color: #ffffff;
+            font-size: 14px;
+            transition: var(--transition-snappy);
+        }
+
+        .form-text-input-field:focus {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 12px var(--primary-glow);
+        }
+
+        .avatar-file-upload-trigger-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .avatar-upload-preview-frame {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-accent);
+            font-size: 16px;
+            font-weight: 700;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .avatar-upload-preview-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .custom-file-input-facade-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-subtle);
+            padding: 12px 16px;
+            border-radius: var(--border-radius-sm);
+            font-size: 12px;
+            font-weight: 600;
+            transition: var(--transition-snappy);
+        }
+
+        .custom-file-input-facade-btn:hover {
+            border-color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .submit-portal-access-btn {
+            width: 100%;
+            background: linear-gradient(90deg, rgba(0,255,255,0.1), rgba(0,200,255,0.2));
+            color: var(--primary-accent);
+            border: 1px solid var(--primary-accent);
+            padding: 16px;
+            border-radius: var(--border-radius-sm);
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: var(--transition-fluid);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.1);
+            margin-top: 10px;
+        }
+
+        .submit-portal-access-btn:hover {
+            background: var(--primary-hover);
+            color: #000000;
+            box-shadow: 0 0 25px var(--primary-accent);
+            transform: translateY(-1px);
+        }
+
+        /* --- APPLICATION CENTRAL GRAPHICAL WORKSPACE --- */
         #app-frame {
             display: flex;
             width: 100vw;
             height: 100vh;
             opacity: 0;
-            transition: opacity 0.5s ease;
-            background: var(--bg-dark-gradient);
+            transform: scale(0.98);
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         #app-frame.visible {
             opacity: 1;
+            transform: scale(1);
         }
 
-        /* Vertical Global 5-Tab Rails Frame Layout */
+        /* NAVIGATION RAIL PANEL */
         .global-nav-rail {
             width: var(--nav-rail-width);
             height: 100%;
-            background: rgba(3, 6, 10, 0.95);
+            background: #020407;
             border-right: 1px solid var(--border-subtle);
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 16px 0;
-            gap: 18px;
-            z-index: 10;
+            padding: 24px 0;
+            gap: 20px;
+            z-index: 100;
         }
 
-        /* Hover-Scale Tab Item Physics Core */
+        .rail-brand-node {
+            width: 36px;
+            height: 36px;
+            margin-bottom: 16px;
+            filter: drop-shadow(0 0 8px var(--primary-glow));
+        }
+
         .rail-tab-item {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.03);
+            width: 50px;
+            height: 50px;
+            border-radius: var(--border-radius-md);
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
             color: var(--text-muted);
             font-size: 20px;
-            position: relative;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            transition: var(--transition-fluid);
         }
 
         .rail-tab-item:hover {
             color: var(--primary-accent);
-            background: rgba(0, 255, 255, 0.05);
+            background: var(--primary-dim);
             border-color: var(--primary-accent);
-            transform: scale(1.15);
-            box-shadow: 0 0 14px var(--primary-glow);
+            transform: scale(1.12);
+            box-shadow: 0 0 16px var(--primary-glow);
         }
 
         .rail-tab-item.active {
-            color: #ffffff;
-            background: var(--primary-hover);
+            color: #000000;
+            background: var(--primary-accent);
             border-color: var(--primary-accent);
-            box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 20px var(--primary-accent);
         }
 
-        /* Standard Sub-context Left Sidebar panel */
+        /* CORE CONTEXT SIDEBAR PANEL */
         .sidebar-panel {
             width: var(--sidebar-width);
             min-width: var(--sidebar-width);
-            background: var(--bg-sidebar);
+            background: var(--bg-sidebar-glass);
             border-right: 1px solid var(--border-subtle);
             display: flex;
             flex-direction: column;
             height: 100%;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
         .sidebar-header {
-            padding: 16px;
-            background: rgba(15, 25, 35, 0.4);
+            padding: 20px;
+            background: rgba(10, 18, 30, 0.5);
             display: flex;
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid var(--border-subtle);
-            height: 70px;
+            height: 75px;
         }
 
         .profile-node-area {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             min-width: 0;
+            width: 100%;
         }
 
         .user-tag-avatar {
-            width: 36px;
-            height: 36px;
-            background: rgba(0, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            background: var(--primary-dim);
             border: 1px solid var(--primary-accent);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 15px;
+            font-weight: 800;
             color: var(--primary-accent);
-            box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
+            box-shadow: 0 0 10px var(--primary-dim);
             flex-shrink: 0;
             overflow: hidden;
         }
@@ -262,6 +548,13 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+
+        .sidebar-profile-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+            flex: 1;
         }
 
         .sidebar-title {
@@ -273,100 +566,65 @@
             text-overflow: ellipsis;
         }
 
+        .sidebar-status-pill {
+            font-size: 11px;
+            color: var(--success-green);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 2px;
+        }
+
+        .sidebar-status-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--success-green);
+            border-radius: 50%;
+            box-shadow: 0 0 6px var(--success-green);
+        }
+
         .sidebar-tools {
-            padding: 12px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-            background: rgba(5, 10, 15, 0.3);
+            gap: 10px;
+            background: rgba(4, 7, 12, 0.4);
             border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .sm-btn {
-            width: 100%;
-            padding: 10px 12px;
-            font-size: 13px;
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.02);
-            color: var(--text-main);
-            border: 1px solid var(--border-subtle);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: left;
-        }
-
-        .sm-btn:hover {
-            background: rgba(0, 255, 255, 0.08);
-            border-color: var(--primary-accent);
-            color: #ffffff;
-            box-shadow: 0 0 8px rgba(0, 255, 255, 0.15);
-        }
-
-        .sm-btn.danger {
-            background: rgba(255, 51, 68, 0.05);
-            color: var(--danger-red);
-            border-color: rgba(255, 51, 68, 0.2);
-        }
-
-        .sm-btn.danger:hover {
-            background: var(--danger-red);
-            border-color: var(--danger-red);
-            color: white;
-            box-shadow: 0 0 8px rgba(255, 51, 68, 0.3);
-        }
-
-        .shop-trigger-btn {
-            width: 100%;
-            padding: 12px;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: transparent;
-            color: var(--primary-accent);
-            border: 1px solid var(--primary-accent);
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-align: center;
-            box-shadow: 0 0 6px var(--primary-glow);
-        }
-
-        .shop-trigger-btn:hover {
-            background: var(--primary-hover);
-            color: #000000;
-            box-shadow: 0 0 14px var(--primary-accent);
         }
 
         .contacts-vertical-stack {
             flex: 1;
             overflow-y: auto;
-            padding: 8px 0;
+            padding: 12px 0;
         }
 
+        /* DYNAMIC SCANNABLE SIDEBAR LIST ROWS */
         .chat-list-row {
-            padding: 12px 16px;
-            cursor: pointer;
+            padding: 14px 20px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-            transition: background 0.2s ease, border-left 0.2s ease;
-            border-left: 3px solid transparent;
+            gap: 14px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.01);
+            transition: var(--transition-snappy);
+            border-left: 4px solid transparent;
         }
 
-        .chat-list-row:hover, .chat-list-row.active {
-            background: rgba(0, 255, 255, 0.03);
+        .chat-list-row:hover {
+            background: rgba(0, 255, 255, 0.02);
+            border-left-color: rgba(0, 255, 255, 0.3);
+        }
+
+        .chat-list-row.active {
+            background: rgba(0, 255, 255, 0.04);
             border-left-color: var(--primary-accent);
         }
 
         .row-avatar {
             font-size: 14px;
             font-weight: 700;
-            width: 32px;
-            height: 32px;
-            background: rgba(255, 255, 255, 0.03);
+            width: 36px;
+            height: 36px;
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
@@ -374,11 +632,14 @@
             border-radius: 50%;
             flex-shrink: 0;
             color: var(--text-muted);
+            transition: var(--transition-snappy);
         }
 
         .chat-list-row:hover .row-avatar, .chat-list-row.active .row-avatar {
             color: var(--primary-accent);
             border-color: var(--primary-accent);
+            background: var(--primary-dim);
+            box-shadow: 0 0 8px var(--primary-dim);
         }
 
         .row-meta {
@@ -388,316 +649,248 @@
 
         .row-name {
             font-weight: 600;
-            font-size: 13.5px;
-            margin-bottom: 2px;
+            font-size: 14px;
+            margin-bottom: 4px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .row-preview {
-            font-size: 11px;
+            font-size: 12px;
             color: var(--text-muted);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
+        /* --- MAIN WORKSPACE PANEL LOGIC VIEWPORT --- */
         .workspace-panel {
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: var(--bg-dark);
+            background: #05070b;
             position: relative;
             height: 100%;
         }
 
         .workspace-header {
-            padding: 14px 24px;
-            background: var(--bg-panel);
+            padding: 0 28px;
+            background: var(--bg-panel-glass);
             display: flex;
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid var(--border-subtle);
-            height: 70px;
+            height: 75px;
             box-sizing: border-box;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 50;
         }
 
         .header-profile {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
+        }
+
+        .header-profile-icon {
+            font-size: 20px;
+            color: var(--primary-accent);
+            filter: drop-shadow(0 0 6px var(--primary-glow));
         }
 
         .header-profile .title {
-            font-weight: 600;
-            font-size: 16px;
+            font-weight: 700;
+            font-size: 17px;
             letter-spacing: 0.5px;
         }
 
+        /* CHAT VIEW ENGINE */
         .thread-scroll-view {
             flex: 1;
             overflow-y: auto;
-            padding: 24px;
+            padding: 28px;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 16px;
             box-sizing: border-box;
+            background: radial-gradient(circle at top right, rgba(0,255,255,0.01) 0%, transparent 40%);
         }
 
         .msg-bubble {
-            max-width: 65%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            line-height: 1.5;
-            font-size: 14px;
+            max-width: 60%;
+            padding: 14px 18px;
+            border-radius: var(--border-radius-lg);
+            line-height: 1.6;
+            font-size: 14.5px;
             display: flex;
             flex-direction: column;
             word-wrap: break-word;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-subtle);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+        }
+
+        .msg-bubble:hover {
+            transform: scale(1.01);
         }
 
         .msg-bubble.sent {
-            background: rgba(0, 255, 255, 0.05);
-            border-color: rgba(0, 255, 255, 0.3);
+            background: linear-gradient(135deg, rgba(0,255,255,0.06) 0%, rgba(0,150,255,0.03) 100%);
+            border-color: rgba(0, 255, 255, 0.25);
             align-self: flex-end;
-            border-bottom-right-radius: 0;
+            border-bottom-right-radius: 2px;
         }
 
         .msg-bubble.received {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.01);
             align-self: flex-start;
-            border-bottom-left-radius: 0;
+            border-bottom-left-radius: 2px;
         }
 
         .msg-author {
-            font-size: 12px;
-            font-weight: 700;
+            font-size: 11.5px;
+            font-weight: 800;
             color: var(--primary-accent);
-            margin-bottom: 4px;
-            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
         }
 
         .msg-bubble.sent .msg-author {
-            color: #ffffff;
+            color: var(--pink-neon);
+            text-shadow: 0 0 6px var(--pink-glow);
         }
 
         .msg-footer {
             font-size: 10px;
-            color: var(--text-muted);
-            margin-top: 6px;
+            color: var(--text-dark);
+            margin-top: 8px;
             align-self: flex-end;
+            font-weight: 600;
         }
 
+        /* INPUT OPERATIONS ENGINE */
         .input-dock-bar {
-            padding: 16px 24px;
-            background: var(--bg-panel);
+            padding: 16px 28px;
+            background: var(--bg-panel-glass);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 16px;
             border-top: 1px solid var(--border-subtle);
-            height: 75px;
+            height: 80px;
             box-sizing: border-box;
             position: relative;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
         .input-dock-bar input[type="text"] {
             flex: 1;
-            background: var(--input-bg);
+            background: var(--bg-input-glass);
             border: 1px solid var(--border-subtle);
-            padding: 12px 16px;
-            border-radius: 6px;
+            padding: 14px 20px;
+            border-radius: var(--border-radius-sm);
             color: #ffffff;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            font-size: 14.5px;
+            transition: var(--transition-fluid);
         }
 
         .input-dock-bar input[type="text"]:focus {
             border-color: var(--primary-accent);
-            box-shadow: 0 0 8px var(--primary-glow);
-        }
-
-        .cooldown-progress-track {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 3px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.02);
-            pointer-events: none;
-        }
-
-        .cooldown-progress-fill {
-            height: 100%;
-            width: 0%;
-            background: var(--primary-accent);
-            box-shadow: 0 0 8px var(--primary-accent);
+            box-shadow: 0 0 14px var(--primary-glow);
+            background: #020407;
         }
 
         .emoji-trigger-node-btn {
-            background: transparent;
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-subtle);
             color: var(--text-muted);
             font-size: 18px;
-            padding: 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
+            padding: 10px;
+            border-radius: var(--border-radius-sm);
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: var(--transition-snappy);
         }
 
         .emoji-trigger-node-btn:hover {
             color: var(--primary-accent);
             border-color: var(--primary-accent);
-            background: rgba(0, 255, 255, 0.05);
+            background: var(--primary-dim);
+            box-shadow: 0 0 10px var(--primary-dim);
         }
 
         .emoji-picker-matrix-overlay {
             position: absolute;
-            bottom: 85px;
-            right: 24px;
-            width: 320px;
-            height: 240px;
-            background: rgba(10, 16, 26, 0.95);
+            bottom: 90px;
+            right: 28px;
+            width: 340px;
+            height: 260px;
+            background: rgba(5, 9, 16, 0.98);
             border: 1px solid var(--border-active);
-            border-radius: 8px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            border-radius: var(--border-radius-md);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
             display: none;
             flex-direction: column;
             z-index: 1000;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
         }
 
         .emoji-picker-header {
-            padding: 10px 12px;
+            padding: 12px 16px;
             font-size: 11px;
-            font-weight: 700;
+            font-weight: 800;
             letter-spacing: 1px;
             color: var(--text-muted);
             border-bottom: 1px solid var(--border-subtle);
             text-transform: uppercase;
         }
 
-        .emoji-grid-scroller {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px;
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 6px;
-        }
-
-        .emoji-grid-item-cell {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            padding: 6px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background 0.15s ease, transform 0.1s ease;
-        }
-
-        .emoji-grid-item-cell:hover {
-            background: rgba(0, 255, 255, 0.15);
-            transform: scale(1.15);
-        }
-
-        .send-btn {
-            background: transparent;
-            color: var(--primary-accent);
-            border: 1px solid var(--primary-accent);
-            padding: 12px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 0 4px var(--primary-glow);
-        }
-
-        .send-btn:hover {
-            background: var(--primary-hover);
-            color: #000000;
-            box-shadow: 0 0 12px var(--primary-accent);
-        }
-
-        .send-btn:disabled {
-            border-color: var(--border-subtle);
-            color: var(--text-muted);
-            background: transparent;
-            box-shadow: none;
-            cursor: not-allowed !important;
-        }
-
-        .call-action-btn {
-            background: transparent;
-            border: 1px solid var(--primary-accent);
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--primary-accent);
-            padding: 8px 16px;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 0 6px var(--primary-glow);
-        }
-
-        .call-action-btn:hover {
-            background: var(--primary-hover);
-            color: #000000;
-            box-shadow: 0 0 14px var(--primary-accent);
-        }
-
+        /* HARDWARE STREAMS & MEDIA CONTROL STACK */
         #call-interface-layer {
             display: none;
             flex-direction: column;
-            background: rgba(4, 6, 10, 0.9);
-            padding: 16px;
+            background: rgba(2, 4, 8, 0.95);
+            padding: 20px;
             border-bottom: 1px solid var(--border-subtle);
             box-sizing: border-box;
+            animation: slideDown 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
         .media-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            min-height: 260px;
-        }
-
-        @media (max-width: 768px) {
-            .media-grid { grid-template-columns: 1fr; }
+            gap: 20px;
+            min-height: 280px;
         }
 
         .media-window {
-            background: var(--input-bg);
-            border-radius: 8px;
+            background: #020406;
+            border-radius: var(--border-radius-md);
             position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 1px solid var(--border-subtle);
             overflow: hidden;
-            height: 260px;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+            height: 280px;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+            transition: var(--transition-fluid);
         }
 
         .media-window.speaking-active {
             border-color: var(--primary-accent);
-            box-shadow: 0 0 16px var(--primary-glow), inset 0 0 20px rgba(0, 255, 255, 0.1);
+            box-shadow: 0 0 20px var(--primary-glow), inset 0 0 30px rgba(0, 255, 255, 0.1);
         }
 
         .live-video-element {
@@ -751,12 +944,14 @@
             z-index: 1;
             box-shadow: 0 0 16px var(--primary-glow);
         }
+
         .avatar-placeholder-call img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
         }
+
         .call-controls-bar {
             display: flex;
             justify-content: center;
@@ -769,33 +964,38 @@
             flex-wrap: wrap;
             border: 1px solid var(--border-subtle);
         }
+
         .control-btn {
-            background: rgba(255, 255, 255, 0.02);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-subtle);
             color: var(--text-main);
-            padding: 10px 16px;
-            border-radius: 6px;
-            cursor: pointer;
+            padding: 12px 18px;
+            border-radius: var(--border-radius-sm);
             font-weight: 600;
             font-size: 12px;
             display: flex;
             align-items: center;
-            gap: 6px;
-            transition: all 0.2s ease;
+            gap: 8px;
+            transition: var(--transition-snappy);
         }
+
         .control-btn:hover {
-            background: rgba(0, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.06);
             border-color: var(--primary-accent);
-            color: #fff;
+            box-shadow: 0 0 10px var(--primary-dim);
         }
+
         .control-btn.active-state {
-            background: rgba(255, 51, 68, 0.2);
+            background: rgba(255, 51, 68, 0.15);
             border-color: var(--danger-red);
             color: #fff;
+            box-shadow: 0 0 12px var(--danger-glow);
         }
+
         .control-btn.active-state:hover {
             background: var(--danger-red);
         }
+
         .call-timer-node {
             color: var(--primary-accent);
             font-family: monospace;
@@ -806,6 +1006,7 @@
             font-weight: 700;
             border: 1px solid var(--border-subtle);
         }
+
         .states-hub-container-view {
             padding: 16px 24px;
             background: rgba(5, 10, 15, 0.2);
@@ -814,11 +1015,13 @@
             flex-direction: column;
             gap: 12px;
         }
+
         .states-header-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
+
         .states-row-title {
             font-size: 13px;
             font-weight: 700;
@@ -826,12 +1029,14 @@
             letter-spacing: 1px;
             color: var(--text-muted);
         }
+
         .states-carousel-scroller-track {
             display: flex;
             gap: 14px;
             overflow-x: auto;
             padding-bottom: 8px;
         }
+
         .state-content-card-node {
             width: 110px;
             height: 160px;
@@ -846,10 +1051,12 @@
             justify-content: flex-end;
             padding: 10px;
         }
+
         .state-content-card-node:hover {
             border-color: var(--primary-accent);
             box-shadow: 0 0 10px var(--primary-glow);
         }
+
         .state-media-preview-element {
             width: 100%;
             height: 100%;
@@ -859,6 +1066,7 @@
             left: 0;
             z-index: 1;
         }
+
         .state-author-tag {
             font-size: 11px;
             font-weight: 600;
@@ -869,22 +1077,30 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
+        /* --- MULTIVERSE TRANSACTIONAL OVERLAY SCREEN --- */
         #nexus-shop-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: var(--bg-dark);
-            background-image: var(--bg-dark-gradient);
-            z-index: 5000;
+            background-color: #030509;
+            background-image: radial-gradient(circle at 50% 0%, #0c182b 0%, #030509 100%);
+            z-index: 50000;
             display: none;
             flex-direction: column;
             box-sizing: border-box;
+            animation: fadeIn 0.5s ease-out;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+
         .shop-header-navbar {
             height: 75px;
-            background: var(--bg-panel);
+            background: var(--bg-panel-glass);
             border-bottom: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
@@ -894,6 +1110,7 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
+
         .back-nav-link {
             font-size: 13px;
             font-weight: 700;
@@ -909,12 +1126,14 @@
             border: 1px solid var(--border-subtle);
             transition: all 0.2s ease;
         }
+
         .back-nav-link:hover {
             color: var(--primary-accent);
             border-color: var(--primary-accent);
             background: rgba(0,255,255,0.05);
             box-shadow: 0 0 8px var(--primary-glow);
         }
+
         .shop-headline-title {
             font-weight: 800;
             font-size: 18px;
@@ -922,6 +1141,7 @@
             color: #ffffff;
             text-shadow: 0 0 10px rgba(0,255,255,0.2);
         }
+
         .balance-container-pill {
             background: rgba(245, 166, 35, 0.05);
             border: 1px solid var(--gold-accent);
@@ -935,12 +1155,14 @@
             gap: 8px;
             box-shadow: 0 0 10px rgba(245,166,35,0.15);
         }
+
         .shop-showcase-scroller {
             flex: 1;
             overflow-y: auto;
             padding: 40px;
             box-sizing: border-box;
         }
+
         .shop-items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -948,8 +1170,9 @@
             max-width: 1400px;
             margin: 0 auto;
         }
+
         .shop-item-card {
-            background: var(--bg-panel);
+            background: var(--bg-panel-glass);
             border: 1px solid var(--border-subtle);
             border-radius: 12px;
             padding: 24px;
@@ -961,11 +1184,13 @@
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
         }
+
         .shop-item-card:hover {
             transform: translateY(-4px);
             border-color: var(--primary-accent);
             box-shadow: 0 6px 20px rgba(0, 255, 255, 0.15);
         }
+
         .item-badge-exclusive {
             position: absolute;
             top: 12px;
@@ -980,6 +1205,7 @@
             letter-spacing: 0.5px;
             box-shadow: 0 0 8px var(--pink-neon);
         }
+
         .item-graphic-wrapper {
             height: 120px;
             background: radial-gradient(circle, rgba(0,255,255,0.1) 0%, transparent 70%);
@@ -989,12 +1215,7 @@
             margin-bottom: 16px;
             position: relative;
         }
-        .item-graphic-icon-asset {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            z-index: 2;
-        }
+
         .item-graphic-ring {
             position: absolute;
             width: 90px;
@@ -1003,12 +1224,7 @@
             border: 1px dashed rgba(0, 255, 255, 0.2);
             animation: rotateRing 12s linear infinite;
         }
-        
-        @keyframes rotateRing {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(36deg); }
-        }
-        
+
         .item-meta-name {
             font-size: 16px;
             font-weight: 700;
@@ -1016,6 +1232,7 @@
             color: #ffffff;
             letter-spacing: 0.5px;
         }
+
         .item-meta-desc {
             font-size: 12px;
             color: var(--text-muted);
@@ -1023,17 +1240,20 @@
             margin-bottom: 20px;
             flex: 1;
         }
+
         .item-action-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
             margin-top: auto;
         }
+
         .item-price-tag {
             font-weight: 700;
             font-size: 14px;
             color: var(--gold-accent);
         }
+
         .buy-action-trigger {
             background: transparent;
             color: var(--primary-accent);
@@ -1042,337 +1262,229 @@
             border-radius: 6px;
             font-weight: 700;
             font-size: 12px;
-            cursor: pointer;
             transition: all 0.2s ease;
         }
+
         .buy-action-trigger:hover {
             background: var(--primary-hover);
             color: #000000;
             box-shadow: 0 0 10px var(--primary-accent);
         }
+
         .buy-action-trigger.unlocked {
             background: rgba(0, 255, 102, 0.1) !important;
             border-color: var(--success-green) !important;
             color: var(--success-green) !important;
         }
-        #secure-login-gate-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: linear-gradient(145deg, #040814 0%, #0d1326 100%);
-            z-index: 8000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            box-sizing: border-box;
-            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s ease;
-        }
-        #secure-login-gate-overlay.hidden {
-            opacity: 0;
-            transform: scale(0.96);
-            pointer-events: none;
-        }
-        .login-card-glassmorphic-wrapper {
-            width: 480px;
-            background: rgba(15, 25, 45, 0.6);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 255, 255, 0.05);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            display: flex;
-            flex-direction: column;
+
+        /* SETTINGS MATRIX GRID CONFIGURATORS */
+        .settings-container-grid {
+            display: grid;
+            grid-template-columns: 1fr;
             gap: 24px;
+            padding: 24px;
         }
-        .login-card-header {
-            text-align: center;
+
+        .settings-card-group {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--border-radius-md);
+            padding: 20px;
         }
-        .login-brand-logo-node {
-            width: 56px;
-            height: 56px;
-            object-fit: contain;
+
+        .settings-card-title {
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--primary-accent);
             margin-bottom: 16px;
         }
-        .login-title-h1 {
-            font-size: 24px;
-            font-weight: 800;
-            color: #ffffff;
-            margin: 0 0 6px 0;
-            letter-spacing: 0.5px;
+
+        .settings-toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.02);
         }
-        .login-subtitle-p {
-            font-size: 13px;
-            color: var(--text-muted);
-            margin: 0;
-        }
-        .oauth-providers-button-stack {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-        }
-        .oauth-provider-btn {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-main);
-            padding: 10px 14px;
-            border-radius: 6px;
-            font-size: 12px;
+
+        .settings-toggle-label {
+            font-size: 13.5px;
             font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.2s ease;
         }
-        .oauth-provider-btn:hover {
-            background: rgba(0, 255, 255, 0.04);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 8px var(--primary-glow);
-        }
-        .login-divider-row {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            font-size: 10px;
-            font-weight: 700;
-            color: var(--text-muted);
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-        .login-divider-row::before, .login-divider-row::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .login-divider-row:not(:empty)::before { margin-right: 12px; }
-        .login-divider-row:not(:empty)::after { margin-left: 12px; }
-        .registration-input-group-form {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-        .form-label-node {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-bottom: 6px;
-            display: block;
-        }
-        .form-text-input-field {
-            width: 100%;
-            background: var(--input-bg);
-            border: 1px solid var(--border-subtle);
-            padding: 12px 14px;
-            border-radius: 6px;
-            color: #ffffff;
-            font-size: 14px;
-            outline: none;
-            transition: all 0.2s ease;
-        }
-        .form-text-input-field:focus {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 8px var(--primary-glow);
-        }
-        .avatar-file-upload-trigger-container {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        .avatar-upload-preview-frame {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            font-size: 12px;
-            font-weight: 700;
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-        .avatar-upload-preview-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .custom-file-input-facade-btn {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-subtle);
-            padding: 10px 14px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 600;
-            color: var(--text-main);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .custom-file-input-facade-btn:hover {
-            border-color: var(--text-muted);
-            background: rgba(255,255,255,0.06);
-        }
-        .submit-portal-access-btn {
-            width: 100%;
-            background: transparent;
-            color: var(--primary-accent);
-            border: 1px solid var(--primary-accent);
-            padding: 14px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            box-shadow: 0 0 8px var(--primary-glow);
-            margin-top: 8px;
-        }
-        .submit-portal-access-btn:hover {
-            background: var(--primary-hover);
-            color: #000000;
-            box-shadow: 0 0 16px var(--primary-accent);
+
+        /* --- EXPLICIT COMPACT INTERACTIVE LAYOUT RESPONSIVENESS --- */
+        @media (max-width: 768px) {
+            body, html { overflow-y: auto; }
+            #app-frame { flex-direction: column; }
+            .global-nav-rail { width: 100%; height: 65px; flex-direction: row; justify-content: space-around; padding: 0 16px; }
+            .sidebar-panel { width: 100%; height: auto; }
+            .workspace-panel { height: calc(100vh - 65px); }
+            .media-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
+    <!-- SCREEN LOADING PORTAL SPLASH OVERLAY -->
     <div id="splash-loading-portal">
         <div class="splash-logo-container">
-            <div class="splash-logo-img">💠</div>
+            <div class="splash-logo-ring"></div>
+            <div class="splash-logo-core">
+                <div class="nexus-brand-image-frame"></div>
+            </div>
         </div>
-        <div class="splash-headline">NexusChat Client</div>
-        <div class="splash-user-subtitle" id="splash-user-target">Initializing Platform...</div>
+        <div class="splash-headline">NexusChat Core</div>
+        <div class="splash-user-subtitle" id="splash-user-target">Initializing Application Matrix Engine...</div>
         <div class="progress-track-wrapper">
             <div class="progress-bar-fill" id="splash-bar-fill"></div>
         </div>
     </div>
 
+    <!-- MFA IDENTITY AUTHENTICATION SECURE OVERLAY GATEWAY -->
     <div id="secure-login-gate-overlay">
         <div class="login-card-glassmorphic-wrapper">
             <div class="login-card-header">
-                <div style="font-size: 40px; margin-bottom: 10px;">💠</div>
-                <h1 class="login-title-h1">Welcome Back</h1>
-                <p class="login-subtitle-p">Authenticate or build profile container to unlock live streams</p>
+                <div class="login-brand-logo-node">
+                    <div class="nexus-brand-image-frame"></div>
+                </div>
+                <h1 class="login-title-h1">Authentication Gate</h1>
+                <p class="login-subtitle-p">Provide active display handles or link existing security keys to instantiate runtime session containers.</p>
             </div>
 
             <div class="oauth-providers-button-stack">
-                <button class="oauth-provider-btn" onclick="simulateOAuthLogin('Discord')">Discord Access</button>
-                <button class="oauth-provider-btn" onclick="simulateOAuthLogin('Microsoft')">Microsoft Identity</button>
+                <button class="oauth-provider-btn" onclick="NexusAppEngine.Auth.triggerOAuth('Discord')">
+                    <span>Discord Access</span>
+                </button>
+                <button class="oauth-provider-btn" onclick="NexusAppEngine.Auth.triggerOAuth('Microsoft')">
+                    <span>Microsoft Identity</span>
+                </button>
             </div>
 
-            <div class="login-divider-row">or build account container</div>
+            <div class="login-divider-row">or generate encryption profile</div>
 
             <form class="registration-input-group-form" onsubmit="event.preventDefault();">
                 <div>
-                    <label class="form-label-node">Display String Tag name</label>
-                    <input type="text" id="portal-username-input-node" class="form-text-input-field" placeholder="Enter custom display string..." required>
+                    <label class="form-label-node">Profile Display Tag Handle</label>
+                    <input type="text" id="portal-username-input-node" class="form-text-input-field" placeholder="Enter alphanumeric string alias..." required maxlength="25">
                 </div>
                 
                 <div>
-                    <label class="form-label-node">Profile Avatar Image Source</label>
+                    <label class="form-label-node">Biometric / Avatar Resource File Target</label>
                     <div class="avatar-file-upload-trigger-container">
-                        <div class="avatar-upload-preview-frame" id="portal-avatar-preview-box">N</div>
-                        <input type="file" id="portal-avatar-file-input" accept="image/*" style="display: none;" onchange="handleLocalAvatarSelection(event)">
-                        <button type="button" class="custom-file-input-facade-btn" onclick="document.getElementById('portal-avatar-file-input').click()">Choose Local File</button>
+                        <div class="avatar-upload-preview-frame" id="portal-avatar-preview-box">Ø</div>
+                        <input type="file" id="portal-avatar-file-input" accept="image/*" style="display: none;" onchange="NexusAppEngine.Auth.processLocalAvatar(event)">
+                        <button type="button" class="custom-file-input-facade-btn" onclick="document.getElementById('portal-avatar-file-input').click()">Load Local Frame</button>
                     </div>
                 </div>
 
-                <button type="button" class="submit-portal-access-btn" onclick="executeManualProfileCommit()">Initialize Session</button>
+                <button type="button" class="submit-portal-access-btn" onclick="NexusAppEngine.Auth.commitManualAccount()">Instantiate Security Session</button>
             </form>
         </div>
     </div>
 
+    <!-- APPLICATION GLOBAL MASTER WINDOW SYSTEM FRAME -->
     <div id="app-frame">
+        <!-- APP REVOLUTIONARY SIDE RAIL -->
         <div class="global-nav-rail">
-            <div class="rail-tab-item active" id="tab-node-chat" onclick="switchGlobalRailContext('chat')" title="Home/Chat">💬</div>
-            <div class="rail-tab-item" id="tab-node-groups" onclick="switchGlobalRailContext('groups')" title="Groups Ecosystem">👥</div>
-            <div class="rail-tab-item" id="tab-node-states" onclick="switchGlobalRailContext('states')" title="States Hub Engagement Stream">🌐</div>
-            <div class="rail-tab-item" id="tab-node-settings" onclick="switchGlobalRailContext('settings')" title="Account Integration Matrix Settings">⚙️</div>
-            <div class="rail-tab-item" id="tab-node-integrations" onclick="switchGlobalRailContext('integrations')" title="Extensions & Integrations Hub">🔌</div>
+            <div class="rail-brand-node">
+                <div class="nexus-brand-image-frame"></div>
+            </div>
+            <div class="rail-tab-item active" id="tab-node-chat" onclick="NexusAppEngine.Navigation.switchTab('chat')" title="Communications Hub Router">💬</div>
+            <div class="rail-tab-item" id="tab-node-groups" onclick="NexusAppEngine.Navigation.switchTab('groups')" title="Orchestrator Ecosystem Cluster">👥</div>
+            <div class="rail-tab-item" id="tab-node-states" onclick="NexusAppEngine.Navigation.switchTab('states')" title="Live Feed Transmission Grid">🌐</div>
+            <div class="rail-tab-item" id="tab-node-settings" onclick="NexusAppEngine.Navigation.switchTab('settings')" title="Matrix Engine Configurations">⚙️</div>
+            <div class="rail-tab-item" id="tab-node-integrations" onclick="NexusAppEngine.Navigation.switchTab('integrations')" title="Plugins & Extensibility Node">🔌</div>
         </div>
         
+        <!-- SIDE CONTEXT INFORMATION CONTROL BLOCK PANEL -->
         <div class="sidebar-panel">
             <div class="sidebar-header">
                 <div class="profile-node-area">
-                    <div class="user-tag-avatar" id="my-avatar-node">N</div>
-                    <div class="sidebar-title" id="my-username-node">Connecting Pipeline...</div>
+                    <div class="user-tag-avatar" id="my-avatar-node">Ø</div>
+                    <div class="sidebar-profile-info">
+                        <div class="sidebar-title" id="my-username-node">Connecting Vector Layer...</div>
+                        <div class="sidebar-status-pill">
+                            <div class="sidebar-status-dot"></div>
+                            <span id="system-pipeline-latency">Pipeline Synced</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <div class="sidebar-tools" id="sidebar-context-controls-box">
-                <button class="shop-trigger-btn" onclick="openPremiumStorefront()">Open Nexus Shop</button>
-                <button class="sm-btn" id="sidebar-action-primary-btn" onclick="triggerChannelCreation()">+ New Channel Stream</button>
-                <button class="sm-btn danger" onclick="performProfileHardwareReset()">Reset Active Session Container</button>
+                <button class="shop-trigger-btn" onclick="NexusAppEngine.Storefront.openStore()">Open Nexus Multiverse Marketplace</button>
+                <button class="sm-btn" id="sidebar-action-primary-btn" onclick="NexusAppEngine.DataEngine.triggerPrimaryAction()">+ Generate Channel Matrix</button>
+                <button class="sm-btn danger" onclick="NexusAppEngine.System.purgeLocalHardwareContainers()">Purge Active Local States</button>
             </div>
             
             <div class="contacts-vertical-stack" id="contacts-vertical-stack"></div>
         </div>
 
+        <!-- CENTRAL LOGICAL CHAT THREAD WORKSPACE PANEL CONTAINER -->
         <div class="workspace-panel">
             <div class="workspace-header">
                 <div class="header-profile">
-                    <div style="font-size: 16px; color: var(--primary-accent); font-weight: 900; filter: drop-shadow(0 0 4px var(--primary-glow));">⧉</div>
-                    <div class="title" id="active-chat-headline-node">Global Public Lobby</div>
+                    <div class="header-profile-icon">⧉</div>
+                    <div class="title" id="active-chat-headline-node">Global Gateway Router Lobby</div>
                 </div>
-                <button class="call-action-btn" onclick="toggleVoiceVideoCall()">Connect Live Streams</button>
+                <button class="call-action-btn" onclick="NexusAppEngine.MediaCore.toggleCallState()">Connect Media Stream Vectors</button>
             </div>
 
+            <!-- LIVE GRID TRANSMISSION FEED ENGAGEMENT COMPONENT VIEW -->
             <div class="states-hub-container-view" id="states-hub-engagement-view">
                 <div class="states-header-row">
-                    <span class="states-row-title">Live Connections Engagement Feed</span>
-                    <input type="file" id="states-media-file-capture-pipe" accept="video/*,image/*" style="display: none;" onchange="processNewStateMediaUpload(event)">
-                    <button class="call-action-btn" style="padding: 4px 10px; font-size: 11px;" onclick="document.getElementById('states-media-file-capture-pipe').click()">Create New States</button>
+                    <span class="states-row-title">Engagement Feeds</span>
+                    <input type="file" id="states-media-file-capture-pipe" accept="video/*,image/*" style="display: none;" onchange="NexusAppEngine.DataEngine.uploadStateCapture(event)">
+                    <button class="call-action-btn" style="padding: 4px 10px; font-size: 11px;" onclick="document.getElementById('states-media-file-capture-pipe').click()">Push New Vector Transmission</button>
                 </div>
                 <div class="states-carousel-scroller-track" id="states-carousel-scroller-track"></div>
             </div>
 
+            <!-- WEBRTC HARDWARE ENGINES VIDEO LAYOUT INTERFACE LAYER -->
             <div id="call-interface-layer">
                 <div class="media-grid">
                     <div class="media-window" id="webcam-hardware-window-node">
                         <video id="hardware-webcam-stream" class="live-video-element" autoplay playsinline muted></video>
                         <div class="stream-canvas-mock" id="webcam-canvas">
-                            <div class="avatar-placeholder-call" id="webcam-avatar-placeholder-node">N</div>
+                            <div class="avatar-placeholder-call" id="webcam-avatar-placeholder-node">Ω</div>
                         </div>
-                        <div class="stream-label" id="webcam-label">Camera Interface Offline</div>
+                        <div class="stream-label" id="webcam-label">Video Transceiver Core Offline</div>
                     </div>
                     <div class="media-window">
                         <video id="hardware-screenshare-stream" class="live-video-element" autoplay playsinline></video>
-                        <div class="stream-canvas-mock" id="screenshare-canvas" style="background: #030508;">
-                            <div style="font-size: 24px; opacity: 0.15; color: var(--primary-accent);">🖥️</div>
+                        <div class="stream-canvas-mock" id="screenshare-canvas" style="background: #020406;">
+                            <div style="font-size: 36px; opacity: 0.2; color: var(--primary-accent);">🖥️</div>
                         </div>
-                        <div class="stream-label" id="screenshare-label">Screen Capture Pipe Offline</div>
+                        <div class="stream-label" id="screenshare-label">Screen Capture Pipeline Idle</div>
                     </div>
                 </div>
 
                 <div class="call-controls-bar">
-                    <button class="control-btn" id="mute-audio-toggle" onclick="toggleMuteState()">Audio Unmuted</button>
-                    <button class="control-btn" id="webcam-video-toggle" onclick="toggleWebcamState()">Enable Camera</button>
-                    <button class="control-btn" id="screenshare-video-toggle" onclick="toggleScreenShareState()">Share Screen</button>
-                    <button class="control-btn active-state" onclick="toggleVoiceVideoCall()">Disconnect Stream</button>
+                    <button class="control-btn" id="mute-audio-toggle" onclick="NexusAppEngine.MediaCore.toggleMute()">Audio Unmuted</button>
+                    <button class="control-btn" id="webcam-video-toggle" onclick="NexusAppEngine.MediaCore.toggleWebcam()">Initialize Camera Component</button>
+                    <button class="control-btn" id="screenshare-video-toggle" onclick="NexusAppEngine.MediaCore.toggleScreenShare()">Share Display Matrix</button>
+                    <button class="control-btn active-state" onclick="NexusAppEngine.MediaCore.toggleCallState()">Kill Media Vectors</button>
                     <div class="call-timer-node" id="call-duration-clock">00:00</div>
                 </div>
             </div>
 
+            <!-- CHAT PACKET VIEWPORT ENGINE -->
             <div class="thread-scroll-view" id="chat-thread-viewport"></div>
 
+            <!-- MASTER INPUT DATA STREAM CONSOLE BAR DOCK -->
             <div class="input-dock-bar">
-                <input type="text" id="text-message-input-node" placeholder="Type a message into active stream..." onkeypress="trapInputKeypress(event)">
+                <input type="text" id="text-message-input-node" placeholder="Type a message or transmission sequence packet..." onkeypress="NexusAppEngine.DataEngine.trapInputKeys(event)">
                 
-                <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Emoji">😀</button>
+                <button type="button" class="emoji-trigger-node-btn" onclick="NexusAppEngine.UI.toggleEmojiTray()" title="Inject Emoji Packet">😀</button>
                 
                 <div class="emoji-picker-matrix-overlay" id="emoji-picker-matrix-overlay">
-                    <div class="emoji-picker-header">Select Symbol Input</div>
+                    <div class="emoji-picker-header">Alphanumeric Symbol Bank</div>
                     <div class="emoji-grid-scroller" id="emoji-grid-scroller-target"></div>
                 </div>
 
-                <button class="send-btn" id="send-message-dispatch-btn" onclick="executeTextDispatch()">Send Message</button>
+                <button class="send-btn" id="send-message-dispatch-btn" onclick="NexusAppEngine.DataEngine.dispatchTextPacket()">Dispatch Transmission</button>
                 
                 <div class="cooldown-progress-track">
                     <div class="cooldown-progress-fill" id="cooldown-progress-fill-bar"></div>
@@ -1381,720 +1493,700 @@
         </div>
     </div>
 
+    <!-- MARKETPLACE OVERLAY POPUP LAYER -->
     <div id="nexus-shop-screen">
         <div class="shop-header-navbar">
-            <a href="#" class="back-nav-link" onclick="closePremiumStorefront()">← Go Back</a>
-            <div class="shop-headline-title">NEXUS MULTIVERSE STOREFRONT</div>
-            
+            <a href="#" class="back-nav-link" onclick="NexusAppEngine.Storefront.closeStore()">← Revert Context</a>
+            <div class="shop-headline-title">Nexus Interstellar Storefront</div>
             <div class="balance-container-pill">
-                <span>Balance:</span>
-                <span id="shop-balance-display-node">50,000 Orbs (Beta Free Active)</span>
+                <span>Credit Node Matrix:</span>
+                <span id="shop-balance-display-node">100,000 Nodes Allocated</span>
             </div>
         </div>
-
         <div class="shop-showcase-scroller">
             <div class="shop-items-grid" id="shop-items-grid-target"></div>
         </div>
     </div>
 
+    <!-- SYSTEM CORE RUNTIME LOGIC -->
     <script>
-        let audioCtx;
-        function initAudioContext() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-            }
-        }
+        const NexusAppEngine = (function() {
+            'use strict';
 
-        function playSynthFrequency(frequency, type, duration, volume = 0.2) {
-            try {
-                initAudioContext();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = type;
-                osc.frequency.value = frequency;
-                gain.gain.setValueAtTime(volume, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + duration);
-            } catch (e) { 
-                console.log("Audio oscillation bypass caught: ", e); 
-            }
-        }
+            const State = {
+                user: { name: "", avatar: "", status: "online" },
+                activeTab: "chat",
+                activeChannel: "global-lobby",
+                cooldownActive: false,
+                isCallActive: false,
+                isAudioMuted: false,
+                isCameraActive: false,
+                isScreenSharing: false,
+                callSeconds: 0,
+                balanceOrbs: 100000,
+                systemConfig: {
+                    hardwareAcceleration: true,
+                    highFidelityAudio: true,
+                    quantumMockCrypto: true,
+                    autoReconnect: true,
+                    diagnosticLogs: false
+                }
+            };
 
-        function triggerMsgAlertTone() {
-            playSynthFrequency(750, 'sine', 0.15, 0.15);
-            setTimeout(() => playSynthFrequency(980, 'sine', 0.18, 0.15), 50);
-        }
+            const Databases = {
+                channels: {
+                    'global-lobby': { name: "Global Public Gateway Lobby", history: [] },
+                    'dev-nexus': { name: "System Developers Console Core", history: [] },
+                    'lounge-omega': { name: "Deep Spec Lounge Overlord", history: [] }
+                },
+                groups: [
+                    { id: 'grp-1', name: 'Strategic Infrastructure Grid' },
+                    { id: 'grp-2', name: 'WebRTC Protocol Transceivers' },
+                    { id: 'grp-3', name: 'Neural Cryptography Framework' }
+                ],
+                shopItems: [
+                    { id: 'premium-frame', name: 'Obsidian Premium User Border', desc: 'Wires custom neon graphic vector overlays into active participant view blocks.', price: 5000, claimed: false },
+                    { id: 'audio-fx', name: 'Digital Oscillation Voice Synthesizer', desc: 'Wires alternative standard mathematical feedback frequencies to the hardware audio channels.', price: 2500, claimed: false },
+                    { id: 'neon-theme', name: 'Cyberpunk Fluorescent Color Pack', desc: 'Forces custom real-time layout rendering vectors onto the browser runtime layers.', price: 12000, claimed: false }
+                ],
+                emojis: [
+                    "😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😗","😙","😚",
+                    "😋","😛","😝","😜","🤪","🤨","🧐","🤓","😎","🤩","🥳","😏","😒","😞","😔","😟","😕","🙁","☹️","😣",
+                    "😖","😫","😩","🥺","😢","😭","😤","😠","😡","🤬"
+                ],
+                statesFeed: [],
+                integrations: [
+                    { name: "GitHub Automation Connector", status: "Active Linked", verified: true },
+                    { name: "WebRTC Audio Compression Package", status: "Idle", verified: true },
+                    { name: "MFA Token Identity Shield", status: "Active Shield", verified: true }
+                ]
+            };
 
-        function triggerToggleMuteTone(isMuted) {
-            if (isMuted) {
-                playSynthFrequency(480, 'triangle', 0.15, 0.2);
-                setTimeout(() => playSynthFrequency(350, 'triangle', 0.18, 0.2), 50);
-            } else {
-                playSynthFrequency(350, 'triangle', 0.15, 0.2);
-                setTimeout(() => playSynthFrequency(480, 'triangle', 0.18, 0.2), 50);
-            }
-        }
+            let audioCtx = null;
+            let callInterval = null;
+            let localStream = null;
+            let displayStream = null;
+            let audioSource = null;
+            let audioAnalyser = null;
+            let animationFrameId = null;
 
-        let currentProfileSessionName = "";
-        let currentProfileAvatarUrl = "";
-        let activeGlobalRailTab = "chat"; 
-        let activeChannelId = 'global-lobby';
-        let isCooldownActive = false;
+            const Utils = {
+                log: function(msg, level = 'info') {
+                    if (!State.systemConfig.diagnosticLogs && level === 'debug') return;
+                    console.log(`[NEXUS-ENGINE] [${level.toUpperCase()}] [${new Date().toISOString()}]: ${msg}`);
+                },
+                sound: function(freq, type, duration, vol = 0.1) {
+                    try {
+                        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                        const osc = audioCtx.createOscillator();
+                        const gain = audioCtx.createGain();
+                        osc.type = type;
+                        osc.frequency.value = freq;
+                        gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                        osc.connect(gain);
+                        gain.connect(audioCtx.destination);
+                        osc.start();
+                        osc.stop(audioCtx.currentTime + duration);
+                    } catch (e) {
+                        this.log("Audio pipeline exception blocked: " + e.message, 'warning');
+                    }
+                }
+            };
 
-        let identityLinkingMatrix = {
-            google: { connected: false, name: null, avatar: null },
-            discord: { connected: false, name: null, avatar: null },
-            microsoft: { connected: false, name: null, avatar: null }
-        };
+            const SystemModule = {
+                init: function() {
+                    Utils.log("Booting system subsystems...", "info");
+                    StorefrontModule.render();
+                    UIModule.populateEmojiGrid();
+                    this.checkCache();
+                },
+                checkCache: function() {
+                    const cachedName = localStorage.getItem('nexus_v7_username');
+                    const cachedAvatar = localStorage.getItem('nexus_v7_avatar');
+                    if (cachedName && cachedName.trim() !== "") {
+                        State.user.name = cachedName;
+                        State.user.avatar = cachedAvatar || "";
+                        AuthModule.syncUI();
+                        this.triggerSplashLoader();
+                    } else {
+                        document.getElementById('splash-loading-portal').classList.add('hidden');
+                    }
+                },
+                triggerSplashLoader: function() {
+                    let progress = 0;
+                    const fillBar = document.getElementById('splash-bar-fill');
+                    const timer = setInterval(() => {
+                        if (progress >= 100) {
+                            clearInterval(timer);
+                            document.getElementById('splash-loading-portal').classList.add('hidden');
+                            document.getElementById('app-frame').classList.add('visible');
+                            NavigationModule.renderSidebar();
+                            NavigationModule.loadChannel(State.activeChannel);
+                        } else {
+                            progress += Math.floor(Math.random() * 15) + 5;
+                            if (progress > 100) progress = 100;
+                            if (fillBar) fillBar.style.width = progress + '%';
+                        }
+                    }, 40);
+                },
+                purgeData: function() {
+                    localStorage.removeItem('nexus_v7_username');
+                    localStorage.removeItem('nexus_v7_avatar');
+                    Utils.sound(300, 'sawtooth', 0.4, 0.2);
+                    window.location.reload();
+                }
+            };
 
-        let activeGroupHubs = [
-            { id: 'hub-alpha', name: 'Strategic Architecture' },
-            { id: 'hub-beta', name: 'Delta Engineering Crew' }
-        ];
+            const AuthModule = {
+                processLocalAvatar: function(e) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const reader = new FileReader();
+                    reader.onload = function(evt) {
+                        document.getElementById('portal-avatar-preview-box').innerHTML = `<img src="${evt.target.result}" alt="Preview">`;
+                        State.user.avatar = evt.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                },
+                commitManualAccount: function() {
+                    const field = document.getElementById('portal-username-input-node');
+                    const value = field.value.trim().replace(/\s+/g, '');
+                    if (!value) {
+                        alert("Invalid configuration profile string parameter.");
+                        return;
+                    }
+                    State.user.name = value;
+                    localStorage.setItem('nexus_v7_username', value);
+                    if (State.user.avatar) localStorage.setItem('nexus_v7_avatar', State.user.avatar);
+                    
+                    this.syncUI();
+                    document.getElementById('secure-login-gate-overlay').classList.add('hidden');
+                    document.getElementById('splash-loading-portal').classList.remove('hidden');
+                    SystemModule.triggerSplashLoader();
+                },
+                triggerOAuth: function(provider) {
+                    const mockAlias = `${provider}User_${Math.floor(1000 + Math.random() * 9000)}`;
+                    State.user.name = mockAlias;
+                    localStorage.setItem('nexus_v7_username', mockAlias);
+                    this.syncUI();
+                    document.getElementById('secure-login-gate-overlay').classList.add('hidden');
+                    document.getElementById('splash-loading-portal').classList.remove('hidden');
+                    SystemModule.triggerSplashLoader();
+                },
+                syncUI: function() {
+                    document.getElementById('splash-user-target').innerText = State.user.name;
+                    document.getElementById('my-username-node').innerText = State.user.name;
+                    const box = document.getElementById('my-avatar-node');
+                    if (State.user.avatar) {
+                        box.innerHTML = `<img src="${State.user.avatar}" alt="User Avatar">`;
+                    } else {
+                        box.innerText = State.user.name.charAt(0).toUpperCase();
+                    }
+                }
+            };
 
-        let channelDatabase = {
-            'global-lobby': { name: "Global Public Lobby", history: [] },
-            'crew-vc': { name: "Crew Elite Lounge", history: [] }
-        };
+            const NavigationModule = {
+                switchTab: function(tabId) {
+                    Utils.sound(500, 'sine', 0.08, 0.1);
+                    const tabs = ["chat", "groups", "states", "settings", "integrations"];
+                    tabs.forEach(t => {
+                        const target = document.getElementById(`tab-node-${t}`);
+                        if (target) target.classList.remove('active');
+                    });
+                    State.activeTab = tabId;
+                    const node = document.getElementById(`tab-node-${tabId}`);
+                    if (node) node.classList.add('active');
 
-        let liveStatesContentFeed = [];
+                    const engagementView = document.getElementById('states-hub-engagement-view');
+                    if (tabId === 'states') {
+                        engagementView.style.display = 'flex';
+                    } else {
+                        engagementView.style.display = 'none';
+                    }
 
-        let localHardwareVideoStream = null;
-        let localHardwareDisplayStream = null;
-        let localMicrophoneAudioSource = null;
-        let localAudioAnalyserNode = null;
-        let micAnimationRequestId = null;
-        
-        let isCallActive = false;
-        let isAudioMuted = false;
-        let isCameraActive = false;
-        let isScreenSharing = false;
-        let callTimerInterval = null;
-        let elapsedCallSeconds = 0;
+                    this.renderSidebar();
+                },
+                loadChannel: function(chanId) {
+                    State.activeChannel = chanId;
+                    const el = document.getElementById('active-chat-headline-node');
+                    if (el && Databases.channels[chanId]) {
+                        el.innerText = Databases.channels[chanId].name;
+                    }
+                    this.highlightActiveRow();
+                    DataModule.repaintLogs();
+                },
+                highlightActiveRow: function() {
+                    const rows = document.querySelectorAll('.chat-list-row');
+                    rows.forEach(r => r.classList.remove('active'));
+                },
+                renderSidebar: function() {
+                    const stack = document.getElementById('contacts-vertical-stack');
+                    const primaryBtn = document.getElementById('sidebar-action-primary-btn');
+                    if (!stack || !primaryBtn) return;
+                    stack.innerHTML = '';
 
-        let betaWalletBalanceOrbs = 50000;
-        const shopInventoryMatrix = [
-            { id: 'nexus-elite', name: 'Nexus Elite Tier', desc: 'Premium custom user frame and advanced server scaling variables.', cost: 'Free (Beta Frame)', exclusive: true },
-            { id: 'magic-mists', name: 'Obsidian Cyan Theme Pack', desc: 'Forces alternative custom linear lighting vectors across target panels.', cost: '3500 Orbs', exclusive: false },
-            { id: 'cyber-neon', name: 'Cyberpunk Sound Pack', desc: 'Alters notification alerts into retro digital oscillation clips.', cost: '1200 Orbs', exclusive: false }
-        ];
+                    if (State.activeTab === 'chat' || State.activeTab === 'states') {
+                        primaryBtn.style.display = "block";
+                        primaryBtn.innerText = "+ Create Channel Pipeline";
+                        
+                        for (let key in Databases.channels) {
+                            const act = (key === State.activeChannel) ? 'active' : '';
+                            stack.innerHTML += `
+                                <div class="chat-list-row ${act}" onclick="NexusAppEngine.Navigation.loadChannel('${key}')">
+                                    <div class="row-avatar">#</div>
+                                    <div class="row-meta">
+                                        <div class="row-name">${Databases.channels[key].name}</div>
+                                        <div class="row-preview">Access encrypted records vector...</div>
+                                    </div>
+                                </div>`;
+                        }
+                    } else if (State.activeTab === 'groups') {
+                        primaryBtn.style.display = "block";
+                        primaryBtn.innerText = "+ Construct Cluster Node";
+                        
+                        Databases.groups.forEach(g => {
+                            stack.innerHTML += `
+                                <div class="chat-list-row">
+                                    <div class="row-avatar">👥</div>
+                                    <div class="row-meta">
+                                        <div class="row-name">${g.name}</div>
+                                        <div class="row-preview">Enterprise Core Allocation</div>
+                                    </div>
+                                </div>`;
+                        });
+                    } else if (State.activeTab === 'settings') {
+                        primaryBtn.style.display = "none";
+                        stack.innerHTML = this.buildSettingsControlsHTML();
+                    } else if (State.activeTab === 'integrations') {
+                        primaryBtn.style.display = "none";
+                        Databases.integrations.forEach(i => {
+                            stack.innerHTML += `
+                                <div style="padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.02)">
+                                    <div style="font-weight: 700; font-size: 13.5px">${i.name}</div>
+                                    <div style="font-size: 12px; color: var(--primary-accent); margin-top: 4px">${i.status}</div>
+                                </div>`;
+                        });
+                    }
+                },
+                buildSettingsControlsHTML: function() {
+                    return `
+                        <div class="settings-container-grid">
+                            <div class="settings-card-group">
+                                <div class="settings-card-title">Engine Real-Time Matrix</div>
+                                <div class="settings-toggle-row">
+                                    <span class="settings-toggle-label">Mock Encryption Layers</span>
+                                    <input type="checkbox" checked onclick="NexusAppEngine.System.toggleMatrixVar('quantumMockCrypto')">
+                                </div>
+                                <div class="settings-toggle-row">
+                                    <span class="settings-toggle-label">Hardware Acceleration Simulation</span>
+                                    <input type="checkbox" checked onclick="NexusAppEngine.System.toggleMatrixVar('hardwareAcceleration')">
+                                </div>
+                                <div class="settings-toggle-row">
+                                    <span class="settings-toggle-label">High-Fidelity Virtual Oscillators</span>
+                                    <input type="checkbox" checked onclick="NexusAppEngine.System.toggleMatrixVar('highFidelityAudio')">
+                                </div>
+                            </div>
+                        </div>`;
+                }
+            };
 
-        const canonicalEmojiPack50 = [
-            "😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😗","😙","😚","😋","😛","😝","😜","🤪","🤨","🧐","🤓","😎","🤩","🥳","😏","😒","😞","😔","😟","😕","🙁","☹️","😣","😖","😫","😩","🥺","😢","😭","😤","😠","😡","🤬"
-        ];
+            const DataModule = {
+                triggerPrimaryAction: function() {
+                    if (State.activeTab === 'chat' || State.activeTab === 'states') {
+                        const name = prompt("Provide alphanumeric tag identity label for new sequence pipeline:");
+                        if (!name || !name.trim()) return;
+                        const generatedId = 'chan-' + Date.now();
+                        Databases.channels[generatedId] = { name: name.trim(), history: [] };
+                        NavigationModule.renderSidebar();
+                        NavigationModule.loadChannel(generatedId);
+                    } else if (State.activeTab === 'groups') {
+                        const title = prompt("Provide name identifier for new dynamic infrastructure cluster group:");
+                        if (!title || !title.trim()) return;
+                        Databases.groups.push({ id: 'grp-' + Date.now(), name: title.trim() });
+                        NavigationModule.renderSidebar();
+                    }
+                },
+                dispatchTextPacket: function() {
+                    if (State.cooldownActive) return;
+                    const node = document.getElementById('text-message-input-node');
+                    const text = node.value.trim();
+                    if (!text) return;
+
+                    this.pushBubble(State.user.name, text, 'sent');
+                    node.value = '';
+                    this.engageRateLimiting();
+                },
+                pushBubble: function(author, message, variant) {
+                    if (!Databases.channels[State.activeChannel].history) {
+                        Databases.channels[State.activeChannel].history = [];
+                    }
+                    const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    Databases.channels[State.activeChannel].history.push({ author, content: message, variant, timeCode });
+                    
+                    if (variant === 'received') Utils.sound(800, 'sine', 0.12, 0.1);
+                    this.repaintLogs();
+                },
+                repaintLogs: function() {
+                    const box = document.getElementById('chat-thread-viewport');
+                    if (!box) return;
+                    box.innerHTML = '';
+                    const messages = Databases.channels[State.activeChannel].history || [];
+                    messages.forEach(m => {
+                        box.innerHTML += `
+                            <div class="msg-bubble ${m.variant}">
+                                <span class="msg-author">${m.author}</span>
+                                <div>${m.content}</div>
+                                <div class="msg-footer">${m.timeCode}</div>
+                            </div>`;
+                    });
+                    box.scrollTop = box.scrollHeight;
+                },
+                engageRateLimiting: function() {
+                    State.cooldownActive = true;
+                    const btn = document.getElementById('send-message-dispatch-btn');
+                    const fill = document.getElementById('cooldown-progress-fill-bar');
+                    if (btn) btn.disabled = true;
+                    
+                    if (fill) {
+                        fill.style.transition = 'none';
+                        fill.style.width = '100%';
+                        setTimeout(() => {
+                            fill.style.transition = 'width 2000ms linear';
+                            fill.style.width = '0%';
+                        }, 10);
+                    }
+
+                    setTimeout(() => {
+                        const feedbackPool = [
+                            "Secure WebRTC packet encapsulation routine verification looks normal.",
+                            "Telemetry systems reporting maximum fluid performance vectors across all threads.",
+                            "Localized pipeline matrices verified by secure network instances."
+                        ];
+                        const randomResponse = feedbackPool[Math.floor(Math.random() * feedbackPool.length)];
+                        this.pushBubble("System Diagnostic", randomResponse, 'received');
+                    }, 1200);
+
+                    setTimeout(() => {
+                        State.cooldownActive = false;
+                        if (btn) btn.disabled = false;
+                    }, 2000);
+                },
+                uploadStateCapture: function(e) {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    const url = URL.createObjectURL(file);
+                    const isVid = file.type.startsWith('video/');
+                    Databases.statesFeed.unshift({
+                        id: 'v-' + Date.now(),
+                        author: State.user.name,
+                        resource: url,
+                        typeVideo: isVid
+                    });
+                    this.repaintStatesTrack();
+                },
+                repaintStatesTrack: function() {
+                    const track = document.getElementById('states-carousel-scroller-track');
+                    if (!track) return;
+                    track.innerHTML = '';
+                    Databases.statesFeed.forEach(s => {
+                        let renderHTML = s.typeVideo 
+                            ? `<video src="${s.resource}" class="state-media-preview-element" autoplay loop muted playsinline></video>`
+                            : `<img src="${s.resource}" class="state-media-preview-element" alt="State Frame">`;
+                        track.innerHTML += `
+                            <div class="state-content-card-node">
+                                ${renderHTML}
+                                <div class="state-author-tag">${s.author}</div>
+                            </div>`;
+                    });
+                },
+                trapInputKeys: function(e) {
+                    if (e.key === 'Enter') this.dispatchTextPacket();
+                }
+            };
+
+            const MediaModule = {
+                toggleCallState: function() {
+                    const layer = document.getElementById('call-interface-layer');
+                    if (!layer) return;
+                    State.isCallActive = !State.isCallActive;
+
+                    if (State.isCallActive) {
+                        layer.style.display = "flex";
+                        Utils.sound(650, 'sine', 0.25, 0.15);
+                        this.startTimer();
+                    } else {
+                        layer.style.display = "none";
+                        Utils.sound(400, 'sine', 0.2, 0.15);
+                        this.stopTimer();
+                        this.killTracks();
+                    }
+                },
+                startTimer: function() {
+                    State.callSeconds = 0;
+                    const display = document.getElementById('call-duration-clock');
+                    callInterval = setInterval(() => {
+                        State.callSeconds++;
+                        let mins = String(Math.floor(State.callSeconds / 60)).padStart(2, '0');
+                        let secs = String(State.callSeconds % 60).padStart(2, '0');
+                        if (display) display.innerText = `${mins}:${secs}`;
+                    }, 1000);
+                },
+                stopTimer: function() {
+                    if (callInterval) clearInterval(callInterval);
+                    const display = document.getElementById('call-duration-clock');
+                    if (display) display.innerText = "00:00";
+                },
+                toggleWebcam: async function() {
+                    const vid = document.getElementById('hardware-webcam-stream');
+                    const btn = document.getElementById('webcam-video-toggle');
+                    const mock = document.getElementById('webcam-canvas');
+                    const label = document.getElementById('webcam-label');
+                    if (!State.isCallActive) return alert("Initialize core media channels before configuring transceiver modules.");
+
+                    State.isCameraActive = !State.isCameraActive;
+                    if (State.isCameraActive) {
+                        try {
+                            localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+                            if (vid) vid.srcObject = localStream;
+                            if (mock) mock.style.display = "none";
+                            if (btn) { btn.innerText = "Disable Camera Module"; btn.classList.add('active-state'); }
+                            if (label) label.innerText = "Broadcasting High Fidelity Stream Data Matrix";
+                            this.linkAudioVisualizer(localStream);
+                        } catch (err) {
+                            Utils.log("Hardware camera capture interface restricted: " + err.message, "error");
+                            alert("Physical communication device vector could not be assigned.");
+                            State.isCameraActive = false;
+                        }
+                    } else {
+                        if (localStream) localStream.getTracks().forEach(t => t.stop());
+                        if (vid) vid.srcObject = null;
+                        if (mock) mock.style.display = "flex";
+                        if (btn) { btn.innerText = "Initialize Camera Component"; btn.classList.remove('active-state'); }
+                        if (label) label.innerText = "Video Transceiver Core Offline";
+                        this.killAudioVisualizer();
+                    }
+                },
+                toggleScreenShare: async function() {
+                    const vid = document.getElementById('hardware-screenshare-stream');
+                    const btn = document.getElementById('screenshare-video-toggle');
+                    const mock = document.getElementById('screenshare-canvas');
+                    const label = document.getElementById('screenshare-label');
+                    if (!State.isCallActive) return alert("Initialize core media channels before configuring transceiver modules.");
+
+                    State.isScreenSharing = !State.isScreenSharing;
+                    if (State.isScreenSharing) {
+                        try {
+                            displayStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+                            if (vid) vid.srcObject = displayStream;
+                            if (mock) mock.style.display = "none";
+                            if (btn) { btn.innerText = "Kill Screen Broadcast"; btn.classList.add('active-state'); }
+                            if (label) label.innerText = "Display Interface Sync Vector Active";
+                        } catch (e) {
+                            State.isScreenSharing = false;
+                        }
+                    } else {
+                        if (displayStream) displayStream.getTracks().forEach(t => t.stop());
+                        if (vid) vid.srcObject = null;
+                        if (mock) mock.style.display = "flex";
+                        if (btn) { btn.innerText = "Share Display Matrix"; btn.classList.remove('active-state'); }
+                        if (label) label.innerText = "Screen Capture Pipeline Idle";
+                    }
+                },
+                toggleMute: function() {
+                    State.isAudioMuted = !State.isAudioMuted;
+                    const btn = document.getElementById('mute-audio-toggle');
+                    if (localStream) {
+                        localStream.getAudioTracks().forEach(t => t.enabled = !State.isAudioMuted);
+                    }
+                    if (State.isAudioMuted) {
+                        if (btn) { btn.innerText = "Audio Stream Inactive"; btn.classList.add('active-state'); }
+                        Utils.sound(450, 'sawtooth', 0.15, 0.1);
+                    } else {
+                        if (btn) { btn.innerText = "Audio Unmuted"; btn.classList.remove('active-state'); }
+                        Utils.sound(600, 'sine', 0.1, 0.1);
+                    }
+                },
+                linkAudioVisualizer: function(stream) {
+                    try {
+                        if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                        audioSource = audioCtx.createMediaStreamSource(stream);
+                        audioAnalyser = audioCtx.createAnalyser();
+                        audioAnalyser.fftSize = 32;
+                        audioSource.connect(audioAnalyser);
+                        this.loopAnalysis();
+                    } catch (err) {
+                        Utils.log("Visualizer attachment fail: " + err.message, "warning");
+                    }
+                },
+                loopAnalysis: function() {
+                    if (!audioAnalyser) return;
+                    const bufferLength = audioAnalyser.frequencyBinCount;
+                    const dataArray = new Uint8Array(bufferLength);
+                    audioAnalyser.getByteFrequencyData(dataArray);
+
+                    let sum = 0;
+                    for (let i = 0; i < bufferLength; i++) { sum += dataArray[i]; }
+                    let avg = sum / bufferLength;
+
+                    const win = document.getElementById('webcam-hardware-window-node');
+                    if (win) {
+                        if (avg > 30) {
+                            let glowRadius = Math.min(35, Math.floor(avg / 2));
+                            win.style.boxShadow = `0 0 ${glowRadius}px var(--primary-glow), inset 0 0 20px rgba(0,255,255,0.2)`;
+                        } else {
+                            win.style.boxShadow = "none";
+                        }
+                    }
+                    animationFrameId = requestAnimationFrame(() => this.loopAnalysis());
+                },
+                killAudioVisualizer: function() {
+                    if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                    if (audioSource) audioSource.disconnect();
+                    audioAnalyser = null;
+                    audioSource = null;
+                    const win = document.getElementById('webcam-hardware-window-node');
+                    if (win) win.style.boxShadow = "none";
+                },
+                killTracks: function() {
+                    this.killAudioVisualizer();
+                    if (localStream) localStream.getTracks().forEach(t => t.stop());
+                    if (displayStream) displayStream.getTracks().forEach(t => t.stop());
+                    
+                    document.getElementById('hardware-webcam-stream').srcObject = null;
+                    document.getElementById('hardware-screenshare-stream').srcObject = null;
+                    document.getElementById('webcam-canvas').style.display = "flex";
+                    document.getElementById('screenshare-canvas').style.display = "flex";
+                    
+                    State.isCameraActive = false;
+                    State.isScreenSharing = false;
+                    State.isAudioMuted = false;
+                    
+                    document.getElementById('webcam-video-toggle').classList.remove('active-state');
+                    document.getElementById('screenshare-video-toggle').classList.remove('active-state');
+                    document.getElementById('mute-audio-toggle').classList.remove('active-state');
+                    document.getElementById('mute-audio-toggle').innerText = "Audio Unmuted";
+                }
+            };
+
+            const StorefrontModule = {
+                openStore: function() {
+                    Utils.sound(550, 'sine', 0.15, 0.12);
+                    document.getElementById('nexus-shop-screen').style.display = "flex";
+                    document.getElementById('shop-balance-display-node').innerText = `${State.balanceOrbs.toLocaleString()} Nodes Unlocked`;
+                },
+                closeStore: function() {
+                    Utils.sound(420, 'sine', 0.1, 0.1);
+                    document.getElementById('nexus-shop-screen').style.display = "none";
+                },
+                render: function() {
+                    const grid = document.getElementById('shop-items-grid-target');
+                    if (!grid) return;
+                    grid.innerHTML = '';
+
+                    Databases.shopItems.forEach(item => {
+                        const isClaimed = item.claimed ? "unlocked" : "";
+                        const labelText = item.claimed ? "✓ Vector Active" : "Acquire Integration";
+                        grid.innerHTML += `
+                            <div class="shop-item-card">
+                                <div class="item-graphic-wrapper">
+                                    <div class="item-graphic-ring"></div>
+                                    <div style="font-size:36px; z-index:5">🔮</div>
+                                </div>
+                                <div class="item-meta-name">${item.name}</div>
+                                <div class="item-meta-desc">${item.desc}</div>
+                                <div class="item-action-row">
+                                    <div class="item-price-tag">⚡ ${item.price.toLocaleString()} Nodes</div>
+                                    <button class="buy-action-trigger ${isClaimed}" id="shop-btn-${item.id}" onclick="NexusAppEngine.Storefront.purchase('${item.id}')">${labelText}</button>
+                                </div>
+                            </div>`;
+                    });
+                },
+                purchase: function(id) {
+                    const target = Databases.shopItems.find(i => i.id === id);
+                    if (!target || target.claimed) return;
+
+                    if (State.balanceOrbs >= target.price) {
+                        State.balanceOrbs -= target.price;
+                        target.claimed = true;
+                        Utils.sound(900, 'sine', 0.3, 0.15);
+                        document.getElementById('shop-balance-display-node').innerText = `${State.balanceOrbs.toLocaleString()} Nodes Unlocked`;
+                        this.render();
+                        DataModule.pushBubble("System Marketplace", `Successfully appended structural package [${target.name}] to current matrix framework context.`, 'received');
+                    } else {
+                        alert("Insufficient processing nodes allocated to register asset framework modification.");
+                    }
+                }
+            };
+
+            const UIModule = {
+                populateEmojiGrid: function() {
+                    const grid = document.getElementById('emoji-grid-scroller-target');
+                    if (!grid) return;
+                    grid.innerHTML = '';
+                    Databases.emojis.forEach(e => {
+                        const cell = document.createElement('div');
+                        cell.className = 'emoji-grid-item-cell';
+                        cell.innerText = e;
+                        cell.onclick = () => {
+                            const inp = document.getElementById('text-message-input-node');
+                            if (inp) { inp.value += e; inp.focus(); }
+                            this.toggleEmojiTray();
+                        };
+                        grid.appendChild(cell);
+                    });
+                },
+                toggleEmojiTray: function() {
+                    const el = document.getElementById('emoji-picker-matrix-overlay');
+                    if (!el) return;
+                    el.style.display = (el.style.display === "flex") ? "none" : "flex";
+                }
+            };
+
+            return {
+                System: {
+                    purgeLocalHardwareContainers: () => SystemModule.purgeData(),
+                    toggleMatrixVar: (variable) => {
+                        State.systemConfig[variable] = !State.systemConfig[variable];
+                        Utils.log(`Modified state operational parameter matrix variable: ${variable} -> ${State.systemConfig[variable]}`, "info");
+                    }
+                },
+                Auth: {
+                    processLocalAvatar: (e) => AuthModule.processLocalAvatar(e),
+                    commitManualAccount: () => AuthModule.commitManualAccount(),
+                    triggerOAuth: (provider) => AuthModule.triggerOAuth(provider)
+                },
+                Navigation: {
+                    switchTab: (id) => NavigationModule.switchTab(id),
+                    loadChannel: (id) => NavigationModule.loadChannel(id)
+                },
+                DataEngine: {
+                    triggerPrimaryAction: () => DataModule.triggerPrimaryAction(),
+                    dispatchTextPacket: () => DataModule.dispatchTextPacket(),
+                    trapInputKeys: (e) => DataModule.trapInputKeys(e),
+                    uploadStateCapture: (e) => DataModule.uploadStateCapture(e)
+                },
+                MediaCore: {
+                    toggleCallState: () => MediaModule.toggleCallState(),
+                    toggleWebcam: () => MediaModule.toggleWebcam(),
+                    toggleScreenShare: () => MediaModule.toggleScreenShare(),
+                    toggleMute: () => MediaModule.toggleMute()
+                },
+                Storefront: {
+                    openStore: () => StorefrontModule.openStore(),
+                    closeStore: () => StorefrontModule.closeStore(),
+                    purchase: (id) => StorefrontModule.purchase(id)
+                },
+                UI: {
+                    toggleEmojiTray: () => UIModule.toggleEmojiTray()
+                },
+                Startup: () => SystemModule.init()
+            };
+        })();
 
         window.addEventListener('DOMContentLoaded', () => {
-            generateStorefrontCards();
-            populateEmojiPickerGrid();
-            evaluateCachedProfileState();
+            NexusAppEngine.Startup();
         });
-
-        function evaluateCachedProfileState() {
-            let cachedName = localStorage.getItem('nexuschat_user_v6');
-            let cachedAvatar = localStorage.getItem('nexuschat_avatar_v6');
-            
-            if (cachedName && cachedName.trim() !== "") {
-                currentProfileSessionName = cachedName;
-                currentProfileAvatarUrl = cachedAvatar || "";
-                executeProfileUIRenderSync();
-                runCinematicProgressBar();
-            } else {
-                // Keep login portal visible if no cached user exists
-                document.getElementById('splash-loading-portal').classList.add('hidden');
-            }
-        }
-
-        function handleLocalAvatarSelection(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const previewBox = document.getElementById('portal-avatar-preview-box');
-                previewBox.innerHTML = `<img src="${e.target.result}" alt="Profile Preview">`;
-                currentProfileAvatarUrl = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function executeManualProfileCommit() {
-            const inputField = document.getElementById('portal-username-input-node');
-            let inputName = inputField.value.trim().replace(/\s+/g, '');
-            
-            if (!inputName) {
-                alert("Please enter a valid unique display string name.");
-                return;
-            }
-
-            currentProfileSessionName = inputName;
-            localStorage.setItem('nexuschat_user_v6', currentProfileSessionName);
-            if (currentProfileAvatarUrl) {
-                localStorage.setItem('nexuschat_avatar_v6', currentProfileAvatarUrl);
-            }
-
-            executeProfileUIRenderSync();
-            
-            document.getElementById('secure-login-gate-overlay').classList.add('hidden');
-            document.getElementById('splash-loading-portal').classList.remove('hidden');
-            runCinematicProgressBar();
-        }
-
-        function simulateOAuthLogin(platformName) {
-            const dummyName = platformName + "User" + Math.floor(1000 + Math.random() * 9000);
-            currentProfileSessionName = dummyName;
-            localStorage.setItem('nexuschat_user_v6', currentProfileSessionName);
-            
-            executeProfileUIRenderSync();
-            document.getElementById('secure-login-gate-overlay').classList.add('hidden');
-            document.getElementById('splash-loading-portal').classList.remove('hidden');
-            runCinematicProgressBar();
-        }
-
-        function executeProfileUIRenderSync() {
-            document.getElementById('splash-user-target').innerText = currentProfileSessionName;
-            document.getElementById('my-username-node').innerText = currentProfileSessionName;
-            
-            const avatarNode = document.getElementById('my-avatar-node');
-            if (currentProfileAvatarUrl && currentProfileAvatarUrl.trim() !== "") {
-                avatarNode.innerHTML = `<img src="${currentProfileAvatarUrl}" alt="Avatar">`;
-            } else {
-                avatarNode.innerText = currentProfileSessionName.charAt(0).toUpperCase();
-            }
-        }
-
-        function runCinematicProgressBar() {
-            let progress = 0;
-            const fillBar = document.getElementById('splash-bar-fill');
-            const loaderInterval = setInterval(() => {
-                if (progress >= 100) {
-                    clearInterval(loaderInterval);
-                    terminateLoadingSplashSequence();
-                } else {
-                    progress += Math.floor(Math.random() * 20) + 8;
-                    if (progress > 100) progress = 100;
-                    if (fillBar) fillBar.style.width = progress + '%';
-                }
-            }, 50);
-        }
-
-        function terminateLoadingSplashSequence() {
-            setTimeout(() => {
-                document.getElementById('splash-loading-portal').classList.add('hidden');
-                document.getElementById('app-frame').classList.add('visible');
-                renderSidebarContextPanel();
-                loadTargetChannel(activeChannelId);
-            }, 200);
-        }
-
-        function switchGlobalRailContext(targetTab) {
-            playSynthFrequency(440, 'sine', 0.1, 0.1);
-            const tabs = ["chat", "groups", "states", "settings", "integrations"];
-            tabs.forEach(t => {
-                const node = document.getElementById(`tab-node-${t}`);
-                if (node) node.classList.remove('active');
-            });
-            activeGlobalRailTab = targetTab;
-            const activeNode = document.getElementById(`tab-node-${targetTab}`);
-            if (activeNode) activeNode.classList.add('active');
-            
-            const statesView = document.getElementById('states-hub-engagement-view');
-            if (targetTab === 'states') {
-                statesView.style.display = 'flex';
-            } else {
-                statesView.style.display = 'none';
-            }
-            renderSidebarContextPanel();
-        }
-
-        function loadTargetChannel(channelId) {
-            activeChannelId = channelId;
-            const headlineNode = document.getElementById('active-chat-headline-node');
-            if (headlineNode && channelDatabase[channelId]) {
-                headlineNode.innerText = channelDatabase[channelId].name;
-            }
-            // Sync side channel selectors active highlights look
-            const rows = document.querySelectorAll('.chat-list-row');
-            rows.forEach(r => r.classList.remove('active'));
-            
-            repaintMessageLogs();
-        }
-
-        function renderSidebarContextPanel() {
-            const container = document.getElementById('contacts-vertical-stack');
-            const primaryBtn = document.getElementById('sidebar-action-primary-btn');
-            if (!container || !primaryBtn) return;
-            container.innerHTML = '';
-            
-            if (activeGlobalRailTab === 'chat' || activeGlobalRailTab === 'states') {
-                primaryBtn.style.display = "block";
-                primaryBtn.innerText = "+ New Channel Stream";
-                primaryBtn.onclick = triggerChannelCreation;
-                for (let id in channelDatabase) {
-                    const isActive = (id === activeChannelId) ? 'active' : '';
-                    container.innerHTML += `
-                        <div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')">
-                            <div class="row-avatar">#</div>
-                            <div class="row-meta">
-                                <div class="row-name">${channelDatabase[id].name}</div>
-                                <div class="row-preview">Open communication logs...</div>
-                            </div>
-                        </div>`;
-                }
-            } else if (activeGlobalRailTab === 'groups') {
-                primaryBtn.style.display = "block";
-                primaryBtn.innerText = "+ Create Team Hub";
-                primaryBtn.onclick = () => {
-                    const title = prompt("Enter custom title label for group hub:");
-                    if (!title || !title.trim()) return;
-                    activeGroupHubs.push({ id: 'hub-' + Date.now(), name: title.trim() });
-                    renderSidebarContextPanel();
-                };
-                activeGroupHubs.forEach(group => {
-                    container.innerHTML += `
-                        <div class="chat-list-row">
-                            <div class="row-avatar">⧉</div>
-                            <div class="row-meta">
-                                <div class="row-name">${group.name}</div>
-                                <div class="row-preview">Active Team Workspace Node</div>
-                            </div>
-                        </div>`;
-                });
-            } else if (activeGlobalRailTab === 'settings') {
-                primaryBtn.style.display = "block";
-                primaryBtn.innerText = "Check Status Keys";
-                primaryBtn.onclick = () => alert("Security layers running securely.");
-                const connections = [
-                    { id: 'google', name: 'Google Workspace' },
-                    { id: 'discord', name: 'Discord Gateway' },
-                    { id: 'microsoft', name: 'Microsoft Identity' }
-                ];
-                connections.forEach(c => {
-                    const isLinked = identityLinkingMatrix[c.id].connected;
-                    const statusText = isLinked ? "Connected ✓" : "Disconnected ✗";
-                    const btnLabel = isLinked ? "Disconnect Asset" : "Run Sync Routine";
-                    container.innerHTML += `
-                        <div style="padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.02);">
-                            <div style="font-weight:600; font-size:13px; margin-bottom:4px;">${c.name}</div>
-                            <div style="font-size:11px; color: ${isLinked ? 'var(--success-green)' : 'var(--text-muted)'}; margin-bottom:8px;">${statusText}</div>
-                            <button class="sm-btn" onclick="toggleIdentityLinkageRow('${c.id}')">${btnLabel}</button>
-                        </div>`;
-                });
-            } else if (activeGlobalRailTab === 'integrations') {
-                primaryBtn.style.display = "none";
-                container.innerHTML = `<div style="padding: 16px; font-size: 12px; color: var(--text-muted); text-align: center;">No third-party packages wired to current profile context.</div>`;
-            }
-        }
-
-        function toggleIdentityLinkageRow(providerId) {
-            playSynthFrequency(600, 'sine', 0.15, 0.2);
-            if (identityLinkingMatrix[providerId].connected) {
-                identityLinkingMatrix[providerId].connected = false;
-                identityLinkingMatrix[providerId].name = null;
-                appendBubbleElement("System Settings", `Purged [${providerId}] secure validation structures cleanly.`, "received");
-            } else {
-                identityLinkingMatrix[providerId].connected = true;
-                identityLinkingMatrix[providerId].name = "Synced Profile Handle";
-                appendBubbleElement("System Settings", `Linked alternative authentication pipeline for [${providerId}] successfully!`, "received");
-            }
-            renderSidebarContextPanel();
-        }
-
-        // Rest of the application functionality
-        function populateEmojiPickerGrid() {
-            const scroller = document.getElementById('emoji-grid-scroller-target');
-            if (!scroller) return;
-            scroller.innerHTML = '';
-            canonicalEmojiPack50.forEach(emoji => {
-                const cell = document.createElement('div');
-                cell.className = 'emoji-grid-item-cell';
-                cell.innerText = emoji;
-                cell.onclick = () => injectEmojiSymbolToInputBox(emoji);
-                scroller.appendChild(cell);
-            });
-        }
-
-        function toggleInlineEmojiPickerTray() {
-            const overlay = document.getElementById('emoji-picker-matrix-overlay');
-            if (!overlay) return;
-            overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
-        }
-
-        function injectEmojiSymbolToInputBox(emojiSymbol) {
-            const textInput = document.getElementById('text-message-input-node');
-            if (!textInput) return;
-            textInput.value += emojiSymbol;
-            textInput.focus();
-            toggleInlineEmojiPickerTray();
-        }
-
-        function executeTextDispatch() {
-            if (isCooldownActive) {
-                alert("Spam detected. Cooldown active.");
-                return;
-            }
-            const inputField = document.getElementById('text-message-input-node');
-            const dispatchBtn = document.getElementById('send-message-dispatch-btn');
-            const progressFill = document.getElementById('cooldown-progress-fill-bar');
-            const dataString = inputField.value.trim();
-            if (!dataString) return;
-            
-            appendBubbleElement(currentProfileSessionName, dataString, "sent");
-            inputField.value = '';
-            isCooldownActive = true;
-            inputField.disabled = true;
-            dispatchBtn.disabled = true;
-            
-            if (progressFill) {
-                progressFill.style.transition = 'none';
-                progressFill.style.width = '100%';
-                setTimeout(() => {
-                    progressFill.style.transition = 'width 2000ms linear';
-                    progressFill.style.width = '0%';
-                }, 10);
-            }
-            
-            setTimeout(() => {
-                const automatedPool = [
-                    "WebRTC active media tracks mapping looks perfect across your device pipeline.",
-                    "The custom graphics and animated layers are running seamlessly on GitHub static layouts!",
-                    "Everything is synchronized in local system environment arrays."
-                ];
-                const selectedText = automatedPool[Math.floor(Math.random() * automatedPool.length)];
-                appendBubbleElement("Beta Tester", selectedText, "received");
-            }, 1000);
-            
-            setTimeout(() => {
-                isCooldownActive = false;
-                inputField.disabled = false;
-                dispatchBtn.disabled = false;
-                inputField.focus();
-            }, 2000);
-        }
-
-        function appendBubbleElement(author, content, variant) {
-            if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
-            const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            channelDatabase[activeChannelId].history.push({ author, content, variant, timeCode });
-            if (variant === 'received') triggerMsgAlertTone();
-            repaintMessageLogs();
-        }
-
-        function repaintMessageLogs() {
-            const viewTarget = document.getElementById('chat-thread-viewport');
-            if(!viewTarget) return;
-            viewTarget.innerHTML = '';
-            const logs = channelDatabase[activeChannelId].history || [];
-            logs.forEach(msg => {
-                viewTarget.innerHTML += `
-                    <div class="msg-bubble ${msg.variant}">
-                        <span class="msg-author">${msg.author}</span>
-                        <div>${msg.content}</div>
-                        <div class="msg-footer">${msg.timeCode}</div>
-                    </div>`;
-            });
-            viewTarget.scrollTop = viewTarget.scrollHeight;
-        }
-
-        function trapInputKeypress(e) {
-            if (e.key === 'Enter') executeTextDispatch();
-        }
-
-        function triggerChannelCreation() {
-            const titleInput = prompt("Enter name for new custom chat room:");
-            if (!titleInput || titleInput.trim() === "") return;
-            const generatedId = 'ch-node-' + Date.now();
-            channelDatabase[generatedId] = { name: titleInput.trim(), history: [] };
-            activeChannelId = generatedId;
-            renderSidebarContextPanel();
-            loadTargetChannel(generatedId);
-        }
-
-        function performProfileHardwareReset() {
-            localStorage.removeItem('nexuschat_user_v6');
-            localStorage.removeItem('nexuschat_avatar_v6');
-            window.location.reload();
-        }
-
-        function processNewStateMediaUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const assetBlobUrl = URL.createObjectURL(file);
-            const isVideo = file.type.startsWith('video/');
-            const newStateNode = {
-                id: 'state-id-' + Date.now(),
-                author: currentProfileSessionName,
-                url: assetBlobUrl,
-                videoType: isVideo
-            };
-            liveStatesContentFeed.unshift(newStateNode);
-            repaintStatesCarouselTrack();
-        }
-
-        function repaintStatesCarouselTrack() {
-            const track = document.getElementById('states-carousel-scroller-track');
-            if (!track) return;
-            track.innerHTML = '';
-            liveStatesContentFeed.forEach(state => {
-                let mediaElementHTML = state.videoType
-                    ? `<video src="${state.url}" class="state-media-preview-element" autoplay loop muted playsinline></video>`
-                    : `<img src="${state.url}" class="state-media-preview-element" alt="State Asset">`;
-                track.innerHTML += `
-                    <div class="state-content-card-node">
-                        ${mediaElementHTML}
-                        <div class="state-author-tag">${state.author}</div>
-                    </div>`;
-            });
-        }
-
-        function generateStorefrontCards() {
-            const container = document.getElementById('shop-items-grid-target');
-            if (!container) return;
-            container.innerHTML = '';
-            shopInventoryMatrix.forEach(item => {
-                const badgeHTML = item.exclusive ? '<div class="item-badge-exclusive">EXCLUSIVE</div>' : '';
-                container.innerHTML += `
-                    <div class="shop-item-card">
-                        ${badgeHTML}
-                        <div class="item-graphic-wrapper">
-                            <div class="item-graphic-ring"></div>
-                            <div style="font-size:32px; z-index:2;">🔮</div>
-                        </div>
-                        <div class="item-meta-name">${item.name}</div>
-                        <div class="item-meta-desc">${item.desc}</div>
-                        <div class="item-action-row">
-                            <div class="item-price-tag">🔮 ${item.cost}</div>
-                            <button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Claim Free</button>
-                        </div>
-                    </div>`;
-            });
-        }
-
-        function executeItemPurchase(itemId) {
-            const targetBtn = document.getElementById(`btn-claim-${itemId}`);
-            playSynthFrequency(880, 'sine', 0.3, 0.4);
-            if (targetBtn) {
-                targetBtn.innerText = "✓ Unlocked";
-                targetBtn.classList.add('unlocked');
-                targetBtn.disabled = true;
-            }
-            appendBubbleElement("System Store", `Successfully locked [${itemId}] structural asset modifications to your profile container!`, "received");
-        }
-
-        function openPremiumStorefront() {
-            playSynthFrequency(580, 'sine', 0.2, 0.2);
-            document.getElementById('nexus-shop-screen').style.display = 'flex';
-        }
-
-        function closePremiumStorefront() {
-            playSynthFrequency(440, 'sine', 0.15, 0.15);
-            document.getElementById('nexus-shop-screen').style.display = 'none';
-        }
-
-        async function toggleVoiceVideoCall() {
-            const layerBlock = document.getElementById('call-interface-layer');
-            const joinBtn = document.querySelector('.call-action-btn');
-            isCallActive = !isCallActive;
-            if (isCallActive) {
-                layerBlock.style.display = 'flex';
-                joinBtn.innerText = "Disconnect Stream";
-                joinBtn.style.borderColor = "var(--danger-red)";
-                joinBtn.style.color = "var(--danger-red)";
-                initiateChronometerClock();
-                playSynthFrequency(520, 'sine', 0.2, 0.25);
-            } else {
-                layerBlock.style.display = 'none';
-                joinBtn.innerText = "Connect Live Streams";
-                joinBtn.style.borderColor = "var(--primary-accent)";
-                joinBtn.style.color = "var(--primary-accent)";
-                terminateChronometerClock();
-                cleanupHardwareTracks();
-                playSynthFrequency(320, 'sine', 0.2, 0.25);
-            }
-        }
-
-        async function toggleWebcamState() {
-            const videoElement = document.getElementById('hardware-webcam-stream');
-            const camBtn = document.getElementById('webcam-video-toggle');
-            const mockBox = document.getElementById('webcam-canvas');
-            const label = document.getElementById('webcam-label');
-            if (!isCallActive) return alert("Please enter the live call channel stream frame first.");
-            isCameraActive = !isCameraActive;
-            triggerToggleMuteTone(!isCameraActive);
-            if (isCameraActive) {
-                try {
-                    localHardwareVideoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                    videoElement.srcObject = localHardwareVideoStream;
-                    mockBox.style.display = 'none';
-                    camBtn.innerText = "Disable Camera";
-                    camBtn.classList.add('active-state');
-                    label.innerText = "Live System Camera Feed (Active)";
-                    initiateMicrophoneAnalysisAudioEngine(localHardwareVideoStream);
-                } catch (err) {
-                    console.error("Camera device mapping failure: ", err);
-                    alert("Could not access your physical webcam device.");
-                    isCameraActive = false;
-                }
-            } else {
-                if (localHardwareVideoStream) {
-                    localHardwareVideoStream.getTracks().forEach(track => track.stop());
-                }
-                videoElement.srcObject = null;
-                mockBox.style.display = 'flex';
-                camBtn.innerText = "Enable Camera";
-                camBtn.classList.remove('active-state');
-                label.innerText = "Camera Interface Offline";
-                haltMicrophoneAnalysisAudioEngine();
-            }
-        }
-
-        function initiateMicrophoneAnalysisAudioEngine(streamObject) {
-            try {
-                initAudioContext();
-                localMicrophoneAudioSource = audioCtx.createMediaStreamSource(streamObject);
-                localAudioAnalyserNode = audioCtx.createAnalyser();
-                localAudioAnalyserNode.fftSize = 64;
-                localMicrophoneAudioSource.connect(localAudioAnalyserNode);
-                executeEqualizerRenderFrameLoop();
-            } catch (err) {
-                console.log("Audio visualizer node assignment error: ", err);
-            }
-        }
-
-        function executeEqualizerRenderFrameLoop() {
-            if (!localAudioAnalyserNode) return;
-            const bufferLen = localAudioAnalyserNode.frequencyBinCount;
-            const dataArray = new Uint8Array(bufferLen);
-            localAudioAnalyserNode.getByteFrequencyData(dataArray);
-            let frequencySum = 0;
-            for (let i = 0; i < bufferLen; i++) {
-                frequencySum += dataArray[i];
-            }
-            const averageVolume = frequencySum / bufferLen;
-            const targetContainer = document.getElementById('webcam-hardware-window-node');
-            if (targetContainer) {
-                if (averageVolume > 25) {
-                    targetContainer.classList.add('speaking-active');
-                    let dynamicGlowRadius = Math.min(30, Math.floor(averageVolume / 3));
-                    targetContainer.style.boxShadow = `0 0 ${dynamicGlowRadius}px var(--primary-glow), inset 0 0 20px rgba(0, 255, 255, 0.15)`;
-                } else {
-                    targetContainer.classList.remove('speaking-active');
-                    targetContainer.style.boxShadow = 'none';
-                }
-            }
-            micAnimationRequestId = requestAnimationFrame(executeEqualizerRenderFrameLoop);
-        }
-
-        function haltMicrophoneAnalysisAudioEngine() {
-            if (micAnimationRequestId) cancelAnimationFrame(micAnimationRequestId);
-            const targetContainer = document.getElementById('webcam-hardware-window-node');
-            if (targetContainer) {
-                targetContainer.classList.remove('speaking-active');
-                targetContainer.style.boxShadow = 'none';
-            }
-            if (localMicrophoneAudioSource) localMicrophoneAudioSource.disconnect();
-            localAudioAnalyserNode = null;
-            localMicrophoneAudioSource = null;
-        }
-
-        async function toggleScreenShareState() {
-            const shareElement = document.getElementById('hardware-screenshare-stream');
-            const screenBtn = document.getElementById('screenshare-video-toggle');
-            const mockBox = document.getElementById('screenshare-canvas');
-            const label = document.getElementById('screenshare-label');
-            if (!isCallActive) return alert("Please enter the live call channel stream frame first.");
-            isScreenSharing = !isScreenSharing;
-            playSynthFrequency(600, 'triangle', 0.1, 0.2);
-            if (isScreenSharing) {
-                try {
-                    localHardwareDisplayStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-                    shareElement.srcObject = localHardwareDisplayStream;
-                    mockBox.style.display = 'none';
-                    screenBtn.innerText = "Stop Sharing";
-                    screenBtn.classList.add('active-state');
-                    label.innerText = "Display Canvas Sharing Live";
-                    localHardwareDisplayStream.getVideoTracks()[0].onended = () => {
-                        if (isScreenSharing) toggleScreenShareState();
-                    };
-                } catch (err) {
-                    console.error("Screen Share capture error: ", err);
-                    isScreenSharing = false;
-                }
-            } else {
-                if (localHardwareDisplayStream) {
-                    localHardwareDisplayStream.getTracks().forEach(track => track.stop());
-                }
-                shareElement.srcObject = null;
-                mockBox.style.display = 'flex';
-                screenBtn.innerText = "Share Screen";
-                screenBtn.classList.remove('active-state');
-                label.innerText = "Screen Capture Pipe Offline";
-            }
-        }
-
-        function toggleMuteState() {
-            isAudioMuted = !isAudioMuted;
-            const muteBtn = document.getElementById('mute-audio-toggle');
-            if (localHardwareVideoStream) {
-                localHardwareVideoStream.getAudioTracks().forEach(track => {
-                    track.enabled = !isAudioMuted;
-                });
-            }
-            if (isAudioMuted) {
-                muteBtn.innerText = "Audio Muted";
-                muteBtn.classList.add('active-state');
-            } else {
-                muteBtn.innerText = "Audio Unmuted";
-                muteBtn.classList.remove('active-state');
-            }
-            triggerToggleMuteTone(isAudioMuted);
-        }
-
-        function cleanupHardwareTracks() {
-            haltMicrophoneAnalysisAudioEngine();
-            if (localHardwareVideoStream) {
-                localHardwareVideoStream.getTracks().forEach(track => track.stop());
-                localHardwareVideoStream = null;
-            }
-            if (localHardwareDisplayStream) {
-                localHardwareDisplayStream.getTracks().forEach(track => track.stop());
-                localHardwareDisplayStream = null;
-            }
-            document.getElementById('hardware-webcam-stream').srcObject = null;
-            document.getElementById('hardware-screenshare-stream').srcObject = null;
-            document.getElementById('webcam-canvas').style.display = 'flex';
-            document.getElementById('screenshare-canvas').style.display = 'flex';
-            isCameraActive = false;
-            isScreenSharing = false;
-            isAudioMuted = false;
-            const camBtn = document.getElementById('webcam-video-toggle');
-            const screenBtn = document.getElementById('screenshare-video-toggle');
-            const muteBtn = document.getElementById('mute-audio-toggle');
-            if (camBtn) camBtn.classList.remove('active-state');
-            if (screenBtn) screenBtn.classList.remove('active-state');
-            if (muteBtn) {
-                muteBtn.innerText = "Audio Unmuted";
-                muteBtn.classList.remove('active-state');
-            }
-        }
-
-        function initiateChronometerClock() {
-            elapsedCallSeconds = 0;
-            const durationClock = document.getElementById('call-duration-clock');
-            callTimerInterval = setInterval(() => {
-                elapsedCallSeconds++;
-                let displayMinutes = String(Math.floor(elapsedCallSeconds / 60)).padStart(2, '0');
-                let displaySeconds = String(elapsedCallSeconds % 60).padStart(2, '0');
-                if (durationClock) durationClock.innerText = `${displayMinutes}:${displaySeconds}`;
-            }, 1000);
-        }
-
-        function terminateChronometerClock() {
-            clearInterval(callTimerInterval);
-            document.getElementById('call-duration-clock').innerText = "00:00";
-        }
     </script>
 </body>
 </html>
