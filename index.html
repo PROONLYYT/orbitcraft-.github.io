@@ -1323,6 +1323,7 @@
             <div class="sidebar-tools" id="sidebar-context-controls-box">
                 <button class="shop-trigger-btn" onclick="openPremiumStorefront()">Open Nexus Shop</button>
                 <button class="sm-btn" id="sidebar-action-primary-btn" onclick="triggerChannelCreation()">+ New Channel Stream</button>
+                <button class="sm-btn" style="border-color: var(--gold-accent); color: var(--gold-accent);" onclick="generatePrivateFriendMatrixCode()">🔗 Copy Invite Address Code</button>
                 <button class="sm-btn danger" onclick="performProfileHardwareReset()">Reset Active Session Container</button>
             </div>
             
@@ -1460,7 +1461,6 @@
         let activeChannelId = 'global-lobby';
         let isCooldownActive = false;
 
-        /* Voice Recording System State Machine */
         let voiceMediaRecorder = null;
         let voiceRecordedChunks = [];
         let isVoiceRecording = false;
@@ -1512,9 +1512,54 @@
             populateEmojiPickerGrid();
             evaluateCachedProfileState();
             setupAutomatedNetworkPeerSimulation();
+            checkForPrivateInviteAddressParameters();
         });
 
-        /* Real-Time Online Chat Network Communication Simulator */
+        /* Checks URL parameters for private friend matrix invite links */
+        function checkForPrivateInviteAddressParameters() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const matrixCode = urlParams.get('matrix_invite') || urlParams.get('call');
+            if (matrixCode) {
+                const decName = atob(matrixCode);
+                const pvtChannelId = 'pvt-node-' + matrixCode;
+                
+                channelDatabase[pvtChannelId] = {
+                    name: `🔒 Private Matrix (${decName})`,
+                    history: [
+                        { author: "System Protocol", content: `Established direct, end-to-end routing channel connection to player data handle [${decName}].`, variant: "received", timeCode: "Now" }
+                    ]
+                };
+                
+                activeChannelId = pvtChannelId;
+                setTimeout(() => {
+                    appendBubbleElement(decName, "Hey! I connected through your private invite link code. Let's call or send some voice messages here!", "received");
+                }, 1500);
+            }
+        }
+
+        /* Generates a unique b64 address invitation code and injects to clipboard */
+        function generatePrivateFriendMatrixCode() {
+            playSynthFrequency(880, 'sine', 0.2, 0.3);
+            if (!currentProfileSessionName) {
+                alert("Please initialize your workspace profile handle first before generating codes.");
+                return;
+            }
+            
+            const generatedB64Token = btoa(currentProfileSessionName);
+            const absoluteLandingURL = `${window.location.origin}${window.location.pathname}?matrix_invite=${generatedB64Token}`;
+            
+            // Legacy input trick for broad cross-environment iframe clipboard safety
+            const auxTextArea = document.createElement("textarea");
+            auxTextArea.value = absoluteLandingURL;
+            document.body.appendChild(auxTextArea);
+            auxTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(auxTextArea);
+            
+            alert(`Private Connection Code Generated & Copied!\n\nSend this address to your friend to jump into a private channel:\n${absoluteLandingURL}`);
+            appendBubbleElement("System Sync", `Generated secure invite matrix pointer hash token address link code cleanly. Ready for private peer pairing parameters.`, "received");
+        }
+
         function setupAutomatedNetworkPeerSimulation() {
             setInterval(() => {
                 const networkActivePeers = ["AlphaOmega", "Specter_X", "CyberGhost", "MatrixRunner"];
@@ -1525,7 +1570,7 @@
                     "Interface loop matches the remote server layout flawlessly."
                 ];
                 
-                if (Math.random() > 0.6) {
+                if (Math.random() > 0.6 && !activeChannelId.startsWith('pvt-')) {
                     const peer = networkActivePeers[Math.floor(Math.random() * networkActivePeers.length)];
                     const phrase = mockPhrases[Math.floor(Math.random() * mockPhrases.length)];
                     appendBubbleElement(peer, phrase, "received");
@@ -1756,11 +1801,9 @@
             }, 2000);
         }
 
-        /* Fully Embedded Functional Voice Message Recording System */
         async function toggleVoiceMessageRecording() {
             const recBtn = document.getElementById('voice-memo-toggle-btn');
             if (!isVoiceRecording) {
-                // Initializing Recording Parameters
                 try {
                     const audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
                     voiceRecordedChunks = [];
@@ -1773,10 +1816,7 @@
                     voiceMediaRecorder.onstop = () => {
                         const voiceBlob = new Blob(voiceRecordedChunks, { type: 'audio/webm' });
                         const voiceBlobURL = URL.createObjectURL(voiceBlob);
-                        
-                        // Stop tracks cleanly
                         audioStream.getTracks().forEach(t => t.stop());
-                        
                         injectVoiceBubbleToChatLog(currentProfileSessionName, voiceBlobURL, "sent");
                     };
                     
@@ -1790,7 +1830,6 @@
                     alert("Unable to allocate system recording devices. Please confirm microphone access rules.");
                 }
             } else {
-                // Halting ongoing input track conversion
                 if (voiceMediaRecorder && voiceMediaRecorder.state !== "inactive") {
                     voiceMediaRecorder.stop();
                 }
@@ -1832,7 +1871,6 @@
             
             logs.forEach((msg, idx) => {
                 if (msg.voiceURL) {
-                    // Injecting functional custom voice tracking system blocks
                     viewTarget.innerHTML += `
                         <div class="msg-bubble ${msg.variant}">
                             <span class="msg-author">${msg.author}</span>
