@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusChat - Discord</title>
+    <title>NexusChat - Premium Discord Client App Matrix</title>
     <style>
         :root {
-            /* Discord Core Branding Palette Tokens */
+            /* Discord Core Layout Theme Color Branding Palettes */
             --brand-blurple: #5865F2;
             --brand-blurple-hover: #4752C4;
             --status-green: #23A55A;
@@ -14,17 +14,17 @@
             --status-dnd: #F23F43;
             --status-offline: #80848E;
             
-            /* Background Surfaces */
+            /* Background Window Grid Surface Vectors */
             --bg-guilds: #1E1F22;
             --bg-sidebar: #2B2D31;
             --bg-chat: #313338;
             --bg-members: #2B2D31;
             --bg-panels: #232428;
-            --bg-modifier-hover: rgba(78, 80, 88, 0.3);
-            --bg-modifier-selected: rgba(78, 80, 88, 0.6);
+            --bg-modifier-hover: rgba(78, 80, 88, 0.25);
+            --bg-modifier-selected: rgba(78, 80, 88, 0.55);
             --bg-input: #383A40;
             
-            /* Text Configurations */
+            /* Typography Scale System Anchors */
             --text-normal: #DBDEE1;
             --text-muted: #949BA4;
             --text-link: #00A8FC;
@@ -32,12 +32,12 @@
             --header-primary: #F2F3F5;
             --header-secondary: #B5BAC1;
             
-            /* Borders & Indicators */
-            --border-subtle: rgba(78, 80, 88, 0.4);
+            /* Layout Structure Matrix Boundaries */
+            --border-subtle: rgba(78, 80, 88, 0.35);
             --text-warning: #E0B232;
         }
 
-        /* Global Reset Rules */
+        /* Master Structure Box Calculation Reset Rules */
         *, *::before, *::after {
             box-sizing: border-box;
             margin: 0;
@@ -64,7 +64,7 @@
             outline: none;
         }
 
-        /* Scannable Discord Typography Scrollbar */
+        /* Scannable Discord Custom Typography Scrollbar Elements */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -82,7 +82,7 @@
             background: #111214;
         }
 
-        /* Splash Loading Portal Screen overlay overlay */
+        /* Full Screen Animated Splash Portal Overlay Screen */
         #splash-portal {
             position: fixed;
             top: 0;
@@ -105,53 +105,57 @@
 
         .splash-logo-wrapper {
             position: relative;
-            width: 90px;
-            height: 90px;
-            margin-bottom: 20px;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .splash-spinner {
-            width: 80px;
-            height: 80px;
+            width: 90px;
+            height: 90px;
             border: 4px solid rgba(88, 101, 242, 0.1);
             border-top: 4px solid var(--brand-blurple);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spinMatrix 1s linear infinite;
             position: absolute;
         }
 
-        .splash-icon {
-            font-size: 36px;
+        .splash-img-node {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            object-fit: cover;
             z-index: 2;
-            animation: pulseIcon 1.5s ease-in-out infinite;
+            animation: pulseScaleAsset 2s ease-in-out infinite;
         }
 
         .splash-title {
             color: var(--text-white);
-            font-size: 20px;
-            font-weight: 700;
+            font-size: 22px;
+            font-weight: 800;
             letter-spacing: 0.5px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .splash-subtitle {
             color: var(--text-muted);
             font-size: 13px;
+            letter-spacing: 0.3px;
         }
 
-        @keyframes spin {
+        @keyframes spinMatrix {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        @keyframes pulseIcon {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        @keyframes pulseScaleAsset {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(88, 101, 242, 0.3)); }
+            50% { transform: scale(1.08); filter: drop-shadow(0 0 16px rgba(88, 101, 242, 0.6)); }
         }
 
-        /* Master Application View Grid Frame */
+        /* Core Application Split Grid Window Frame Layout */
         #app-container {
             display: flex;
             width: 100vw;
@@ -164,7 +168,7 @@
             opacity: 1;
         }
 
-        /* 1. Left Guilds / Feature Rail Container (Discord Column 1) */
+        /* COLUMN 1: Vertical Left Navigation Feature Grid Rail */
         .guilds-rail {
             width: 72px;
             background-color: var(--bg-guilds);
@@ -208,7 +212,20 @@
             height: 40px;
         }
 
-        .guild-icon {
+        .guild-icon-image {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: border-radius 0.2s ease, background-color 0.2s ease;
+        }
+
+        .guild-icon-image:hover, .guild-item-wrapper.active .guild-icon-image {
+            border-radius: 16px;
+        }
+
+        .guild-icon-placeholder-button {
             width: 48px;
             height: 48px;
             border-radius: 50%;
@@ -223,25 +240,16 @@
             transition: border-radius 0.2s ease, background-color 0.2s ease, color 0.2s ease;
         }
 
-        .guild-icon:hover, .guild-item-wrapper.active .guild-icon {
+        .guild-icon-placeholder-button:hover {
             border-radius: 16px;
             background-color: var(--brand-blurple);
             color: var(--text-white);
         }
 
-        .guild-icon.shop-btn {
-            background-color: #232428;
-            color: var(--status-idle);
-        }
-        .guild-icon.shop-btn:hover {
-            background-color: var(--status-idle);
-            color: #000;
-        }
-
         .guild-separator {
             width: 32px;
             height: 2px;
-            background-color: var(--bg-modifier-hover);
+            background-color: var(--border-subtle);
             margin: 4px 0;
             border-radius: 1px;
         }
@@ -252,14 +260,14 @@
             right: -2px;
             background-color: var(--status-dnd);
             color: var(--text-white);
-            font-size: 12px;
-            font-weight: 700;
-            padding: 2px 6px;
+            font-size: 11px;
+            font-weight: 800;
+            padding: 2px 5px;
             border-radius: 10px;
             border: 3px solid var(--bg-guilds);
         }
 
-        /* 2. Sub-context Channels Sidebar (Discord Column 2) */
+        /* COLUMN 2: Navigation Categories & Channel Logs Sidebar List */
         .sidebar-channels {
             width: 240px;
             background-color: var(--bg-sidebar);
@@ -277,7 +285,7 @@
             align-items: center;
             justify-content: space-between;
             font-weight: 700;
-            font-size: 15px;
+            font-size: 14.5px;
             color: var(--text-white);
             box-shadow: 0 1px 2px rgba(0,0,0,0.2);
             border-bottom: 1px solid rgba(0,0,0,0.2);
@@ -297,8 +305,8 @@
         .category-row {
             display: flex;
             align-items: center;
-            padding: 8px 2px 4px 2px;
-            font-size: 12px;
+            padding: 6px 2px;
+            font-size: 11.5px;
             font-weight: 700;
             color: var(--text-muted);
             text-transform: uppercase;
@@ -309,9 +317,9 @@
             color: var(--header-primary);
         }
         .category-arrow {
-            font-size: 9px;
+            font-size: 8px;
             margin-right: 6px;
-            transition: transform 0.15s ease;
+            color: var(--text-muted);
         }
 
         .channel-list-item {
@@ -341,7 +349,7 @@
             min-width: 0;
         }
         .channel-hash-icon {
-            font-size: 16px;
+            font-size: 15px;
             margin-right: 6px;
             color: var(--text-muted);
             font-weight: 400;
@@ -355,7 +363,7 @@
             text-overflow: ellipsis;
         }
 
-        /* Self Container Account Management Node Panel */
+        /* Account Status Bar Control Block Footer Component Area */
         .user-status-footer-panel {
             height: 52px;
             background-color: var(--bg-panels);
@@ -364,6 +372,7 @@
             padding: 0 8px;
             justify-content: space-between;
             gap: 4px;
+            border-top: 1px solid rgba(0,0,0,0.15);
         }
 
         .footer-account-node {
@@ -386,27 +395,23 @@
             margin-right: 8px;
             flex-shrink: 0;
         }
-        .avatar-img-circle {
+        .avatar-img-circle-element {
             width: 100%;
             height: 100%;
             border-radius: 50%;
+            object-fit: cover;
             background-color: var(--brand-blurple);
-            color: var(--text-white);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 700;
         }
         .status-badge-dot {
             position: absolute;
-            bottom: -2px;
-            right: -2px;
+            bottom: -1px;
+            right: -1px;
             width: 10px;
             height: 10px;
             border-radius: 50%;
             background-color: var(--status-green);
             border: 2px solid var(--bg-panels);
+            transition: background-color 0.2s ease;
         }
 
         .account-meta-strings {
@@ -453,7 +458,7 @@
             color: var(--status-dnd);
         }
 
-        /* 3. Central Chat Messaging Area Panel (Discord Column 3) */
+        /* COLUMN 3: Central Chat Pipeline Logging Matrix Area Panel */
         .chat-workspace-viewport {
             flex: 1;
             display: flex;
@@ -461,6 +466,7 @@
             background-color: var(--bg-chat);
             height: 100%;
             min-width: 0;
+            position: relative;
         }
 
         .chat-top-navbar {
@@ -469,8 +475,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid rgba(0,0,0,0.2);
-            box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+            border-bottom: 1px solid rgba(0,0,0,0.18);
+            box-shadow: 0 1px 1px rgba(0,0,0,0.08);
             z-index: 5;
             flex-shrink: 0;
         }
@@ -483,9 +489,10 @@
             color: var(--text-white);
         }
         .navbar-hash {
-            font-size: 20px;
+            font-size: 18px;
             color: var(--text-muted);
             margin-right: 8px;
+            font-weight: 400;
         }
 
         .navbar-actions-dock {
@@ -503,14 +510,15 @@
             color: var(--text-normal);
         }
 
-        /* WebRTC Video call panel area section layout */
+        /* Extended Audio/Video Call Streaming Canvas Tray Frame */
         #webrtc-call-bay {
             display: none;
-            background-color: var(--bg-guilds);
+            background-color: #111214;
             padding: 16px;
             border-bottom: 1px solid var(--border-subtle);
             flex-direction: column;
             gap: 12px;
+            flex-shrink: 0;
         }
 
         .media-streams-layout-grid {
@@ -532,10 +540,11 @@
             align-items: center;
             justify-content: center;
             border: 2px solid transparent;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
         }
         .video-box-card.speaking-ring {
             border-color: var(--status-green);
-            box-shadow: 0 0 12px rgba(35, 165, 90, 0.4);
+            box-shadow: 0 0 14px rgba(35, 165, 90, 0.5);
         }
 
         .html5-video-hardware-element {
@@ -544,33 +553,30 @@
             object-fit: cover;
             position: absolute;
             background: #000;
+            z-index: 1;
         }
 
         .video-avatar-mock-layer {
             position: absolute;
-            width: 64px;
-            height: 64px;
+            width: 68px;
+            height: 68px;
             border-radius: 50%;
-            background-color: var(--brand-blurple);
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            font-weight: 700;
+            object-fit: cover;
+            z-index: 2;
         }
 
         .video-label-tag {
             position: absolute;
             bottom: 8px;
             left: 8px;
-            background-color: rgba(0,0,0,0.6);
+            background-color: rgba(0,0,0,0.7);
             color: var(--text-white);
-            padding: 4px 8px;
+            padding: 4px 10px;
             border-radius: 4px;
-            font-size: 12px;
+            font-size: 11.5px;
             font-weight: 600;
             z-index: 3;
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .call-controls-alignment-row {
@@ -581,6 +587,7 @@
             background-color: var(--bg-panels);
             padding: 8px;
             border-radius: 6px;
+            border: 1px solid rgba(0,0,0,0.2);
         }
 
         .call-control-round-btn {
@@ -594,6 +601,7 @@
             justify-content: center;
             cursor: pointer;
             font-size: 14px;
+            transition: all 0.15s ease;
         }
         .call-control-round-btn:hover {
             background-color: var(--bg-modifier-selected);
@@ -616,52 +624,44 @@
             font-family: monospace;
             font-size: 13px;
             margin-left: 12px;
+            font-weight: 600;
         }
 
-        /* Stream logs viewport tracking box grid style */
+        /* Stream logs viewport timeline layout scroller */
         .messages-timeline-scroller {
             flex: 1;
             overflow-y: auto;
             padding: 20px 16px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 18px;
         }
 
         .message-chat-row {
             display: flex;
             position: relative;
-            padding-left: 48px;
+            padding-left: 54px;
+            min-height: 44px;
         }
         .message-chat-row:hover {
-            background-color: rgba(0,0,0,0.05);
+            background-color: rgba(255,255,255,0.015);
         }
 
         .msg-absolute-avatar {
             position: absolute;
-            left: 0;
+            left: 4px;
             top: 2px;
             width: 40px;
             height: 40px;
             border-radius: 50%;
-            background-color: var(--bg-guilds);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: var(--brand-blurple);
-            font-size: 15px;
-            overflow: hidden;
-        }
-        .msg-absolute-avatar img {
-            width: 100%;
-            height: 100%;
             object-fit: cover;
+            background-color: var(--bg-guilds);
         }
 
         .msg-contents-block {
             display: flex;
             flex-direction: column;
+            min-width: 0;
         }
 
         .msg-header-row {
@@ -686,7 +686,7 @@
 
         .msg-body-text-content {
             font-size: 15px;
-            line-height: 1.4;
+            line-height: 1.45;
             color: var(--text-normal);
             word-wrap: break-word;
             white-space: pre-wrap;
@@ -695,13 +695,15 @@
         .msg-body-text-content.system-alert {
             color: var(--status-idle);
             font-style: italic;
+            font-weight: 500;
         }
 
-        /* Core Input Text Area Floating bar layout dock */
+        /* Base Floating Layout Chat Entry Form Bar Dock Components */
         .chat-input-container-dock {
             padding: 0 16px 24px 16px;
             flex-shrink: 0;
             position: relative;
+            z-index: 4;
         }
 
         .chat-input-textarea-facade {
@@ -710,29 +712,35 @@
             display: flex;
             align-items: center;
             padding: 10px 16px;
-            gap: 12px;
+            gap: 14px;
         }
 
         .chat-input-textarea-facade input[type="text"] {
             flex: 1;
             font-size: 15px;
             color: var(--text-normal);
+            background: none;
+            border: none;
+            outline: none;
         }
         .chat-input-textarea-facade input[type="text"]::placeholder {
-            color: rgba(148, 155, 164, 0.5);
+            color: rgba(148, 155, 164, 0.45);
         }
 
         .input-inline-action-icon {
-            font-size: 20px;
+            font-size: 18px;
             color: var(--text-muted);
             cursor: pointer;
             transition: color 0.1s linear;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .input-inline-action-icon:hover {
             color: var(--text-normal);
         }
 
-        /* Matrix Emoji Scroller Panel Popover Overlay */
+        /* Floating Popover Matrix Emoji Selector Tray Layout */
         .emoji-popover-panel-overlay {
             position: absolute;
             bottom: 80px;
@@ -740,8 +748,8 @@
             width: 300px;
             height: 250px;
             background-color: var(--bg-sidebar);
-            border: 1px solid rgba(0,0,0,0.5);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            border: 1px solid rgba(0,0,0,0.4);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
             border-radius: 8px;
             display: none;
             flex-direction: column;
@@ -755,6 +763,7 @@
             color: var(--text-muted);
             text-transform: uppercase;
             border-bottom: 1px solid var(--border-subtle);
+            letter-spacing: 0.5px;
         }
 
         .emoji-matrix-grid-scroll {
@@ -774,6 +783,7 @@
             padding: 4px;
             border-radius: 4px;
             cursor: pointer;
+            transition: background-color 0.1s ease;
         }
         .emoji-grid-cell-block:hover {
             background-color: var(--bg-modifier-hover);
@@ -787,6 +797,7 @@
             bottom: 21px;
             left: 0;
             padding: 0 16px;
+            pointer-events: none;
         }
         .cooldown-micro-fill {
             height: 100%;
@@ -795,7 +806,7 @@
             border-radius: 2px;
         }
 
-        /* 4. Right Active Members Sidebar Roster Panel (Discord Column 4) */
+        /* COLUMN 4: Active Roster Members Server Side Panel Column */
         .roster-members-sidebar {
             width: 240px;
             background-color: var(--bg-members);
@@ -805,8 +816,9 @@
             padding: 16px 8px;
             overflow-y: auto;
             height: 100%;
+            border-left: 1px solid rgba(0,0,0,0.12);
         }
-        @media (max-width: 1000px) {
+        @media (max-width: 1024px) {
             .roster-members-sidebar { display: none; }
         }
 
@@ -817,7 +829,7 @@
             text-transform: uppercase;
             letter-spacing: 0.5px;
             padding-left: 8px;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
 
         .roster-member-row {
@@ -847,7 +859,7 @@
             color: var(--text-normal);
         }
 
-        /* Premium Multiverse Shopping Modal Screen layer */
+        /* Premium Marketplace Storefront Dialog Container View */
         #nexus-shop-screen {
             position: fixed;
             top: 0;
@@ -875,6 +887,9 @@
             font-weight: 600;
             color: var(--text-muted);
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
         .shop-escape-link:hover {
             color: var(--text-white);
@@ -886,61 +901,75 @@
             color: var(--status-idle);
             font-size: 12px;
             font-weight: 700;
-            padding: 4px 10px;
+            padding: 4px 12px;
             border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         }
 
         .shop-main-scroller {
             flex: 1;
             overflow-y: auto;
-            padding: 30px;
+            padding: 40px 20px;
         }
 
         .shop-showcase-title {
             color: var(--text-white);
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 4px;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 6px;
             text-align: center;
+            letter-spacing: 0.5px;
         }
         .shop-showcase-subtitle {
             color: var(--text-muted);
             font-size: 14px;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
             text-align: center;
         }
 
         .shop-grid-layout {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-            gap: 20px;
-            max-width: 1100px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 1200px;
             margin: 0 auto;
         }
 
         .shop-product-card {
             background-color: var(--bg-sidebar);
             border-radius: 8px;
-            padding: 20px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
             border: 1px solid transparent;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            transition: all 0.2s ease;
         }
         .shop-product-card:hover {
             border-color: var(--brand-blurple);
+            transform: translateY(-2px);
+        }
+
+        .product-image-frame {
+            height: 120px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            object-fit: cover;
+            width: 100%;
+            background-color: var(--bg-guilds);
         }
 
         .product-title {
             font-size: 16px;
             font-weight: 700;
             color: var(--text-white);
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         .product-desc {
             font-size: 13px;
             color: var(--text-muted);
-            line-height: 1.4;
-            margin-bottom: 16px;
+            line-height: 1.45;
+            margin-bottom: 20px;
             flex: 1;
         }
 
@@ -959,11 +988,12 @@
         .product-purchase-btn {
             background-color: var(--brand-blurple);
             color: var(--text-white);
-            padding: 6px 14px;
+            padding: 8px 16px;
             border-radius: 4px;
             font-size: 13px;
             font-weight: 600;
             cursor: pointer;
+            transition: background-color 0.15s ease;
         }
         .product-purchase-btn:hover {
             background-color: var(--brand-blurple-hover);
@@ -973,7 +1003,7 @@
             cursor: default;
         }
 
-        /* Local Manual Profile Building Overlay Matrix Frame */
+        /* Profile Selection Form Security Access Gate Overlays */
         #profile-setup-gate {
             position: fixed;
             top: 0;
@@ -996,20 +1026,21 @@
             background-color: var(--bg-sidebar);
             border-radius: 8px;
             padding: 32px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
             text-align: center;
         }
 
         .setup-header-title {
             color: var(--text-white);
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 6px;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 8px;
         }
         .setup-header-subtitle {
             color: var(--text-muted);
-            font-size: 13px;
+            font-size: 13.5px;
             margin-bottom: 24px;
+            line-height: 1.4;
         }
 
         .setup-form-input-block {
@@ -1023,15 +1054,18 @@
             text-transform: uppercase;
             color: var(--text-muted);
             margin-bottom: 8px;
+            letter-spacing: 0.5px;
         }
         .setup-input-field {
             width: 100%;
             background-color: #1e1f22;
-            border: 1px solid rgba(0,0,0,0.5);
+            border: 1px solid rgba(0,0,0,0.4);
             border-radius: 4px;
-            padding: 10px;
+            padding: 10px 12px;
             font-size: 14px;
             color: var(--text-normal);
+            outline: none;
+            transition: border-color 0.15s ease;
         }
         .setup-input-field:focus {
             border-color: var(--brand-blurple);
@@ -1040,11 +1074,11 @@
         .setup-avatar-row {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
         }
         .setup-avatar-preview {
-            width: 44px;
-            height: 44px;
+            width: 48px;
+            height: 48px;
             border-radius: 50%;
             background-color: var(--bg-guilds);
             color: var(--text-muted);
@@ -1055,6 +1089,7 @@
             font-weight: 700;
             overflow: hidden;
             flex-shrink: 0;
+            border: 1px solid rgba(255,255,255,0.05);
         }
         .setup-avatar-preview img {
             width: 100%;
@@ -1066,9 +1101,11 @@
             background-color: var(--bg-input);
             color: var(--text-normal);
             font-size: 12px;
-            padding: 8px 12px;
+            font-weight: 600;
+            padding: 8px 14px;
             border-radius: 4px;
             cursor: pointer;
+            transition: background-color 0.15s ease;
         }
         .setup-file-facade-btn:hover {
             background-color: var(--bg-modifier-hover);
@@ -1084,6 +1121,7 @@
             border-radius: 4px;
             margin-top: 12px;
             cursor: pointer;
+            transition: background-color 0.15s ease;
         }
         .setup-submit-btn:hover {
             background-color: var(--brand-blurple-hover);
@@ -1092,85 +1130,85 @@
 </head>
 <body>
 
-    <!-- Local Profile Construction Authentication Layer Screen -->
+    <!-- Local Profile Construction Authentication Access Gate -->
     <div id="profile-setup-gate">
         <div class="setup-card-box">
-            <div class="setup-header-title">Create Workspace Identity</div>
-            <div class="setup-header-subtitle">Build your custom client user block variables to enter NexusChat</div>
+            <div class="setup-header-title">NexusChat Entry Portal</div>
+            <div class="setup-header-subtitle">Build your global handle variables profile to authenticate streaming matrices</div>
             
             <form onsubmit="event.preventDefault();">
                 <div class="setup-form-input-block">
-                    <label class="setup-input-label">Display Handle Name</label>
-                    <input type="text" id="setup-username-field" class="setup-input-field" placeholder="e.g. NexusDeveloper" required>
+                    <label class="setup-input-label">Display User Handle String</label>
+                    <input type="text" id="setup-username-field" class="setup-input-field" placeholder="e.g. NexusArchitect" required>
                 </div>
                 
                 <div class="setup-form-input-block">
-                    <label class="setup-input-label">Avatar Resource Asset</label>
+                    <label class="setup-input-label">Identity Avatar Graphic Asset</label>
                     <div class="setup-avatar-row">
                         <div class="setup-avatar-preview" id="setup-avatar-preview-box">?</div>
                         <input type="file" id="setup-avatar-file-field" accept="image/*" style="display: none;" onchange="processLocalAvatarSelection(event)">
-                        <button type="button" class="setup-file-facade-btn" onclick="document.getElementById('setup-avatar-file-field').click()">Upload File Asset</button>
+                        <button type="button" class="setup-file-facade-btn" onclick="document.getElementById('setup-avatar-file-field').click()">Upload Graphic File</button>
                     </div>
                 </div>
 
-                <button type="button" class="setup-submit-btn" onclick="commitProfileRegistrationSession()">Enter App Matrix</button>
+                <button type="button" class="setup-submit-btn" onclick="commitProfileRegistrationSession()">Authenticate Client Profile</button>
             </form>
         </div>
     </div>
 
-    <!-- Loading Splash Spinner Screen -->
+    <!-- Cinematic App Activation Initialization Spinner View Layer Overlay -->
     <div id="splash-portal" class="hidden">
         <div class="splash-logo-wrapper">
             <div class="splash-spinner"></div>
-            <div class="splash-icon">⚔️</div>
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=150&q=80" class="splash-img-node" alt="Nexus Brand Core Asset">
         </div>
-        <div class="splash-title" id="splash-headline-sync">NexusChat</div>
-        <div class="splash-subtitle">Synchronizing Node Streams...</div>
+        <div class="splash-title" id="splash-headline-sync">NexusChat Matrix</div>
+        <div class="splash-subtitle">Connecting Core Database Containers...</div>
     </div>
 
-    <!-- Master Container Core Layout App Frame -->
+    <!-- Master Content Workspace Core Main Window Layout View Grid Frame -->
     <div id="app-container">
         
         <!-- COLUMN 1: Vertical Left Navigation Feature Grid Rail -->
         <div class="guilds-rail">
             <div class="guild-item-wrapper active" id="guild-tab-chat" onclick="pivotGlobalGuildRail('chat')">
                 <div class="guild-pill"></div>
-                <div class="guild-icon">🛸</div>
-                <div class="guild-badge" id="guild-unread-badge">3</div>
+                <img src="https://images.unsplash.com/photo-1614741118887-7a4ee193a5fa?auto=format&fit=crop&w=100&q=80" class="guild-icon-image" alt="Server Platform Core Node" title="NexusChat Hub Dashboard">
+                <div class="guild-badge" id="guild-unread-badge">5</div>
             </div>
             
             <div class="guild-separator"></div>
 
             <div class="guild-item-wrapper" id="guild-tab-shop" onclick="toggleStorefrontModalView(true)">
                 <div class="guild-pill"></div>
-                <div class="guild-icon shop-btn" title="Nexus Multiverse Storefront">🛒</div>
+                <div class="guild-icon-placeholder-button" title="Open Marketplace Window Context">🛒</div>
             </div>
         </div>
 
         <!-- COLUMN 2: Navigation Categories & Channel Logs Sidebar List -->
         <div class="sidebar-channels">
             <div class="server-header-btn" onclick="triggerServerAlertNotice()">
-                <span id="brand-server-title-node">NexusChat Hub</span>
-                <span>▼</span>
+                <span id="brand-server-title-node">NexusChat Architecture</span>
+                <span style="font-size: 10px; color: var(--text-muted);">▼</span>
             </div>
 
             <div class="channels-scroll-area">
                 <!-- Text Channels Category Header Block -->
                 <div class="category-row">
                     <span class="category-arrow">▼</span>
-                    <span>Text Channels</span>
+                    <span>Text Channels Workspace</span>
                 </div>
                 <div id="text-channels-injector-box">
-                    <!-- Javascript populates row entities dynamically here -->
+                    <!-- Javascript renders active row entities dynamically here -->
                 </div>
 
                 <!-- Voice Channels Category Header Block -->
-                <div style="margin-top: 16px;" class="category-row">
+                <div style="margin-top: 18px;" class="category-row">
                     <span class="category-arrow">▼</span>
-                    <span>Voice Channels</span>
+                    <span>Voice Communication Tracks</span>
                 </div>
                 <div id="voice-channels-injector-box">
-                    <!-- Javascript populates voice channel entities here -->
+                    <!-- Javascript populates voice targets cleanly -->
                 </div>
             </div>
 
@@ -1178,24 +1216,25 @@
             <div class="user-status-footer-panel">
                 <div class="footer-account-node" onclick="triggerStatusToggleCycle()">
                     <div class="avatar-status-wrapper">
-                        <div class="avatar-img-circle" id="footer-avatar-circle-node">N</div>
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80" class="avatar-img-circle-element" id="footer-avatar-circle-node" alt="Profile Vector Account">
                         <div class="status-badge-dot" id="footer-status-dot-node"></div>
                     </div>
                     <div class="account-meta-strings">
-                        <span class="account-display-name" id="footer-username-string-node">Connecting...</span>
-                        <span class="account-discriminator-sub" id="footer-status-label-node">Online</span>
+                        <span class="account-display-name" id="footer-username-string-node">Connecting Node...</span>
+                        <span class="account-discriminator-sub" id="footer-status-label-node">ONLINE</span>
                     </div>
                 </div>
 
                 <div class="footer-controls-stack">
-                    <div class="footer-utility-btn" id="footer-mic-toggle-btn" onclick="toggleAudioMuteHardware()" title="Mute/Unmute Audio">🎙️</div>
-                    <div class="footer-utility-btn" onclick="executeHardwareProfileWipeReset()" title="Reset Session Storage Context">⚙️</div>
+                    <div class="footer-utility-btn" id="footer-mic-toggle-btn" onclick="toggleAudioMuteHardware()" title="Mute/Unmute Audio Hardware Array">🎙️</div>
+                    <div class="footer-utility-btn" onclick="executeHardwareProfileWipeReset()" title="Wipe Session Cache Parameters Container">⚙️</div>
                 </div>
             </div>
         </div>
 
         <!-- COLUMN 3: Central Chat Pipeline Logging Matrix -->
         <div class="chat-workspace-viewport">
+            
             <!-- Central Frame Window Top Header Bar Navigation -->
             <div class="chat-top-navbar">
                 <div class="navbar-channel-identity">
@@ -1213,13 +1252,13 @@
                 <div class="media-streams-layout-grid">
                     <div class="video-box-card" id="hardware-webcam-card-container">
                         <video id="hardware-camera-stream-tag" class="html5-video-hardware-element" autoplay playsinline muted></video>
-                        <div class="video-avatar-mock-layer" id="webcam-avatar-placeholder">N</div>
-                        <div class="video-label-tag" id="webcam-stream-label">Camera Stream Offline</div>
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=150&q=80" class="video-avatar-mock-layer" id="webcam-avatar-placeholder" alt="Webcam Static Stream Avatar">
+                        <div class="video-label-tag" id="webcam-stream-label">Camera Streaming Device Offline</div>
                     </div>
 
                     <div class="video-box-card" id="hardware-screenshare-card-container">
                         <video id="hardware-display-stream-tag" class="html5-video-hardware-element" autoplay playsinline></video>
-                        <div class="video-avatar-mock-layer" id="screenshare-avatar-placeholder" style="background-color: #111214;">🖥️</div>
+                        <div class="video-avatar-mock-layer" id="screenshare-avatar-placeholder" style="background-color: #1a1b1e; display: flex; align-items: center; justify-content: center; color: var(--brand-blurple); font-size: 24px;">🖥️</div>
                         <div class="video-label-tag" id="screenshare-stream-label">Display Capture Pipe Offline</div>
                     </div>
                 </div>
@@ -1233,22 +1272,22 @@
                 </div>
             </div>
 
-            <!-- Primary Messages Logging View Box -->
+            <!-- Primary Messages Logging View Box Timeline -->
             <div class="messages-timeline-scroller" id="messages-timeline-viewport">
-                <!-- Message content bubbles injected dynamically -->
+                <!-- Data models injected here by runtime methods loops -->
             </div>
 
             <!-- Base Entry Form Action Dock Messaging Input Bar Bar -->
             <div class="chat-input-container-dock">
                 <div class="chat-input-textarea-facade">
-                    <span class="input-inline-action-icon" onclick="triggerMockAttachmentUpload()">➕</span>
+                    <span class="input-inline-action-icon" onclick="triggerMockAttachmentUpload()" title="Upload File Attachment Streaming Node">➕</span>
                     <input type="text" id="chat-text-input-field" placeholder="Message active room channel stream..." onkeypress="interceptInputFieldKeypress(event)">
-                    <span class="input-inline-action-icon" onclick="toggleEmojiScrollerMatrixPopover()">😀</span>
+                    <span class="input-inline-action-icon" onclick="toggleEmojiScrollerMatrixPopover()" title="Select Reaction Element">😀</span>
                 </div>
 
                 <!-- Floating Popover Matrix Emoji Selector Tray -->
                 <div class="emoji-popover-panel-overlay" id="emoji-popover-tray-node">
-                    <div class="emoji-popover-header">Select Reaction Input</div>
+                    <div class="emoji-popover-header">Select Symbol Reaction Matrix</div>
                     <div class="emoji-matrix-grid-scroll" id="emoji-matrix-grid-injector"></div>
                 </div>
 
@@ -1260,103 +1299,103 @@
 
         <!-- COLUMN 4: Active Roster Members Server Panel Column -->
         <div class="roster-members-sidebar">
-            <div class="roster-group-label">Online — <span id="roster-count-label">2</span></div>
+            <div class="roster-group-label">Online Active Nodes — <span id="roster-count-label">4</span></div>
             <div id="roster-injector-box">
-                <!-- Roster accounts rows rendered dynamically -->
+                <!-- Target rows computed gracefully here -->
             </div>
         </div>
 
     </div>
 
-    <!-- Full Screen Shopping Modal Dialog Frame Box Context -->
+    <!-- Full Screen Premium Marketplace Shopping Dialog Frame Box Context -->
     <div id="nexus-shop-screen">
         <div class="shop-navbar-top">
-            <span class="shop-escape-link" onclick="toggleStorefrontModalView(false)">← Close Storefront</span>
-            <span style="font-weight: 700; font-size: 14px; letter-spacing: 0.5px; color: #fff;">NEXUS SHOP</span>
-            <div class="shop-wallet-pill" id="shop-wallet-balance-node">50,000 Orbs</div>
+            <span class="shop-escape-link" onclick="toggleStorefrontModalView(false)">← Go Back To Client Communications Panel</span>
+            <span style="font-weight: 800; font-size: 14px; letter-spacing: 0.5px; color: var(--header-primary);">NEXUS PREMIUM STOREFRONT</span>
+            <div class="shop-wallet-pill" id="shop-wallet-balance-node">50,000 ORBS AVAILABLE</div>
         </div>
 
         <div class="shop-main-scroller">
-            <div class="shop-showcase-title">Nexus Multiverse Storefront</div>
-            <div class="shop-showcase-subtitle">Unlock custom style profile modifiers and premium scaling packages instantly</div>
+            <div class="shop-showcase-title">Nexus Premium Cosmetics Hub</div>
+            <div class="shop-showcase-subtitle">Acquire deep visual parameter modifications and specialized telemetry profile variables instantly</div>
             
             <div class="shop-grid-layout" id="shop-grid-cards-injector"></div>
         </div>
     </div>
 
     <script>
-        /* Synthesis Web Audio Notification Engine Configs */
-        let audioContextInstance;
-        function constructAudioContext() {
-            if (!audioContextInstance) {
-                audioContextInstance = new (window.AudioContext || window.webkitAudioContext)();
+        /* Synthesis Web Audio Context Notification Oscillation Engine Setup */
+        let webAudioContextEngineInstance = null;
+        function constructionAudioEngineContext() {
+            if (!webAudioContextEngineInstance) {
+                webAudioContextEngineInstance = new (window.AudioContext || window.webkitAudioContext)();
             }
         }
 
-        function triggerBespokeBeepFrequency(pitchHz, waveformShape, decayDuration, volumeLevel = 0.15) {
+        function triggerBespokeOscillatorBeep(frequencyHz, waveformType, envelopeDecay, balanceGain = 0.12) {
             try {
-                constructAudioContext();
-                const oscillator = audioContextInstance.createOscillator();
-                const gainNode = audioContextInstance.createGain();
-                oscillator.type = waveformShape;
-                oscillator.frequency.value = pitchHz;
-                gainNode.gain.setValueAtTime(volumeLevel, audioContextInstance.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContextInstance.currentTime + decayDuration);
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContextInstance.destination);
-                oscillator.start();
-                oscillator.stop(audioContextInstance.currentTime + decayDuration);
+                constructionAudioEngineEngineContext();
+                const soundOscillator = webAudioContextEngineInstance.createOscillator();
+                const soundGainNode = webAudioContextEngineInstance.createGain();
+                soundOscillator.type = waveformType;
+                soundOscillator.frequency.value = frequencyHz;
+                soundGainNode.gain.setValueAtTime(balanceGain, webAudioContextEngineInstance.currentTime);
+                soundGainNode.gain.exponentialRampToValueAtTime(0.0001, webAudioContextEngineInstance.currentTime + envelopeDecay);
+                soundOscillator.connect(soundGainNode);
+                soundGainNode.connect(webAudioContextEngineInstance.destination);
+                soundOscillator.start();
+                soundOscillator.stop(webAudioContextEngineInstance.currentTime + envelopeDecay);
             } catch (err) {
-                console.log("Audio oscillation bypass handled:", err);
+                console.log("Audio oscillation routine node error handled gracefully:", err);
             }
         }
 
         function playDiscordMessageNotificationTone() {
-            triggerBespokeBeepFrequency(660, 'sine', 0.12, 0.15);
-            setTimeout(() => triggerBespokeBeepFrequency(880, 'sine', 0.16, 0.15), 45);
+            triggerBespokeOscillatorBeep(660, 'sine', 0.12, 0.12);
+            setTimeout(() => triggerBespokeOscillatorBeep(880, 'sine', 0.16, 0.12), 45);
         }
 
         function playDiscordActionClickToggleTone(stateFlag) {
             if (stateFlag) {
-                triggerBespokeBeepFrequency(420, 'triangle', 0.1, 0.15);
-                setTimeout(() => triggerBespokeBeepFrequency(320, 'triangle', 0.12, 0.15), 40);
+                triggerBespokeOscillatorBeep(440, 'triangle', 0.08, 0.14);
+                setTimeout(() => triggerBespokeOscillatorBeep(340, 'triangle', 0.1, 0.14), 40);
             } else {
-                triggerBespokeBeepFrequency(320, 'triangle', 0.1, 0.15);
-                setTimeout(() => triggerBespokeBeepFrequency(420, 'triangle', 0.12, 0.15), 40);
+                triggerBespokeOscillatorBeep(340, 'triangle', 0.08, 0.14);
+                setTimeout(() => triggerBespokeOscillatorBeep(440, 'triangle', 0.1, 0.14), 40);
             }
         }
 
-        /* Database Records Matrix States Constants */
+        /* Database State Model Properties Constants */
         let activeProfileSessionName = "";
         let activeProfileAvatarBlob = "";
         let currentActiveChannelId = "global-lobby";
         let isAntiSpamCooldownActive = false;
-        let activeUserStatusMode = "online"; 
+        let activeUserStatusMode = "online";
 
         let globalChannelDatabase = {
             'global-lobby': { name: "global-lobby", type: "text", history: [] },
             'announcements': { name: "announcements", type: "text", history: [] },
             'nexus-lounge': { name: "Nexus Elite Lounge", type: "voice", history: [] },
-            'gaming-stream': { name: "Gaming Capture Stream", type: "voice", history: [] }
+            'engineering-deck': { name: "Engineering Core Audio Track", type: "voice", history: [] }
         };
 
         const staticMockRosterList = [
-            { name: "NexusBot", status: "online", role: "System Bot", symbol: "🤖" },
-            { name: "AlphaTester", status: "idle", role: "Beta Guard", symbol: "🛡️" },
-            { name: "ShadowCrew", status: "dnd", role: "Elite Unit", symbol: "🕶️" }
+            { name: "NexusBot", status: "online", role: "Core System Bot", url: "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=80&q=80" },
+            { name: "AlphaTester", status: "idle", role: "Elite Gatekeeper", url: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?auto=format&fit=crop&w=80&q=80" },
+            { name: "ShadowCrew", status: "dnd", role: "Infiltration Lead", url: "https://images.unsplash.com/photo-1566492031773-4f4e44671857?auto=format&fit=crop&w=80&q=80" }
         ];
 
         const shopCatalogInventory = [
-            { id: "frame-obsidian", name: "Obsidian Nameplate Frame", description: "Injects deep charcoal vector outlines around your message logs template nodes.", cost: 4500, owned: false },
-            { id: "neon-glow", name: "Blurple Velocity Lighting", description: "Overclocks background UI surface wrappers using custom digital light parameters.", cost: 12000, owned: false },
-            { id: "synth-alerts", name: "Retro Wave Audio Mod", description: "Replaces client platform alerts with 80s arcade analog sound nodes.", cost: 3500, owned: false }
+            { id: "frame-obsidian", name: "Obsidian Cyber Grid Overlay", description: "Injects dark vector tracking bounds around your message logging cards properties dynamically.", cost: 4500, url: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=300&q=80" },
+            { id: "neon-glow", name: "Blurple Lighting Matrix Overclock", description: "Forces active neon saturation parameters onto the core app grid control surfaces layers.", cost: 12000, url: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=300&q=80" },
+            { id: "synth-alerts", name: "Arcade Analog Telemetry Sound Pack", description: "Overwrites systemic standard notification alerts into hardware modular oscillator click nodes.", cost: 3500, url: "https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=300&q=80" }
         ];
 
         const alphaEmojiSymbolsMatrix = [
-            "😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😗","😙","😚","😋","😛","😝","😜","🤪","🤨","🧐","🤓","😎","🤩","🥳","😏","😒","😞","😔","😟","😕","🙁","☹️","😣","😖","😫","😩","🥺","😢","😭"
+            "😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😗","😙","😚","😋","😛","😝","😜","🤪","🤨","🧐","🤓","😎","🤩","🥳","😏","😒","😞","😔","😟","😕","🙁","🙁"
         ];
 
-        /* Hardware Media Tracking Variables Object Links */
+        /* Hardware Media Tracking Streams Properties Engine */
         let webrtcCallActiveFlag = false;
         let webcamHardwareActiveFlag = false;
         let displayShareHardwareActiveFlag = false;
@@ -1370,7 +1409,6 @@
 
         let callDurationClockIntervalId = null;
         let elapsedCallDurationSeconds = 0;
-        let walletBalanceTokensOrbs = 50000;
 
         window.addEventListener('DOMContentLoaded', () => {
             generateMultiverseShopCards();
@@ -1384,11 +1422,12 @@
             
             if (cachedNameKey && cachedNameKey.trim() !== "") {
                 activeProfileSessionName = cachedNameKey;
-                activeProfileAvatarBlob = cachedAvatarKey || "";
+                activeProfileAvatarBlob = cachedAvatarKey || "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80";
                 syncActiveProfileDataViews();
                 runCinematicLoadingScreen();
             } else {
-                document.getElementById('splash-portal').classList.add('hidden');
+                /* Display configuration gate safely without error */
+                document.getElementById('profile-setup-gate').classList.remove('hidden');
             }
         }
 
@@ -1399,7 +1438,7 @@
             const fileReader = new FileReader();
             fileReader.onload = function(e) {
                 const previewBox = document.getElementById('setup-avatar-preview-box');
-                previewBox.innerHTML = `<img src="${e.target.result}" alt="Preview">`;
+                previewBox.innerHTML = `<img src="${e.target.result}" alt="Preview Setup View">`;
                 activeProfileAvatarBlob = e.target.result;
             };
             fileReader.readAsDataURL(uploadedFile);
@@ -1410,15 +1449,17 @@
             let processedName = nameInputField.value.trim().replace(/\s+/g, '');
 
             if (!processedName) {
-                alert("Please declare a valid custom username handle.");
+                alert("Please declare a valid operational display handle string.");
                 return;
             }
 
             activeProfileSessionName = processedName;
-            localStorage.setItem('nexuschat_discord_name', activeProfileSessionName);
-            if (activeProfileAvatarBlob) {
-                localStorage.setItem('nexuschat_discord_avatar', activeProfileAvatarBlob);
+            if (!activeProfileAvatarBlob) {
+                activeProfileAvatarBlob = "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80";
             }
+
+            localStorage.setItem('nexuschat_discord_name', activeProfileSessionName);
+            localStorage.setItem('nexuschat_discord_avatar', activeProfileAvatarBlob);
 
             syncActiveProfileDataViews();
             document.getElementById('profile-setup-gate').classList.add('hidden');
@@ -1430,12 +1471,10 @@
             document.getElementById('footer-username-string-node').innerText = activeProfileSessionName;
             
             const circleAvatarNode = document.getElementById('footer-avatar-circle-node');
-            if (activeProfileAvatarBlob && activeProfileAvatarBlob.trim() !== "") {
-                circleAvatarNode.innerHTML = `<img src="${activeProfileAvatarBlob}" alt="Avatar">`;
-            } else {
-                circleAvatarNode.innerText = activeProfileSessionName.charAt(0).toUpperCase();
-                circleAvatarNode.style.backgroundColor = "var(--brand-blurple)";
-            }
+            circleAvatarNode.src = activeProfileAvatarBlob;
+
+            const webcamPlaceholder = document.getElementById('webcam-avatar-placeholder');
+            if (webcamPlaceholder) webcamPlaceholder.src = activeProfileAvatarBlob;
         }
 
         function runCinematicLoadingScreen() {
@@ -1449,8 +1488,8 @@
                 loadTargetRoomChannel(currentActiveChannelId);
                 rebuildActiveRosterSidebar();
                 
-                appendSystemChatMessageLog("System Monitor", "Welcome to your upgraded Discord Client dashboard environment built for NexusChat.", "system-alert");
-            }, 1200);
+                appendSystemChatMessageLog("System Matrix Monitor", "Core client configuration parameters initialized under operational control vectors cleanly.", "system-alert");
+            }, 1000);
         }
 
         function rebuildChannelsSidebarNavigation() {
@@ -1486,7 +1525,7 @@
         }
 
         function loadTargetRoomChannel(channelId) {
-            triggerBespokeBeepFrequency(580, 'sine', 0.08, 0.08);
+            triggerBespokeOscillatorBeep(520, 'sine', 0.05, 0.06);
             currentActiveChannelId = channelId;
             
             document.getElementById('navbar-active-channel-title').innerText = globalChannelDatabase[channelId].name;
@@ -1503,13 +1542,11 @@
             const currentLogsPool = globalChannelDatabase[currentActiveChannelId].history || [];
 
             currentLogsPool.forEach(log => {
-                let avatarLayoutTag = log.avatarData 
-                    ? `<img src="${log.avatarData}" alt="User Avatar">` 
-                    : log.authorString.charAt(0).toUpperCase();
+                let avatarUrlString = log.avatarData ? log.avatarData : "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=80&q=80";
 
                 timelineScroller.innerHTML += `
                     <div class="message-chat-row">
-                        <div class="msg-absolute-avatar">${avatarLayoutTag}</div>
+                        <img src="${avatarUrlString}" class="msg-absolute-avatar" alt="Author User Target Face">
                         <div class="msg-contents-block">
                             <div class="msg-header-row">
                                 <span class="msg-username-string">${log.authorString}</span>
@@ -1530,7 +1567,7 @@
                 authorString: author,
                 messageBodyText: messageText,
                 timestampCode: modernTimeCode,
-                avatarData: (author === activeProfileSessionName) ? activeProfileAvatarBlob : null,
+                avatarData: (author === activeProfileSessionName) ? activeProfileAvatarBlob : "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=80&q=80",
                 specialVariant: structuralVariant
             };
 
@@ -1558,7 +1595,7 @@
             appendSystemChatMessageLog(activeProfileSessionName, structuralTextString);
             textInputNode.value = "";
 
-            /* Anti-Spam Rate Limiter Mechanic Simulation */
+            /* Dynamic Rate Limiter Cooldown Progress Animation Bar Loops */
             isAntiSpamCooldownActive = true;
             textInputNode.disabled = true;
 
@@ -1566,7 +1603,7 @@
                 cooldownFillBar.style.transition = 'none';
                 cooldownFillBar.style.width = '100%';
                 setTimeout(() => {
-                    cooldownFillBar.style.transition = 'width 1400ms linear';
+                    cooldownFillBar.style.transition = 'width 1200ms linear';
                     cooldownFillBar.style.width = '0%';
                 }, 20);
             }
@@ -1575,18 +1612,18 @@
                 isAntiSpamCooldownActive = false;
                 textInputNode.disabled = false;
                 textInputNode.focus();
-            }, 1400);
+            }, 1200);
 
-            /* Automated Response Simulation */
+            /* Simulated Async Automated Network Client Replies Handles */
             setTimeout(() => {
                 const responsePoolStrings = [
-                    "Nexus WebRTC tracking pipeline mapping successfully bound to internal layouts layer context.",
-                    "Testing modern system parameters. Everything looks clean and operational.",
-                    "Latency indexes look solid across server matrices grids."
+                    "Wired telemetry interface modules are communicating smoothly within global node arrays.",
+                    "Checking structural layout bounds variables. Testing sequence complete.",
+                    "Data latency indices reporting nominal values across communication lines."
                 ];
                 const pseudoSelectedString = responsePoolStrings[Math.floor(Math.random() * responsePoolStrings.length)];
                 appendSystemChatMessageLog("NexusBot", pseudoSelectedString);
-            }, 900);
+            }, 800);
         }
 
         function rebuildActiveRosterSidebar() {
@@ -1595,17 +1632,17 @@
 
             rosterContainer.innerHTML = "";
             
-            /* Render client profile row entity */
+            /* Render active custom registered workspace profile element */
             rosterContainer.innerHTML += `
                 <div class="roster-member-row online-status">
                     <div class="avatar-status-wrapper" style="width: 24px; height: 24px; margin-right: 10px;">
-                        <div class="avatar-img-circle" style="font-size: 11px;">👑</div>
+                        <img src="${activeProfileAvatarBlob}" class="avatar-img-circle-element" style="border: 1px solid rgba(255,255,255,0.1);" alt="Self User">
                         <div class="status-badge-dot" style="background-color: ${fetchStatusColor(activeUserStatusMode)}; border-width: 1px; width: 8px; height: 8px;"></div>
                     </div>
                     <span class="roster-member-name" style="color: var(--text-white); font-weight: 700;">${activeProfileSessionName}</span>
                 </div>`;
 
-            /* Render static background roster components */
+            /* Map and render secondary static platform entities records layers */
             staticMockRosterList.forEach(user => {
                 let currentBadgeHex = "#80848e";
                 if (user.status === "online") currentBadgeHex = "var(--status-green)";
@@ -1615,7 +1652,7 @@
                 rosterContainer.innerHTML += `
                     <div class="roster-member-row">
                         <div class="avatar-status-wrapper" style="width: 24px; height: 24px; margin-right: 10px;">
-                            <div class="avatar-img-circle" style="font-size: 11px; background-color: #1e1f22;">${user.symbol}</div>
+                            <img src="${user.url}" class="avatar-img-circle-element" alt="Roster Face Context">
                             <div class="status-badge-dot" style="background-color: ${currentBadgeHex}; border-width: 1px; width: 8px; height: 8px;"></div>
                         </div>
                         <span class="roster-member-name">${user.name}</span>
@@ -1669,7 +1706,7 @@
             trayNode.style.display = (trayNode.style.display === "flex") ? "none" : "flex";
         }
 
-        /* WebRTC Media Simulation Framework Layer Core */
+        /* WebRTC Real-Time Media Captures Systems Mocking Interface Loops */
         async function toggleWebRTCAudioVideoCallHub() {
             const streamingBayBlock = document.getElementById('webrtc-call-bay');
             const indicatorIcon = document.getElementById('navbar-call-toggle-icon');
@@ -1707,12 +1744,12 @@
                     videoTag.srcObject = hardwareCameraStreamObject;
                     placeholderTag.style.display = "none";
                     stateBtn.classList.add('active-toggle-state');
-                    labelTag.innerText = "Camera Interface Active Node";
+                    labelTag.innerText = "Hardware Camera Track Interface Streaming Active";
                     
                     activateLiveMicrophoneAnalysis(hardwareCameraStreamObject);
                 } catch (err) {
-                    console.error("Camera node hardware link error:", err);
-                    alert("Unable to interface with systemic webcam device infrastructure hardware assets.");
+                    console.error("Camera layout linking error captured gracefully:", err);
+                    alert("Unable to map local browser access permissions to systematic webcam devices array structures.");
                     webcamHardwareActiveFlag = false;
                 }
             } else {
@@ -1721,7 +1758,6 @@
                 }
                 videoTag.srcObject = null;
                 placeholderTag.style.display = "flex";
-                placeholderTag.innerText = activeProfileSessionName.charAt(0).toUpperCase();
                 stateBtn.classList.remove('active-toggle-state');
                 labelTag.innerText = "Camera Stream Offline";
                 deactivateLiveMicrophoneAnalysis();
@@ -1730,14 +1766,14 @@
 
         function activateLiveMicrophoneAnalysis(streamObject) {
             try {
-                constructAudioContext();
-                mediaStreamAudioSourceNode = audioContextInstance.createMediaStreamSource(streamObject);
-                liveAudioAnalyserNode = audioContextInstance.createAnalyser();
+                constructionAudioEngineEngineContext();
+                mediaStreamAudioSourceNode = webAudioContextEngineInstance.createMediaStreamSource(streamObject);
+                liveAudioAnalyserNode = webAudioContextEngineInstance.createAnalyser();
                 liveAudioAnalyserNode.fftSize = 32;
                 mediaStreamAudioSourceNode.connect(liveAudioAnalyserNode);
                 executeAudioEqualizerLoop();
             } catch (err) {
-                console.log("Audio analyzer mapping error handled:", err);
+                console.log("Audio metrics visualizer node mapping safe bypass handled:", err);
             }
         }
 
@@ -1757,7 +1793,8 @@
             const webcamCardContainerNode = document.getElementById('hardware-webcam-card-container');
 
             if (webcamCardContainerNode) {
-                if (calculatedAverageVolume > 20) {
+                if (calculatedAverageVolume > 18) {
+                    /* Active Voice Frame Highlight Glow Activation Pattern */
                     webcamCardContainerNode.classList.add('speaking-ring');
                 } else {
                     webcamCardContainerNode.classList.remove('speaking-ring');
@@ -1792,13 +1829,13 @@
                     displayVideoTag.srcObject = hardwareDisplayStreamObject;
                     displayPlaceholderTag.style.display = "none";
                     displayStateBtn.classList.add('active-toggle-state');
-                    displayLabelTag.innerText = "Display Streams Broadcasting Active";
+                    displayLabelTag.innerText = "Display Interface Capture Broadcasting Live";
 
                     hardwareDisplayStreamObject.getVideoTracks()[0].onended = () => {
                         if (displayShareHardwareActiveFlag) toggleDisplayShareDeviceState();
                     };
                 } catch (err) {
-                    console.error("Display tracking infrastructure block allocation error:", err);
+                    console.error("Display share initialization framework error captured safely:", err);
                     displayShareHardwareActiveFlag = false;
                 }
             } else {
@@ -1882,7 +1919,7 @@
             }, 1000);
         }
 
-        /* Storefront Matrix Functions Component Handlers */
+        /* Storefront Cosmetics Grid Injectors Logic Loop */
         function generateMultiverseShopCards() {
             const gridInjector = document.getElementById('shop-grid-cards-injector');
             if (!gridInjector) return;
@@ -1891,11 +1928,12 @@
             shopCatalogInventory.forEach(item => {
                 gridInjector.innerHTML += `
                     <div class="shop-product-card">
+                        <img src="${item.url}" class="product-image-frame" alt="Cosmetic Pack Sample Frame View">
                         <div class="product-title">${item.name}</div>
                         <div class="product-desc">${item.description}</div>
                         <div class="product-action-row">
                             <span class="product-cost-label">🔮 ${item.cost.toLocaleString()} Orbs</span>
-                            <button class="product-purchase-btn" id="shop-btn-claim-${item.id}" onclick="executeProductPurchase('${item.id}')">Claim Variant</button>
+                            <button class="product-purchase-btn" id="shop-btn-claim-${item.id}" onclick="executeProductPurchase('${item.id}')">Claim Variant Modifier</button>
                         </div>
                     </div>`;
             });
@@ -1903,32 +1941,32 @@
 
         function executeProductPurchase(itemId) {
             const purchaseBtnNode = document.getElementById(`shop-btn-claim-${itemId}`);
-            triggerBespokeBeepFrequency(840, 'sine', 0.25, 0.3);
+            triggerBespokeOscillatorBeep(720, 'sine', 0.2, 0.25);
 
             if (purchaseBtnNode) {
-                purchaseBtnNode.innerText = "✓ Claimed";
+                purchaseBtnNode.innerText = "✓ Claimed Bundle";
                 purchaseBtnNode.classList.add('unlocked-state');
                 purchaseBtnNode.disabled = true;
             }
 
-            appendSystemChatMessageLog("System Store", `Successfully assigned visual profile structural mod asset [${itemId}] to client variables bundle.`, "system-alert");
+            appendSystemChatMessageLog("System Premium Store", `Successfully committed inventory asset assignment properties [${itemId}] to the cloud container configuration profile.`, "system-alert");
         }
 
         function toggleStorefrontModalView(displayVisibilityFlag) {
-            triggerBespokeBeepFrequency(440, 'sine', 0.1, 0.1);
+            triggerBespokeOscillatorBeep(440, 'sine', 0.06, 0.08);
             document.getElementById('nexus-shop-screen').style.display = displayVisibilityFlag ? "flex" : "none";
         }
 
         function triggerServerAlertNotice() {
-            alert("NexusChat Multi-Node Client Server Layer configuration properties running optimally.");
+            alert("NexusChat Multi-Node Enterprise Client Platform variables configured optimally on production channels.");
         }
 
         function triggerMockAttachmentUpload() {
-            alert("Attachment handling system linked securely. Select file streaming vectors initialized.");
+            alert("Local storage directory listener initialized. Telemetry file streams allocated securely.");
         }
 
         function executeHardwareProfileWipeReset() {
-            if (confirm("Purge local identity block storage metrics variable cache?")) {
+            if (confirm("Flush systemic active registration configuration variables from cache memory parameters?")) {
                 localStorage.removeItem('nexuschat_discord_name');
                 localStorage.removeItem('nexuschat_discord_avatar');
                 window.location.reload();
@@ -1936,7 +1974,7 @@
         }
 
         function pivotGlobalGuildRail(modeKey) {
-            triggerBespokeBeepFrequency(350, 'sine', 0.05, 0.1);
+            triggerBespokeOscillatorBeep(360, 'sine', 0.04, 0.08);
             if (modeKey === 'chat') {
                 document.getElementById('guild-unread-badge').style.display = "none";
             }
