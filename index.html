@@ -41,7 +41,6 @@
         /* Hardware Custom Pointer Implementation Rules */
         *, body, html, button, input, select, textarea, a {
             box-sizing: border-box;
-            cursor: url('Cursor.png') 4 4, default !important;
         }
 
         body, html {
@@ -1255,6 +1254,94 @@
             color: var(--success-green) !important;
         }
 
+        /* High Fidelity Premium Token Matrix Modal Styles */
+        .nexus-gate-premium-modal-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(4, 6, 12, 0.95);
+            z-index: 9500;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .premium-card-container {
+            width: 100%;
+            max-width: 480px;
+            background: #121622;
+            border: 2px solid var(--gold-accent);
+            box-shadow: 0 0 30px rgba(245, 166, 35, 0.2);
+            border-radius: 12px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            text-align: center;
+        }
+        .premium-card-title {
+            font-size: 22px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 1px;
+            margin: 0;
+            text-transform: uppercase;
+        }
+        .premium-card-desc {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin: 0;
+        }
+        .premium-link-input-display {
+            width: 100%;
+            background: #090c12;
+            border: 1px solid var(--border-subtle);
+            padding: 12px;
+            border-radius: 6px;
+            color: var(--primary-accent);
+            font-family: monospace;
+            font-size: 12px;
+            text-align: left;
+            word-break: break-all;
+            user-select: all;
+            -webkit-user-select: all;
+        }
+        .premium-action-row-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 10px;
+        }
+        .premium-btn-action {
+            flex: 1;
+            padding: 12px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            border: none;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .premium-btn-action.paypal-primary {
+            background: var(--gold-accent);
+            color: #000000;
+        }
+        .premium-btn-action.paypal-primary:hover {
+            box-shadow: 0 0 16px rgba(245, 166, 35, 0.5);
+            transform: translateY(-1px);
+        }
+        .premium-btn-action.dismiss-secondary {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-main);
+        }
+        .premium-btn-action.dismiss-secondary:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
         @keyframes rotateRing {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -1300,6 +1387,32 @@
 
                 <button type="button" class="submit-portal-access-btn" onclick="executeManualProfileCommit()">Enter App Matrix</button>
             </form>
+        </div>
+    </div>
+
+    <!-- Invite Generator Notification Display Modal -->
+    <div id="nexus-invite-portal-overlay" class="nexus-gate-premium-modal-wrapper">
+        <div class="premium-card-container" style="border-color: var(--primary-accent); box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);">
+            <h2 class="premium-card-title" style="color: var(--primary-accent)">Secure Matrix Code Matrix</h2>
+            <p class="premium-card-desc">Your private end-to-end routing pipeline parameters have successfully synchronized. Copy the code from the field layout index container frame structure node block below:</p>
+            <textarea class="premium-link-input-display" id="nexus-invite-modal-textarea-display" readonly style="height: 80px; resize: none;"></textarea>
+            <div class="premium-action-row-buttons">
+                <button class="premium-btn-action paypal-primary" style="background: var(--primary-accent);" onclick="executeManualModalCopyPattern()">Select Matrix Address</button>
+                <button class="premium-btn-action dismiss-secondary" onclick="document.getElementById('nexus-invite-portal-overlay').style.display = 'none'">Close View</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Limit Subscription Target Overlay Frame -->
+    <div id="nexus-premium-upgrade-overlay" class="nexus-gate-premium-modal-wrapper">
+        <div class="premium-card-container">
+            <div style="font-size: 40px;">⏳</div>
+            <h2 class="premium-card-title">Call Frame Duration Terminated</h2>
+            <p class="premium-card-desc">You have encountered the maximum 40-minute free access limitation boundary loop parameters. Purchase the <strong>Call Max Hours Pass</strong> container upgrade for $5.00 USD to enable unlimited communication loops.</p>
+            <div class="premium-action-row-buttons">
+                <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" class="premium-btn-action paypal-primary">Upgrade via PayPal</a>
+                <button class="premium-btn-action dismiss-secondary" onclick="closePremiumLimitOverlayReset()">Acknowledge</button>
+            </div>
         </div>
     </div>
 
@@ -1513,6 +1626,7 @@
             evaluateCachedProfileState();
             setupAutomatedNetworkPeerSimulation();
             checkForPrivateInviteAddressParameters();
+            setupFiveMinuteInviteRefreshLoop();
         });
 
         /* Checks URL parameters for private friend matrix invite links */
@@ -1520,24 +1634,40 @@
             const urlParams = new URLSearchParams(window.location.search);
             const matrixCode = urlParams.get('matrix_invite') || urlParams.get('call');
             if (matrixCode) {
-                const decName = atob(matrixCode);
-                const pvtChannelId = 'pvt-node-' + matrixCode;
-                
-                channelDatabase[pvtChannelId] = {
-                    name: `🔒 Private Matrix (${decName})`,
-                    history: [
-                        { author: "System Protocol", content: `Established direct, end-to-end routing channel connection to player data handle [${decName}].`, variant: "received", timeCode: "Now" }
-                    ]
-                };
-                
-                activeChannelId = pvtChannelId;
-                setTimeout(() => {
-                    appendBubbleElement(decName, "Hey! I connected through your private invite link code. Let's call or send some voice messages here!", "received");
-                }, 1500);
+                try {
+                    const decName = atob(matrixCode);
+                    const pvtChannelId = 'pvt-node-' + matrixCode;
+                    
+                    channelDatabase[pvtChannelId] = {
+                        name: `🔒 Private Matrix (${decName})`,
+                        history: [
+                            { author: "System Protocol", content: `Established direct, end-to-end routing channel connection to player data handle [${decName}].`, variant: "received", timeCode: "Now" }
+                        ]
+                    };
+                    
+                    activeChannelId = pvtChannelId;
+                    setTimeout(() => {
+                        appendBubbleElement(decName, "Hey! I connected through your private invite link code. Let's call or send some voice messages here!", "received");
+                    }, 1500);
+                } catch(e) {
+                    console.log("Error handling URL routing parameter base64 string", e);
+                }
             }
         }
 
-        /* Generates a unique b64 address invitation code and injects to clipboard */
+        /* Continuous background processing task: generates a fresh token hash vector parameters layout block stack every 5 minutes */
+        function setupFiveMinuteInviteRefreshLoop() {
+            setInterval(() => {
+                if (currentProfileSessionName && currentProfileSessionName.trim() !== "") {
+                    const dynamicObfuscatedSalt = btoa(currentProfileSessionName + "-" + Date.now());
+                    const generatedLinkNode = `${window.location.origin}${window.location.pathname}?matrix_invite=${dynamicObfuscatedSalt}`;
+                    
+                    appendBubbleElement("System Protocol", `Automated Cycle Refresh complete: Fresh secure 5-minute invite address code generated dynamically: ${generatedLinkNode}`, "received");
+                }
+            }, 300000); // 5 Minutes Core Interval Period
+        }
+
+        /* Generates a unique b64 address invitation code and triggers high fidelity display layer prompt box context */
         function generatePrivateFriendMatrixCode() {
             playSynthFrequency(880, 'sine', 0.2, 0.3);
             if (!currentProfileSessionName) {
@@ -1545,10 +1675,15 @@
                 return;
             }
             
-            const generatedB64Token = btoa(currentProfileSessionName);
+            const generatedB64Token = btoa(currentProfileSessionName + "-" + Math.floor(Math.random() * 1000));
             const absoluteLandingURL = `${window.location.origin}${window.location.pathname}?matrix_invite=${generatedB64Token}`;
             
-            // Legacy input trick for broad cross-environment iframe clipboard safety
+            const textareaDisplay = document.getElementById('nexus-invite-modal-textarea-display');
+            if (textareaDisplay) {
+                textareaDisplay.value = absoluteLandingURL;
+            }
+            
+            // Try explicit background system copy
             const auxTextArea = document.createElement("textarea");
             auxTextArea.value = absoluteLandingURL;
             document.body.appendChild(auxTextArea);
@@ -1556,8 +1691,19 @@
             document.execCommand('copy');
             document.body.removeChild(auxTextArea);
             
-            alert(`Private Connection Code Generated & Copied!\n\nSend this address to your friend to jump into a private channel:\n${absoluteLandingURL}`);
+            document.getElementById('nexus-invite-portal-overlay').style.display = 'flex';
             appendBubbleElement("System Sync", `Generated secure invite matrix pointer hash token address link code cleanly. Ready for private peer pairing parameters.`, "received");
+        }
+
+        /* Focus and selects the inner link parameters explicitly within the modal frame node layer */
+        function executeManualModalCopyPattern() {
+            const targetDisplay = document.getElementById('nexus-invite-modal-textarea-display');
+            if (targetDisplay) {
+                targetDisplay.focus();
+                targetDisplay.select();
+                document.execCommand('copy');
+                alert("Link text sequence highlighted and captured safely inside your system storage pipeline clipboard layers.");
+            }
         }
 
         function setupAutomatedNetworkPeerSimulation() {
@@ -2180,10 +2326,41 @@
             const durationClock = document.getElementById('call-duration-clock');
             callTimerInterval = setInterval(() => {
                 elapsedCallSeconds++;
+                
+                // Free Access Boundary Filter Check: 40 Minutes Max constraint (40 * 60 = 2400 Seconds)
+                if (elapsedCallSeconds >= 2400) {
+                    executePremiumLimitationCutoff();
+                    return;
+                }
+                
                 let displayMinutes = String(Math.floor(elapsedCallSeconds / 60)).padStart(2, '0');
                 let displaySeconds = String(elapsedCallSeconds % 60).padStart(2, '0');
                 if (durationClock) durationClock.innerText = `${displayMinutes}:${displaySeconds}`;
             }, 1000);
+        }
+
+        /* Forces stream disconnections immediately upon meeting the tier constraint limit parameter rules */
+        function executePremiumLimitationCutoff() {
+            terminateChronometerClock();
+            cleanupHardwareTracks();
+            isCallActive = false;
+            
+            const layerBlock = document.getElementById('call-interface-layer');
+            const joinBtn = document.querySelector('.call-action-btn');
+            if (layerBlock) layerBlock.style.display = 'none';
+            if (joinBtn) {
+                joinBtn.innerText = "Connect Live Streams";
+                joinBtn.style.borderColor = "var(--primary-accent)";
+                joinBtn.style.color = "var(--primary-accent)";
+            }
+            
+            // Render High Fidelity Premium Paywall Layer
+            document.getElementById('nexus-premium-upgrade-overlay').style.display = 'flex';
+            playSynthFrequency(220, 'sawtooth', 0.4, 0.3);
+        }
+
+        function closePremiumLimitOverlayReset() {
+            document.getElementById('nexus-premium-upgrade-overlay').style.display = 'none';
         }
 
         function terminateChronometerClock() {
