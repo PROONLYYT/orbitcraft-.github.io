@@ -1408,7 +1408,7 @@
         <div class="premium-card-container">
             <div style="font-size: 40px;">⏳</div>
             <h2 class="premium-card-title">Call Frame Duration Terminated</h2>
-            <p class="premium-card-desc">You have encountered the maximum 40-minute free access limitation boundary loop parameters. Purchase the <strong>Call Max Hours Pass</strong> container upgrade for $5.00 USD to enable unlimited communication loops.</p>
+            <p class="premium-card-desc">You have encountered the maximum 1-minute test access limitation boundary loop parameters. Purchase the <strong>Call Max Hours Pass</strong> container upgrade for $5.00 USD to enable unlimited communication loops.</p>
             <div class="premium-action-row-buttons">
                 <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" class="premium-btn-action paypal-primary">Upgrade via PayPal</a>
                 <button class="premium-btn-action dismiss-secondary" onclick="closePremiumLimitOverlayReset()">Acknowledge</button>
@@ -2327,8 +2327,8 @@
             callTimerInterval = setInterval(() => {
                 elapsedCallSeconds++;
                 
-                // Free Access Boundary Filter Check: 40 Minutes Max constraint (40 * 60 = 2400 Seconds)
-                if (elapsedCallSeconds >= 2400) {
+                // Test Access Boundary Filter Check: Updated to exactly 1 minute constraint (60 seconds)
+                if (elapsedCallSeconds >= 60) {
                     executePremiumLimitationCutoff();
                     return;
                 }
