@@ -71,7 +71,6 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary-accent);
         }
-
         /* Cinematic Loading Portal Splash Overlay Styles */
         #splash-loading-portal {
             position: fixed;
@@ -320,388 +319,433 @@
 
         .shop-trigger-btn {
             width: 100%;
-padding: 12px;
-font-size: 13px;
-font-weight: 700;
-text-transform: uppercase;
-letter-spacing: 1px;
-background: transparent;
-color: var(--primary-accent);
-border: 1px solid var(--primary-accent);
-border-radius: 6px;
-cursor: pointer !important;
-transition: all 0.2s ease;
-text-align: center;
-box-shadow: 0 0 6px var(--primary-glow);
-}
-.shop-trigger-btn:hover {
-background: var(--primary-hover);
-color: #000000;
-box-shadow: 0 0 14px var(--primary-accent);
-}
-.contacts-vertical-stack {
-flex: 1;
-overflow-y: auto;
-padding: 8px 0;
-}
-.chat-list-row {
-padding: 12px 16px;
-cursor: pointer !important;
-display: flex;
-align-items: center;
-gap: 12px;
-border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-transition: background 0.2s ease, border-left 0.2s ease;
-border-left: 3px solid transparent;
-}
-.chat-list-row:hover, .chat-list-row.active {
-background: rgba(0, 255, 255, 0.03);
-border-left-color: var(--primary-accent);
-}
-.row-avatar {
-font-size: 14px;
-font-weight: 700;
-width: 32px;
-height: 32px;
-background: rgba(255, 255, 255, 0.03);
-border: 1px solid var(--border-subtle);
-display: flex;
-align-items: center;
-justify-content: center;
-border-radius: 50%;
-flex-shrink: 0;
-color: var(--text-muted);
-}
-.chat-list-row:hover .row-avatar, .chat-list-row.active .row-avatar {
-color: var(--primary-accent);
-border-color: var(--primary-accent);
-}
-.row-meta {
-flex: 1;
-min-width: 0;
-}
-.row-name {
-font-weight: 600;
-font-size: 13.5px;
-margin-bottom: 2px;
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-}
-.row-preview {
-font-size: 11px;
-color: var(--text-muted);
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-}
-.workspace-panel {
-flex: 1;
-display: flex;
-flex-direction: column;
-background: var(--bg-dark);
-position: relative;
-height: 100%;
-}
-.workspace-header {
-padding: 14px 24px;
-background: var(--bg-panel);
-display: flex;
-align-items: center;
-justify-content: space-between;
-border-bottom: 1px solid var(--border-subtle);
-height: 70px;
-box-sizing: border-box;
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
-}
-.header-profile {
-display: flex;
-align-items: center;
-gap: 12px;
-}
-.header-profile .title {
-font-weight: 600;
-font-size: 16px;
-letter-spacing: 0.5px;
-}
-.thread-scroll-view {
-flex: 1;
-overflow-y: auto;
-padding: 24px;
-display: flex;
-flex-direction: column;
-gap: 14px;
-box-sizing: border-box;
-}
-.msg-bubble {
-max-width: 65%;
-padding: 12px 16px;
-border-radius: 12px;
-line-height: 1.5;
-font-size: 14px;
-display: flex;
-flex-direction: column;
-word-wrap: break-word;
-background: rgba(255, 255, 255, 0.03);
-border: 1px solid var(--border-subtle);
-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-.msg-bubble.sent {
-background: rgba(0, 255, 255, 0.05);
-border-color: rgba(0, 255, 255, 0.3);
-align-self: flex-end;
-border-bottom-right-radius: 0;
-}
-.msg-bubble.received {
-background: rgba(255, 255, 255, 0.02);
-align-self: flex-start;
-border-bottom-left-radius: 0;
-}
-.msg-author {
-font-size: 12px;
-font-weight: 700;
-color: var(--primary-accent);
-margin-bottom: 4px;
-letter-spacing: 0.5px;
-}
-.msg-bubble.sent .msg-author {
-color: #ffffff;
-}
-.msg-footer {
-font-size: 10px;
-color: var(--text-muted);
-margin-top: 6px;
-align-self: flex-end;
-}
-.input-dock-bar {
-padding: 16px 24px;
-background: var(--bg-panel);
-display: flex;
-align-items: center;
-gap: 12px;
-border-top: 1px solid var(--border-subtle);
-height: 75px;
-box-sizing: border-box;
-position: relative;
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
-}
-.input-dock-bar input[type="text"] {
-flex: 1;
-background: var(--input-bg);
-border: 1px solid var(--border-subtle);
-padding: 12px 16px;
-border-radius: 6px;
-color: #ffffff;
-font-size: 14px;
-outline: none;
-transition: border-color 0.2s, box-shadow 0.2s;
-}
-.input-dock-bar input[type="text"]:focus {
-border-color: var(--primary-accent);
-box-shadow: 0 0 8px var(--primary-glow);
-}
-.cooldown-progress-track {
-position: absolute;
-bottom: 0;
-left: 0;
-height: 3px;
-width: 100%;
-background: rgba(255, 255, 255, 0.02);
-pointer-events: none;
-}
-.cooldown-progress-fill {
-height: 100%;
-width: 0%;
-background: var(--primary-accent);
-box-shadow: 0 0 8px var(--primary-accent);
-}
-.emoji-trigger-node-btn {
-background: transparent;
-border: 1px solid var(--border-subtle);
-color: var(--text-muted);
-font-size: 18px;
-padding: 8px;
-border-radius: 6px;
-cursor: pointer !important;
-transition: all 0.2s ease;
-display: flex;
-align-items: center;
-justify-content: center;
-}
-.emoji-trigger-node-btn:hover {
-color: var(--primary-accent);
-border-color: var(--primary-accent);
-background: rgba(0, 255, 255, 0.05);
-}
-.emoji-picker-matrix-overlay {
-position: absolute;
-bottom: 85px;
-right: 24px;
-width: 320px;
-height: 240px;
-background: rgba(10, 16, 26, 0.95);
-border: 1px solid var(--border-active);
-border-radius: 8px;
-box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-display: none;
-flex-direction: column;
-z-index: 1000;
-backdrop-filter: blur(16px);
--webkit-backdrop-filter: blur(16px);
-}
-.emoji-picker-header {
-padding: 10px 12px;
-font-size: 11px;
-font-weight: 700;
-letter-spacing: 1px;
-color: var(--text-muted);
-border-bottom: 1px solid var(--border-subtle);
-text-transform: uppercase;
-}
-.emoji-grid-scroller {
-flex: 1;
-overflow-y: auto;
-padding: 10px;
-display: grid;
-grid-template-columns: repeat(7, 1fr);
-gap: 6px;
-}
-.emoji-grid-item-cell {
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 20px;
-padding: 6px;
-border-radius: 4px;
-cursor: pointer !important;
-transition: background 0.15s ease, transform 0.1s ease;
-}
-.emoji-grid-item-cell:hover {
-background: rgba(0, 255, 255, 0.15);
-transform: scale(1.15);
-}
-.send-btn {
-background: transparent;
-color: var(--primary-accent);
-border: 1px solid var(--primary-accent);
-padding: 12px 20px;
-border-radius: 6px;
-font-weight: 600;
-font-size: 13px;
-cursor: pointer !important;
-transition: all 0.2s ease;
-box-shadow: 0 0 4px var(--primary-glow);
-}
-.send-btn:hover {
-background: var(--primary-hover);
-color: #000000;
-box-shadow: 0 0 12px var(--primary-accent);
-}
-.send-btn:disabled {
-border-color: var(--border-subtle);
-color: var(--text-muted);
-background: transparent;
-box-shadow: none;
-cursor: not-allowed !important;
-}
-.call-action-btn {
-background: transparent;
-border: 1px solid var(--primary-accent);
-font-size: 13px;
-font-weight: 600;
-color: var(--primary-accent);
-padding: 8px 16px;
-border-radius: 4px;
-cursor: pointer !important;
-transition: all 0.2s ease;
-display: flex;
-align-items: center;
-gap: 8px;
-box-shadow: 0 0 6px var(--primary-glow);
-}
-.call-action-btn:hover {
-background: var(--primary-hover);
-color: #000000;
-box-shadow: 0 0 14px var(--primary-accent);
-}
-#call-interface-layer {
-display: none;
-flex-direction: column;
-background: rgba(4, 6, 10, 0.9);
-padding: 16px;
-border-bottom: 1px solid var(--border-subtle);
-box-sizing: border-box;
-}
-.media-grid {
-display: grid;
-grid-template-columns: 1fr 1fr;
-gap: 16px;
-min-height: 260px;
-}
-@media (max-width: 768px) {
-.media-grid { grid-template-columns: 1fr; }
-}
-.media-window {
-background: var(--input-bg);
-border-radius: 8px;
-position: relative;
-display: flex;
-align-items: center;
-justify-content: center;
-border: 1px solid var(--border-subtle);
-overflow: hidden;
-height: 260px;
-box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
-}
-.media-window.speaking-active {
-border-color: var(--primary-accent);
-box-shadow: 0 0 16px var(--primary-glow), inset 0 0 20px rgba(0, 255, 255, 0.1);
-}
-.live-video-element {
-width: 100%;
-height: 100%;
-object-fit: cover;
-position: absolute;
-top: 0;
-left: 0;
-z-index: 1;
-background: #000;
-}
-.stream-canvas-mock {
-width: 100%;
-height: 100%;
-position: absolute;
-background: radial-gradient(circle, rgba(10,20,30,0.8) 0%, rgba(4,6,10,1) 100%);
-display: flex;
-align-items: center;
-justify-content: center;
-top: 0;
-left: 0;
-}
-.stream-label {
-position: absolute;
-bottom: 10px;
-left: 10px;
-background: rgba(4,6,10,0.85);
-padding: 6px 12px;
-border-radius: 4px;
-font-size: 11px;
-color: #fff;
-z-index: 2;
-font-weight: 600;
-border: 1px solid var(--border-subtle);
-border-left: 3px solid var(--primary-accent);
-letter-spacing: 0.5px;
-}
-.avatar-placeholder-call {
-width: 68px;
-height: 68px;
-border-radius: 50%;
-background: rgba(0, 255, 255, 0.05);
-border: 1px solid var(--primary-accent);
-display: flex;
+            padding: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            background: transparent;
+            color: var(--primary-accent);
+            border: 1px solid var(--primary-accent);
+            border-radius: 6px;
+            cursor: pointer !important;
+            transition: all 0.2s ease;
+            text-align: center;
+            box-shadow: 0 0 6px var(--primary-glow);
+        }
+
+        .shop-trigger-btn:hover {
+            background: var(--primary-hover);
+            color: #000000;
+            box-shadow: 0 0 14px var(--primary-accent);
+        }
+
+        .contacts-vertical-stack {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 0;
+        }
+
+        .chat-list-row {
+            padding: 12px 16px;
+            cursor: pointer !important;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            transition: background 0.2s ease, border-left 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .chat-list-row:hover, .chat-list-row.active {
+            background: rgba(0, 255, 255, 0.03);
+            border-left-color: var(--primary-accent);
+        }
+
+        .row-avatar {
+            font-size: 14px;
+            font-weight: 700;
+            width: 32px;
+            height: 32px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            flex-shrink: 0;
+            color: var(--text-muted);
+        }
+
+        .chat-list-row:hover .row-avatar, .chat-list-row.active .row-avatar {
+            color: var(--primary-accent);
+            border-color: var(--primary-accent);
+        }
+
+        .row-meta {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .row-name {
+            font-weight: 600;
+            font-size: 13.5px;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .row-preview {
+            font-size: 11px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .workspace-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-dark);
+            position: relative;
+            height: 100%;
+        }
+
+        .workspace-header {
+            padding: 14px 24px;
+            background: var(--bg-panel);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-subtle);
+            height: 70px;
+            box-sizing: border-box;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .header-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .header-profile .title {
+            font-weight: 600;
+            font-size: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .thread-scroll-view {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            box-sizing: border-box;
+        }
+
+        .msg-bubble {
+            max-width: 65%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            line-height: 1.5;
+            font-size: 14px;
+            display: flex;
+            flex-direction: column;
+            word-wrap: break-word;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-subtle);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .msg-bubble.sent {
+            background: rgba(0, 255, 255, 0.05);
+            border-color: rgba(0, 255, 255, 0.3);
+            align-self: flex-end;
+            border-bottom-right-radius: 0;
+        }
+
+        .msg-bubble.received {
+            background: rgba(255, 255, 255, 0.02);
+            align-self: flex-start;
+            border-bottom-left-radius: 0;
+        }
+
+        .msg-author {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--primary-accent);
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .msg-bubble.sent .msg-author {
+            color: #ffffff;
+        }
+
+        .msg-footer {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 6px;
+            align-self: flex-end;
+        }
+
+        .input-dock-bar {
+            padding: 16px 24px;
+            background: var(--bg-panel);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border-top: 1px solid var(--border-subtle);
+            height: 75px;
+            box-sizing: border-box;
+            position: relative;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .input-dock-bar input[type="text"] {
+            flex: 1;
+            background: var(--input-bg);
+            border: 1px solid var(--border-subtle);
+            padding: 12px 16px;
+            border-radius: 6px;
+            color: #ffffff;
+            font-size: 14px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .input-dock-bar input[type="text"]:focus {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 8px var(--primary-glow);
+        }
+
+        .cooldown-progress-track {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.02);
+            pointer-events: none;
+        }
+
+        .cooldown-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--primary-accent);
+            box-shadow: 0 0 8px var(--primary-accent);
+        }
+
+        .emoji-trigger-node-btn {
+            background: transparent;
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            font-size: 18px;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer !important;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .emoji-trigger-node-btn:hover {
+            color: var(--primary-accent);
+            border-color: var(--primary-accent);
+            background: rgba(0, 255, 255, 0.05);
+        }
+
+        .emoji-picker-matrix-overlay {
+            position: absolute;
+            bottom: 85px;
+            right: 24px;
+            width: 320px;
+            height: 240px;
+            background: rgba(10, 16, 26, 0.95);
+            border: 1px solid var(--border-active);
+            border-radius: 8px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            display: none;
+            flex-direction: column;
+            z-index: 1000;
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        .emoji-picker-header {
+            padding: 10px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border-subtle);
+            text-transform: uppercase;
+        }
+
+        .emoji-grid-scroller {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+        }
+
+        .emoji-grid-item-cell {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            padding: 6px;
+            border-radius: 4px;
+            cursor: pointer !important;
+            transition: background 0.15s ease, transform 0.1s ease;
+        }
+
+        .emoji-grid-item-cell:hover {
+            background: rgba(0, 255, 255, 0.15);
+            transform: scale(1.15);
+        }
+
+        .send-btn {
+            background: transparent;
+            color: var(--primary-accent);
+            border: 1px solid var(--primary-accent);
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer !important;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 4px var(--primary-glow);
+        }
+
+        .send-btn:hover {
+            background: var(--primary-hover);
+            color: #000000;
+            box-shadow: 0 0 12px var(--primary-accent);
+        }
+
+        .send-btn:disabled {
+            border-color: var(--border-subtle);
+            color: var(--text-muted);
+            background: transparent;
+            box-shadow: none;
+            cursor: not-allowed !important;
+        }
+
+        .call-action-btn {
+            background: transparent;
+            border: 1px solid var(--primary-accent);
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary-accent);
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer !important;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 0 6px var(--primary-glow);
+        }
+
+        .call-action-btn:hover {
+            background: var(--primary-hover);
+            color: #000000;
+            box-shadow: 0 0 14px var(--primary-accent);
+        }
+
+        #call-interface-layer {
+            display: none;
+            flex-direction: column;
+            background: rgba(4, 6, 10, 0.9);
+            padding: 16px;
+            border-bottom: 1px solid var(--border-subtle);
+            box-sizing: border-box;
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            min-height: 260px;
+        }
+
+        @media (max-width: 768px) {
+            .media-grid { grid-template-columns: 1fr; }
+        }
+
+        .media-window {
+            background: var(--input-bg);
+            border-radius: 8px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-subtle);
+            overflow: hidden;
+            height: 260px;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
+        }
+
+        .media-window.speaking-active {
+            border-color: var(--primary-accent);
+            box-shadow: 0 0 16px var(--primary-glow), inset 0 0 20px rgba(0, 255, 255, 0.1);
+        }
+
+        .live-video-element {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            background: #000;
+        }
+
+        .stream-canvas-mock {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background: radial-gradient(circle, rgba(10,20,30,0.8) 0%, rgba(4,6,10,1) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 0;
+            left: 0;
+        }
+
+        .stream-label {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(4,6,10,0.85);
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 11px;
+            color: #fff;
+            z-index: 2;
+            font-weight: 600;
+            border: 1px solid var(--border-subtle);
+            border-left: 3px solid var(--primary-accent);
+            letter-spacing: 0.5px;
+        }
+
+        .avatar-placeholder-call {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background: rgba(0, 255, 255, 0.05);
+            border: 1px solid var(--primary-accent);
+            display: flex;
 align-items: center;
 justify-content: center;
 z-index: 1;
@@ -1194,253 +1238,398 @@ margin-top: 8px;
 background: var(--primary-hover);
 color: #000000;
 box-shadow: 0 0 16px var(--primary-accent);
-}
+}<body>
 
+    <div id="splash-loading-portal">
+        <div class="splash-logo-container">
+            <img src="favicon.png" class="splash-logo-img" alt="Nexus Architecture Logo">
+        </div>
+        <div class="splash-headline">NexusChat Client</div>
+        <div class="splash-user-subtitle" id="splash-user-target">Initializing Platform...</div>
+        <div class="progress-track-wrapper">
+            <div class="progress-bar-fill" id="splash-bar-fill"></div>
+        </div>
+    </div>
 
-NexusChat Client
-Initializing Platform...
+    <div id="secure-login-gate-overlay">
+        <div class="login-card-glassmorphic-wrapper">
+            <div class="login-card-header">
+                <img src="favicon.png" class="login-brand-logo-node" alt="Nexus Brand Mark">
+                <h1 class="login-title-h1">Welcome Back</h1>
+                <p class="login-subtitle-p">Authenticate or build profile container to unlock live streams</p>
+            </div>
 
+            
+                <div id="g_id_onload"
+                     data-client_id="YOUR_GOOGLE_CLIENT_://googleusercontent.com"
+                     data-context="signin"
+                     data-ux_mode="popup"
+                     data-callback="handleCredentialResponse"
+                     data-auto_prompt="false">
+                </div>
+                <div class="g_id_signin"
+                     data-type="standard"
+                     data-shape="skewed"
+                     data-theme="filled_dark"
+                     data-text="signin_with"
+                     data-size="large"
+                     data-logo_alignment="left">
+                </div>
+            </div>
 
+            <div class="oauth-providers-button-stack">
+                <button class="oauth-provider-btn" onclick="simulateOAuthLogin('Discord')">Discord Access</button>
+                <button class="oauth-provider-btn" onclick="simulateOAuthLogin('Microsoft')">Microsoft Identity</button>
+            </div>
 
-Welcome Back
-Authenticate or build profile container to unlock live streams
-Discord Access
-Microsoft Identity
-or build account container
-Display String Tag name
-Profile Avatar Image Source
-N
+            <div class="login-divider-row">or build account container</div>
 
-Choose Local File
+            <form class="registration-input-group-form" onsubmit="event.preventDefault();">
+                <div>
+                    <label class="form-label-node">Display String Tag name</label>
+                    <input type="text" id="portal-username-input-node" class="form-text-input-field" placeholder="Enter custom display string..." required>
+                </div>
+                
+                <div>
+                    <label class="form-label-node">Profile Avatar Image Source</label>
+                    <div class="avatar-file-upload-trigger-container">
+                        <div class="avatar-upload-preview-frame" id="portal-avatar-preview-box">N</div>
+                        <input type="file" id="portal-avatar-file-input" accept="image/*" style="display: none;" onchange="handleLocalAvatarSelection(event)">
+                        <button type="button" class="custom-file-input-facade-btn" onclick="document.getElementById('portal-avatar-file-input').click()">Choose Local File</button>
+                    </div>
+                </div>
 
-Initialize Session
+                <button type="button" class="submit-portal-access-btn" onclick="executeManualProfileCommit()">Initialize Session</button>
+            </form>
+        </div>
+    </div>
 
+    <div id="app-frame">
+        <div class="global-nav-rail">
+            <div class="rail-tab-item active" id="tab-node-chat" onclick="switchGlobalRailContext('chat')" title="Home/Chat">💬</div>
+            <div class="rail-tab-item" id="tab-node-groups" onclick="switchGlobalRailContext('groups')" title="Groups Ecosystem">👥</div>
+            <div class="rail-tab-item" id="tab-node-states" onclick="switchGlobalRailContext('states')" title="States Hub Engagement Stream">🌐</div>
+            <div class="rail-tab-item" id="tab-node-settings" onclick="switchGlobalRailContext('settings')" title="Account Integration Matrix Settings">⚙️</div>
+            <div class="rail-tab-item" id="tab-node-integrations" onclick="switchGlobalRailContext('integrations')" title="Extensions & Integrations Hub">🔌</div>
+        </div>
+        
+        <div class="sidebar-panel">
+            <div class="sidebar-header">
+                <div class="profile-node-area">
+                    <div class="user-tag-avatar" id="my-avatar-node">N</div>
+                    <div class="sidebar-title" id="my-username-node">Connecting Pipeline...</div>
+                </div>
+            </div>
+            
+            <div class="sidebar-tools" id="sidebar-context-controls-box">
+                <button class="shop-trigger-btn" onclick="openPremiumStorefront()">Open Nexus Shop</button>
+                <button class="sm-btn" id="sidebar-action-primary-btn" onclick="triggerChannelCreation()">+ New Channel Stream</button>
+                <button class="sm-btn danger" onclick="performProfileHardwareReset()">Reset Active Session Container</button>
+            </div>
+            
+            <div class="contacts-vertical-stack" id="contacts-vertical-stack"></div>
+        </div>
 
-💬
-👥
-🌐
-⚙️
-🔌
-N
-Connecting Pipeline...
+        <div class="workspace-panel">
+            <div class="workspace-header">
+                <div class="header-profile">
+                    <div style="font-size: 16px; color: var(--primary-accent); font-weight: 900; filter: drop-shadow(0 0 4px var(--primary-glow));">⧉</div>
+                    <div class="title" id="active-chat-headline-node">Global Public Lobby</div>
+                </div>
+                <button class="call-action-btn" onclick="toggleVoiceVideoCall()">Connect Live Streams</button>
+            </div>
 
-Open Nexus Shop
-+ New Channel Stream
-Reset Active Session Container
-⧉
-Global Public Lobby
+            <div class="states-hub-container-view" id="states-hub-engagement-view">
+                <div class="states-header-row">
+                    <span class="states-row-title">Live Connections Engagement Feed</span>
+                    <input type="file" id="states-media-file-capture-pipe" accept="video/*,image/*" style="display: none;" onchange="processNewStateMediaUpload(event)">
+                    <button class="call-action-btn" style="padding: 4px 10px; font-size: 11px;" onclick="document.getElementById('states-media-file-capture-pipe').click()">Create New States</button>
+                </div>
+                <div class="states-carousel-scroller-track" id="states-carousel-scroller-track"></div>
+            </div>
 
-Connect Live Streams
-Live Connections Engagement Feed
+            <div id="call-interface-layer">
+                <div class="media-grid">
+                    <div class="media-window" id="webcam-hardware-window-node">
+                        <video id="hardware-webcam-stream" class="live-video-element" autoplay playsinline muted></video>
+                        <div class="stream-canvas-mock" id="webcam-canvas">
+                            <div class="avatar-placeholder-call" id="webcam-avatar-placeholder-node">N</div>
+                        </div>
+                        <div class="stream-label" id="webcam-label">Camera Interface Offline</div>
+                    </div>
+                    <div class="media-window">
+                        <video id="hardware-screenshare-stream" class="live-video-element" autoplay playsinline></video>
+                        <div class="stream-canvas-mock" id="screenshare-canvas" style="background: #030508;">
+                            <div style="font-size: 24px; opacity: 0.15; color: var(--primary-accent);">🖥️</div>
+                        </div>
+                        <div class="stream-label" id="screenshare-label">Screen Capture Pipe Offline</div>
+                    </div>
+                </div>
 
-Create New States
+                <div class="call-controls-bar">
+                    <button class="control-btn" id="mute-audio-toggle" onclick="toggleMuteState()">Audio Unmuted</button>
+                    <button class="control-btn" id="webcam-video-toggle" onclick="toggleWebcamState()">Enable Camera</button>
+                    <button class="control-btn" id="screenshare-video-toggle" onclick="toggleScreenShareState()">Share Screen</button>
+                    <button class="control-btn active-state" onclick="toggleVoiceVideoCall()">Disconnect Stream</button>
+                    <div class="call-timer-node" id="call-duration-clock">00:00</div>
+                </div>
+            </div>
 
+            <div class="thread-scroll-view" id="chat-thread-viewport"></div>
 
-N
+            <div class="input-dock-bar">
+                <input type="text" id="text-message-input-node" placeholder="Type a message into active stream..." onkeypress="trapInputKeypress(event)">
+                
+                <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Emoji">😀</button>
+                
+                <div class="emoji-picker-matrix-overlay" id="emoji-picker-matrix-overlay">
+                    <div class="emoji-picker-header">Select Symbol Input</div>
+                    <div class="emoji-grid-scroller" id="emoji-grid-scroller-target"></div>
+                </div>
 
-Camera Interface Offline
+                <button class="send-btn" id="send-message-dispatch-btn" onclick="executeTextDispatch()">Send Message</button>
+                
+                <div class="cooldown-progress-track">
+                    <div class="cooldown-progress-fill" id="cooldown-progress-fill-bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-🖥️
+    <div id="nexus-shop-screen">
+        <div class="shop-header-navbar">
+            <a href="#" class="back-nav-link" onclick="closePremiumStorefront()">← Go Back</a>
+            <div class="shop-headline-title">NEXUS MULTIVERSE STOREFRONT</div>
+            
+            <div class="balance-container-pill">
+                <span>Balance:</span>
+                <span id="shop-balance-display-node">50,000 Orbs (Beta Free Active)</span>
+            </div>
+        </div>
 
-Screen Capture Pipe Offline
+        <div class="shop-showcase-scroller">
+            <div class="shop-items-grid" id="shop-items-grid-target"></div>
+        </div>
+    </div>
+    <script>
+        let audioCtx;
+        function initAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+        }
 
-Audio Unmuted
-Enable Camera
-Share Screen
-Disconnect Stream
-00:00
+        function playSynthFrequency(frequency, type, duration, volume = 0.2) {
+            try {
+                initAudioContext();
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = type;
+                osc.frequency.value = frequency;
+                gain.gain.setValueAtTime(volume, audioCtx.currentTime);
+                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + duration);
+            } catch (e) { 
+                console.log("Audio oscillation bypass caught: ", e); 
+            }
+        }
 
-😀
-Select Symbol Input
+        function triggerMsgAlertTone() {
+            playSynthFrequency(750, 'sine', 0.15, 0.15);
+            setTimeout(() => playSynthFrequency(980, 'sine', 0.18, 0.15), 50);
+        }
 
-Send Message
-← Go Back
-NEXUS MULTIVERSE STOREFRONT
-Balance:
-50,000 Orbs (Beta Free Active)
+        function triggerToggleMuteTone(isMuted) {
+            if (isMuted) {
+                playSynthFrequency(480, 'triangle', 0.15, 0.2);
+                setTimeout(() => playSynthFrequency(350, 'triangle', 0.18, 0.2), 50);
+            } else {
+                playSynthFrequency(350, 'triangle', 0.15, 0.2);
+                setTimeout(() => playSynthFrequency(480, 'triangle', 0.18, 0.2), 50);
+            }
+        }
 
-let audioCtx;
-function initAudioContext() {
-if (!audioCtx) {
-audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-}
-}
-function playSynthFrequency(frequency, type, duration, volume = 0.2) {
-try {
-initAudioContext();
-const osc = audioCtx.createOscillator();
-const gain = audioCtx.createGain();
-osc.type = type;
-osc.frequency.value = frequency;
-gain.gain.setValueAtTime(volume, audioCtx.currentTime);
-gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-osc.connect(gain);
-gain.connect(audioCtx.destination);
-osc.start();
-osc.stop(audioCtx.currentTime + duration);
-} catch (e) {
-console.log("Audio oscillation bypass caught: ", e);
-}
-}
-function triggerMsgAlertTone() {
-playSynthFrequency(750, 'sine', 0.15, 0.15);
-setTimeout(() => playSynthFrequency(980, 'sine', 0.18, 0.15), 50);
-}
-function triggerToggleMuteTone(isMuted) {
-if (isMuted) {
-playSynthFrequency(480, 'triangle', 0.15, 0.2);
-setTimeout(() => playSynthFrequency(350, 'triangle', 0.18, 0.2), 50);
-} else {
-playSynthFrequency(350, 'triangle', 0.15, 0.2);
-setTimeout(() => playSynthFrequency(480, 'triangle', 0.18, 0.2), 50);
-}
-}
-let currentProfileSessionName = "";
-let currentProfileAvatarUrl = "";
-let activeGlobalRailTab = "chat";
-let activeChannelId = 'global-lobby';
-let isCooldownActive = false;
-let identityLinkingMatrix = {
-google: { connected: false, name: null, avatar: null },
-discord: { connected: false, name: null, avatar: null },
-microsoft: { connected: false, name: null, avatar: null }
-};
-let activeGroupHubs = [
-{ id: 'hub-alpha', name: 'Strategic Architecture' },
-{ id: 'hub-beta', name: 'Delta Engineering Crew' }
-];
-let channelDatabase = {
-'global-lobby': { name: "Global Public Lobby", history: [] },
-'crew-vc': { name: "Crew Elite Lounge", history: [] }
-};
-let liveStatesContentFeed = [];
-let localHardwareVideoStream = null;
-let localHardwareDisplayStream = null;
-let localMicrophoneAudioSource = null;
-let localAudioAnalyserNode = null;
-let micAnimationRequestId = null;
-let isCallActive = false;
-let isAudioMuted = false;
-let isCameraActive = false;
-let isScreenSharing = false;
-let callTimerInterval = null;
-let elapsedCallSeconds = 0;
-let betaWalletBalanceOrbs = 50000;
-const shopInventoryMatrix = [
-{ id: 'nexus-elite', name: 'Nexus Elite Tier', desc: 'Premium custom user frame and advanced server scaling variables.', cost: 'Free (Beta Frame)', icon: 'favicon.png', exclusive: true },
-{ id: 'magic-mists', name: 'Obsidian Cyan Theme Pack', desc: 'Forces alternative custom linear lighting vectors across target panels.', cost: '3500 Orbs', icon: 'favicon.png', exclusive: false },
-{ id: 'cyber-neon', name: 'Cyberpunk Sound Pack', desc: 'Alters notification alerts into retro digital oscillation clips.', cost: '1200 Orbs', icon: 'favicon.png', exclusive: false }
-];
-const canonicalEmojiPack50 = [
-"😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😗","😙","😚","😋","😛","😝","😜","🤪","🤨","🧐","🤓","😎","🤩","🥳","😏","😒","😞","😔","😟","😕","🙁","☹️","😣","😖","😫","😩","🥺","😢","😭","😤","😠","😡","🤬"
-];
-window.addEventListener('DOMContentLoaded', () => {
-generateStorefrontCards();
-populateEmojiPickerGrid();
-evaluateCachedProfileState();
-});
-function evaluateCachedProfileState() {
-let cachedName = localStorage.getItem('nexuschat_user_v6');
-let cachedAvatar = localStorage.getItem('nexuschat_avatar_v6');
-if (cachedName && cachedName.trim() !== "") {
-currentProfileSessionName = cachedName;
-currentProfileAvatarUrl = cachedAvatar || "";
-executeProfileUIRenderSync();
-runCinematicProgressBar();
-} else {
-document.getElementById('splash-loading-portal').classList.add('hidden');
-}
-}
-function handleLocalAvatarSelection(event) {
-const file = event.target.files[0];
-if (!file) return;
-const reader = new FileReader();
-reader.onload = function(e) {
-const previewBox = document.getElementById('portal-avatar-preview-box');
-previewBox.innerHTML = <img src="${e.target.result}" alt="Profile Preview">;
-currentProfileAvatarUrl = e.target.result;
-};
-reader.readAsDataURL(file);
-}
-function executeManualProfileCommit() {
-const inputField = document.getElementById('portal-username-input-node');
-let inputName = inputField.value.trim().replace(/\s+/g, '');
-if (!inputName) {
-alert("Please enter a valid unique display string name.");
-return;
-}
-currentProfileSessionName = inputName;
-localStorage.setItem('nexuschat_user_v6', currentProfileSessionName);
-if (currentProfileAvatarUrl) {
-localStorage.setItem('nexuschat_avatar_v6', currentProfileAvatarUrl);
-}
-executeProfileUIRenderSync();
-document.getElementById('secure-login-gate-overlay').classList.add('hidden');
-document.getElementById('splash-loading-portal').classList.remove('hidden');
-runCinematicProgressBar();
-}
-function handleCredentialResponse(response) {
-try {
-const base64Url = response.credential.split('.')[1];
-const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-}).join(''));
-const googleProfileObj = JSON.parse(jsonPayload);
-currentProfileSessionName = googleProfileObj.name.replace(/\s+/g, '');
-currentProfileAvatarUrl = googleProfileObj.picture || "";
-identityLinkingMatrix.google.connected = true;
-identityLinkingMatrix.google.name = googleProfileObj.name;
-identityLinkingMatrix.google.avatar = googleProfileObj.picture;
-localStorage.setItem('nexuschat_user_v6', currentProfileSessionName);
-if (currentProfileAvatarUrl) {
-localStorage.setItem('nexuschat_avatar_v6', currentProfileAvatarUrl);
-}
-executeProfileUIRenderSync();
-document.getElementById('secure-login-gate-overlay').classList.add('hidden');
-document.getElementById('splash-loading-portal').classList.remove('hidden');
-runCinematicProgressBar();
-appendBubbleElement("System Monitor", "Successfully linked genuine Google Account credential data container!", "received");
-} catch (err) {
-console.error("Google JWT token extraction routine error: ", err);
-alert("Identity verification parsing failed. Falling back to local setup matrix.");
-}
-}
-function simulateOAuthLogin(platformName) {
-const dummyName = platformName + "User" + Math.floor(1000 + Math.random() * 9000);
-currentProfileSessionName = dummyName;
-localStorage.setItem('nexuschat_user_v6', currentProfileSessionName);
-executeProfileUIRenderSync();
-document.getElementById('secure-login-gate-overlay').classList.add('hidden');
-document.getElementById('splash-loading-portal').classList.remove('hidden');
-runCinematicProgressBar();
-}
-function executeProfileUIRenderSync() {
-document.getElementById('splash-user-target').innerText = currentProfileSessionName;
-document.getElementById('my-username-node').innerText = currentProfileSessionName;
-const avatarNode = document.getElementById('my-avatar-node');
-if (currentProfileAvatarUrl && currentProfileAvatarUrl.trim() !== "") {
-avatarNode.innerHTML = <img src="${currentProfileAvatarUrl}" alt="Avatar">;
-} else {
-avatarNode.innerText = currentProfileSessionName.charAt(0).toUpperCase();
-}
-}
-function runCinematicProgressBar() {
-let progress = 0;
-const fillBar = document.getElementById('splash-bar-fill');
-const loaderInterval = setInterval(() => {
-if (progress >= 100) {
-clearInterval(loaderInterval);
-terminateLoadingSplashSequence();
-} else {
-progress += Math.floor(Math.random() * 20) + 8;
-if (progress > 100) progress = 100;
-if (fillBar) fillBar.style.width = progress + '%';
-}
-}, 50);
-}
-function terminateLoadingSplashSequence() {
-setTimeout(() => {
+        let currentProfileSessionName = "";
+        let currentProfileAvatarUrl = "";
+        let activeGlobalRailTab = "chat"; 
+        let activeChannelId = 'global-lobby';
+        let isCooldownActive = false;
+
+        let identityLinkingMatrix = {
+            google: { connected: false, name: null, avatar: null },
+            discord: { connected: false, name: null, avatar: null },
+            microsoft: { connected: false, name: null, avatar: null }
+        };
+
+        let activeGroupHubs = [
+            { id: 'hub-alpha', name: 'Strategic Architecture' },
+            { id: 'hub-beta', name: 'Delta Engineering Crew' }
+        ];
+
+        let channelDatabase = {
+            'global-lobby': { name: "Global Public Lobby", history: [] },
+            'crew-vc': { name: "Crew Elite Lounge", history: [] }
+        };
+
+        let liveStatesContentFeed = [];
+
+        let localHardwareVideoStream = null;
+        let localHardwareDisplayStream = null;
+        let localMicrophoneAudioSource = null;
+        let localAudioAnalyserNode = null;
+        let micAnimationRequestId = null;
+        
+        let isCallActive = false;
+        let isAudioMuted = false;
+        let isCameraActive = false;
+        let isScreenSharing = false;
+        let callTimerInterval = null;
+        let elapsedCallSeconds = 0;
+
+        let betaWalletBalanceOrbs = 50000;
+        const shopInventoryMatrix = [
+            { id: 'nexus-elite', name: 'Nexus Elite Tier', desc: 'Premium custom user frame and advanced server scaling variables.', cost: 'Free (Beta Frame)', icon: 'favicon.png', exclusive: true },
+            { id: 'magic-mists', name: 'Obsidian Cyan Theme Pack', desc: 'Forces alternative custom linear lighting vectors across target panels.', cost: '3500 Orbs', icon: 'favicon.png', exclusive: false },
+            { id: 'cyber-neon', name: 'Cyberpunk Sound Pack', desc: 'Alters notification alerts into retro digital oscillation clips.', cost: '1200 Orbs', icon: 'favicon.png', exclusive: false }
+        ];
+
+        const canonicalEmojiPack50 = [
+            "😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😗","😙","😚","😋","😛","😝","😜","🤪","🤨","🧐","🤓","😎","🤩","🥳","😏","😒","😞","😔","😟","😕","🙁","☹️","😣","😖","😫","😩","🥺","😢","😭","😤","😠","😡","🤬"
+        ];
+
+        window.addEventListener('DOMContentLoaded', () => {
+            generateStorefrontCards();
+            populateEmojiPickerGrid();
+            evaluateCachedProfileState();
+        });
+
+        function evaluateCachedProfileState() {
+            let cachedName = localStorage.getItem('nexuschat_user_v6');
+            let cachedAvatar = localStorage.getItem('nexuschat_avatar_v6');
+            
+            if (cachedName && cachedName.trim() !== "") {
+                currentProfileSessionName = cachedName;
+                currentProfileAvatarUrl = cachedAvatar || "";
+                executeProfileUIRenderSync();
+                runCinematicProgressBar();
+            } else {
+                document.getElementById('splash-loading-portal').classList.add('hidden');
+            }
+        }
+
+        function handleLocalAvatarSelection(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const previewBox = document.getElementById('portal-avatar-preview-box');
+                previewBox.innerHTML = `<img src="${e.target.result}" alt="Profile Preview">`;
+                currentProfileAvatarUrl = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function executeManualProfileCommit() {
+            const inputField = document.getElementById('portal-username-input-node');
+            let inputName = inputField.value.trim().replace(/\s+/g, '');
+            
+            if (!inputName) {
+                alert("Please enter a valid unique display string name.");
+                return;
+            }
+
+            currentProfileSessionName = inputName;
+            localStorage.setItem('nexuschat_user_v6', currentProfileSessionName);
+            if (currentProfileAvatarUrl) {
+                localStorage.setItem('nexuschat_avatar_v6', currentProfileAvatarUrl);
+            }
+
+            executeProfileUIRenderSync();
+            
+            document.getElementById('secure-login-gate-overlay').classList.add('hidden');
+            document.getElementById('splash-loading-portal').classList.remove('hidden');
+            runCinematicProgressBar();
+        }
+
+        function handleCredentialResponse(response) {
+            try {
+                const base64Url = response.credential.split('.');
+                const base64 = base64Url[1].replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+                    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                }).join(''));
+
+                const googleProfileObj = JSON.parse(jsonPayload);
+                
+                currentProfileSessionName = googleProfileObj.name.replace(/\s+/g, '');
+                currentProfileAvatarUrl = googleProfileObj.picture || "";
+
+                identityLinkingMatrix.google.connected = true;
+                identityLinkingMatrix.google.name = googleProfileObj.name;
+                identityLinkingMatrix.google.avatar = googleProfileObj.picture;
+
+                localStorage.setItem('nexuschat_user_v6', currentProfileSessionName);
+                if (currentProfileAvatarUrl) {
+                    localStorage.setItem('nexuschat_avatar_v6', currentProfileAvatarUrl);
+                }
+
+                executeProfileUIRenderSync();
+
+                document.getElementById('secure-login-gate-overlay').classList.add('hidden');
+                document.getElementById('splash-loading-portal').classList.remove('hidden');
+                runCinematicProgressBar();
+                
+                appendBubbleElement("System Monitor", "Successfully linked genuine Google Account credential data container!", "received");
+            } catch (err) {
+                console.error("Google JWT token extraction routine error: ", err);
+                alert("Identity verification parsing failed. Falling back to local setup matrix.");
+            }
+        }
+
+        function simulateOAuthLogin(platformName) {
+            const dummyName = platformName + "User" + Math.floor(1000 + Math.random() * 9000);
+            currentProfileSessionName = dummyName;
+            localStorage.setItem('nexuschat_user_v6', currentProfileSessionName);
+            
+            executeProfileUIRenderSync();
+            document.getElementById('secure-login-gate-overlay').classList.add('hidden');
+            document.getElementById('splash-loading-portal').classList.remove('hidden');
+            runCinematicProgressBar();
+        }
+
+        function executeProfileUIRenderSync() {
+            document.getElementById('splash-user-target').innerText = currentProfileSessionName;
+            document.getElementById('my-username-node').innerText = currentProfileSessionName;
+            
+            const avatarNode = document.getElementById('my-avatar-node');
+            if (currentProfileAvatarUrl && currentProfileAvatarUrl.trim() !== "") {
+                avatarNode.innerHTML = `<img src="${currentProfileAvatarUrl}" alt="Avatar">`;
+            } else {
+                avatarNode.innerText = currentProfileSessionName.charAt(0).toUpperCase();
+            }
+        }
+
+        function runCinematicProgressBar() {
+            let progress = 0;
+            const fillBar = document.getElementById('splash-bar-fill');
+            const loaderInterval = setInterval(() => {
+                if (progress >= 100) {
+                    clearInterval(loaderInterval);
+                    terminateLoadingSplashSequence();
+                } else {
+                    progress += Math.floor(Math.random() * 20) + 8;
+                    if (progress > 100) progress = 100;
+                    if (fillBar) fillBar.style.width = progress + '%';
+                }
+            }, 50);
+        }
+
+        function terminateLoadingSplashSequence() {
+            setTimeout(() => {
 document.getElementById('splash-loading-portal').classList.add('hidden');
 document.getElementById('app-frame').classList.add('visible');
 renderSidebarContextPanel();
@@ -1471,6 +1660,7 @@ const primaryBtn = document.getElementById('sidebar-action-primary-btn');
 if (!container || !primaryBtn) return;
 container.innerHTML = '';
 if (activeGlobalRailTab === 'chat' || activeGlobalRailTab === 'states') {
+primaryBtn.style.display = "block";
 primaryBtn.innerText = "+ New Channel Stream";
 primaryBtn.onclick = triggerChannelCreation;
 for (let id in channelDatabase) {
@@ -1478,6 +1668,7 @@ const isActive = (id === activeChannelId) ? 'active' : '';
 container.innerHTML += <div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')"> <div class="row-avatar">#</div> <div class="row-meta"> <div class="row-name">${channelDatabase[id].name}</div> <div class="row-preview">Open communication logs...</div> </div> </div>;
 }
 } else if (activeGlobalRailTab === 'groups') {
+primaryBtn.style.display = "block";
 primaryBtn.innerText = "+ Create Team Hub";
 primaryBtn.onclick = () => {
 const title = prompt("Enter custom title label for group hub:");
@@ -1489,6 +1680,7 @@ activeGroupHubs.forEach(group => {
 container.innerHTML += <div class="chat-list-row"> <div class="row-avatar">⧉</div> <div class="row-meta"> <div class="row-name">${group.name}</div> <div class="row-preview">Active Team Workspace Node</div> </div> </div>;
 });
 } else if (activeGlobalRailTab === 'settings') {
+primaryBtn.style.display = "block";
 primaryBtn.innerText = "Check Status Keys";
 primaryBtn.onclick = () => alert("Security layers running securely.");
 const connections = [
@@ -1503,8 +1695,7 @@ const btnLabel = isLinked ? "Disconnect Asset" : "Run Sync Routine";
 container.innerHTML += <div style="padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.02);"> <div style="font-weight:600; font-size:13px; margin-bottom:4px;">${c.name}</div> <div style="font-size:11px; color: ${isLinked ? 'var(--success-green)' : 'var(--text-muted)'}; margin-bottom:8px;">${statusText}</div> ${btnLabel}</button> </div>;
 });
 } else if (activeGlobalRailTab === 'integrations') {
-primaryBtn.innerText = "Browse Marketplace";
-primaryBtn.onclick = () => alert("Extensions market coming soon in next beta sprint.");
+primaryBtn.style.display = "none";
 container.innerHTML = <div style="padding: 16px; font-size: 12px; color: var(--text-muted); text-align: center;">No third-party packages wired to current profile context.</div>;
 }
 }
@@ -1544,13 +1735,6 @@ if (!textInput) return;
 textInput.value += emojiSymbol;
 textInput.focus();
 toggleInlineEmojiPickerTray();
-}
-function loadTargetChannel(id) {
-if (!channelDatabase[id]) return;
-activeChannelId = id;
-document.getElementById('active-chat-headline-node').innerText = channelDatabase[id].name;
-repaintMessageLogs();
-renderSidebarContextPanel();
 }
 function executeTextDispatch() {
 if (isCooldownActive) {
