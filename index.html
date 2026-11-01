@@ -32,7 +32,9 @@
             display: flex;
             user-select: none;
         }
-
+    </style>
+</head>
+    <style>
         /* Cinematic Loading Portal Splash Overlay */
         #splash-loading-portal {
             position: fixed;
@@ -111,6 +113,8 @@
         #app-frame.visible {
             opacity: 1;
         }
+    </style>
+    <style>
         /* ==========================================
            SECTION 2: LEFT SIDEBAR NAVIGATION CSS
            ========================================== */
@@ -253,6 +257,8 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+    </style>
+    <style>
         /* ==========================================
            SECTION 3: CENTRAL WORKSPACE CHAT PANEL CSS
            ========================================== */
@@ -338,6 +344,7 @@
         .msg-bubble.received .msg-footer {
             color: var(--text-muted);
         }
+
         /* ==========================================
            SECTION 4: VOICE & VIDEO CALLING GRID CSS
            ========================================== */
@@ -424,7 +431,7 @@
             align-items: center;
             justify-content: center;
             font-size: 28px;
-            z-index: 1;
+ z-index: 1;
             transition: all 0.3s ease;
         }
 
@@ -468,6 +475,8 @@
             border-radius: 4px;
             font-weight: 700;
         }
+    </style>
+    <style>
         /* ==========================================
            SECTION 5: INPUT DOCK BAR & LAYOUT END CSS
            ========================================== */
@@ -530,7 +539,6 @@
 
     <!-- Master Grid Window View Framework Container -->
     <div id="app-frame">
-
         <!-- Left Column Control Roster Dashboard Panel Stack -->
         <div class="sidebar-panel">
             <div class="sidebar-header">
@@ -551,7 +559,7 @@
         </div>
         <!-- ==========================================
            SECTION 7: CENTRAL WORKSPACE VIEW PANEL HTML
-           ========================================== -->
+           ========================================== */ -->
         <div class="workspace-panel">
             <div class="workspace-header">
                 <div class="header-profile">
@@ -652,7 +660,6 @@
         let isScreenSharing = false;
         let callTimerInterval = null;
         let elapsedCallSeconds = 0;
-
         // Session Account Profile Loader Verification Core Loop
         window.addEventListener('DOMContentLoaded', () => {
             evaluateUserIdentityState();
@@ -664,18 +671,18 @@
 
             if (cachedName && cachedName.trim() !== "") {
                 currentProfileSessionName = cachedName;
-                targetSubtitleNode.innerText = `${currentProfileSessionName}`;
+                if (targetSubtitleNode) targetSubtitleNode.innerText = `${currentProfileSessionName}`;
                 document.getElementById('my-username-node').innerText = currentProfileSessionName;
                 document.getElementById('my-avatar-node').innerText = currentProfileSessionName.charAt(0).toUpperCase();
             } else {
                 currentProfileSessionName = "";
-                targetSubtitleNode.innerText = ""; 
+                if (targetSubtitleNode) targetSubtitleNode.innerText = ""; 
                 
                 const promptedName = prompt("Welcome to NexusChat! Enter your display name label to log in (Leave empty for guest profile):");
                 if (promptedName && promptedName.trim() !== "") {
                     currentProfileSessionName = promptedName.trim();
                     localStorage.setItem('nexuschat_user_v4', currentProfileSessionName);
-                    targetSubtitleNode.innerText = `${currentProfileSessionName}`;
+                    if (targetSubtitleNode) targetSubtitleNode.innerText = `${currentProfileSessionName}`;
                     document.getElementById('my-username-node').innerText = currentProfileSessionName;
                     document.getElementById('my-avatar-node').innerText = currentProfileSessionName.charAt(0).toUpperCase();
                 } else {
@@ -698,15 +705,17 @@
                 } else {
                     progress += Math.floor(Math.random() * 15) + 5;
                     if (progress > 100) progress = 100;
-                    fillBar.style.width = progress + '%';
+                    if (fillBar) fillBar.style.width = progress + '%';
                 }
             }, 80);
         }
 
         function terminateLoadingSplashSequence() {
             setTimeout(() => {
-                document.getElementById('splash-loading-portal').classList.add('hidden');
-                document.getElementById('app-frame').classList.add('visible');
+                const splashPortal = document.getElementById('splash-loading-portal');
+                const appFrame = document.getElementById('app-frame');
+                if (splashPortal) splashPortal.classList.add('hidden');
+                if (appFrame) appFrame.classList.add('visible');
                 
                 renderSidebarChannels();
                 loadTargetChannel(activeChannelId);
@@ -717,7 +726,6 @@
                 }, 500);
             }, 400);
         }
-
         function renderSidebarChannels() {
             const container = document.getElementById('contacts-vertical-stack');
             if(!container) return;
@@ -751,6 +759,7 @@
 
         function executeTextDispatch() {
             const inputField = document.getElementById('text-message-input-node');
+            if (!inputField) return;
             const dataString = inputField.value.trim();
             if (!dataString) return;
 
@@ -772,10 +781,10 @@
         }
 
         function appendBubbleElement(author, content, variant) {
-            const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             if (!channelDatabase[activeChannelId].history) {
                 channelDatabase[activeChannelId].history = [];
             }
+            const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             channelDatabase[activeChannelId].history.push({ author, content, variant, timeCode });
             
             if (variant === 'received') {
@@ -814,102 +823,121 @@
             loadTargetChannel(generatedId);
         }
 
-function performProfileHardwareReset() {
-localStorage.removeItem('nexuschat_user_v4');
-window.location.reload();
-}
-/* Voice/Video Module Core Controllers */
-function toggleVoiceVideoCall() {
-const layerBlock = document.getElementById('call-interface-layer');
-const joinBtn = document.querySelector('.call-action-btn');
-isCallActive = !isCallActive;
-if (isCallActive) {
-layerBlock.style.display = 'flex';
-joinBtn.innerText = "❌ Disconnect Call";
-joinBtn.style.background = "var(--danger-red)";
-initiateChronometerClock();
-playSynthFrequency(440, 'sine', 0.15, 0.12);
-setTimeout(() => playSynthFrequency(660, 'sine', 0.20, 0.12), 110);
-} else {
-layerBlock.style.display = 'none';
-joinBtn.innerText = "🔊 Join Voice Channel";
-joinBtn.style.background = "var(--primary-accent)";
-terminateChronometerClock();
-if(isCameraActive) toggleWebcamState();
-if(isScreenSharing) toggleScreenShareState();
-if(isAudioMuted) toggleMuteState();
-playSynthFrequency(660, 'sine', 0.15, 0.12);
-setTimeout(() => playSynthFrequency(380, 'sine', 0.25, 0.12), 110);
-}
-}
-function toggleMuteState() {
-isAudioMuted = !isAudioMuted;
-const muteBtn = document.getElementById('mute-audio-toggle');
-if (isAudioMuted) {
-muteBtn.innerText = "🎙️ Audio Muted";
-muteBtn.classList.add('active-state');
-} else {
-muteBtn.innerText = "🔊 Unmuted";
-muteBtn.classList.remove('active-state');
-}
-triggerToggleMuteTone(isAudioMuted);
-}
-function toggleWebcamState() {
-isCameraActive = !isCameraActive;
-const camBtn = document.getElementById('webcam-video-toggle');
-const webcamBox = document.getElementById('webcam-canvas');
-const titleLabel = document.getElementById('webcam-label');
-const centerIcon = document.getElementById('webcam-avatar');
-if (isCameraActive) {
-camBtn.innerText = "📹 Disable Camera";
-camBtn.classList.add('active-state');
-titleLabel.innerText = "Your Live Webcam Stream (Active)";
-webcamBox.style.background = "linear-gradient(135deg, #1f4068, #162447)";
-centerIcon.innerText = "📷";
-centerIcon.style.transform = "scale(1.15)";
-} else {
-camBtn.innerText = "📹 Enable Camera";
-camBtn.classList.remove('active-state');
-titleLabel.innerText = "You (Webcam Off)";
-webcamBox.style.background = "linear-gradient(45deg, #111214, #2b2d31)";
-centerIcon.innerText = "👤";
-centerIcon.style.transform = "scale(1)";
-}
-playSynthFrequency(520, 'triangle', 0.08, 0.1);
-}
-function toggleScreenShareState() {
-isScreenSharing = !isScreenSharing;
-const screenBtn = document.getElementById('screenshare-video-toggle');
-const screenBox = document.getElementById('screenshare-canvas');
-const shareLabel = document.getElementById('screenshare-label');
-if (isScreenSharing) {
-screenBtn.innerText = "🖥️ Stop Sharing";
-screenBtn.classList.add('active-state');
-shareLabel.innerText = "Display Monitor capture pipe is streaming live";
-screenBox.style.background = "#0f3460";
-screenBox.innerHTML = <div style="font-size: 20px; font-weight:600; color:#fff; z-index:1; text-shadow:0 2px 4px rgba(0,0,0,0.4)">📡 Streaming Window Monitor...</div>;
-} else {
-screenBtn.innerText = "🖥️ Share Screen";
-screenBtn.classList.remove('active-state');
-shareLabel.innerText = "Screen Share Stream Off";
-screenBox.style.background = "#111115";
-screenBox.innerHTML = <div style="font-size: 32px; z-index:1; opacity:0.25;">🖥️</div>;
-}
-playSynthFrequency(560, 'triangle', 0.08, 0.1);
-}
-/* Precision Chronometer Call Tracker Interval Loops */
-function initiateChronometerClock() {
-elapsedCallSeconds = 0;
-document.getElementById('call-duration-clock').innerText = "00:00";
-callTimerInterval = setInterval(() => {
-elapsedCallSeconds++;
-let displayMinutes = String(Math.floor(elapsedCallSeconds / 60)).padStart(2, '0');
-let displaySeconds = String(elapsedCallSeconds % 60).padStart(2, '0');
-document.getElementById('call-duration-clock').innerText = ${displayMinutes}:${displaySeconds};
-}, 1000);
-}
-function terminateChronometerClock() {
-clearInterval(callTimerInterval);
-elapsedCallSeconds = 0;
-document.getElementById('call-duration-clock').innerText = "00:00";
-}
+        function performProfileHardwareReset() {
+            localStorage.removeItem('nexuschat_user_v4');
+            window.location.reload();
+        }
+        /* Voice/Video Module Core Controllers */
+        function toggleVoiceVideoCall() {
+            const layerBlock = document.getElementById('call-interface-layer');
+            const joinBtn = document.querySelector('.call-action-btn');
+            if (!layerBlock || !joinBtn) return;
+            
+            isCallActive = !isCallActive;
+            if (isCallActive) {
+                layerBlock.style.display = 'flex';
+                joinBtn.innerText = "❌ Disconnect Call";
+                joinBtn.style.background = "var(--danger-red)";
+                initiateChronometerClock();
+                playSynthFrequency(440, 'sine', 0.15, 0.12);
+                setTimeout(() => playSynthFrequency(660, 'sine', 0.20, 0.12), 110);
+            } else {
+                layerBlock.style.display = 'none';
+                joinBtn.innerText = "🔊 Join Voice Channel";
+                joinBtn.style.background = "var(--primary-accent)";
+                terminateChronometerClock();
+                if(isCameraActive) toggleWebcamState();
+                if(isScreenSharing) toggleScreenShareState();
+                if(isAudioMuted) toggleMuteState();
+                playSynthFrequency(660, 'sine', 0.15, 0.12);
+                setTimeout(() => playSynthFrequency(380, 'sine', 0.25, 0.12), 110);
+            }
+        }
+
+        function toggleMuteState() {
+            isAudioMuted = !isAudioMuted;
+            const muteBtn = document.getElementById('mute-audio-toggle');
+            if (!muteBtn) return;
+            
+            if (isAudioMuted) {
+                muteBtn.innerText = "🎙️ Audio Muted";
+                muteBtn.classList.add('active-state');
+            } else {
+                muteBtn.innerText = "🔊 Unmuted";
+                muteBtn.classList.remove('active-state');
+            }
+            triggerToggleMuteTone(isAudioMuted);
+        }
+
+        function toggleWebcamState() {
+            isCameraActive = !isCameraActive;
+            const camBtn = document.getElementById('webcam-video-toggle');
+            const webcamBox = document.getElementById('webcam-canvas');
+            const titleLabel = document.getElementById('webcam-label');
+            const centerIcon = document.getElementById('webcam-avatar');
+            if (!camBtn || !webcamBox || !titleLabel || !centerIcon) return;
+            
+            if (isCameraActive) {
+                camBtn.innerText = "📹 Disable Camera";
+                camBtn.classList.add('active-state');
+                titleLabel.innerText = "Your Live Webcam Stream (Active)";
+                webcamBox.style.background = "linear-gradient(135deg, #1f4068, #162447)";
+                centerIcon.innerText = "📷";
+                centerIcon.style.transform = "scale(1.15)";
+            } else {
+                camBtn.innerText = "📹 Enable Camera";
+                camBtn.classList.remove('active-state');
+                titleLabel.innerText = "You (Webcam Off)";
+                webcamBox.style.background = "linear-gradient(45deg, #111214, #2b2d31)";
+                centerIcon.innerText = "👤";
+                centerIcon.style.transform = "scale(1)";
+            }
+            playSynthFrequency(520, 'triangle', 0.08, 0.1);
+        }
+
+        function toggleScreenShareState() {
+            isScreenSharing = !isScreenSharing;
+            const screenBtn = document.getElementById('screenshare-video-toggle');
+            const screenBox = document.getElementById('screenshare-canvas');
+            const shareLabel = document.getElementById('screenshare-label');
+            if (!screenBtn || !screenBox || !shareLabel) return;
+            
+            if (isScreenSharing) {
+                screenBtn.innerText = "🖥️ Stop Sharing";
+                screenBtn.classList.add('active-state');
+                shareLabel.innerText = "Display Monitor capture pipe is streaming live";
+                screenBox.style.background = "#0f3460";
+                screenBox.innerHTML = `<div style="font-size: 20px; font-weight:600; color:#fff; z-index:1; text-shadow:0 2px 4px rgba(0,0,0,0.4)">📡 Streaming Window Monitor...</div>`;
+            } else {
+                screenBtn.innerText = "🖥️ Share Screen";
+                screenBtn.classList.remove('active-state');
+                shareLabel.innerText = "Screen Share Stream Off";
+                screenBox.style.background = "#111115";
+                screenBox.innerHTML = `<div style="font-size: 32px; z-index:1; opacity:0.25;">🖥️</div>`;
+            }
+            playSynthFrequency(560, 'triangle', 0.08, 0.1);
+        }
+
+        /* Precision Chronometer Call Tracker Interval Loops */
+        function initiateChronometerClock() {
+            elapsedCallSeconds = 0;
+            const durationClock = document.getElementById('call-duration-clock');
+            if (durationClock) durationClock.innerText = "00:00";
+            
+            callTimerInterval = setInterval(() => {
+                elapsedCallSeconds++;
+                let displayMinutes = String(Math.floor(elapsedCallSeconds / 60)).padStart(2, '0');
+                let displaySeconds = String(elapsedCallSeconds % 60).padStart(2, '0');
+                if (durationClock) durationClock.innerText = `${displayMinutes}:${displaySeconds}`;
+            }, 1000);
+        }
+
+        function terminateChronometerClock() {
+            clearInterval(callTimerInterval);
+            elapsedCallSeconds = 0;
+            const durationClock = document.getElementById('call-duration-clock');
+            if (durationClock) durationClock.innerText = "00:00";
+        }
+    </script>
+</body>
+</html>
