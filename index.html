@@ -773,7 +773,7 @@
 
         .workspace-header {
             padding: 14px 24px;
-            background: var(--bg-panel);
+            background: var(--bg-sidebar);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -1705,6 +1705,24 @@
             left: 18px;
         }
 
+        /* Modern Embedded Inline Video Player Components */
+        .inline-embedded-video-card {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #030407;
+            border: var(--border-subtle);
+            margin-top: 6px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+        .inline-embedded-video-card video {
+            width: 100%;
+            display: block;
+            max-height: 220px;
+            object-fit: cover;
+        }
+
         @keyframes rotateRing {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -1822,7 +1840,7 @@
                     <div style="font-size: 14px; color: var(--primary-accent); font-weight: 900; filter: drop-shadow(0 0 4px var(--primary-accent)); display: flex; width: 12px; height: 12px; border: 2px solid currentColor;"></div>
                     <div class="title" id="active-chat-headline-node">Global Public Lobby</div>
                 </div>
-                <button class="call-action-btn" onclick="toggleVoiceVideoCall()">Connect Live Streams</button>
+                <button class="call-action-btn" id="master-call-trigger-node" onclick="toggleVoiceVideoCall()">Connect Live Streams</button>
             </div>
 
             <div class="states-hub-container-view" id="states-hub-engagement-view">
@@ -1868,7 +1886,7 @@
                     <div class="geom-icon icon-mic-geom"></div>
                 </button>
 
-                <input type="text" id="text-message-input-node" placeholder="Type a message into active stream..." onkeypress="trapInputKeypress(event)">
+                <input type="text" id="text-message-input-node" placeholder="Type a message or drop video URL parameters..." onkeypress="trapInputKeypress(event)">
                 
                 <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Emoji">
                     <div class="geom-icon icon-smile-geom"></div>
@@ -1906,6 +1924,8 @@
 
     <script>
         let audioCtx;
+        let incomingCallOscillatorInterval = null;
+
         function initAudioContext() {
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -1927,6 +1947,23 @@
                 osc.stop(audioCtx.currentTime + duration);
             } catch (e) { 
                 console.log("Audio oscillation bypass caught: ", e); 
+            }
+        }
+
+        /* 100% Autonomous Audio Engine Ringing Protocols */
+        function triggerIncomingCallRingLoop(stateActive) {
+            if (stateActive) {
+                if (incomingCallOscillatorInterval) return;
+                incomingCallOscillatorInterval = setInterval(() => {
+                    // Futuristic Dual-Chroma Synthesizer Ring Alert
+                    playSynthFrequency(880, 'sawtooth', 0.25, 0.15);
+                    setTimeout(() => playSynthFrequency(1200, 'sine', 0.3, 0.1), 80);
+                }, 1000);
+            } else {
+                if (incomingCallOscillatorInterval) {
+                    clearInterval(incomingCallOscillatorInterval);
+                    incomingCallOscillatorInterval = null;
+                }
             }
         }
 
@@ -1996,8 +2033,11 @@
             { id: 'cyber-neon', name: 'Cyberpunk Sound Pack', desc: 'Alters notification alerts into retro digital oscillation clips.', cost: '1200 Orbs', icon: 'favicon.png', exclusive: false }
         ];
 
+        /* Automated Custom Symbol Vectors Array mapping directly to Input Box Elements */
         const canonicalEmojiPack50 = [
-            "😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😗","😙","😚","😋","😛","😝","😜","🤪","🤨","🧐","🤓","😎","🤩","🥳","😏","😒","😞","😔","😟","😕","🙁","☹️","😣","😖","😫","😩","🥺","😢","😭","😤","😠","😡","🤬"
+            "[::1]", "[::2]", "[::3]", "[::4]", "[::5]", "[#A1]", "[#A2]", "[#A3]",
+            "[+TR]", "[+NX]", "[-LF]", "[~VT]", "[*CO]", "[//X]", "[..O]", "[|||]",
+            "[<-+]", "[+->]", "[=M1]", "[=M2]", "[#S1]", "[#S2]", "[*D1]", "[*D2]"
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -2026,6 +2066,10 @@
                     if (parsedPayload.senderTokenId !== currentProfileSessionName + "_token") {
                         if (parsedPayload.dataType === "voice") {
                             injectVoiceBubbleToChatLog(parsedPayload.sender, parsedPayload.mediaData, "received");
+                        } else if (parsedPayload.dataType === "call_invite") {
+                            handleNetworkIncomingCallNotification(parsedPayload.sender);
+                        } else if (parsedPayload.dataType === "call_disconnect") {
+                            handleNetworkRemoteDisconnect();
                         } else {
                             appendBubbleElement(parsedPayload.sender, parsedPayload.text, "received");
                         }
@@ -2034,6 +2078,22 @@
                     console.log("Error evaluating dynamic stream packet input", err);
                 }
             });
+        }
+
+        function handleNetworkIncomingCallNotification(remoteUser) {
+            triggerIncomingCallRingLoop(true);
+            const userResponse = confirm(`Incoming live stream data invite connection parameter request from [${remoteUser}]. Accept matrix peer link?`);
+            triggerIncomingCallRingLoop(false);
+            if (userResponse) {
+                toggleVoiceVideoCall(true);
+            }
+        }
+
+        function handleNetworkRemoteDisconnect() {
+            if (isCallActive) {
+                alert("Remote node closed active video channel stream.");
+                toggleVoiceVideoCall(false);
+            }
         }
 
         /* Checks URL parameters for private friend matrix invite links */
@@ -2295,7 +2355,7 @@
         function injectEmojiSymbolToInputBox(emojiSymbol) {
             const textInput = document.getElementById('text-message-input-node');
             if (!textInput) return;
-            textInput.value += emojiSymbol;
+            textInput.value += " " + emojiSymbol + " ";
             textInput.focus();
             toggleInlineEmojiPickerTray();
         }
@@ -2311,14 +2371,21 @@
             const dataString = inputField.value.trim();
             if (!dataString) return;
             
-            appendBubbleElement(currentProfileSessionName, dataString, "sent");
+            // Check if string contains standard video file parameters signature (.mp4, .webm)
+            let videoUrlParam = null;
+            if (dataString.includes(".mp4") || dataString.includes(".webm") || dataString.startsWith("http") && dataString.includes("video")) {
+                videoUrlParam = dataString;
+            }
+
+            appendBubbleElement(currentProfileSessionName, dataString, "sent", videoUrlParam);
 
             if (mqttClient && mqttClient.connected) {
                 const payloadPacket = {
                     sender: currentProfileSessionName,
                     senderTokenId: currentProfileSessionName + "_token",
                     dataType: "text",
-                    text: dataString
+                    text: dataString,
+                    videoEmbeddedUrl: videoUrlParam
                 };
                 mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify(payloadPacket));
             }
@@ -2415,10 +2482,10 @@
             repaintMessageLogs();
         }
 
-        function appendBubbleElement(author, content, variant) {
+        function appendBubbleElement(author, content, variant, videoEmbeddedUrl = null) {
             if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
             const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            channelDatabase[activeChannelId].history.push({ author, content, variant, timeCode });
+            channelDatabase[activeChannelId].history.push({ author, content, variant, timeCode, videoEmbeddedUrl });
             if (variant === 'received') triggerMsgAlertTone();
             repaintMessageLogs();
         }
@@ -2430,6 +2497,15 @@
             const logs = channelDatabase[activeChannelId].history || [];
             
             logs.forEach((msg, idx) => {
+                let videoLayoutNode = "";
+                if (msg.videoEmbeddedUrl) {
+                    videoLayoutNode = `
+                        <div class="inline-embedded-video-card">
+                            <video src="${msg.videoEmbeddedUrl}" controls autoplay muted loop playsinline></video>
+                        </div>
+                    `;
+                }
+
                 if (msg.voiceURL) {
                     viewTarget.innerHTML += `
                         <div class="msg-bubble ${msg.variant}">
@@ -2448,7 +2524,13 @@
                             <div class="msg-footer">${msg.timeCode}</div>
                         </div>`;
                 } else {
-                    viewTarget.innerHTML += `<div class="msg-bubble ${msg.variant}"> <span class="msg-author">${msg.author}</span> <div>${msg.content}</div> <div class="msg-footer">${msg.timeCode}</div> </div>`;
+                    viewTarget.innerHTML += `
+                        <div class="msg-bubble ${msg.variant}"> 
+                            <span class="msg-author">${msg.author}</span> 
+                            <div>${msg.content}</div> 
+                            ${videoLayoutNode}
+                            <div class="msg-footer">${msg.timeCode}</div> 
+                        </div>`;
                 }
             });
             viewTarget.scrollTop = viewTarget.scrollHeight;
@@ -2519,7 +2601,20 @@
             container.innerHTML = '';
             shopInventoryMatrix.forEach(item => {
                 const badgeHTML = item.exclusive ? `<div class="item-badge-exclusive">EXCLUSIVE</div>` : '';
-                container.innerHTML += `<div class="shop-item-card"> ${badgeHTML} <div class="item-graphic-wrapper"> <div class="item-graphic-ring"></div> <img src="${item.icon}" class="item-graphic-icon-asset" alt="Shop Icon Asset"> </div> <div class="item-meta-name">${item.name}</div> <div class="item-meta-desc">${item.desc}</div> <div class="item-action-row"> <div class="item-price-tag">${item.cost}</div> <button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Claim Free</button> </div> </div>`;
+                container.innerHTML += `
+                    <div class="shop-item-card"> 
+                        ${badgeHTML} 
+                        <div class="item-graphic-wrapper"> 
+                            <div class="item-graphic-ring"></div> 
+                            <div style="font-size:11px; font-family:monospace; color:var(--primary-accent); border:1px dashed var(--primary-accent); padding:4px;">FX_ACTIVE</div>
+                        </div> 
+                        <div class="item-meta-name">${item.name}</div> 
+                        <div class="item-meta-desc">${item.desc}</div> 
+                        <div class="item-action-row"> 
+                            <div class="item-price-tag">${item.cost}</div> 
+                            <button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Claim Free</button> 
+                        </div> 
+                    </div>`;
             });
         }
 
@@ -2544,22 +2639,48 @@
             document.getElementById('nexus-shop-screen').style.display = 'none';
         }
 
-        async function toggleVoiceVideoCall() {
+        async function toggleVoiceVideoCall(forceState = null) {
             const layerBlock = document.getElementById('call-interface-layer');
-            const joinBtn = document.querySelector('.call-action-btn');
-            isCallActive = !isCallActive;
+            const joinBtn = document.getElementById('master-call-trigger-node');
+            
+            if (forceState !== null) {
+                isCallActive = forceState;
+            } else {
+                isCallActive = !isCallActive;
+                // Dispatch out invitation over public pipeline matrix nodes
+                if (isCallActive && mqttClient && mqttClient.connected) {
+                    const callPacket = {
+                        sender: currentProfileSessionName,
+                        senderTokenId: currentProfileSessionName + "_token",
+                        dataType: "call_invite"
+                    };
+                    mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify(callPacket));
+                } else if (!isCallActive && mqttClient && mqttClient.connected) {
+                    const callPacket = {
+                        sender: currentProfileSessionName,
+                        senderTokenId: currentProfileSessionName + "_token",
+                        dataType: "call_disconnect"
+                    };
+                    mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify(callPacket));
+                }
+            }
+
             if (isCallActive) {
                 layerBlock.style.display = 'flex';
-                joinBtn.innerText = "Disconnect Stream";
-                joinBtn.style.borderColor = "var(--danger-red)";
-                joinBtn.style.color = "var(--danger-red)";
+                if (joinBtn) {
+                    joinBtn.innerText = "Disconnect Stream";
+                    joinBtn.style.borderColor = "var(--danger-red)";
+                    joinBtn.style.color = "var(--danger-red)";
+                }
                 initiateChronometerClock();
                 playSynthFrequency(520, 'sine', 0.2, 0.25);
             } else {
                 layerBlock.style.display = 'none';
-                joinBtn.innerText = "Connect Live Streams";
-                joinBtn.style.borderColor = "var(--primary-accent)";
-                joinBtn.style.color = "var(--primary-accent)";
+                if (joinBtn) {
+                    joinBtn.innerText = "Connect Live Streams";
+                    joinBtn.style.borderColor = "var(--primary-accent)";
+                    joinBtn.style.color = "var(--primary-accent)";
+                }
                 terminateChronometerClock();
                 cleanupHardwareTracks();
                 playSynthFrequency(320, 'sine', 0.2, 0.25);
