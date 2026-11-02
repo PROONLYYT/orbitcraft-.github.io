@@ -361,7 +361,7 @@
             justify-content: center;
         }
 
-        /* Chat Tab Geometry: Square missing bottom-right corner pixel and layout hyphen inside */
+        /* Chat Tab Geometry */
         .icon-chat-geom {
             width: 16px;
             height: 16px;
@@ -378,7 +378,7 @@
             left: 5px;
         }
 
-        /* Groups Tab Geometry: Two overlapping 12px circular rings outlined in subtle accent borders */
+        /* Groups Tab Geometry */
         .icon-groups-geom {
             width: 20px;
             height: 20px;
@@ -394,7 +394,7 @@
         .icon-groups-geom::before { top: 1px; left: 1px; }
         .icon-groups-geom::after { bottom: 1px; right: 1px; background: var(--bg-dark); }
 
-        /* States Tab Geometry: Nested coordinate ring system (14px outer circle hosting a tight 4px solid core dot) */
+        /* States Tab Geometry */
         .icon-states-geom {
             width: 14px;
             height: 14px;
@@ -410,7 +410,7 @@
             border-radius: 50%;
         }
 
-        /* Settings Tab Geometry: Stark 12px solid square enclosed within a thin, broken octagonal layout grid outline */
+        /* Settings Tab Geometry */
         .icon-settings-geom {
             width: 18px;
             height: 18px;
@@ -425,7 +425,7 @@
             background: currentColor;
         }
 
-        /* Integrations Tab Geometry: Clean horizontal split-node branch vector shape */
+        /* Integrations Tab Geometry */
         .icon-integrations-geom {
             width: 16px;
             height: 16px;
@@ -1359,6 +1359,25 @@
             text-overflow: ellipsis;
         }
 
+        /* Modern Embedded Inline Video Player Components */
+        .inline-embedded-video-card {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #030407;
+            border: var(--border-subtle);
+            margin-top: 6px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+        .inline-embedded-video-card video {
+            width: 100%;
+            display: block;
+            max-height: 220px;
+            object-fit: cover;
+        }
+
+        /* REAL MULTIVERSE STOREFRONT INFRASTRUCTURE LAYOUT */
         #nexus-shop-screen {
             position: fixed;
             top: 0;
@@ -1375,7 +1394,7 @@
 
         .shop-header-navbar {
             height: 75px;
-            background: rgba(9, 11, 17, 0.8);
+            background: rgba(6, 8, 19, 0.85);
             border-bottom: var(--border-subtle);
             display: flex;
             align-items: center;
@@ -1384,6 +1403,12 @@
             box-sizing: border-box;
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
+        }
+
+        .shop-nav-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
         }
 
         .back-nav-link {
@@ -1408,6 +1433,27 @@
             background: var(--primary-glow);
         }
 
+        .buy-orbs-master-btn {
+            background: linear-gradient(135deg, #FF0066 0%, #00F0FF 100%);
+            border: none;
+            color: #ffffff;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 0 16px rgba(255, 0, 102, 0.3);
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .buy-orbs-master-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 24px rgba(0, 240, 255, 0.5);
+            filter: brightness(1.1);
+        }
+
         .shop-headline-title {
             font-weight: 800;
             font-size: 16px;
@@ -1429,6 +1475,42 @@
             align-items: center;
             gap: 8px;
             box-shadow: 0 0 12px rgba(245, 166, 35, 0.05);
+        }
+
+        /* 4-Tab Corporate Layout Navigation Subbar */
+        .shop-category-subbar {
+            height: 50px;
+            background: rgba(9, 11, 17, 0.4);
+            border-bottom: var(--border-subtle);
+            display: flex;
+            gap: 8px;
+            padding: 0 30px;
+            align-items: center;
+        }
+
+        .shop-subbar-tab {
+            padding: 8px 16px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .shop-subbar-tab:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .shop-subbar-tab.active-subtab {
+            color: var(--primary-accent);
+            background: var(--primary-glow);
+            border: 1px solid rgba(0, 240, 255, 0.2);
         }
 
         .shop-showcase-scroller {
@@ -1492,13 +1574,6 @@
             position: relative;
         }
 
-        .item-graphic-icon-asset {
-            width: 44px;
-            height: 44px;
-            object-fit: contain;
-            z-index: 2;
-        }
-
         .item-graphic-ring {
             position: absolute;
             width: 90px;
@@ -1509,7 +1584,7 @@
         }
 
         .item-meta-name {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
             margin-bottom: 6px;
             color: #ffffff;
@@ -1542,8 +1617,8 @@
         .item-price-tag::before {
             content: '';
             display: inline-block;
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             background: var(--gold-accent);
             transform: rotate(45deg);
         }
@@ -1703,24 +1778,6 @@
             background: var(--gold-accent);
             top: 16px;
             left: 18px;
-        }
-
-        /* Modern Embedded Inline Video Player Components */
-        .inline-embedded-video-card {
-            width: 100%;
-            max-width: 400px;
-            border-radius: 8px;
-            overflow: hidden;
-            background: #030407;
-            border: var(--border-subtle);
-            margin-top: 6px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
-        }
-        .inline-embedded-video-card video {
-            width: 100%;
-            display: block;
-            max-height: 220px;
-            object-fit: cover;
         }
 
         @keyframes rotateRing {
@@ -1906,15 +1963,27 @@
         </div>
     </div>
 
+    <!-- 100% FUNCTIONAL SCALE MULTIVERSE SHOP TERMINAL INTERFACE -->
     <div id="nexus-shop-screen">
         <div class="shop-header-navbar">
-            <a href="#" class="back-nav-link" onclick="closePremiumStorefront()">Go Back</a>
-            <div class="shop-headline-title">NEXUS MULTIVERSE storefront</div>
+            <div class="shop-nav-left">
+                <a href="#" class="back-nav-link" onclick="closePremiumStorefront()">Go Back</a>
+                <button class="buy-orbs-master-btn" onclick="triggerPayPalOrbsBillingPortal()">Buy Nexus Orbs</button>
+            </div>
+            <div class="shop-headline-title">NEXUS MULTIVERSE STOREFRONT</div>
             
             <div class="balance-container-pill">
-                <span>Balance:</span>
-                <span id="shop-balance-display-node">50,000 Orbs (Beta Free Active)</span>
+                <span>Account Balance:</span>
+                <span id="shop-balance-display-node">2,500 Orbs</span>
             </div>
+        </div>
+
+        <!-- Corporate Categories Matrix -->
+        <div class="shop-category-subbar">
+            <button class="shop-subbar-tab active-subtab" id="subtab-effects" onclick="filterShopCategory('effects')">Custom Effects</button>
+            <button class="shop-subbar-tab" id="subtab-cosmetics" onclick="filterShopCategory('cosmetics')">Cosmetics</button>
+            <button class="shop-subbar-tab" id="subtab-profiles" onclick="filterShopCategory('profiles')">Profiles</button>
+            <button class="shop-subbar-tab" id="subtab-audio" onclick="filterShopCategory('audio')">Audio Mods</button>
         </div>
 
         <div class="shop-showcase-scroller">
@@ -1950,12 +2019,10 @@
             }
         }
 
-        /* 100% Autonomous Audio Engine Ringing Protocols */
         function triggerIncomingCallRingLoop(stateActive) {
             if (stateActive) {
                 if (incomingCallOscillatorInterval) return;
                 incomingCallOscillatorInterval = setInterval(() => {
-                    // Futuristic Dual-Chroma Synthesizer Ring Alert
                     playSynthFrequency(880, 'sawtooth', 0.25, 0.15);
                     setTimeout(() => playSynthFrequency(1200, 'sine', 0.3, 0.1), 80);
                 }, 1000);
@@ -2026,11 +2093,68 @@
         let callTimerInterval = null;
         let elapsedCallSeconds = 0;
 
-        let betaWalletBalanceOrbs = 50000;
-        const shopInventoryMatrix = [
-            { id: 'nexus-elite', name: 'Nexus Elite Tier', desc: 'Premium custom user frame and advanced server scaling variables.', cost: 'Free (Beta Frame)', icon: 'favicon.png', exclusive: true },
-            { id: 'magic-mists', name: 'Obsidian Cyan Theme Pack', desc: 'Forces alternative custom linear lighting vectors across target panels.', cost: '3500 Orbs', icon: 'favicon.png', exclusive: false },
-            { id: 'cyber-neon', name: 'Cyberpunk Sound Pack', desc: 'Alters notification alerts into retro digital oscillation clips.', cost: '1200 Orbs', icon: 'favicon.png', exclusive: false }
+        let activeWalletOrbsBalance = 2500;
+        let activeShopCategoryFilter = 'effects';
+
+        // COMPREHENSIVE 50-ITEM ENTERPRISE MATRIX PRODUCTION INVENTORY
+        const totalFiftyShopInventory = [
+            /* Category: Effects (1-13) */
+            { id: 'fx-neon-piping', cat: 'effects', name: 'Neon Piping Wave', desc: 'Injects electric cyan tracking loops directly around message rows.', cost: 400, premium: true },
+            { id: 'fx-obsidian-glass', cat: 'effects', name: 'Obsidian Deep Blur', desc: 'Increases structural glass container blurs to a heavy 48px footprint.', cost: 600, premium: false },
+            { id: 'fx-matrix-rain', cat: 'effects', name: 'Matrix Node Cascade', desc: 'Triggers programmatic tracking streams along left side rails.', cost: 850, premium: true },
+            { id: 'fx-pulse-glow', cat: 'effects', name: 'Active Avatar Radial Aura', desc: 'Enables continuous ambient blur pulses on call windows.', cost: 300, premium: false },
+            { id: 'fx-glitch-text', cat: 'effects', name: 'Chroma Aberration text', desc: 'Applies automated CSS skew animations onto channel headers.', cost: 500, premium: false },
+            { id: 'fx-cyber-grid', cat: 'effects', name: 'Obsidian Grid Aligners', desc: 'Superimposes perspective coordinates under tracking sheets.', cost: 700, premium: true },
+            { id: 'fx-flicker-beam', cat: 'effects', name: 'Dynamic Light Rails', desc: 'Adds passing horizontal lighting matrix sweeps over text input.', cost: 450, premium: false },
+            { id: 'fx-plasma-bg', cat: 'effects', name: 'Volcanic Core Vector Field', desc: 'Replaces dark slate fills with dark low-frequency noise nodes.', cost: 1200, premium: true },
+            { id: 'fx-scanlines', cat: 'effects', name: 'Terminal Horizontal Scanlines', desc: 'Overlays subtle CRT screen sweeps onto chat panels.', cost: 250, premium: false },
+            { id: 'fx-neon-pink', cat: 'effects', name: 'Neon Pink Warning Piping', desc: 'Swaps default accent markers with dangerous hot magenta rails.', cost: 900, premium: true },
+            { id: 'fx-gold-shimmer', cat: 'effects', name: 'Gold Bullion Shimmer FX', desc: 'Forces gold specular gradients on purchase buttons.', cost: 1100, premium: true },
+            { id: 'fx-spark-trans', cat: 'effects', name: 'Kinetic Particle Lift', desc: 'Generates tiny rising ASCII blocks on text selection panels.', cost: 350, premium: false },
+            { id: 'fx-holo-shield', cat: 'effects', name: 'Holo Shield Vignette Overlay', desc: 'Applies chromatic shadow drops across global layouts.', cost: 950, premium: true },
+
+            /* Category: Cosmetics (14-25) */
+            { id: 'cos-cyber-badge', cat: 'cosmetics', name: 'Elite Matrix Node Protocol', desc: 'Pins a minimalist custom square framework next to user handle text.', cost: 150, premium: false },
+            { id: 'cos-cyan-glow', cat: 'cosmetics', name: 'Electric Cyan Font Pipeline', desc: 'Forces system text to process using neon cyan matrices.', cost: 500, premium: false },
+            { id: 'cos-gold-tag', cat: 'cosmetics', name: 'Strategic Architecture Identifier', desc: 'Gives handle name an immutable corporate gold tone.', cost: 1000, premium: true },
+            { id: 'cos-pink-bubble', cat: 'cosmetics', name: 'Delta Sent Bubble Facade', desc: 'Alters outbound message frames with asymmetric hot pink borders.', cost: 750, premium: true },
+            { id: 'cos-clean-text', cat: 'cosmetics', name: 'Terminal Mono Font Blueprint', desc: 'Swaps standard design layout typography with monospace rules.', cost: 300, premium: false },
+            { id: 'cos-shadow-trail', cat: 'cosmetics', name: 'Drop Shadow Ambient Engine', desc: 'Projects massive canvas shadows under control frames.', cost: 450, premium: false },
+            { id: 'cos-border-neon', cat: 'cosmetics', name: 'Neon Pip Border Frame Wrap', desc: 'Wraps overall app boundaries inside an active glow wire.', cost: 1350, premium: true },
+            { id: 'cos-glass-input', cat: 'cosmetics', name: 'Frosted Input Matrix Facade', desc: 'Strips inputs down to bare backdrops with thin border strokes.', cost: 200, premium: false },
+            { id: 'cos-vip-icon', cat: 'cosmetics', name: 'Broken Octagon Crest Tag', desc: 'Encloses chat avatars inside minimalist broken geometric symbols.', cost: 800, premium: true },
+            { id: 'cos-avatar-glitch', cat: 'cosmetics', name: 'Dynamic Aberration Frame Hook', desc: 'Applies minor tracking shifts to profile preview windows.', cost: 650, premium: false },
+            { id: 'cos-slant-bubbles', cat: 'cosmetics', name: 'Slanted Coordinate Message Bubbles', desc: 'Forces highly sharp geometric clip paths on dialogue nodes.', cost: 400, premium: false },
+            { id: 'cos-stealth-mode', cat: 'cosmetics', name: 'Stealth Matte Charcoal Sheets', desc: 'Drops overall UI luminance level down to minimum readable nodes.', cost: 900, premium: true },
+
+            /* Category: Profiles (26-38) */
+            { id: 'prof-vanguard', cat: 'profiles', name: 'Vanguard Operator Config Block', desc: 'Unlocks custom system telemetry descriptors inside public channel panels.', cost: 350, premium: false },
+            { id: 'prof-architect', cat: 'profiles', name: 'Enterprise Architect Profile Sheet', desc: 'Enables priority data routing visibility parameters across panels.', cost: 950, premium: true },
+            { id: 'prof-quantum', cat: 'profiles', name: 'Quantum Cryptographer User Card', desc: 'Injects random processing variable strings to signature blocks.', cost: 600, premium: false },
+            { id: 'prof-glitch-id', cat: 'profiles', name: 'Glitch-Injected Core Matrix Identifier', desc: 'Cycles alternative tracking code tags in user info bars.', cost: 700, premium: false },
+            { id: 'prof-carbon-frame', cat: 'profiles', name: 'Carbon Fiber Structural Borders', desc: 'Encloses personal contact summary blocks inside thick mesh arrays.', cost: 400, premium: false },
+            { id: 'prof-neon-title', cat: 'profiles', name: 'Neon Spectrum Status Layout Block', desc: 'Illuminates selected status handles using linear light tables.', cost: 550, premium: false },
+            { id: 'prof-alpha-crested', cat: 'profiles', name: 'Alpha Core Double Ring Crest', desc: 'Embeds nested circle configurations onto personal user spaces.', cost: 1250, premium: true },
+            { id: 'prof-overlord', cat: 'profiles', name: 'System Overlord Central Variable Set', desc: 'Overrides default contact display styling with heavy chrome bars.', cost: 2000, premium: true },
+            { id: 'prof-minimalist', cat: 'profiles', name: 'Minimalist Blank Sheet Blueprint', desc: 'Strips out structural separators for absolute layout clarity.', cost: 150, premium: false },
+            { id: 'prof-ghost', cat: 'profiles', name: 'Ghost Node Obfuscated Identity Card', desc: 'Blurs profile metadata details unless explicitly selected by peer nodes.', cost: 850, premium: true },
+            { id: 'prof-synthetic', cat: 'profiles', name: 'Synthetic Lifeform Interface Skin', desc: 'Forces pale algorithmic color maps onto sidebar cards.', cost: 650, premium: false },
+            { id: 'prof-aurora', cat: 'profiles', name: 'Aurora Borealis Pipeline Overlay', desc: 'Bakes passing emerald gradient fields directly inside sidebar cards.', cost: 1100, premium: true },
+            { id: 'prof-matrix-core', cat: 'profiles', name: 'Matrix Core System Root Token', desc: 'Appends a literal terminal coordinate string onto workspace labels.', cost: 1500, premium: true },
+
+            /* Category: Audio (39-50) */
+            { id: 'aud-saw-alert', cat: 'audio', name: 'Retro Digital Sawtooth oscillation Ring', desc: 'Swaps default system pings with intense hardware synthesizer sweeps.', cost: 200, premium: false },
+            { id: 'aud-sub-drop', cat: 'audio', name: 'Sub-Bass Frequency Impact Node', desc: 'Fires low-frequency bass impacts during textual dispatch events.', cost: 400, premium: false },
+            { id: 'aud-clicks', cat: 'audio', name: 'Tactile Mechanical Relay Switch sound', desc: 'Simulates heavy structural relay toggles on layout clicks.', cost: 300, premium: false },
+            { id: 'aud-chime', cat: 'audio', name: 'Ethereal High-Resonance Chime Loop', desc: 'Processes call connection alerts via high-Q sound clips.', cost: 600, premium: false },
+            { id: 'aud-laser', cat: 'audio', name: 'Laser Beam Discharge Wave Clip', desc: 'Triggers directional audio discharge bursts on incoming messages.', cost: 450, premium: false },
+            { id: 'aud-ambient', cat: 'audio', name: 'Low Frequency Ambient Drone Pipeline', desc: 'Bakes a continuous low-level structural noise floor into system loads.', cost: 900, premium: true },
+            { id: 'aud-reverse', cat: 'audio', name: 'Reverse Sweep Kinetic Entrance Cue', desc: 'Plays custom rising frequency sweeps on workspace entry.', cost: 550, premium: false },
+            { id: 'aud-alarm', cat: 'audio', name: 'Critical Emergency System Alert Ping', desc: 'Fires loud modular synthesizer warning grids on connection drop.', cost: 750, premium: true },
+            { id: 'aud-metallic', cat: 'audio', name: 'Metallic Resonance Clang Trigger', desc: 'Alters profile reset alert tones into physical industrial hits.', cost: 500, premium: false },
+            { id: 'aud-whisper', cat: 'audio', name: 'Algorithmic Whispering Matrix Code Echo', desc: 'Generates tiny granular microtonal acoustic clusters behind text.', cost: 1300, premium: true },
+            { id: 'aud-pulse-sonar', cat: 'audio', name: 'Deep Sea Sonar Pulse Clock Tracker', desc: 'Fires high-attenuation sweep coordinates during call timers.', cost: 1100, premium: true },
+            { id: 'aud-vortex', cat: 'audio', name: 'Spiraling Flanger Sweep Exit Sequence', desc: 'Generates processing distortion sound loops during platform reset loops.', cost: 950, premium: true }
         ];
 
         /* Automated Custom Symbol Vectors Array mapping directly to Input Box Elements */
@@ -2055,7 +2179,6 @@
             mqttClient.on('connect', () => {
                 console.log("Nexus Network Engine Pipeline Linked Successfully Online.");
                 mqttClient.subscribe(currentNetworkMeshRoomTopic);
-                
                 appendBubbleElement("System Protocol", "Connected directly to real-time sync matrix pipeline. Try running this file on your mobile or another PC tab!", "received");
             });
 
@@ -2125,7 +2248,6 @@
                 if (currentProfileSessionName && currentProfileSessionName.trim() !== "") {
                     const dynamicObfuscatedSalt = btoa(currentProfileSessionName + "-" + Date.now());
                     const generatedLinkNode = `${window.location.origin}${window.location.pathname}?matrix_invite=${dynamicObfuscatedSalt}`;
-                    
                     appendBubbleElement("System Protocol", `Automated Cycle Refresh complete: Fresh secure 5-minute invite address code generated dynamically: ${generatedLinkNode}`, "received");
                 }
             }, 300000);
@@ -2158,7 +2280,6 @@
             appendBubbleElement("System Sync", `Generated secure invite matrix pointer hash token address link code cleanly. Ready for private peer pairing parameters.`, "received");
         }
 
-        /* Focus and selects the inner link parameters explicitly within the modal frame node layer */
         function executeManualModalCopyPattern() {
             const targetDisplay = document.getElementById('nexus-invite-modal-textarea-display');
             if (targetDisplay) {
@@ -2328,7 +2449,6 @@
             
             const rows = document.querySelectorAll('.chat-list-row');
             rows.forEach(row => row.classList.remove('active'));
-            
             renderSidebarContextPanel();
             repaintMessageLogs();
         }
@@ -2371,7 +2491,6 @@
             const dataString = inputField.value.trim();
             if (!dataString) return;
             
-            // Check if string contains standard video file parameters signature (.mp4, .webm)
             let videoUrlParam = null;
             if (dataString.includes(".mp4") || dataString.includes(".webm") || dataString.startsWith("http") && dataString.includes("video")) {
                 videoUrlParam = dataString;
@@ -2426,12 +2545,10 @@
                     
                     voiceMediaRecorder.onstop = () => {
                         const voiceBlob = new Blob(voiceRecordedChunks, { type: 'audio/webm' });
-                        
                         const voiceReader = new FileReader();
                         voiceReader.readAsDataURL(voiceBlob);
                         voiceReader.onloadend = function() {
                             const rawBase64VoiceString = voiceReader.result;
-                            
                             injectVoiceBubbleToChatLog(currentProfileSessionName, rawBase64VoiceString, "sent");
 
                             if (mqttClient && mqttClient.connected) {
@@ -2478,7 +2595,6 @@
                 timeCode,
                 voiceURL: blobURL 
             });
-            
             repaintMessageLogs();
         }
 
@@ -2595,30 +2711,58 @@
             });
         }
 
+        /* 4-Tab Dynamic Showcase Filtering Core Routing Functions */
+        function filterShopCategory(categoryToken) {
+            playSynthFrequency(440, 'sine', 0.1, 0.15);
+            activeShopCategoryFilter = categoryToken;
+            
+            const activeClass = 'active-subtab';
+            document.getElementById('subtab-effects').classList.remove(activeClass);
+            document.getElementById('subtab-cosmetics').classList.remove(activeClass);
+            document.getElementById('subtab-profiles').classList.remove(activeClass);
+            document.getElementById('subtab-audio').classList.remove(activeClass);
+
+            document.getElementById(`subtab-${categoryToken}`).classList.add(activeClass);
+            generateStorefrontCards();
+        }
+
         function generateStorefrontCards() {
             const container = document.getElementById('shop-items-grid-target');
             if (!container) return;
             container.innerHTML = '';
-            shopInventoryMatrix.forEach(item => {
-                const badgeHTML = item.exclusive ? `<div class="item-badge-exclusive">EXCLUSIVE</div>` : '';
+
+            // Filter out items matching active tab key
+            const targetVisibleSet = totalFiftyShopInventory.filter(item => item.cat === activeShopCategoryFilter);
+
+            targetVisibleSet.forEach(item => {
+                const badgeHTML = item.premium ? `<div class="item-badge-exclusive">EXCLUSIVE</div>` : '';
                 container.innerHTML += `
                     <div class="shop-item-card"> 
                         ${badgeHTML} 
                         <div class="item-graphic-wrapper"> 
                             <div class="item-graphic-ring"></div> 
-                            <div style="font-size:11px; font-family:monospace; color:var(--primary-accent); border:1px dashed var(--primary-accent); padding:4px;">FX_ACTIVE</div>
+                            <div style="font-size:10px; font-family:monospace; color:var(--primary-accent); border:1px dashed rgba(0,240,255,0.3); padding:4px 8px; text-transform:uppercase;">${item.id}</div>
                         </div> 
                         <div class="item-meta-name">${item.name}</div> 
                         <div class="item-meta-desc">${item.desc}</div> 
                         <div class="item-action-row"> 
-                            <div class="item-price-tag">${item.cost}</div> 
-                            <button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Claim Free</button> 
+                            <div class="item-price-tag">${item.cost} Orbs</div> 
+                            <button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}', ${item.cost})">Acquire Mod</button> 
                         </div> 
                     </div>`;
             });
         }
 
-        function executeItemPurchase(itemId) {
+        function executeItemPurchase(itemId, itemCost) {
+            if (activeWalletOrbsBalance < itemCost) {
+                playSynthFrequency(220, 'sawtooth', 0.3, 0.4);
+                alert("Insufficient Nexus Orb allocation parameters. Open the PayPal billing gateway to synchronize funds.");
+                return;
+            }
+
+            activeWalletOrbsBalance -= itemCost;
+            document.getElementById('shop-balance-display-node').innerText = `${activeWalletOrbsBalance.toLocaleString()} Orbs`;
+
             const targetBtn = document.getElementById(`btn-claim-${itemId}`);
             playSynthFrequency(880, 'sine', 0.3, 0.4);
             if (targetBtn) {
@@ -2626,12 +2770,27 @@
                 targetBtn.classList.add('unlocked');
                 targetBtn.disabled = true;
             }
-            appendBubbleElement("System Store", `Successfully locked [${itemId}] structural asset modifications to your profile container!`, "received");
+            appendBubbleElement("System Store", `Successfully locked [${itemId}] structural asset modifications to your profile container! Balance deducted: ${itemCost} Orbs.`, "received");
+        }
+
+        /* Direct Hardware Hook: Integration of external settlement pipeline redirecting parameters straight to PayPal */
+        function triggerPayPalOrbsBillingPortal() {
+            playSynthFrequency(900, 'sine', 0.2, 0.3);
+            const userChoice = confirm("Redirect to PayPal Secure Processing Gateway to obtain 5,000 Premium Nexus Orbs package for $4.99 USD?");
+            if (userChoice) {
+                window.open("https://www.paypal.com", "_blank", "noopener,noreferrer");
+                
+                // Credit transaction simulated post-hook routing for local sandbox execution
+                activeWalletOrbsBalance += 5000;
+                document.getElementById('shop-balance-display-node').innerText = `${activeWalletOrbsBalance.toLocaleString()} Orbs`;
+                appendBubbleElement("System Bank", "Inbound transaction complete: Added 5,000 Premium Nexus Orbs to active profile wallet address structures.", "received");
+            }
         }
 
         function openPremiumStorefront() {
             playSynthFrequency(580, 'sine', 0.2, 0.2);
             document.getElementById('nexus-shop-screen').style.display = 'flex';
+            generateStorefrontCards();
         }
 
         function closePremiumStorefront() {
@@ -2647,7 +2806,6 @@
                 isCallActive = forceState;
             } else {
                 isCallActive = !isCallActive;
-                // Dispatch out invitation over public pipeline matrix nodes
                 if (isCallActive && mqttClient && mqttClient.connected) {
                     const callPacket = {
                         sender: currentProfileSessionName,
@@ -2838,67 +2996,4 @@
                 localHardwareDisplayStream = null;
             }
             document.getElementById('hardware-webcam-stream').srcObject = null;
-            document.getElementById('hardware-screenshare-stream').srcObject = null;
-            document.getElementById('webcam-canvas').style.display = 'flex';
-            document.getElementById('screenshare-canvas').style.display = 'flex';
-            isCameraActive = false;
-            isScreenSharing = false;
-            isAudioMuted = false;
-            
-            const camBtn = document.getElementById('webcam-video-toggle');
-            const screenBtn = document.getElementById('screenshare-video-toggle');
-            const muteBtn = document.getElementById('mute-audio-toggle');
-            if (camBtn) camBtn.classList.remove('active-state');
-            if (screenBtn) screenBtn.classList.remove('active-state');
-            if (muteBtn) {
-                muteBtn.innerText = "Audio Unmuted";
-                muteBtn.classList.remove('active-state');
-            }
-        }
-
-        function initiateChronometerClock() {
-            elapsedCallSeconds = 0;
-            const durationClock = document.getElementById('call-duration-clock');
-            callTimerInterval = setInterval(() => {
-                elapsedCallSeconds++;
-                
-                if (elapsedCallSeconds >= 60) {
-                    executePremiumLimitationCutoff();
-                    return;
-                }
-                
-                let displayMinutes = String(Math.floor(elapsedCallSeconds / 60)).padStart(2, '0');
-                let displaySeconds = String(elapsedCallSeconds % 60).padStart(2, '0');
-                if (durationClock) durationClock.innerText = `${displayMinutes}:${displaySeconds}`;
-            }, 1000);
-        }
-
-        function executePremiumLimitationCutoff() {
-            terminateChronometerClock();
-            cleanupHardwareTracks();
-            isCallActive = false;
-            
-            const layerBlock = document.getElementById('call-interface-layer');
-            const joinBtn = document.querySelector('.call-action-btn');
-            if (layerBlock) layerBlock.style.display = 'none';
-            if (joinBtn) {
-                joinBtn.innerText = "Connect Live Streams";
-                joinBtn.style.borderColor = "var(--primary-accent)";
-                joinBtn.style.color = "var(--primary-accent)";
-            }
-            
-            document.getElementById('nexus-premium-upgrade-overlay').style.display = 'flex';
-            playSynthFrequency(220, 'sawtooth', 0.4, 0.3);
-        }
-
-        function closePremiumLimitOverlayReset() {
-            document.getElementById('nexus-premium-upgrade-overlay').style.display = 'none';
-        }
-
-        function terminateChronometerClock() {
-            clearInterval(callTimerInterval);
-            document.getElementById('call-duration-clock').innerText = "00:00";
-        }
-    </script>
-</body>
-</html>
+            document.getElementById('hardware-screenshare-stream').
