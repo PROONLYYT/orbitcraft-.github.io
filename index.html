@@ -342,9 +342,15 @@
             align-items: center;
             justify-content: center;
             color: var(--text-muted);
-            font-size: 20px;
             position: relative;
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            cursor: pointer;
+        }
+
+        .rail-tab-item svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
         }
 
         .rail-tab-item:hover {
@@ -666,6 +672,13 @@
             align-items: center;
             justify-content: center;
             font-weight: bold;
+            cursor: pointer;
+        }
+
+        .voice-play-trigger-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
         }
         
         .voice-waveform-simulation {
@@ -746,7 +759,6 @@
             background: transparent;
             border: 1px solid var(--border-subtle);
             color: var(--text-muted);
-            font-size: 18px;
             padding: 8px;
             border-radius: 6px;
             transition: all 0.2s ease;
@@ -755,6 +767,13 @@
             justify-content: center;
             width: 38px;
             height: 38px;
+            cursor: pointer;
+        }
+
+        .emoji-trigger-node-btn svg, .mic-record-trigger-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
         }
 
         .emoji-trigger-node-btn:hover, .mic-record-trigger-btn:hover {
@@ -819,6 +838,7 @@
             padding: 6px;
             border-radius: 4px;
             transition: background 0.15s ease, transform 0.1s ease;
+            cursor: pointer;
         }
 
         .emoji-grid-item-cell:hover {
@@ -836,6 +856,7 @@
             font-size: 13px;
             transition: all 0.2s ease;
             box-shadow: 0 0 4px var(--primary-glow);
+            cursor: pointer;
         }
 
         .send-btn:hover {
@@ -849,9 +870,9 @@
             color: var(--text-muted);
             background: transparent;
             box-shadow: none;
+            cursor: not-allowed;
         }
 
-        /* Upgraded Layout Trigger Actions Bar Handles Header Layouts Button Alignment Custom Classes */
         .call-header-action-button-group {
             display: flex;
             align-items: center;
@@ -887,7 +908,6 @@
             fill: currentColor;
         }
 
-        /* Custom Hover Color Tuning Rules */
         .call-action-btn.audio-trigger-theme:hover {
             color: var(--success-green);
             border-color: var(--success-green);
@@ -959,7 +979,6 @@
             overflow: hidden;
         }
 
-        /* Immersive Audio Call Visual Center Node Block Layout */
         .call-voice-profile-card-center {
             text-align: center;
             display: flex;
@@ -1002,7 +1021,6 @@
             border: 1px solid var(--border-subtle);
         }
 
-        /* Beautiful Equalizer Waves Matrix for call flows */
         .call-equalizer-bars-container {
             display: flex;
             align-items: center;
@@ -1028,7 +1046,6 @@
             100% { transform: scaleY(1.4); }
         }
 
-        /* Custom Immersive Video Container Grid Block */
         .call-immersive-video-viewport {
             position: absolute;
             top: 0;
@@ -1071,7 +1088,6 @@
             transition: opacity 0.2s ease;
         }
 
-        /* Action Buttons Grid Footer Controls Row inside Overlay */
         .call-controls-row-footer {
             display: flex;
             justify-content: center;
@@ -1518,7 +1534,9 @@
     <!-- Live Limit Subscription Target Overlay Frame -->
     <div id="nexus-premium-upgrade-overlay" class="nexus-gate-premium-modal-wrapper">
         <div class="premium-card-container">
-            <div style="font-size: 40px;">⏳</div>
+            <div style="font-size: 40px; display: flex; justify-content: center;">
+                <svg style="width: 48px; height: 48px; fill: var(--gold-accent);" viewBox="0 0 24 24"><path d="M6 2h12v6l-4 4 4 4v6H6v-6l4-4-4-4V2zm10 14.5L12 12.7l-4 3.8V20h8v-3.5zm-8-9l4 3.8 4-3.8V4H8v3.5z"/></svg>
+            </div>
             <h2 class="premium-card-title">Call Frame Duration Terminated</h2>
             <p class="premium-card-desc">You have encountered the maximum 1-minute test access limitation boundary loop parameters. Purchase the <strong>Call Max Hours Pass</strong> container upgrade for $5.00 USD to enable unlimited communication loops.</p>
             <div class="premium-action-row-buttons">
@@ -1530,11 +1548,22 @@
 
     <div id="app-frame">
         <div class="global-nav-rail">
-            <div class="rail-tab-item active" id="tab-node-chat" onclick="switchGlobalRailContext('chat')" title="Home/Chat">💬</div>
-            <div class="rail-tab-item" id="tab-node-groups" onclick="switchGlobalRailContext('groups')" title="Groups Ecosystem">👥</div>
-            <div class="rail-tab-item" id="tab-node-states" onclick="switchGlobalRailContext('states')" title="States Hub Engagement Stream">🌐</div>
-            <div class="rail-tab-item" id="tab-node-settings" onclick="switchGlobalRailContext('settings')" title="Account Integration Matrix Settings">⚙️</div>
-            <div class="rail-tab-item" id="tab-node-integrations" onclick="switchGlobalRailContext('integrations')" title="Extensions & Integrations Hub">🔌</div>
+            <!-- Replaced raw emojis with clean vector inline SVGs inside Navigation Rail buttons -->
+            <div class="rail-tab-item active" id="tab-node-chat" onclick="switchGlobalRailContext('chat')" title="Home/Chat">
+                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+            </div>
+            <div class="rail-tab-item" id="tab-node-groups" onclick="switchGlobalRailContext('groups')" title="Groups Ecosystem">
+                <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+            </div>
+            <div class="rail-tab-item" id="tab-node-states" onclick="switchGlobalRailContext('states')" title="States Hub Engagement Stream">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            </div>
+            <div class="rail-tab-item" id="tab-node-settings" onclick="switchGlobalRailContext('settings')" title="Account Matrix Settings">
+                <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+            </div>
+            <div class="rail-tab-item" id="tab-node-integrations" onclick="switchGlobalRailContext('integrations')" title="Extensions & Integrations Hub">
+                <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5v5h4v7h6v-7h4V9zm-2 3h-4v7h-2v-7H7v-1h4V5h2v6h4v1z"/></svg>
+            </div>
         </div>
         
         <div class="sidebar-panel">
@@ -1548,7 +1577,7 @@
             <div class="sidebar-tools" id="sidebar-context-controls-box">
                 <button class="shop-trigger-btn" onclick="openPremiumStorefront()">Open Nexus Shop</button>
                 <button class="sm-btn" id="sidebar-action-primary-btn" onclick="triggerChannelCreation()">+ New Channel Stream</button>
-                <button class="sm-btn" style="border-color: var(--gold-accent); color: var(--gold-accent);" onclick="generatePrivateFriendMatrixCode()">🔗 Copy Invite Address Code</button>
+                <button class="sm-btn" style="border-color: var(--gold-accent); color: var(--gold-accent);" onclick="generatePrivateFriendMatrixCode()">Copy Invite Address Code</button>
                 <button class="sm-btn danger" onclick="performProfileHardwareReset()">Reset Active Session Container</button>
             </div>
             
@@ -1558,11 +1587,13 @@
         <div class="workspace-panel">
             <div class="workspace-header">
                 <div class="header-profile">
-                    <div style="font-size: 16px; color: var(--primary-accent); font-weight: 900; filter: drop-shadow(0 0 4px var(--primary-glow));">⧉</div>
+                    <!-- Clean inline vector path instead of raw emoji character mapping -->
+                    <div style="width: 18px; height: 18px; color: var(--primary-accent); filter: drop-shadow(0 0 4px var(--primary-glow)); display: flex; align-items: center; justify-content: center;">
+                        <svg viewBox="0 0 24 24" style="width:100%; height:100%; fill:currentColor;"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg>
+                    </div>
                     <div class="title" id="active-chat-headline-node">Global Public Lobby</div>
                 </div>
                 
-                <!-- Updated Call Header Action Triggers Grouping Container Box -->
                 <div class="call-header-action-button-group">
                     <button class="call-action-btn audio-trigger-theme" onclick="launchAdvancedOverlayCallingView(false)" title="Start Secure Voice Call">
                         <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1.01C8.7 6.31 8.5 5.12 8.5 3.9c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.52c0-.55-.45-1-1-1z"/></svg>
@@ -1577,14 +1608,14 @@
                 <div class="states-header-row">
                     <span class="states-row-title">Live Connections Engagement Feed</span>
                     <input type="file" id="states-media-file-capture-pipe" accept="video/*,image/*" style="display: none;" onchange="processNewStateMediaUpload(event)">
-                    <button class="call-action-btn" style="padding: 4px 10px; font-size: 11px;" onclick="document.getElementById('states-media-file-capture-pipe').click()">Create New States</button>
+                    <button class="call-action-btn" style="padding: 0 10px; font-size: 11px;" onclick="document.getElementById('states-media-file-capture-pipe').click()">Create New States</button>
                 </div>
                 <div class="states-carousel-scroller-track" id="states-carousel-scroller-track"></div>
             </div>
 
             <!-- ==========================================================================
                ADVANCED PREMIUM CALL OVERLAY MODULE LAYER 
-               ========================================================================== -->
+               ========================================================================== */ -->
             <div class="call-overlay" id="premiumCallOverlayStage">
                 <div class="call-top-meta-bar">
                     <div class="call-secure-lock-badge">
@@ -1595,7 +1626,6 @@
                 </div>
 
                 <div class="call-viewport-center-stage">
-                    <!-- Context Node 1: Classical Audio Layout view -->
                     <div class="call-voice-profile-card-center" id="overlayVoiceFrameContainer">
                         <div class="call-voice-avatar-node" id="overlayCallingAvatarIcon">N</div>
                         <h2 id="overlayCallingTargetName" style="font-size: 1.8rem; font-weight: 700; margin: 0;">Global Room Target</h2>
@@ -1610,7 +1640,6 @@
                         </div>
                     </div>
 
-                    <!-- Context Node 2: Video Immersive View Stage Frame -->
                     <div class="call-immersive-video-viewport" id="overlayVideoFrameContainer">
                         <div class="call-remote-video-feed-facade">
                             <div style="text-align: center; z-index: 2;">
@@ -1643,11 +1672,16 @@
             <div class="thread-scroll-view" id="chat-thread-viewport"></div>
 
             <div class="input-dock-bar">
-                <button type="button" class="mic-record-trigger-btn" id="voice-memo-toggle-btn" onclick="toggleVoiceMessageRecording()" title="Record Voice Message">🎤</button>
+                <!-- Replaced text emoji symbols inside text buttons with beautiful inline vector path configurations -->
+                <button type="button" class="mic-record-trigger-btn" id="voice-memo-toggle-btn" onclick="toggleVoiceMessageRecording()" title="Record Voice Message">
+                    <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
+                </button>
 
                 <input type="text" id="text-message-input-node" placeholder="Type a message into active stream..." onkeypress="trapInputKeypress(event)">
                 
-                <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Emoji">😀</button>
+                <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Emoji">
+                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 10 10 10-4.48 10-10S17.51 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5s.67 1.5 1.5 1.5zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+                </button>
                 
                 <div class="emoji-picker-matrix-overlay" id="emoji-picker-matrix-overlay">
                     <div class="emoji-picker-header">Select Symbol Input</div>
@@ -1665,7 +1699,11 @@
 
     <div id="nexus-shop-screen">
         <div class="shop-header-navbar">
-            <a href="#" class="back-nav-link" onclick="closePremiumStorefront()">← Go Back</a>
+            <a href="#" class="back-nav-link" onclick="closePremiumStorefront()">
+                <!-- Inline SVG arrow instead of raw character links -->
+                <svg viewBox="0 0 24 24" style="width:14px; height:14px; fill:currentColor; margin-right:4px;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                <span>Go Back</span>
+            </a>
             <div class="shop-headline-title">NEXUS MULTIVERSE storefront</div>
             
             <div class="balance-container-pill">
@@ -1746,7 +1784,7 @@
         ];
 
         let channelDatabase = {
-            'global-lobby': { name: "🌐 Real Online Stream Lobby", history: [] }
+            'global-lobby': { name: "Real Online Stream Lobby", history: [] }
         };
 
         let liveStatesContentFeed = [];
@@ -1818,7 +1856,7 @@
                     const pvtChannelId = 'pvt-node-' + matrixCode;
                     
                     channelDatabase[pvtChannelId] = {
-                        name: `🔒 Private Matrix (${decName})`,
+                        name: `Private Matrix (${decName})`,
                         history: [
                             { author: "System Protocol", content: `Established direct, end-to-end routing channel connection to player data handle [${decName}].`, variant: "received", timeCode: "Now" }
                         ]
@@ -1870,7 +1908,7 @@
             appendBubbleElement("System Sync", `Generated secure invite matrix pointer hash token address link code cleanly. Ready for private peer pairing parameters.`, "received");
         }
 
-        /* Focus and selects the inner link parameters explicitly within the modal frame node layer */
+        /* Focus and selects the inner link parameters explicitly within the modal field container frame */
         function executeManualModalCopyPattern() {
             const targetDisplay = document.getElementById('nexus-invite-modal-textarea-display');
             if (targetDisplay) {
@@ -2011,7 +2049,7 @@
                     renderSidebarContextPanel();
                 };
                 activeGroupHubs.forEach(group => {
-                    container.innerHTML += `<div class="chat-list-row"> <div class="row-avatar">⧉</div> <div class="row-meta"> <div class="row-name">${group.name}</div> <div class="row-preview">Active Team Workspace Node</div> </div> </div>`;
+                    container.innerHTML += `<div class="chat-list-row"> <div class="row-avatar">M</div> <div class="row-meta"> <div class="row-name">${group.name}</div> <div class="row-preview">Active Team Workspace Node</div> </div> </div>`;
                 });
             } else if (activeGlobalRailTab === 'settings') {
                 primaryBtn.style.display = "block";
@@ -2024,7 +2062,7 @@
                 ];
                 connections.forEach(c => {
                     const isLinked = identityLinkingMatrix[c.id].connected;
-                    const statusText = isLinked ? "Connected ✓" : "Disconnected ✗";
+                    const statusText = isLinked ? "Connected" : "Disconnected";
                     container.innerHTML += `<div style="padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.02);"> <div style="font-weight:600; font-size:13px; margin-bottom:4px;">${c.name}</div> <div style="font-size:11px; color: ${isLinked ? 'var(--success-green)' : 'var(--text-muted)'}; margin-bottom:8px;">${statusText}</div> </div>`;
                 });
             } else if (activeGlobalRailTab === 'integrations') {
@@ -2155,7 +2193,8 @@
                     voiceMediaRecorder.start();
                     isVoiceRecording = true;
                     recBtn.classList.add('recording-active');
-                    recBtn.innerText = "🛑";
+                    // Removed raw emoji indicator character toggle maps
+                    recBtn.innerHTML = `<svg viewBox="0 0 24 24" style="width:18px; height:18px; fill:currentColor;"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>`;
                     playSynthFrequency(660, 'sine', 0.1, 0.3);
                 } catch(err) {
                     console.error("Recording system failure mapping microphone inputs:", err);
@@ -2167,7 +2206,7 @@
                 }
                 isVoiceRecording = false;
                 recBtn.classList.remove('recording-active');
-                recBtn.innerText = "🎤";
+                recBtn.innerHTML = `<svg viewBox="0 0 24 24" style="width:18px; height:18px; fill:currentColor;"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>`;
                 playSynthFrequency(440, 'sine', 0.15, 0.2);
             }
         }
@@ -2207,7 +2246,9 @@
                         <div class="msg-bubble ${msg.variant}">
                             <span class="msg-author">${msg.author}</span>
                             <div class="voice-memo-node-frame">
-                                <button class="voice-play-trigger-btn" onclick="playTargetVoiceTrack('${msg.voiceURL}', this)">▶</button>
+                                <button class="voice-play-trigger-btn" onclick="playTargetVoiceTrack('${msg.voiceURL}', this)">
+                                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                </button>
                                 <div class="voice-waveform-simulation">
                                     <div class="waveform-bar-element" style="height: 40%"></div>
                                     <div class="waveform-bar-element" style="height: 70%"></div>
@@ -2230,12 +2271,12 @@
             const voiceAudio = new Audio(trackURL);
             const waveBars = elementNode.parentElement.querySelectorAll('.waveform-bar-element');
             
-            elementNode.innerText = "⏸";
+            elementNode.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
             waveBars.forEach(bar => bar.classList.add('active-pulse'));
             
             voiceAudio.play();
             voiceAudio.onended = () => {
-                elementNode.innerText = "▶";
+                elementNode.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
                 waveBars.forEach(bar => bar.classList.remove('active-pulse'));
             };
         }
@@ -2299,7 +2340,7 @@
             const targetBtn = document.getElementById(`btn-claim-${itemId}`);
             playSynthFrequency(880, 'sine', 0.3, 0.4);
             if (targetBtn) {
-                targetBtn.innerText = "✓ Unlocked";
+                targetBtn.innerText = "Unlocked";
                 targetBtn.classList.add('unlocked');
                 targetBtn.disabled = true;
             }
@@ -2320,7 +2361,6 @@
            UPGRADED ARCHITECTURE INTERACTIVE OVERLAY TELEPHONY CONTROLLERS
            ========================================================================== */
         function launchAdvancedOverlayCallingView(videoMode) {
-            // Read active conversation meta metrics safely
             const currentActiveChannelName = document.getElementById('active-chat-headline-node').innerText;
             
             overlayCallSessionState.active = true;
@@ -2329,18 +2369,15 @@
             overlayCallSessionState.isCamOff = false;
             overlayCallSessionState.elapsedSeconds = 0;
 
-            // Reset operational control active trigger switch flags CSS classes
             document.getElementById('overlayMuteAudioActionToggle').classList.remove('active-triggered');
             document.getElementById('overlayToggleCameraActionToggle').classList.remove('active-triggered');
 
-            // Set profiles identifiers details labels text strings 
             document.getElementById('overlayCallingTargetName').innerText = currentActiveChannelName;
             document.getElementById('overlayCallingAvatarIcon').innerText = currentActiveChannelName.charAt(0).toUpperCase();
             document.getElementById('videoRemoteAvatarMockCircle').innerText = currentActiveChannelName.charAt(0).toUpperCase();
             document.getElementById('localPipInitialsLabel').innerText = currentProfileSessionName ? currentProfileSessionName.charAt(0).toUpperCase() : "ME";
             document.getElementById('callMediaCategoryHeaderLabel').innerText = videoMode ? "Webcam Video Session Router" : "Secure Audio Stream Router";
 
-            // Switch viewports nodes displays states layouts structures maps
             if (videoMode) {
                 document.getElementById('overlayVoiceFrameContainer').style.display = 'none';
                 document.getElementById('overlayVideoFrameContainer').style.display = 'flex';
@@ -2349,11 +2386,9 @@
                 document.getElementById('overlayVideoFrameContainer').style.display = 'none';
             }
 
-            // Expose the master display overlay portal panel block
             document.getElementById('premiumCallOverlayStage').style.display = 'flex';
             document.getElementById('overlayCallStatusTimerClock').innerText = "Linking E2EE mesh lines...";
 
-            // Play ring oscillation loops sequences 
             let ringCount = 0;
             playSynthFrequency(440, 'sine', 0.2, 0.15);
             
@@ -2375,7 +2410,6 @@
             overlayCallSessionState.timerInterval = setInterval(() => {
                 overlayCallSessionState.elapsedSeconds++;
 
-                // Premium test limits paywall restriction loop: exactly 60 seconds constraint cutoff parameters
                 if (overlayCallSessionState.elapsedSeconds >= 60) {
                     executeOverlayPremiumCutoffTrigger();
                     return;
@@ -2420,7 +2454,6 @@
             overlayCallSessionState.active = false;
             document.getElementById('premiumCallOverlayStage').style.display = 'none';
 
-            // Throw the premium paywall limit subscription prompt display overlay frame node block directly
             document.getElementById('nexus-premium-upgrade-overlay').style.display = 'flex';
             playSynthFrequency(180, 'sawtooth', 0.45, 0.25);
         }
