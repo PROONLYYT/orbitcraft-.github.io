@@ -317,7 +317,7 @@
             opacity: 1;
         }
 
-        /* Vertical Global 5-Tab Rails Frame Layout */
+        /* Vertical Global Rails Frame Layout */
         .global-nav-rail {
             width: var(--nav-rail-width);
             height: 100%;
@@ -342,9 +342,14 @@
             align-items: center;
             justify-content: center;
             color: var(--text-muted);
-            font-size: 20px;
             position: relative;
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .rail-tab-item svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
         }
 
         .rail-tab-item:hover {
@@ -356,7 +361,7 @@
         }
 
         .rail-tab-item.active {
-            color: #ffffff;
+            color: #07090e;
             background: var(--primary-hover);
             border-color: var(--primary-accent);
             box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
@@ -444,6 +449,15 @@
             border-radius: 6px;
             transition: all 0.2s ease;
             text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sm-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
         }
 
         .sm-btn:hover {
@@ -480,6 +494,16 @@
             transition: all 0.2s ease;
             text-align: center;
             box-shadow: 0 0 6px var(--primary-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .shop-trigger-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
         }
 
         .shop-trigger-btn:hover {
@@ -510,8 +534,6 @@
         }
 
         .row-avatar {
-            font-size: 14px;
-            font-weight: 700;
             width: 32px;
             height: 32px;
             background: rgba(255, 255, 255, 0.03);
@@ -522,6 +544,12 @@
             border-radius: 50%;
             flex-shrink: 0;
             color: var(--text-muted);
+        }
+
+        .row-avatar svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
         }
 
         .chat-list-row:hover .row-avatar, .chat-list-row.active .row-avatar {
@@ -653,9 +681,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
             cursor: pointer;
             transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .footer-icon-action-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
         }
 
         .footer-icon-action-btn:hover {
@@ -665,6 +698,205 @@
 
         .footer-icon-action-btn.active-muted {
             color: var(--danger-red);
+        }
+
+        /* Fullscreen Interactive Settings Portal UI */
+        #nexus-master-settings-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vw;
+            height: 100vh;
+            background: #090e14;
+            z-index: 7000;
+            display: none;
+            grid-template-columns: 240px 1fr;
+            box-sizing: border-box;
+        }
+
+        .settings-left-sidebar-navigation {
+            background: rgba(4, 7, 12, 0.95);
+            border-right: 1px solid var(--border-subtle);
+            padding: 40px 10px 40px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            overflow-y: auto;
+        }
+
+        .settings-nav-group-header {
+            font-size: 11px;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 14px 0 6px 10px;
+        }
+
+        .settings-sidebar-nav-item-btn {
+            width: 100%;
+            background: transparent;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            text-align: left;
+            font-size: 14px;
+            font-weight: 500;
+            color: #b5bac1;
+            transition: background 0.15s ease, color 0.15s ease;
+        }
+
+        .settings-sidebar-nav-item-btn:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-main);
+        }
+
+        .settings-sidebar-nav-item-btn.active {
+            background: rgba(0, 255, 255, 0.08);
+            color: var(--primary-accent);
+            font-weight: 600;
+        }
+
+        .settings-main-viewport-content {
+            padding: 60px 40px 60px 40px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            max-width: 900px;
+            position: relative;
+        }
+
+        .settings-close-escape-portal-action-container {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .settings-close-circle-action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 2px solid #b5bac1;
+            background: transparent;
+            color: #b5bac1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .settings-close-circle-action-btn svg {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        .settings-close-circle-action-btn:hover {
+            transform: scale(1.05);
+            border-color: var(--primary-accent);
+            color: var(--primary-accent);
+        }
+
+        .settings-close-escape-hint {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .settings-section-title-h2 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ffffff;
+            margin: 0 0 24px 0;
+            letter-spacing: 0.5px;
+        }
+
+        .settings-matrix-options-grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+
+        .settings-option-item-card-block {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .settings-option-meta-text-nodes {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .settings-option-title-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .settings-option-description-para {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* Toggle Custom Input Elements Styling */
+        .matrix-ui-toggle-switch-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 22px;
+            flex-shrink: 0;
+        }
+
+        .matrix-ui-toggle-switch-wrapper input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .matrix-ui-toggle-slider-facade {
+            position: absolute;
+            cursor: pointer;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: #3f4248;
+            transition: .2s ease;
+            border-radius: 34px;
+        }
+
+        .matrix-ui-toggle-slider-facade:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: .2s ease;
+            border-radius: 50%;
+        }
+
+        input:checked + .matrix-ui-toggle-slider-facade {
+            background-color: var(--success-green);
+        }
+
+        input:checked + .matrix-ui-toggle-slider-facade:before {
+            transform: translateX(18px);
         }
 
         .workspace-panel {
@@ -861,15 +1093,19 @@
             background: transparent;
             border: 1px solid var(--border-subtle);
             color: var(--text-muted);
-            font-size: 18px;
-            padding: 8px;
+            width: 38px;
+            height: 38px;
             border-radius: 6px;
             transition: all 0.2s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 38px;
-            height: 38px;
+        }
+
+        .emoji-trigger-node-btn svg, .mic-record-trigger-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
         }
 
         .emoji-trigger-node-btn:hover, .mic-record-trigger-btn:hover {
@@ -979,6 +1215,12 @@
             align-items: center;
             gap: 8px;
             box-shadow: 0 0 6px var(--primary-glow);
+        }
+
+        .call-action-btn svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
         }
 
         .call-action-btn:hover {
@@ -1232,6 +1474,11 @@
             border-radius: 6px;
             border: 1px solid var(--border-subtle);
             transition: all 0.2s ease;
+        }
+        .back-nav-link svg {
+            width: 12px;
+            height: 12px;
+            fill: currentColor;
         }
         .back-nav-link:hover {
             color: var(--primary-accent);
@@ -1535,13 +1782,50 @@
         </div>
     </div>
 
+    <!-- Fullscreen Interactive User Settings Layer -->
+    <div id="nexus-master-settings-screen">
+        <div class="settings-left-sidebar-navigation">
+            <div class="settings-nav-group-header">User Settings</div>
+            <button class="settings-sidebar-nav-item-btn active" onclick="switchSettingsViewTab('my-account')">My Account</button>
+            <button class="settings-sidebar-nav-item-btn" onclick="switchSettingsViewTab('profiles')">User Profiles</button>
+            <button class="settings-sidebar-nav-item-btn" onclick="switchSettingsViewTab('privacy')">Privacy & Safety</button>
+            
+            <div class="settings-nav-group-header">App Settings</div>
+            <button class="settings-sidebar-nav-item-btn" onclick="switchSettingsViewTab('appearance')">Appearance Grid</button>
+            <button class="settings-sidebar-nav-item-btn" onclick="switchSettingsViewTab('voice')">Voice & Video Matrix</button>
+            <button class="settings-sidebar-nav-item-btn" onclick="switchSettingsViewTab('notifications')">Notifications</button>
+            <button class="settings-sidebar-nav-item-btn" onclick="switchSettingsViewTab('advanced')">Advanced Engineering</button>
+        </div>
+
+        <div class="settings-main-viewport-content">
+            <div class="settings-close-escape-portal-action-container">
+                <button type="button" class="settings-close-circle-action-btn" onclick="toggleFullscreenSettingsPortalView(false)">
+                    <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+                </button>
+                <div class="settings-close-escape-hint">ESC</div>
+            </div>
+
+            <div id="settings-dynamic-view-title" class="settings-section-title-h2">App Configuration Center Matrix</div>
+            <div class="settings-matrix-options-grid-layout" id="settings-options-injection-grid">
+                <!-- 100 Functional Configuration Options Will Inject Dynamically Via Engine Logic Loops -->
+            </div>
+        </div>
+    </div>
+
     <div id="app-frame">
         <div class="global-nav-rail">
-            <div class="rail-tab-item active" id="tab-node-chat" onclick="switchGlobalRailContext('chat')" title="Home/Chat">💬</div>
-            <div class="rail-tab-item" id="tab-node-groups" onclick="switchGlobalRailContext('groups')" title="Groups Ecosystem">👥</div>
-            <div class="rail-tab-item" id="tab-node-states" onclick="switchGlobalRailContext('states')" title="States Hub Engagement Stream">🌐</div>
-            <div class="rail-tab-item" id="tab-node-settings" onclick="switchGlobalRailContext('settings')" title="Account Integration Matrix Settings">⚙️</div>
-            <div class="rail-tab-item" id="tab-node-integrations" onclick="switchGlobalRailContext('integrations')" title="Extensions & Integrations Hub">🔌</div>
+            <div class="rail-tab-item active" id="tab-node-chat" onclick="switchGlobalRailContext('chat')" title="Home/Chat">
+                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+            </div>
+            <div class="rail-tab-item" id="tab-node-groups" onclick="switchGlobalRailContext('groups')" title="Groups Ecosystem">
+                <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 1.34 5 3s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+            </div>
+            <div class="rail-tab-item" id="tab-node-states" onclick="switchGlobalRailContext('states')" title="States Hub Engagement Stream">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            </div>
+            <div class="rail-tab-item" id="tab-node-integrations" onclick="switchGlobalRailContext('integrations')" title="Extensions & Integrations Hub">
+                <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2zm-2 9H7v-2h10v2zm0-4H7v-2h10v2z"/></svg>
+            </div>
         </div>
         
         <div class="sidebar-panel">
@@ -1553,10 +1837,22 @@
             </div>
             
             <div class="sidebar-tools" id="sidebar-context-controls-box">
-                <button class="shop-trigger-btn" onclick="openPremiumStorefront()">Open Nexus Shop</button>
-                <button class="sm-btn" id="sidebar-action-primary-btn" onclick="triggerChannelCreation()">+ New Channel Stream</button>
-                <button class="sm-btn" style="border-color: var(--gold-accent); color: var(--gold-accent);" onclick="generatePrivateFriendMatrixCode()">🔗 Copy Invite Address Code</button>
-                <button class="sm-btn danger" onclick="performProfileHardwareReset()">Reset Active Session Container</button>
+                <button class="shop-trigger-btn" onclick="openPremiumStorefront()">
+                    <svg viewBox="0 0 24 24"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2c0 .55.45 1 1 1h1v6h10v-6h4v6h2v-6h1c.55 0 1-.45 1-1zm-9 4H6v-4h6v4z"/></svg>
+                    Open Nexus Shop
+                </button>
+                <button class="sm-btn" id="sidebar-action-primary-btn" onclick="triggerChannelCreation()">
+                    <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                    + New Channel Stream
+                </button>
+                <button class="sm-btn" style="border-color: var(--gold-accent); color: var(--gold-accent);" onclick="generatePrivateFriendMatrixCode()">
+                    <svg viewBox="0 0 24 24"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s2.24-5-5-5z"/></svg>
+                    Copy Invite Address Code
+                </button>
+                <button class="sm-btn danger" onclick="performProfileHardwareReset()">
+                    <svg viewBox="0 0 24 24"><path d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z"/></svg>
+                    Reset Active Session Container
+                </button>
             </div>
             
             <div class="contacts-vertical-stack" id="contacts-vertical-stack"></div>
@@ -1574,9 +1870,15 @@
                     </div>
                 </div>
                 <div class="footer-action-buttons-group">
-                    <button type="button" class="footer-icon-action-btn" id="footer-audio-toggle-btn" onclick="toggleMuteState()" title="Mute/Unmute Audio">🎤</button>
-                    <button type="button" class="footer-icon-action-btn" onclick="alert('Deafener configurations initialized successfully.')" title="Deafen Audio">🎧</button>
-                    <button type="button" class="footer-icon-action-btn" onclick="switchGlobalRailContext('settings')" title="User Identity Settings">⚙️</button>
+                    <button type="button" class="footer-icon-action-btn" id="footer-audio-toggle-btn" onclick="toggleMuteState()" title="Mute/Unmute Audio">
+                        <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.42 2.72 6.2 6 6.6V21h2v-3.4c3.28-.4 6-3.18 6-6.6h-1.7z"/></svg>
+                    </button>
+                    <button type="button" class="footer-icon-action-btn" onclick="alert('Deafener configurations initialized successfully.')" title="Deafen Audio">
+                        <svg viewBox="0 0 24 24"><path d="M12 2c-4.97 0-9 4.03-9 9v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-3.87 3.13-7 7-7s7 3.13 7 7v2h-4v8h3c1.66 0 3-1.34 3-3v-7c0-4.97-4.03-9-9-9z"/></svg>
+                    </button>
+                    <button type="button" class="footer-icon-action-btn" onclick="toggleFullscreenSettingsPortalView(true)" title="User Identity Settings">
+                        <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                    </button>
                 </div>
             </div>
         </div>
@@ -1587,7 +1889,10 @@
                     <div style="font-size: 16px; color: var(--primary-accent); font-weight: 900; filter: drop-shadow(0 0 4px var(--primary-glow));">⧉</div>
                     <div class="title" id="active-chat-headline-node">Global Public Lobby</div>
                 </div>
-                <button class="call-action-btn" onclick="toggleVoiceVideoCall()">Connect Live Streams</button>
+                <button class="call-action-btn" onclick="toggleVoiceVideoCall()">
+                    <svg viewBox="0 0 24 24" style="margin-right: 6px;"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-9 12H5V8h6v8zm9 0h-6V8h6v8z"/></svg>
+                    Connect Live Streams
+                </button>
             </div>
 
             <div class="states-hub-container-view" id="states-hub-engagement-view">
@@ -1611,7 +1916,7 @@
                     <div class="media-window">
                         <video id="hardware-screenshare-stream" class="live-video-element" autoplay playsinline></video>
                         <div class="stream-canvas-mock" id="screenshare-canvas" style="background: #030508;">
-                            <div style="font-size: 24px; opacity: 0.15; color: var(--primary-accent);">🖥️</div>
+                            <svg viewBox="0 0 24 24" style="width: 48px; height: 48px; fill: var(--primary-accent); opacity: 0.15;"><path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7l-2 3v1h8v-1l-2-3h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 12H3V4h18v10z"/></svg>
                         </div>
                         <div class="stream-label" id="screenshare-label">Screen Capture Pipe Offline</div>
                     </div>
@@ -1629,11 +1934,15 @@
             <div class="thread-scroll-view" id="chat-thread-viewport"></div>
 
             <div class="input-dock-bar">
-                <button type="button" class="mic-record-trigger-btn" id="voice-memo-toggle-btn" onclick="toggleVoiceMessageRecording()" title="Record Voice Message">🎤</button>
+                <button type="button" class="mic-record-trigger-btn" id="voice-memo-toggle-btn" onclick="toggleVoiceMessageRecording()" title="Record Voice Message">
+                    <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.42 2.72 6.2 6 6.6V21h2v-3.4c3.28-.4 6-3.18 6-6.6h-1.7z"/></svg>
+                </button>
 
                 <input type="text" id="text-message-input-node" placeholder="Type a message into active stream..." onkeypress="trapInputKeypress(event)">
                 
-                <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Emoji">😀</button>
+                <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Emoji">
+                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5s.67 1.5 1.5 1.5zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+                </button>
                 
                 <div class="emoji-picker-matrix-overlay" id="emoji-picker-matrix-overlay">
                     <div class="emoji-picker-header">Select Symbol Input</div>
@@ -1651,7 +1960,10 @@
 
     <div id="nexus-shop-screen">
         <div class="shop-header-navbar">
-            <a href="#" class="back-nav-link" onclick="closePremiumStorefront()">← Go Back</a>
+            <a href="#" class="back-nav-link" onclick="closePremiumStorefront()">
+                <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                Go Back
+            </a>
             <div class="shop-headline-title">NEXUS MULTIVERSE storefront</div>
             
             <div class="balance-container-pill">
@@ -1761,17 +2073,144 @@
             "😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😗","😙","😚","😋","😛","😝","😜","🤪","🤨","🧐","🤓","😎","🤩","🥳","😏","😒","😞","😔","😟","😕","🙁","☹️","😣","😖","😫","😩","🥺","😢","😭","😤","😠","😡","🤬"
         ];
 
+        // 100 Settings Matrix Database split into categories
+        const settingsCategoriesMap = {
+            'my-account': [
+                { title: 'Change Username String', desc: 'Modify your global matrix routing display identifier.' },
+                { title: 'Rotate Access Keys', desc: 'Force updates on persistent identity container hashes.' },
+                { title: 'Two-Factor Encryption', desc: 'Secure incoming routing loops via auxiliary devices.' },
+                { title: 'Backup Recovery Phrases', desc: 'Download system entropy salt parameters.' },
+                { title: 'Deactivate Identity', desc: 'Queue the container clearance sequence parameters.' },
+                { title: 'Verify Email Node', desc: 'Bind secondary verification pointer block records.' },
+                { title: 'Phone Verification Gate', desc: 'Attach automated cryptographic SMS response verification.' },
+                { title: 'Review Active Tokens', desc: 'Audit connected token addresses and system access vectors.' },
+                { title: 'Custom Client Hash ID', desc: 'Assign static routing identifier properties explicitly.' },
+                { title: 'Clear Stored Passwords', desc: 'Wipe cryptographic validation local buffers.' },
+                { title: 'Hardware Key Auth', desc: 'Register physical security tokens to authorization tables.' },
+                { title: 'Authorized IP Vectors', desc: 'Restrict pipeline attachment loops to specified address sets.' },
+                { title: 'Session Timeout Limits', desc: 'Terminate context pipelines after inactivity thresholds.' },
+                { title: 'Account Transfer Portal', desc: 'Migrate active wallet balances and parameters.' }
+            ],
+            'profiles': [
+                { title: 'Custom About Me Bio', desc: 'Inject plaintext parameter summaries onto profile cards.' },
+                { title: 'Banner Visual Asset', desc: 'Configure linear gradient background vectors on details views.' },
+                { title: 'Status Message Override', desc: 'Force state broadcast overrides dynamically.' },
+                { title: 'Avatar Frame Decorations', desc: 'Render alternative canvas stroke rings surrounding profiles.' },
+                { title: 'Profile Badge Showcase', desc: 'Toggle display indices for achievements and shop unlocks.' },
+                { title: 'Pronoun Identifiers', desc: 'Append generic meta tag classifications to handle containers.' },
+                { title: 'Theme Accent Sync', desc: 'Enforce custom visual tokens whenever users highlight your profile.' },
+                { title: 'Animate Profile Elements', desc: 'Allow asset renderings to iterate animation loops continually.' },
+                { title: 'Guild Identity Overrides', desc: 'Adopt distinct handle structures across separate workspaces.' },
+                { title: 'External URL Bindings', desc: 'Display validated anchor pointers to verified portfolio hubs.' },
+                { title: 'Legacy Tag Restoration', desc: 'Revert handle syntax layout arrays into classic indexing vectors.' },
+                { title: 'Profile Micro-Interactions', desc: 'Allow contextual sound clicks whenever peers scan profile nodes.' },
+                { title: 'Compact Card Templates', desc: 'Force minified visual rendering rules on peer user lists.' },
+                { title: 'Vaporwave Bio Distortion', desc: 'Apply alternate static text matrix filters onto descriptions.' }
+            ],
+            'privacy': [
+                { title: 'Direct Messaging Filters', desc: 'Scan incoming packet buffers for prohibited asset arrays.' },
+                { title: 'Allow Friend Direct Inputs', desc: 'Permit unverified identity nodes to initialize streams.' },
+                { title: 'Data Analytics Dispatch', desc: 'Halt data telemetry transmission pipelines back to core systems.' },
+                { title: 'Personalization Variables', desc: 'Restrict custom item recommendations based on past queries.' },
+                { title: 'Block Unregistered Peers', desc: 'Automatically drop connections originating from null tokens.' },
+                { title: 'Enforce End-to-End Keys', desc: 'Encrypt pipeline frames locally prior to socket publication.' },
+                { title: 'Hide Active Game State', desc: 'Prevent system monitoring loops from parsing app titles.' },
+                { title: 'Age Restricted Gates', desc: 'Validate container date matrices prior to community joins.' },
+                { title: 'Harvest Diagnostics logs', desc: 'Allow debug stack traces to log device platform errors.' },
+                { title: 'Third Party Data Pools', desc: 'Opt out of aggregated meta structure query matching loops.' },
+                { title: 'Clear Metadata Traces', desc: 'Strip file capture parameters upon state item creation tasks.' },
+                { title: 'Stealth Presence Mode', desc: 'Publish active connection indicators as completely offline.' },
+                { title: 'Pipeline Rate Limit Guard', desc: 'Ignore message packets exceeding delta threshold counts.' },
+                { title: 'Audit Ledger Publication', desc: 'Publish room creation events onto decentralized network logs.' }
+            ],
+            'appearance': [
+                { title: 'Obsidian Cyan Default Dark', desc: 'Toggle premium cyan border color vectors across UI modules.' },
+                { title: 'Cozy Message Spacing', desc: 'Reduce chat bubble padding constraints to fit text lists.' },
+                { title: 'Text Element Scaler', desc: 'Increment root system pixel font anchors globally.' },
+                { title: 'Enable Glassmorphic Blurs', desc: 'Utilize hardware accelerated blur filter properties.' },
+                { title: 'Hardware Acceleration Layer', desc: 'Offload UI drawing pipelines onto local device GPU arrays.' },
+                { title: 'Dynamic Contrast Modes', desc: 'Maximize luminosity thresholds on panel edge components.' },
+                { title: 'Alternative Sidebar Width', desc: 'Expand primary layout panel anchors into larger layouts.' },
+                { title: 'Toggle Global Navigation Rail', desc: 'Collapse tab selectors into compact overhead menus.' },
+                { title: 'Neon Text Pulsing', desc: 'Allow active headlines to gently shift hue values over time.' },
+                { title: 'Reduce Motion Metrics', desc: 'Suppress scaling and sliding transitions across active states.' },
+                { title: 'Message Separator Lines', desc: 'Draw distinct horizontal grid parameters between bubbles.' },
+                { title: 'Custom Wallpaper Input', desc: 'Inject custom network background image addresses.' },
+                { title: 'Render Legacy Emoticons', desc: 'Translate plaintext character matrices into simple symbols.' },
+                { title: 'Chroma Light Animations', desc: 'Iterate glowing multi-color layouts on peripheral element edges.' }
+            ],
+            'voice': [
+                { title: 'Input Device Selection', desc: 'Bind selected microphone channel targets to audio contexts.' },
+                { title: 'Output Audio Channels', desc: 'Route playback packets to alternative speaker endpoints.' },
+                { title: 'Echo Suppression Filters', desc: 'Enable software recursive frequency subtraction algorithms.' },
+                { title: 'Automatic Gain Controls', desc: 'Normalize incoming audio amplitudes into standard levels.' },
+                { title: 'Noise Cancellation Gates', desc: 'Strip sub-audible hum vectors from microphone buffers.' },
+                { title: 'Push-To-Talk Intercepts', desc: 'Halt stream publication until specific key signatures match.' },
+                { title: 'Video Stream Resolution', desc: 'Configure canvas extraction parameters to full definition sizes.' },
+                { title: 'Background Masking Filters', desc: 'Substitute physical background segments with alpha blurs.' },
+                { title: 'Audio Visualizer Rendering', desc: 'Toggle frame drawing loops on call panel widgets.' },
+                { title: 'Diagnostic Audio Overlay', desc: 'Display loss packet drop rates directly on video slots.' },
+                { title: 'Stereo Spatial Audio', desc: 'Position peer sound feeds relative to sidebar slot arrays.' },
+                { title: 'High Packet Priority Flag', desc: 'Configure system routing headers to prioritize voice traffic.' },
+                { title: 'Force VP9 Video Codecs', desc: 'Restrict frame parsing loops to highly efficient data formats.' },
+                { title: 'Attenuation Thresholds', desc: 'Lower system audio volume whenever channels parse peer speech.' }
+            ],
+            'notifications': [
+                { title: 'Desktop Banner Dispatches', desc: 'Trigger system level notification notifications on chat inputs.' },
+                { title: 'Audio Sound Triggers', desc: 'Play oscillator beep signals during message arrivals.' },
+                { title: 'Push Notification Bindings', desc: 'Send state data packets to active mobile client apps.' },
+                { title: 'Unread Badge Counters', desc: 'Display numerical indicator bubbles over nav rail tabs.' },
+                { title: 'Mention Alert Flares', desc: 'Flash global borders whenever handles pass filter arguments.' },
+                { title: 'Channel Mute Overrides', desc: 'Suppress inbound activity alerts for specified chat rooms.' },
+                { title: 'Text-To-Speech Playback', desc: 'Synthesize message contents into local speech objects instantly.' },
+                { title: 'Weekly Summary Analytics', desc: 'Receive analytical activity recaps via linked system addresses.' },
+                { title: 'Mute Calls During Streams', desc: 'Block incoming connection requests while sharing display layers.' },
+                { title: 'Custom Ringtone Tones', desc: 'Assign alternative audio assets to incoming stream signals.' },
+                { title: 'Vibrate System Controllers', desc: 'Trigger physical haptic response mechanisms on mobile units.' },
+                { title: 'Suppress System Broadcasts', desc: 'Ignore patch logs and storefront global announcement feeds.' },
+                { title: 'Reaction Event Alerts', desc: 'Dispatch status metrics when peers assign symbol symbols.' },
+                { title: 'Digest Timing Schedules', desc: 'Buffer activity alerts into specific daytime intervals.' }
+            ],
+            'advanced': [
+                { title: 'Developer Debug Logging', desc: 'Output comprehensive engine network traces to terminal consoles.' },
+                { title: 'MQTT KeepAlive Variables', desc: 'Adjust background ping rates to preserve server link sockets.' },
+                { title: 'Local Storage Compression', desc: 'Pack cache matrices using high density encoding routines.' },
+                { title: 'Experimental Audio Nodes', desc: 'Utilize bleeding-edge web audio processor architectures.' },
+                { title: 'Override WebSocket Endpoints', desc: 'Redirect pipeline traffic toward custom cluster targets.' },
+                { title: 'Database Optimization Task', desc: 'Defragment historical communication logs inside local storage.' },
+                { title: 'Strict Content Types Validation', desc: 'Drop any stream packets lacking strict JSON validation tokens.' },
+                { title: 'Hardware Buffer Multipliers', desc: 'Enlarge device audio chunk storage to mitigate connection drops.' },
+                { title: 'Clear Platform Application Caches', desc: 'Purge profile records and channel logs to reboot elements.' },
+                { title: 'Simulated Network Latency', desc: 'Inject false delay ticks to check thread processing safety.' },
+                { title: 'Custom CSS Injector Gate', desc: 'Compile plain text rule sheets directly into page layout roots.' },
+                { title: 'Disable Sandbox Firewalls', desc: 'Allow asset rendering objects to connect across local nodes.' },
+                { title: 'Legacy Platform Emulation', desc: 'Force frame architectures to behave like old layout engines.' },
+                { title: 'Dump Network Crash Log Stack', desc: 'Export active state indices into structured diagnostic sheets.' },
+                { title: 'Memory Usage Monitors', desc: 'Track garbage collection sweeps across large chat buffers.' },
+                { title: 'Strict CSP Assertions', desc: 'Enforce rigid domain restrictions across external connections.' }
+            ]
+        };
+
         window.addEventListener('DOMContentLoaded', () => {
             generateStorefrontCards();
             populateEmojiPickerGrid();
             evaluateCachedProfileState();
             checkForPrivateInviteAddressParameters();
             setupFiveMinuteInviteRefreshLoop();
+            
+            // Build default configurations tab view on platform start
+            switchSettingsViewTab('my-account');
+            
+            // Keyboard intercept for full fluid escape mechanics from options panel
+            window.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    toggleFullscreenSettingsPortalView(false);
+                }
+            });
         });
 
         /* Setup real online messaging backend matrix link pipeline safely via public broker */
         function connectRealTimeMqttPipeline() {
-            // Setup fully public free broker pipeline endpoint safely over web sockets configuration
             mqttClient = mqtt.connect('wss://broker.hivemq.com:8000/mqtt');
 
             mqttClient.on('connect', () => {
@@ -1785,7 +2224,6 @@
                 try {
                     const parsedPayload = JSON.parse(dataPacket.toString());
                     
-                    // Prevent local duplicate double rendering mechanics
                     if (parsedPayload.senderTokenId !== currentProfileSessionName + "_token") {
                         if (parsedPayload.dataType === "voice") {
                             injectVoiceBubbleToChatLog(parsedPayload.sender, parsedPayload.mediaData, "received");
@@ -1796,6 +2234,58 @@
                 } catch(err) {
                     console.log("Error evaluating dynamic stream packet input", err);
                 }
+            });
+        }
+
+        /* Toggle Fullscreen Settings Overlay Portal */
+        function toggleFullscreenSettingsPortalView(shouldOpen) {
+            playSynthFrequency(shouldOpen ? 540 : 420, 'sine', 0.12, 0.15);
+            const overlayNode = document.getElementById('nexus-master-settings-screen');
+            if (overlayNode) {
+                overlayNode.style.display = shouldOpen ? 'grid' : 'none';
+            }
+        }
+
+        /* Dynamically populate options from selection matrix and update tab activation rules */
+        function switchSettingsViewTab(tabKey) {
+            playSynthFrequency(480, 'sine', 0.05, 0.1);
+            
+            const tabButtons = document.querySelectorAll('.settings-sidebar-nav-item-btn');
+            tabButtons.forEach(btn => {
+                if (btn.getAttribute('onclick').includes(tabKey)) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+
+            const headlineNode = document.getElementById('settings-dynamic-view-title');
+            if (headlineNode) {
+                headlineNode.innerText = tabKey.replace('-', ' ').toUpperCase() + " MATRIX OPTIONS";
+            }
+
+            const injectionGrid = document.getElementById('settings-options-injection-grid');
+            if (!injectionGrid || !settingsCategoriesMap[tabKey]) return;
+            
+            injectionGrid.innerHTML = '';
+            
+            // Loop data variables precisely and assign checked status safely
+            settingsCategoriesMap[tabKey].forEach((option, idx) => {
+                const uniqueInputId = `setting-switch-${tabKey}-${idx}`;
+                const checkStateValue = (idx % 3 === 0) ? 'checked' : ''; 
+                
+                injectionGrid.innerHTML += `
+                    <div class="settings-option-item-card-block">
+                        <div class="settings-option-meta-text-nodes">
+                            <span class="settings-option-title-label">${option.title}</span>
+                            <p class="settings-option-description-para">${option.desc}</p>
+                        </div>
+                        <label class="matrix-ui-toggle-switch-wrapper">
+                            <input type="checkbox" id="${uniqueInputId}" ${checkStateValue} onchange="playSynthFrequency(600, 'sine', 0.04, 0.05)">
+                            <span class="matrix-ui-toggle-slider-facade"></span>
+                        </label>
+                    </div>
+                `;
             });
         }
 
@@ -1850,7 +2340,6 @@
                 textareaDisplay.value = absoluteLandingURL;
             }
             
-            // Try explicit background system copy
             const auxTextArea = document.createElement("textarea");
             auxTextArea.value = absoluteLandingURL;
             document.body.appendChild(auxTextArea);
@@ -1969,7 +2458,7 @@
 
         function switchGlobalRailContext(targetTab) {
             playSynthFrequency(440, 'sine', 0.1, 0.1);
-            const tabs = ["chat", "groups", "states", "settings", "integrations"];
+            const tabs = ["chat", "groups", "states", "integrations"];
             tabs.forEach(t => {
                 const node = document.getElementById(`tab-node-${t}`);
                 if (node) node.classList.remove('active');
@@ -1998,7 +2487,16 @@
                 primaryBtn.onclick = triggerChannelCreation;
                 for (let id in channelDatabase) {
                     const isActive = (id === activeChannelId) ? 'active' : '';
-                    container.innerHTML += `<div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')"> <div class="row-avatar">#</div> <div class="row-meta"> <div class="row-name">${channelDatabase[id].name}</div> <div class="row-preview">Open communication logs...</div> </div> </div>`;
+                    container.innerHTML += `
+                        <div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')">
+                            <div class="row-avatar">
+                                <svg viewBox="0 0 24 24"><path d="M4 19h16v-2H4v2zm16-6H4v2h16v-2zM4 9h16V7H4v2zm16-5H4v2h16V4z"/></svg>
+                            </div>
+                            <div class="row-meta">
+                                <div class="row-name">${channelDatabase[id].name}</div>
+                                <div class="row-preview">Open communication logs...</div>
+                            </div>
+                        </div>`;
                 }
             } else if (activeGlobalRailTab === 'groups') {
                 primaryBtn.style.display = "block";
@@ -2010,21 +2508,16 @@
                     renderSidebarContextPanel();
                 };
                 activeGroupHubs.forEach(group => {
-                    container.innerHTML += `<div class="chat-list-row"> <div class="row-avatar">⧉</div> <div class="row-meta"> <div class="row-name">${group.name}</div> <div class="row-preview">Active Team Workspace Node</div> </div> </div>`;
-                });
-            } else if (activeGlobalRailTab === 'settings') {
-                primaryBtn.style.display = "block";
-                primaryBtn.innerText = "Check Status Keys";
-                primaryBtn.onclick = () => alert("Security layers running securely.");
-                const connections = [
-                    { id: 'google', name: 'Google Workspace' },
-                    { id: 'discord', name: 'Discord Gateway' },
-                    { id: 'microsoft', name: 'Microsoft Identity' }
-                ];
-                connections.forEach(c => {
-                    const isLinked = identityLinkingMatrix[c.id].connected;
-                    const statusText = isLinked ? "Connected ✓" : "Disconnected ✗";
-                    container.innerHTML += `<div style="padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.02);"> <div style="font-weight:600; font-size:13px; margin-bottom:4px;">${c.name}</div> <div style="font-size:11px; color: ${isLinked ? 'var(--success-green)' : 'var(--text-muted)'}; margin-bottom:8px;">${statusText}</div> </div>`;
+                    container.innerHTML += `
+                        <div class="chat-list-row">
+                            <div class="row-avatar">
+                                <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
+                            </div>
+                            <div class="row-meta">
+                                <div class="row-name">${group.name}</div>
+                                <div class="row-preview">Active Team Workspace Node</div>
+                            </div>
+                        </div>`;
                 });
             } else if (activeGlobalRailTab === 'integrations') {
                 primaryBtn.style.display = "none";
@@ -2084,7 +2577,6 @@
             
             appendBubbleElement(currentProfileSessionName, dataString, "sent");
 
-            // Dispatch out data package completely to real network sockets loop
             if (mqttClient && mqttClient.connected) {
                 const payloadPacket = {
                     sender: currentProfileSessionName,
@@ -2131,8 +2623,6 @@
                     
                     voiceMediaRecorder.onstop = () => {
                         const voiceBlob = new Blob(voiceRecordedChunks, { type: 'audio/webm' });
-                        
-                        // Convert voice file to Base64 format strings for online transmission safety boundaries
                         const voiceReader = new FileReader();
                         voiceReader.readAsDataURL(voiceBlob);
                         voiceReader.onloadend = function() {
@@ -2156,7 +2646,7 @@
                     voiceMediaRecorder.start();
                     isVoiceRecording = true;
                     recBtn.classList.add('recording-active');
-                    recBtn.innerText = "🛑";
+                    recBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5zm4 4h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>';
                     playSynthFrequency(660, 'sine', 0.1, 0.3);
                 } catch(err) {
                     console.error("Recording system failure mapping microphone inputs:", err);
@@ -2168,7 +2658,7 @@
                 }
                 isVoiceRecording = false;
                 recBtn.classList.remove('recording-active');
-                recBtn.innerText = "🎤";
+                recBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.42 2.72 6.2 6 6.6V21h2v-3.4c3.28-.4 6-3.18 6-6.6h-1.7z"/></svg>';
                 playSynthFrequency(440, 'sine', 0.15, 0.2);
             }
         }
@@ -2228,353 +2718,3 @@
         }
 
         function playTargetVoiceTrack(trackURL, elementNode) {
-            const voiceAudio = new Audio(trackURL);
-            const waveBars = elementNode.parentElement.querySelectorAll('.waveform-bar-element');
-            
-            elementNode.innerText = "⏸";
-            waveBars.forEach(bar => bar.classList.add('active-pulse'));
-            
-            voiceAudio.play();
-            voiceAudio.onended = () => {
-                elementNode.innerText = "▶";
-                waveBars.forEach(bar => bar.classList.remove('active-pulse'));
-            };
-        }
-
-        function trapInputKeypress(e) {
-            if (e.key === 'Enter') executeTextDispatch();
-        }
-
-        function triggerChannelCreation() {
-            const titleInput = prompt("Enter name for new custom chat room:");
-            if (!titleInput || titleInput.trim() === "") return;
-            const generatedId = 'ch-node-' + Date.now();
-            channelDatabase[generatedId] = { name: titleInput.trim(), history: [] };
-            loadTargetChannel(generatedId);
-        }
-
-        function performProfileHardwareReset() {
-            localStorage.removeItem('nexuschat_user_v6');
-            localStorage.removeItem('nexuschat_avatar_v6');
-            window.location.reload();
-        }
-
-        function processNewStateMediaUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const assetBlobUrl = URL.createObjectURL(file);
-            const isVideo = file.type.startsWith('video/');
-            const newStateNode = {
-                id: 'state-id-' + Date.now(),
-                author: currentProfileSessionName,
-                url: assetBlobUrl,
-                videoType: isVideo
-            };
-            liveStatesContentFeed.unshift(newStateNode);
-            repaintStatesCarouselTrack();
-        }
-
-        function repaintStatesCarouselTrack() {
-            const track = document.getElementById('states-carousel-scroller-track');
-            if (!track) return;
-            track.innerHTML = '';
-            liveStatesContentFeed.forEach(state => {
-                let mediaElementHTML = state.videoType
-                    ? `<video src="${state.url}" class="state-media-preview-element" autoplay loop muted playsinline></video>`
-                    : `<img src="${state.url}" class="state-media-preview-element" alt="State Asset">`;
-                track.innerHTML += `<div class="state-content-card-node"> ${mediaElementHTML} <div class="state-author-tag">${state.author}</div> </div>`;
-            });
-        }
-
-        function generateStorefrontCards() {
-            const container = document.getElementById('shop-items-grid-target');
-            if (!container) return;
-            container.innerHTML = '';
-            shopInventoryMatrix.forEach(item => {
-                const badgeHTML = item.exclusive ? `<div class="item-badge-exclusive">EXCLUSIVE</div>` : '';
-                container.innerHTML += `<div class="shop-item-card"> ${badgeHTML} <div class="item-graphic-wrapper"> <div class="item-graphic-ring"></div> <img src="${item.icon}" class="item-graphic-icon-asset" alt="Shop Icon Asset"> </div> <div class="item-meta-name">${item.name}</div> <div class="item-meta-desc">${item.desc}</div> <div class="item-action-row"> <div class="item-price-tag">🔮 ${item.cost}</div> <button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Claim Free</button> </div> </div>`;
-            });
-        }
-
-        function executeItemPurchase(itemId) {
-            const targetBtn = document.getElementById(`btn-claim-${itemId}`);
-            playSynthFrequency(880, 'sine', 0.3, 0.4);
-            if (targetBtn) {
-                targetBtn.innerText = "✓ Unlocked";
-                targetBtn.classList.add('unlocked');
-                targetBtn.disabled = true;
-            }
-            appendBubbleElement("System Store", `Successfully locked [${itemId}] structural asset modifications to your profile container!`, "received");
-        }
-
-        function openPremiumStorefront() {
-            playSynthFrequency(580, 'sine', 0.2, 0.2);
-            document.getElementById('nexus-shop-screen').style.display = 'flex';
-        }
-
-        function closePremiumStorefront() {
-            playSynthFrequency(440, 'sine', 0.15, 0.15);
-            document.getElementById('nexus-shop-screen').style.display = 'none';
-        }
-
-        async function toggleVoiceVideoCall() {
-            const layerBlock = document.getElementById('call-interface-layer');
-            const joinBtn = document.querySelector('.call-action-btn');
-            isCallActive = !isCallActive;
-            if (isCallActive) {
-                layerBlock.style.display = 'flex';
-                joinBtn.innerText = "Disconnect Stream";
-                joinBtn.style.borderColor = "var(--danger-red)";
-                joinBtn.style.color = "var(--danger-red)";
-                initiateChronometerClock();
-                playSynthFrequency(520, 'sine', 0.2, 0.25);
-            } else {
-                layerBlock.style.display = 'none';
-                joinBtn.innerText = "Connect Live Streams";
-                joinBtn.style.borderColor = "var(--primary-accent)";
-                joinBtn.style.color = "var(--primary-accent)";
-                terminateChronometerClock();
-                cleanupHardwareTracks();
-                playSynthFrequency(320, 'sine', 0.2, 0.25);
-            }
-        }
-
-        async function toggleWebcamState() {
-            const videoElement = document.getElementById('hardware-webcam-stream');
-            const camBtn = document.getElementById('webcam-video-toggle');
-            const mockBox = document.getElementById('webcam-canvas');
-            const label = document.getElementById('webcam-label');
-            if (!isCallActive) return alert("Please enter the live call channel stream frame first.");
-            isCameraActive = !isCameraActive;
-            triggerToggleMuteTone(!isCameraActive);
-            
-            if (isCameraActive) {
-                try {
-                    localHardwareVideoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                    videoElement.srcObject = localHardwareVideoStream;
-                    mockBox.style.display = 'none';
-                    camBtn.innerText = "Disable Camera";
-                    camBtn.classList.add('active-state');
-                    label.innerText = "Live System Camera Feed (Active)";
-                    initiateMicrophoneAnalysisAudioEngine(localHardwareVideoStream);
-                } catch (err) {
-                    console.error("Camera device mapping failure: ", err);
-                    alert("Could not access your physical webcam device.");
-                    isCameraActive = false;
-                }
-            } else {
-                if (localHardwareVideoStream) {
-                    localHardwareVideoStream.getTracks().forEach(track => track.stop());
-                }
-                videoElement.srcObject = null;
-                mockBox.style.display = 'flex';
-                camBtn.innerText = "Enable Camera";
-                camBtn.classList.remove('active-state');
-                label.innerText = "Camera Interface Offline";
-                haltMicrophoneAnalysisAudioEngine();
-            }
-        }
-
-        function initiateMicrophoneAnalysisAudioEngine(streamObject) {
-            try {
-                initAudioContext();
-                localMicrophoneAudioSource = audioCtx.createMediaStreamSource(streamObject);
-                localAudioAnalyserNode = audioCtx.createAnalyser();
-                localAudioAnalyserNode.fftSize = 64;
-                localMicrophoneAudioSource.connect(localAudioAnalyserNode);
-                executeEqualizerRenderFrameLoop();
-            } catch (err) {
-                console.log("Audio visualizer node assignment error: ", err);
-            }
-        }
-
-        function executeEqualizerRenderFrameLoop() {
-            if (!localAudioAnalyserNode) return;
-            const bufferLen = localAudioAnalyserNode.frequencyBinCount;
-            const dataArray = new Uint8Array(bufferLen);
-            localAudioAnalyserNode.getByteFrequencyData(dataArray);
-            let frequencySum = 0;
-            for (let i = 0; i < bufferLen; i++) {
-                frequencySum += dataArray[i];
-            }
-            const averageVolume = frequencySum / bufferLen;
-            const targetContainer = document.getElementById('webcam-hardware-window-node');
-            
-            if (targetContainer) {
-                if (averageVolume > 25) {
-                    targetContainer.classList.add('speaking-active');
-                    let dynamicGlowRadius = Math.min(30, Math.floor(averageVolume / 3));
-                    targetContainer.style.boxShadow = `0 0 ${dynamicGlowRadius}px var(--primary-glow), inset 0 0 20px rgba(0, 255, 255, 0.15)`;
-                } else {
-                    targetContainer.classList.remove('speaking-active');
-                    targetContainer.style.boxShadow = 'none';
-                }
-            }
-            micAnimationRequestId = requestAnimationFrame(executeEqualizerRenderFrameLoop);
-        }
-
-        function haltMicrophoneAnalysisAudioEngine() {
-            if (micAnimationRequestId) cancelAnimationFrame(micAnimationRequestId);
-            const targetContainer = document.getElementById('webcam-hardware-window-node');
-            if (targetContainer) {
-                targetContainer.classList.remove('speaking-active');
-                targetContainer.style.boxShadow = 'none';
-            }
-            if (localMicrophoneAudioSource) localMicrophoneAudioSource.disconnect();
-            localAudioAnalyserNode = null;
-            localMicrophoneAudioSource = null;
-        }
-
-        async function toggleScreenShareState() {
-            const shareElement = document.getElementById('hardware-screenshare-stream');
-            const screenBtn = document.getElementById('screenshare-video-toggle');
-            const mockBox = document.getElementById('screenshare-canvas');
-            const label = document.getElementById('screenshare-label');
-            if (!isCallActive) return alert("Please enter the live call channel stream frame first.");
-            isScreenSharing = !isScreenSharing;
-            playSynthFrequency(600, 'triangle', 0.1, 0.2);
-            
-            if (isScreenSharing) {
-                try {
-                    localHardwareDisplayStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-                    shareElement.srcObject = localHardwareDisplayStream;
-                    mockBox.style.display = 'none';
-                    screenBtn.innerText = "Stop Sharing";
-                    screenBtn.classList.add('active-state');
-                    label.innerText = "Display Canvas Sharing Live";
-                    localHardwareDisplayStream.getVideoTracks()[0].onended = () => {
-                        if (isScreenSharing) toggleScreenShareState();
-                    };
-                } catch (err) {
-                    console.error("Screen Share capture error: ", err);
-                    isScreenSharing = false;
-                }
-            } else {
-                if (localHardwareDisplayStream) {
-                    localHardwareDisplayStream.getTracks().forEach(track => track.stop());
-                }
-                shareElement.srcObject = null;
-                mockBox.style.display = 'flex';
-                screenBtn.innerText = "Share Screen";
-                screenBtn.classList.remove('active-state');
-                label.innerText = "Screen Capture Pipe Offline";
-            }
-        }
-
-        function toggleMuteState() {
-            isAudioMuted = !isAudioMuted;
-            const muteBtn = document.getElementById('mute-audio-toggle');
-            const footerMuteBtn = document.getElementById('footer-audio-toggle-btn');
-            
-            if (localHardwareVideoStream) {
-                localHardwareVideoStream.getAudioTracks().forEach(track => {
-                    track.enabled = !isAudioMuted;
-                });
-            }
-            
-            if (isAudioMuted) {
-                if (muteBtn) {
-                    muteBtn.innerText = "Audio Muted";
-                    muteBtn.classList.add('active-state');
-                }
-                if (footerMuteBtn) {
-                    footerMuteBtn.classList.add('active-muted');
-                    footerMuteBtn.innerText = "🔇";
-                }
-            } else {
-                if (muteBtn) {
-                    muteBtn.innerText = "Audio Unmuted";
-                    muteBtn.classList.remove('active-state');
-                }
-                if (footerMuteBtn) {
-                    footerMuteBtn.classList.remove('active-muted');
-                    footerMuteBtn.innerText = "🎤";
-                }
-            }
-            triggerToggleMuteTone(isAudioMuted);
-        }
-
-        function cleanupHardwareTracks() {
-            haltMicrophoneAnalysisAudioEngine();
-            if (localHardwareVideoStream) {
-                localHardwareVideoStream.getTracks().forEach(track => track.stop());
-                localHardwareVideoStream = null;
-            }
-            if (localHardwareDisplayStream) {
-                localHardwareDisplayStream.getTracks().forEach(track => track.stop());
-                localHardwareDisplayStream = null;
-            }
-            document.getElementById('hardware-webcam-stream').srcObject = null;
-            document.getElementById('hardware-screenshare-stream').srcObject = null;
-            document.getElementById('webcam-canvas').style.display = 'flex';
-            document.getElementById('screenshare-canvas').style.display = 'flex';
-            isCameraActive = false;
-            isScreenSharing = false;
-            isAudioMuted = false;
-            
-            const camBtn = document.getElementById('webcam-video-toggle');
-            const screenBtn = document.getElementById('screenshare-video-toggle');
-            const muteBtn = document.getElementById('mute-audio-toggle');
-            const footerMuteBtn = document.getElementById('footer-audio-toggle-btn');
-            
-            if (camBtn) camBtn.classList.remove('active-state');
-            if (screenBtn) screenBtn.classList.remove('active-state');
-            if (muteBtn) {
-                muteBtn.innerText = "Audio Unmuted";
-                muteBtn.classList.remove('active-state');
-            }
-            if (footerMuteBtn) {
-                footerMuteBtn.classList.remove('active-muted');
-                footerMuteBtn.innerText = "🎤";
-            }
-        }
-
-        function initiateChronometerClock() {
-            elapsedCallSeconds = 0;
-            const durationClock = document.getElementById('call-duration-clock');
-            callTimerInterval = setInterval(() => {
-                elapsedCallSeconds++;
-                
-                // Test Access Boundary Filter Check: exactly 1 minute test cutoff limitation constraint
-                if (elapsedCallSeconds >= 60) {
-                    executePremiumLimitationCutoff();
-                    return;
-                }
-                
-                let displayMinutes = String(Math.floor(elapsedCallSeconds / 60)).padStart(2, '0');
-                let displaySeconds = String(elapsedCallSeconds % 60).padStart(2, '0');
-                if (durationClock) durationClock.innerText = `${displayMinutes}:${displaySeconds}`;
-            }, 1000);
-        }
-
-        /* Forces stream disconnections immediately upon meeting the tier constraint limit parameter rules */
-        function executePremiumLimitationCutoff() {
-            terminateChronometerClock();
-            cleanupHardwareTracks();
-            isCallActive = false;
-            
-            const layerBlock = document.getElementById('call-interface-layer');
-            const joinBtn = document.querySelector('.call-action-btn');
-            if (layerBlock) layerBlock.style.display = 'none';
-            if (joinBtn) {
-                joinBtn.innerText = "Connect Live Streams";
-                joinBtn.style.borderColor = "var(--primary-accent)";
-                joinBtn.style.color = "var(--primary-accent)";
-            }
-            
-            // Render High Fidelity Premium Paywall Layer
-            document.getElementById('nexus-premium-upgrade-overlay').style.display = 'flex';
-            playSynthFrequency(220, 'sawtooth', 0.4, 0.3);
-        }
-
-        function closePremiumLimitOverlayReset() {
-            document.getElementById('nexus-premium-upgrade-overlay').style.display = 'none';
-        }
-
-        function terminateChronometerClock() {
-            clearInterval(callTimerInterval);
-            document.getElementById('call-duration-clock').innerText = "00:00";
-        }
-    </script>
-</body>
-</html>
