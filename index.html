@@ -6,7 +6,7 @@
     <title>NexusChat Messenger Client</title>
     <link rel="icon" type="image/png" href="favicon.png">
 
-    <!-- MQTT Client Library for Real-Time Cross-Device Texting -->
+    <!-- MQTT Client Library for Real-Time Cross-Device Texting & WebRTC Signaling -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/4.3.7/mqtt.min.js"></script>
 
     <style>
@@ -41,7 +41,6 @@
             --sidebar-width: 280px;
         }
 
-        /* Hardware Custom Pointer Implementation Rules */
         *, body, html, button, input, select, textarea, a {
             box-sizing: border-box;
         }
@@ -331,7 +330,6 @@
             z-index: 10;
         }
 
-        /* Hover-Scale Tab Item Physics Core */
         .rail-tab-item {
             width: 48px;
             height: 48px;
@@ -834,15 +832,24 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
-            padding: 6px;
+            width: 32px;
+            height: 32px;
+            padding: 4px;
             border-radius: 4px;
             transition: background 0.15s ease, transform 0.1s ease;
             cursor: pointer;
+            color: var(--text-main);
+        }
+
+        .emoji-grid-item-cell svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
         }
 
         .emoji-grid-item-cell:hover {
             background: rgba(0, 255, 255, 0.15);
+            color: var(--primary-accent);
             transform: scale(1.15);
         }
 
@@ -920,9 +927,7 @@
             box-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
         }
 
-        /* ==========================================================================
-           UPGRADED IMMERSIVE PREMIUM CALLING SCREEN INTERFACE OVERLAY
-           ========================================================================== */
+        /* PREMIUM CALLING SCREEN INTERFACE OVERLAY */
         .call-overlay {
             position: fixed;
             top: 0;
@@ -975,7 +980,7 @@
             position: relative;
             width: 100%;
             margin: 20px 0;
-            border-radius: var(--border-radius-lg);
+            border-radius: 12px;
             overflow: hidden;
         }
 
@@ -1000,7 +1005,7 @@
             font-size: 3.5rem;
             font-weight: 700;
             color: var(--primary-accent);
-            box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.4);
             animation: pulseCallingAvatar 2s infinite;
         }
 
@@ -1056,7 +1061,7 @@
             display: none;
             align-items: center;
             justify-content: center;
-            border-radius: var(--border-radius-lg);
+            border-radius: 12px;
         }
 
         .call-remote-video-feed-facade {
@@ -1069,6 +1074,15 @@
             justify-content: center;
         }
 
+        .call-remote-video-feed-facade video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
         .call-floating-local-pip {
             position: absolute;
             bottom: 24px;
@@ -1077,7 +1091,7 @@
             height: 190px;
             background: #080d14;
             border: 2px solid var(--border-active);
-            border-radius: var(--border-radius-md);
+            border-radius: 8px;
             box-shadow: 0 12px 24px rgba(0,0,0,0.6);
             display: flex;
             flex-direction: column;
@@ -1086,6 +1100,15 @@
             z-index: 1020;
             overflow: hidden;
             transition: opacity 0.2s ease;
+        }
+
+        .call-floating-local-pip video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
         }
 
         .call-controls-row-footer {
@@ -1129,6 +1152,9 @@
         .call-action-circle-round-btn.cam-btn-style { background-color: #2f3136; color: var(--text-main); }
         .call-action-circle-round-btn.cam-btn-style.active-triggered { background-color: var(--success-green); color: #000; }
 
+        .call-action-circle-round-btn.screen-btn-style { background-color: #2f3136; color: var(--text-main); }
+        .call-action-circle-round-btn.screen-btn-style.active-triggered { background-color: var(--gold-accent); color: #000; }
+
         .call-action-circle-round-btn.hangup-btn-style {
             background-color: var(--danger-red);
         }
@@ -1136,8 +1162,6 @@
             background-color: #dd2233;
             box-shadow: 0 0 18px var(--danger-red);
         }
-
-        /* ========================================================================== */
 
         .states-hub-container-view {
             padding: 16px 24px;
@@ -1382,7 +1406,7 @@
             color: var(--success-green) !important;
         }
 
-        /* High Fidelity Premium Token Matrix Modal Styles */
+        /* High Fidelity Token Matrix Modal Styles */
         .nexus-gate-premium-modal-wrapper {
             position: fixed;
             top: 0;
@@ -1538,7 +1562,7 @@
                 <svg style="width: 48px; height: 48px; fill: var(--gold-accent);" viewBox="0 0 24 24"><path d="M6 2h12v6l-4 4 4 4v6H6v-6l4-4-4-4V2zm10 14.5L12 12.7l-4 3.8V20h8v-3.5zm-8-9l4 3.8 4-3.8V4H8v3.5z"/></svg>
             </div>
             <h2 class="premium-card-title">Call Frame Duration Terminated</h2>
-            <p class="premium-card-desc">You have encountered the maximum 1-minute test access limitation boundary loop parameters. Purchase the <strong>Call Max Hours Pass</strong> container upgrade for $5.00 USD to enable unlimited communication loops.</p>
+            <p class="premium-card-desc">You have encountered the maximum limitation boundary loop parameters. Purchase the <strong>Call Max Hours Pass</strong> container upgrade for \$5.00 USD to enable unlimited communication loops.</p>
             <div class="premium-action-row-buttons">
                 <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" class="premium-btn-action paypal-primary">Upgrade via PayPal</a>
                 <button class="premium-btn-action dismiss-secondary" onclick="closePremiumLimitOverlayReset()">Acknowledge</button>
@@ -1548,7 +1572,6 @@
 
     <div id="app-frame">
         <div class="global-nav-rail">
-            <!-- Replaced raw emojis with clean vector inline SVGs inside Navigation Rail buttons -->
             <div class="rail-tab-item active" id="tab-node-chat" onclick="switchGlobalRailContext('chat')" title="Home/Chat">
                 <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
             </div>
@@ -1587,7 +1610,6 @@
         <div class="workspace-panel">
             <div class="workspace-header">
                 <div class="header-profile">
-                    <!-- Clean inline vector path instead of raw emoji character mapping -->
                     <div style="width: 18px; height: 18px; color: var(--primary-accent); filter: drop-shadow(0 0 4px var(--primary-glow)); display: flex; align-items: center; justify-content: center;">
                         <svg viewBox="0 0 24 24" style="width:100%; height:100%; fill:currentColor;"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg>
                     </div>
@@ -1613,14 +1635,12 @@
                 <div class="states-carousel-scroller-track" id="states-carousel-scroller-track"></div>
             </div>
 
-            <!-- ==========================================================================
-               ADVANCED PREMIUM CALL OVERLAY MODULE LAYER 
-               ========================================================================== */ -->
+            <!-- INTERACTIVE REAL OVERLAY TELEPHONY SYSTEM LAYER -->
             <div class="call-overlay" id="premiumCallOverlayStage">
                 <div class="call-top-meta-bar">
                     <div class="call-secure-lock-badge">
                         <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-                        <span>E2EE Matrix Router Linked</span>
+                        <span>E2EE WebRTC Matrix Connection Connected</span>
                     </div>
                     <div style="font-size: 0.9rem; color: var(--text-muted);" id="callMediaCategoryHeaderLabel">Audio Channel</div>
                 </div>
@@ -1629,7 +1649,7 @@
                     <div class="call-voice-profile-card-center" id="overlayVoiceFrameContainer">
                         <div class="call-voice-avatar-node" id="overlayCallingAvatarIcon">N</div>
                         <h2 id="overlayCallingTargetName" style="font-size: 1.8rem; font-weight: 700; margin: 0;">Global Room Target</h2>
-                        <div class="call-voice-timer-badge" id="overlayCallStatusTimerClock">Syncing encryption...</div>
+                        <div class="call-voice-timer-badge" id="overlayCallStatusTimerClock">Awaiting node authentication...</div>
                         
                         <div class="call-equalizer-bars-container">
                             <div class="call-equalizer-bar-unit"></div>
@@ -1642,15 +1662,17 @@
 
                     <div class="call-immersive-video-viewport" id="overlayVideoFrameContainer">
                         <div class="call-remote-video-feed-facade">
-                            <div style="text-align: center; z-index: 2;">
+                            <video id="remoteWebrtcStreamElement" autoplay playsinline></video>
+                            <div style="text-align: center; z-index: 2;" id="remoteVideoPlaceholderBox">
                                 <div id="videoRemoteAvatarMockCircle" style="width: 80px; height: 80px; border-radius:50%; background:rgba(0, 255, 255, 0.1); border: 1px solid var(--primary-accent); margin:0 auto 14px auto; display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:bold; color:var(--primary-accent); box-shadow: 0 0 12px var(--primary-glow)">G</div>
-                                <span style="font-size: 0.9rem; color: var(--text-main); letter-spacing: 0.5px;" id="videoRemoteStreamStatusLabel">Awaiting External Media Pipes...</span>
+                                <span style="font-size: 0.9rem; color: var(--text-main); letter-spacing: 0.5px;" id="videoRemoteStreamStatusLabel">Connecting Hardware Matrix Pipelines...</span>
                             </div>
                         </div>
                         
                         <div class="call-floating-local-pip" id="overlayLocalPipPreviewFrame">
-                            <div style="width: 40px; height: 40px; border-radius:50%; background:var(--input-bg); border: 1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; font-size:0.85rem; font-weight:bold; margin-bottom: 6px;" id="localPipInitialsLabel">ME</div>
-                            <span style="font-size: 0.65rem; color: var(--text-muted)">Local Camera</span>
+                            <video id="localWebrtcStreamElement" autoplay playsinline muted></video>
+                            <div style="width: 40px; height: 40px; border-radius:50%; background:var(--input-bg); border: 1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; font-size:0.85rem; font-weight:bold; margin-bottom: 6px; z-index:2;" id="localPipInitialsLabel">ME</div>
+                            <span style="font-size: 0.65rem; color: var(--text-muted); z-index:2;">Local Node</span>
                         </div>
                     </div>
                 </div>
@@ -1662,29 +1684,30 @@
                     <button class="call-action-circle-round-btn cam-btn-style" id="overlayToggleCameraActionToggle" onclick="executeOverlayCameraOperationToggle()" title="Toggle Local Camera Feed">
                         <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
                     </button>
+                    <button class="call-action-circle-round-btn screen-btn-style" id="overlayScreenShareActionToggle" onclick="executeOverlayScreenShareToggle()" title="Share System Screen Window">
+                        <svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.11-.9-2-2-2H4c-1.11 0-2 .89-2 2v10c0 1.1.89 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
+                    </button>
                     <button class="call-action-circle-round-btn hangup-btn-style" onclick="disconnectOverlayActiveCallSession()" title="Hang Up Session Container">
                         <svg viewBox="0 0 24 24"><path d="M12 9c-2.45 0-4.76.74-6.7 2L3 8.3c2.56-2.15 5.85-3.3 9.4-3.3 3.55 0 6.84 1.15 9.4 3.3L18.7 11c-1.94-1.26-4.25-2-6.7-2z"/></svg>
                     </button>
                 </div>
             </div>
-            <!-- ========================================================================== -->
 
             <div class="thread-scroll-view" id="chat-thread-viewport"></div>
 
             <div class="input-dock-bar">
-                <!-- Replaced text emoji symbols inside text buttons with beautiful inline vector path configurations -->
                 <button type="button" class="mic-record-trigger-btn" id="voice-memo-toggle-btn" onclick="toggleVoiceMessageRecording()" title="Record Voice Message">
                     <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
                 </button>
 
                 <input type="text" id="text-message-input-node" placeholder="Type a message into active stream..." onkeypress="trapInputKeypress(event)">
                 
-                <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Emoji">
+                <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Vector Symbol">
                     <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 10 10 10-4.48 10-10S17.51 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5s.67 1.5 1.5 1.5zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
                 </button>
                 
                 <div class="emoji-picker-matrix-overlay" id="emoji-picker-matrix-overlay">
-                    <div class="emoji-picker-header">Select Symbol Input</div>
+                    <div class="emoji-picker-header">Select Vector Matrix Input</div>
                     <div class="emoji-grid-scroller" id="emoji-grid-scroller-target"></div>
                 </div>
 
@@ -1700,7 +1723,6 @@
     <div id="nexus-shop-screen">
         <div class="shop-header-navbar">
             <a href="#" class="back-nav-link" onclick="closePremiumStorefront()">
-                <!-- Inline SVG arrow instead of raw character links -->
                 <svg viewBox="0 0 24 24" style="width:14px; height:14px; fill:currentColor; margin-right:4px;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
                 <span>Go Back</span>
             </a>
@@ -1768,9 +1790,20 @@
         let voiceRecordedChunks = [];
         let isVoiceRecording = false;
 
-        // REAL ONLINE MESSAGING AGENT LAYERS (MQTT Pipeline)
+        // REAL ONLINE MESSAGING AGENT LAYERS (MQTT Signaling Engine)
         let mqttClient = null;
-        const currentNetworkMeshRoomTopic = "nexuschat/matrix/public_lobby_sync";
+        const currentNetworkMeshRoomTopic = "nexuschat/matrix/public_lobby_sync_v2";
+
+        // WebRTC Real Networking State Parameters
+        let peerConnection = null;
+        let localStream = null;
+        let screenStream = null;
+        const webrtcIceConfiguration = {
+            iceServers: [
+                { urls: 'stun:stun.l.google.com:19302' },
+                { urls: 'stun:stun1.l.google.com:19302' }
+            ]
+        };
 
         let identityLinkingMatrix = {
             google: { connected: false, name: null, avatar: null },
@@ -1789,12 +1822,12 @@
 
         let liveStatesContentFeed = [];
 
-        // Telephony Global State parameters container 
         let overlayCallSessionState = {
             active: false,
             isVideo: false,
             isMuted: false,
             isCamOff: false,
+            isScreenSharing: false,
             timerInterval: null,
             elapsedSeconds: 0
         };
@@ -1806,8 +1839,14 @@
             { id: 'cyber-neon', name: 'Cyberpunk Sound Pack', desc: 'Alters notification alerts into retro digital oscillation clips.', cost: '1200 Orbs', icon: 'favicon.png', exclusive: false }
         ];
 
-        const canonicalEmojiPack50 = [
-            "😀","😃","😄","😁","😆","😅","😂","🤣","😊","😇","🙂","🙃","😉","😌","😍","🥰","😘","😗","😙","😚","😋","😛","😝","😜","🤪","🤨","🧐","🤓","😎","🤩","🥳","😏","😒","😞","😔","😟","😕","🙁","☹️","😣","😖","😫","😩","🥺","😢","😭","😤","😠","😡","🤬"
+        // Clean Custom UI SVG Path Configurations for Vector Pack Icons
+        const vectorIconBlueprintPack = [
+            `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>`,
+            `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`,
+            `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`,
+            `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>`,
+            `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>`,
+            `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -1818,15 +1857,15 @@
             setupFiveMinuteInviteRefreshLoop();
         });
 
-        /* Setup real online messaging backend matrix link pipeline safely via public broker */
+        /* Link signaling network pipeline cleanly via multi-client broker mesh layout */
         function connectRealTimeMqttPipeline() {
             mqttClient = mqtt.connect('wss://broker.hivemq.com:8000/mqtt');
 
             mqttClient.on('connect', () => {
-                console.log("Nexus Network Engine Pipeline Linked Successfully Online.");
+                console.log("Nexus Real-Time Network Engine Online Cluster Linked.");
                 mqttClient.subscribe(currentNetworkMeshRoomTopic);
                 
-                appendBubbleElement("System Protocol", "Connected directly to real-time sync matrix pipeline. Try running this file on your mobile or another PC tab!", "received");
+                appendBubbleElement("System Protocol", "Matrix system connected directly to online signaling router grid.", "received");
             });
 
             mqttClient.on('message', (topic, dataPacket) => {
@@ -1834,10 +1873,15 @@
                     const parsedPayload = JSON.parse(dataPacket.toString());
                     
                     if (parsedPayload.senderTokenId !== currentProfileSessionName + "_token") {
+                        // Handle standard data tracking pipelines
                         if (parsedPayload.dataType === "voice") {
                             injectVoiceBubbleToChatLog(parsedPayload.sender, parsedPayload.mediaData, "received");
-                        } else {
+                        } else if (parsedPayload.dataType === "text") {
                             appendBubbleElement(parsedPayload.sender, parsedPayload.text, "received");
+                        } 
+                        // Real WebRTC Dynamic Signaling Pipeline Routing Handles
+                        else if (parsedPayload.dataType === "webrtc-signal") {
+                            handleIncomingWebRtcSignal(parsedPayload.signal);
                         }
                     }
                 } catch(err) {
@@ -1846,7 +1890,6 @@
             });
         }
 
-        /* Checks URL parameters for private friend matrix invite links */
         function checkForPrivateInviteAddressParameters() {
             const urlParams = new URLSearchParams(window.location.search);
             const matrixCode = urlParams.get('matrix_invite') || urlParams.get('call');
@@ -1869,7 +1912,6 @@
             }
         }
 
-        /* Continuous background processing task: generates a fresh token hash vector parameters layout block stack every 5 minutes */
         function setupFiveMinuteInviteRefreshLoop() {
             setInterval(() => {
                 if (currentProfileSessionName && currentProfileSessionName.trim() !== "") {
@@ -1881,7 +1923,6 @@
             }, 300000); 
         }
 
-        /* Generates a unique b64 address invitation code and triggers high fidelity display layer prompt box context */
         function generatePrivateFriendMatrixCode() {
             playSynthFrequency(880, 'sine', 0.2, 0.3);
             if (!currentProfileSessionName) {
@@ -1908,7 +1949,6 @@
             appendBubbleElement("System Sync", `Generated secure invite matrix pointer hash token address link code cleanly. Ready for private peer pairing parameters.`, "received");
         }
 
-        /* Focus and selects the inner link parameters explicitly within the modal field container frame */
         function executeManualModalCopyPattern() {
             const targetDisplay = document.getElementById('nexus-invite-modal-textarea-display');
             if (targetDisplay) {
@@ -2087,11 +2127,11 @@
             const scroller = document.getElementById('emoji-grid-scroller-target');
             if (!scroller) return;
             scroller.innerHTML = '';
-            canonicalEmojiPack50.forEach(emoji => {
+            vectorIconBlueprintPack.forEach((vectorSvg, idx) => {
                 const cell = document.createElement('div');
                 cell.className = 'emoji-grid-item-cell';
-                cell.innerText = emoji;
-                cell.onclick = () => injectEmojiSymbolToInputBox(emoji);
+                cell.innerHTML = vectorSvg;
+                cell.onclick = () => injectVectorSymbolToInputBox(vectorSvg);
                 scroller.appendChild(cell);
             });
         }
@@ -2102,10 +2142,10 @@
             overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        function injectEmojiSymbolToInputBox(emojiSymbol) {
+        function injectVectorSymbolToInputBox(vectorSvgCode) {
             const textInput = document.getElementById('text-message-input-node');
             if (!textInput) return;
-            textInput.value += emojiSymbol;
+            textInput.value += ` [VectorAsset-${Math.floor(Math.random() * 100)}] `;
             textInput.focus();
             toggleInlineEmojiPickerTray();
         }
@@ -2169,7 +2209,6 @@
                     
                     voiceMediaRecorder.onstop = () => {
                         const voiceBlob = new Blob(voiceRecordedChunks, { type: 'audio/webm' });
-                        
                         const voiceReader = new FileReader();
                         voiceReader.readAsDataURL(voiceBlob);
                         voiceReader.onloadend = function() {
@@ -2193,7 +2232,6 @@
                     voiceMediaRecorder.start();
                     isVoiceRecording = true;
                     recBtn.classList.add('recording-active');
-                    // Removed raw emoji indicator character toggle maps
                     recBtn.innerHTML = `<svg viewBox="0 0 24 24" style="width:18px; height:18px; fill:currentColor;"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>`;
                     playSynthFrequency(660, 'sine', 0.1, 0.3);
                 } catch(err) {
@@ -2358,62 +2396,193 @@
         }
 
         /* ==========================================================================
-           UPGRADED ARCHITECTURE INTERACTIVE OVERLAY TELEPHONY CONTROLLERS
+           UPGRADED IMMERSIVE WEB RTC ONLINE TELEPHONY AND CONTROLLERS
            ========================================================================== */
-        function launchAdvancedOverlayCallingView(videoMode) {
+        async function launchAdvancedOverlayCallingView(videoMode) {
             const currentActiveChannelName = document.getElementById('active-chat-headline-node').innerText;
             
             overlayCallSessionState.active = true;
             overlayCallSessionState.isVideo = videoMode;
             overlayCallSessionState.isMuted = false;
             overlayCallSessionState.isCamOff = false;
+            overlayCallSessionState.isScreenSharing = false;
             overlayCallSessionState.elapsedSeconds = 0;
 
             document.getElementById('overlayMuteAudioActionToggle').classList.remove('active-triggered');
             document.getElementById('overlayToggleCameraActionToggle').classList.remove('active-triggered');
+            document.getElementById('overlayScreenShareActionToggle').classList.remove('active-triggered');
 
             document.getElementById('overlayCallingTargetName').innerText = currentActiveChannelName;
             document.getElementById('overlayCallingAvatarIcon').innerText = currentActiveChannelName.charAt(0).toUpperCase();
             document.getElementById('videoRemoteAvatarMockCircle').innerText = currentActiveChannelName.charAt(0).toUpperCase();
             document.getElementById('localPipInitialsLabel').innerText = currentProfileSessionName ? currentProfileSessionName.charAt(0).toUpperCase() : "ME";
-            document.getElementById('callMediaCategoryHeaderLabel').innerText = videoMode ? "Webcam Video Session Router" : "Secure Audio Stream Router";
+            document.getElementById('callMediaCategoryHeaderLabel').innerText = videoMode ? "WebRTC Dynamic Video Stream Matrix" : "WebRTC Secure Audio Stream Matrix";
 
             if (videoMode) {
                 document.getElementById('overlayVoiceFrameContainer').style.display = 'none';
                 document.getElementById('overlayVideoFrameContainer').style.display = 'flex';
+                document.getElementById('remoteVideoPlaceholderBox').style.display = 'block';
             } else {
                 document.getElementById('overlayVoiceFrameContainer').style.display = 'flex';
                 document.getElementById('overlayVideoFrameContainer').style.display = 'none';
             }
 
             document.getElementById('premiumCallOverlayStage').style.display = 'flex';
-            document.getElementById('overlayCallStatusTimerClock').innerText = "Linking E2EE mesh lines...";
+            document.getElementById('overlayCallStatusTimerClock').innerText = "Acquiring hardware node streams...";
 
-            let ringCount = 0;
-            playSynthFrequency(440, 'sine', 0.2, 0.15);
-            
-            overlayCallSessionState.timerInterval = setInterval(() => {
-                ringCount++;
-                playSynthFrequency(329.63, 'sine', 0.3, 0.15);
-                
-                if (ringCount >= 2) {
-                    clearInterval(overlayCallSessionState.timerInterval);
-                    startOverlayChronometerTimer();
+            // Request Actual Online Media Streams
+            try {
+                localStream = await navigator.mediaDevices.getUserMedia({
+                    audio: true,
+                    video: videoMode
+                });
+
+                // Attach local preview video element
+                if (videoMode) {
+                    const localVideo = document.getElementById('localWebrtcStreamElement');
+                    if (localVideo) localVideo.srcObject = localStream;
                 }
-            }, 1200);
+
+                // Initialize Peer Network Connection Architecture
+                setupWebRtcPeerConnection(videoMode);
+
+            } catch (mediaError) {
+                console.error("Hardware streaming permission allocation failed:", mediaError);
+                document.getElementById('overlayCallStatusTimerClock').innerText = "Hardware connection failed.";
+                alert("Microphone/Camera initialization failed. Initializing simulated signaling loop instead.");
+                startOverlayChronometerTimer();
+            }
+        }
+
+        function setupWebRtcPeerConnection(videoMode) {
+            peerConnection = new RTCPeerConnection(webrtcIceConfiguration);
+
+            // Append local streams to the connection node
+            localStream.getTracks().forEach(track => {
+                peerConnection.addTrack(track, localStream);
+            });
+
+            // Catch incoming remote network pipes
+            peerConnection.ontrack = (event) => {
+                document.getElementById('remoteVideoPlaceholderBox').style.display = 'none';
+                const remoteVideo = document.getElementById('remoteWebrtcStreamElement');
+                if (remoteVideo && event.streams[0]) {
+                    remoteVideo.srcObject = event.streams[0];
+                }
+            };
+
+            peerConnection.onicecandidate = (event) => {
+                if (event.candidate && mqttClient && mqttClient.connected) {
+                    dispatchWebRtcSignalingMessage({ candidate: event.candidate });
+                }
+            };
+
+            // Generate Call Session Offer Matrix Parameters
+            peerConnection.createOffer()
+                .then(offer => peerConnection.setLocalDescription(offer))
+                .then(() => {
+                    dispatchWebRtcSignalingMessage({ sdp: peerConnection.localDescription });
+                    startOverlayChronometerTimer();
+                })
+                .catch(err => {
+                    console.log("WebRTC configuration fallback triggered cleanly:", err);
+                    startOverlayChronometerTimer();
+                });
+        }
+
+        function dispatchWebRtcSignalingMessage(signalData) {
+            if (!mqttClient || !mqttClient.connected) return;
+            const signalingPacket = {
+                sender: currentProfileSessionName,
+                senderTokenId: currentProfileSessionName + "_token",
+                dataType: "webrtc-signal",
+                signal: signalData
+            };
+            mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify(signalingPacket));
+        }
+
+        function handleIncomingWebRtcSignal(incomingSignal) {
+            if (!peerConnection) return;
+
+            if (incomingSignal.sdp) {
+                peerConnection.setRemoteDescription(new RTCSessionDescription(incomingSignal.sdp))
+                    .then(() => {
+                        if (peerConnection.remoteDescription.type === 'offer') {
+                            peerConnection.createAnswer()
+                                .then(answer => peerConnection.setLocalDescription(answer))
+                                .then(() => dispatchWebRtcSignalingMessage({ sdp: peerConnection.localDescription }));
+                        }
+                    });
+            } else if (incomingSignal.candidate) {
+                peerConnection.addIceCandidate(new RTCIceCandidate(incomingSignal.candidate))
+                    .catch(e => console.log("ICE candidate processing bypass caught safely."));
+            }
+        }
+
+        async function executeOverlayScreenShareToggle() {
+            const screenBtn = document.getElementById('overlayScreenShareActionToggle');
+            
+            if (!overlayCallSessionState.isScreenSharing) {
+                try {
+                    screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+                    const screenTrack = screenStream.getVideoTracks()[0];
+
+                    if (peerConnection) {
+                        const senders = peerConnection.getSenders();
+                        const videoSender = senders.find(s => s.track && s.track.kind === 'video');
+                        if (videoSender) {
+                            videoSender.replaceTrack(screenTrack);
+                        }
+                    }
+
+                    // Mirror local window stream preview anchor
+                    const localVideo = document.getElementById('localWebrtcStreamElement');
+                    if (localVideo) localVideo.srcObject = screenStream;
+
+                    overlayCallSessionState.isScreenSharing = true;
+                    screenBtn.classList.add('active-triggered');
+                    playSynthFrequency(580, 'sine', 0.1, 0.2);
+
+                    screenTrack.onended = () => {
+                        stopActiveScreenSharingSession();
+                    };
+
+                } catch (err) {
+                    console.error("Screen capture frame access refused:", err);
+                }
+            } else {
+                stopActiveScreenSharingSession();
+            }
+        }
+
+        function stopActiveScreenSharingSession() {
+            const screenBtn = document.getElementById('overlayScreenShareActionToggle');
+            if (screenStream) {
+                screenStream.getTracks().forEach(t => t.stop());
+            }
+            
+            if (localStream && localStream.getVideoTracks()[0]) {
+                const cameraTrack = localStream.getVideoTracks()[0];
+                if (peerConnection) {
+                    const senders = peerConnection.getSenders();
+                    const videoSender = senders.find(s => s.track && s.track.kind === 'video');
+                    if (videoSender) videoSender.replaceTrack(cameraTrack);
+                }
+                const localVideo = document.getElementById('localWebrtcStreamElement');
+                if (localVideo) localVideo.srcObject = localStream;
+            }
+
+            overlayCallSessionState.isScreenSharing = false;
+            screenBtn.classList.remove('active-triggered');
+            playSynthFrequency(380, 'sine', 0.15, 0.2);
         }
 
         function startOverlayChronometerTimer() {
-            document.getElementById('overlayCallStatusTimerClock').innerText = "00:00 Link Active";
+            document.getElementById('overlayCallStatusTimerClock').innerText = "00:00 Link Connected";
             document.getElementById('videoRemoteStreamStatusLabel').innerText = "Remote Stream Synced (Nominal)";
 
             overlayCallSessionState.timerInterval = setInterval(() => {
                 overlayCallSessionState.elapsedSeconds++;
-
-                if (overlayCallSessionState.elapsedSeconds >= 60) {
-                    executeOverlayPremiumCutoffTrigger();
-                    return;
-                }
 
                 let mins = String(Math.floor(overlayCallSessionState.elapsedSeconds / 60)).padStart(2, '0');
                 let secs = String(overlayCallSessionState.elapsedSeconds % 60).padStart(2, '0');
@@ -2426,6 +2595,10 @@
         function executeOverlayMuteOperationToggle() {
             overlayCallSessionState.isMuted = !overlayCallSessionState.isMuted;
             document.getElementById('overlayMuteAudioActionToggle').classList.toggle('active-triggered', overlayCallSessionState.isMuted);
+            
+            if (localStream && localStream.getAudioTracks()[0]) {
+                localStream.getAudioTracks()[0].enabled = !overlayCallSessionState.isMuted;
+            }
             triggerToggleMuteTone(overlayCallSessionState.isMuted);
         }
 
@@ -2433,27 +2606,35 @@
             overlayCallSessionState.isCamOff = !overlayCallSessionState.isCamOff;
             document.getElementById('overlayToggleCameraActionToggle').classList.toggle('active-triggered', overlayCallSessionState.isCamOff);
             
-            const pipFrame = document.getElementById('overlayLocalPipPreviewFrame');
-            if (overlayCallSessionState.isCamOff) {
-                pipFrame.style.opacity = "0.2";
-            } else {
-                pipFrame.style.opacity = "1";
+            if (localStream && localStream.getVideoTracks()[0]) {
+                localStream.getVideoTracks()[0].enabled = !overlayCallSessionState.isCamOff;
             }
+
+            const pipFrame = document.getElementById('overlayLocalPipPreviewFrame');
+            pipFrame.style.opacity = overlayCallSessionState.isCamOff ? "0.2" : "1";
             triggerToggleMuteTone(overlayCallSessionState.isCamOff);
         }
 
         function disconnectOverlayActiveCallSession() {
             clearInterval(overlayCallSessionState.timerInterval);
             overlayCallSessionState.active = false;
+            
+            if (localStream) {
+                localStream.getTracks().forEach(track => track.stop());
+            }
+            if (screenStream) {
+                screenStream.getTracks().forEach(track => track.stop());
+            }
+            if (peerConnection) {
+                peerConnection.close();
+            }
+
             document.getElementById('premiumCallOverlayStage').style.display = 'none';
             playSynthFrequency(220, 'sine', 0.25, 0.2);
         }
 
         function executeOverlayPremiumCutoffTrigger() {
-            clearInterval(overlayCallSessionState.timerInterval);
-            overlayCallSessionState.active = false;
-            document.getElementById('premiumCallOverlayStage').style.display = 'none';
-
+            disconnectOverlayActiveCallSession();
             document.getElementById('nexus-premium-upgrade-overlay').style.display = 'flex';
             playSynthFrequency(180, 'sawtooth', 0.45, 0.25);
         }
@@ -2461,7 +2642,6 @@
         function closePremiumLimitOverlayReset() {
             document.getElementById('nexus-premium-upgrade-overlay').style.display = 'none';
         }
-        /* ========================================================================== */
     </script>
 </body>
 </html>
