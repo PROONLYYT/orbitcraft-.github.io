@@ -3,2651 +3,1268 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusChat Messenger Client</title>
-    <link rel="icon" type="image/png" href="favicon.png">
-
-    <!-- MQTT Client Library for Real-Time Cross-Device Texting -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/4.3.7/mqtt.min.js"></script>
-
+    <title>NexusChat Client - Enterprise Suite</title>
     <style>
         :root {
-            /* Premium Glassmorphic Obsidian-Cyan Design Tokens */
-            --bg-dark: #07090e;
-            --bg-dark-gradient: linear-gradient(135deg, #07090e 0%, #0a1118 100%);
-            --bg-panel: rgba(10, 20, 30, 0.65);
-            --bg-sidebar: rgba(6, 10, 15, 0.85);
-            --primary-accent: #00ffff;
-            --primary-hover: #00cccc;
-            --primary-glow: rgba(0, 255, 255, 0.4);
-            --text-main: #f2f3f5;
-            --text-muted: #8a9aa8;
-            --danger-red: #ff3344;
-            --danger-hover: #cc2233;
-            --success-green: #00ff66;
-            --border-subtle: rgba(0, 255, 255, 0.15);
-            --border-active: rgba(0, 255, 255, 0.6);
-            --input-bg: rgba(5, 10, 15, 0.8);
-            --gold-accent: #f5a623;
-            --pink-neon: #ff007f;
-            
-            /* Custom Login Identity Matrix Specific Tokens */
-            --login-card-bg: #181920;
-            --login-input-bg: #1f2026;
-            --login-btn-primary: #5865f2;
-            --login-btn-hover: #4752c4;
-            
-            /* UI Sizing Anchors */
-            --nav-rail-width: 75px;
-            --sidebar-width: 280px;
+            --bg-color: #0b0c10;
+            --sidebar-bg: #0e121a;
+            --surface-color: #1f2833;
+            --surface-accent: #2c3540;
+            --accent-cyan: #66fcf1;
+            --accent-blue: #45f3ff;
+            --accent-pink: #ff007f;
+            --accent-purple: #a020f0;
+            --text-primary: #ffffff;
+            --text-secondary: #c5a1ff;
+            --text-muted: #8b9bb4;
+            --chat-input-bg: #141923;
+            --success-color: #2ecc71;
+            --warning-color: #f1c40f;
+            --danger-color: #e74c3c;
+            --border-glow: rgba(102, 252, 241, 0.2);
         }
 
-        *, body, html, button, input, select, textarea, a {
+        /* Light Theme Alternate Variables */
+        .light-theme {
+            --bg-color: #f4f6f9;
+            --sidebar-bg: #e4e7eb;
+            --surface-color: #ffffff;
+            --surface-accent: #f0f2f5;
+            --accent-cyan: #008080;
+            --accent-blue: #0056b3;
+            --accent-pink: #d80073;
+            --accent-purple: #6a0dad;
+            --text-primary: #111111;
+            --text-secondary: #553c7a;
+            --text-muted: #657786;
+            --chat-input-bg: #f5f8fa;
+            --border-glow: rgba(0, 128, 128, 0.15);
+        }
+
+        * {
             box-sizing: border-box;
-        }
-
-        body, html {
-            width: 100%;
-            height: 100%;
             margin: 0;
             padding: 0;
-            background: var(--bg-dark);
-            background-image: var(--bg-dark-gradient);
-            color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            overflow: hidden;
-            display: flex;
-            user-select: none;
-            -webkit-user-select: none;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            transition: background-color 0.2s ease, border-color 0.2s ease;
         }
 
-        /* Scannable Scrollbar Elements */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* Application Views Management Window */
+        .screen {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        /* --- STAGE 1: SPLASH DASHBOARD OVERLAYS --- */
+        #splash-screen {
+            background-color: var(--bg-color);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            z-index: 9999;
+        }
+
+        #splash-screen.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .splash-container {
+            text-align: center;
+            max-width: 540px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: splashEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes splashEnter {
+            from { opacity: 0; transform: scale(0.96) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+
+        .logo-wrapper {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin-bottom: 28px;
+        }
+
+        .logo-box {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #090a0f 0%, #141923 100%);
+            border: 2px solid #1f2d44;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 40px var(--border-glow), inset 0 0 20px rgba(255, 0, 127, 0.05);
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-box::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--accent-pink), var(--accent-cyan));
+            z-index: -1;
+            opacity: 0.6;
+            filter: blur(6px);
+        }
+
+        .logo-letter {
+            font-size: 48px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent-pink) 0%, var(--accent-purple) 50%, var(--accent-cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 12px rgba(255, 0, 127, 0.4));
+        }
+
+        .splash-title-block h1 {
+            font-size: 32px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+            background: linear-gradient(to right, var(--text-primary), var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .status-text {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            color: var(--accent-cyan);
+            margin-bottom: 24px;
+            text-shadow: 0 0 10px rgba(102, 252, 241, 0.3);
+            animation: textPulse 1.6s infinite ease-in-out;
+        }
+
+        @keyframes textPulse {
+            0%, 100% { opacity: 0.5; transform: scale(0.99); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .progress-bar-container {
+            width: 85%;
+            height: 6px;
+            background-color: rgba(31, 40, 51, 0.4);
+            border-radius: 3px;
+            margin-bottom: 36px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(to right, var(--accent-pink), var(--accent-blue), var(--accent-cyan));
+            box-shadow: 0 0 14px var(--accent-cyan);
+            border-radius: 3px;
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Splash Embedded Purchase Modules */
+        .shop-card {
+            background: rgba(31, 40, 51, 0.35);
+            border: 1px solid rgba(102, 252, 241, 0.15);
+            border-radius: 20px;
+            padding: 24px;
+            width: 100%;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            margin-top: 10px;
+        }
+
+        .shop-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .shop-title {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            letter-spacing: 0.5px;
+        }
+
+        .shop-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 22px;
+            line-height: 1.6;
+        }
+
+        .item-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(11, 12, 16, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            padding: 16px 20px;
+            margin-bottom: 22px;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .item-info {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            text-align: left;
+        }
+
+        .item-details h4 {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 3px;
+        }
+
+        .item-details p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .price-tag {
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--accent-cyan);
+            text-shadow: 0 0 10px rgba(102, 252, 241, 0.2);
+        }
+
+        .paypal-button-container {
+            width: 100%;
+        }
+
+        .paypal-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #ffc439 0%, #ffb300 100%);
+            border: none;
+            border-radius: 28px;
+            padding: 14px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(255, 196, 57, 0.15);
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+        }
+
+        .paypal-btn:hover {
+            background: linear-gradient(135deg, #ffcf54 0%, #ffa200 100%);
+            box-shadow: 0 8px 24px rgba(255, 196, 57, 0.25);
+            transform: translateY(-1px);
+        }
+
+        .paypal-btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 10px rgba(255, 196, 57, 0.1);
+        }
+
+        .paypal-text {
+            color: #003087;
+            font-weight: 800;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            letter-spacing: -0.2px;
+        }
+
+        /* --- STAGE 2: PRODUCTION APPLICATION CORE DASHBOARD --- */
+        #chat-screen {
+            display: none;
+            grid-template-columns: 280px 1fr 300px;
+            background-color: var(--bg-color);
+        }
+
+        #chat-screen.active {
+            display: grid;
+        }
+
+        /* Left Side Management Bar */
+        .sidebar {
+            background-color: var(--sidebar-bg);
+            border-right: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .sidebar-header {
+            height: 72px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            gap: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .sidebar-header h2 {
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            background: linear-gradient(to right, var(--text-primary), var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .navigation-scroller {
+            flex: 1;
+            overflow-y: auto;
+            padding: 16px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .navigation-group-header {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            padding-left: 12px;
+            margin-bottom: 8px;
+        }
+
+        .channel-list {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .channel-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            border-radius: 10px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .channel-item-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .channel-item:hover {
+            background-color: rgba(255, 255, 255, 0.02);
+            color: var(--text-primary);
+        }
+
+        .channel-item.active {
+            background-color: rgba(102, 252, 241, 0.07);
+            color: var(--accent-cyan);
+            box-shadow: inset 1px 0 0 var(--accent-cyan);
+        }
+
+        .badge {
+            background-color: var(--accent-pink);
+            color: #ffffff;
+            font-size: 10px;
+            font-weight: 800;
+            padding: 2px 6px;
+            border-radius: 10px;
+            line-height: 1;
+        }
+
+        /* Identity Profile Card Anchor */
+        .user-profile-anchor {
+            background-color: rgba(0,0,0,0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .profile-meta-block {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-details h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .profile-details p {
+            font-size: 11px;
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        /* Central Workspace Chassis */
+        .chat-main {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background: radial-gradient(circle at top right, #121824, var(--bg-color));
+            position: relative;
+        }
+
+        .chat-header {
+            height: 72px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 28px;
+            background-color: rgba(11, 12, 16, 0.7);
+            backdrop-filter: blur(12px);
+            z-index: 5;
+        }
+
+        .channel-info-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 17px;
+            letter-spacing: 0.2px;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Message Streaming Log Window */
+        .messages-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            scroll-behavior: smooth;
+        }
+
+        .message-card {
+            display: flex;
+            gap: 16px;
+            max-width: 85%;
+            align-items: flex-start;
+            animation: messageEntry 0.25s cubic-bezier(0.215, 0.610, 0.355, 1) forwards;
+        }
+
+        @keyframes messageEntry {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message-card.system-msg {
+            max-width: 100%;
+            text-align: center;
+            justify-content: center;
+            opacity: 0.7;
+        }
+
+        .message-card.system-msg .msg-bubble {
+            background: rgba(102, 252, 241, 0.03);
+            border-color: rgba(102, 252, 241, 0.1);
+            border-radius: 8px;
+            font-size: 12px;
+            color: var(--accent-cyan);
+            padding: 6px 16px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 700;
+            color: #ffffff;
+            flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(69, 243, 255, 0.15);
+            position: relative;
+        }
+
+        .avatar .status-indicator {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--success-color);
+            border: 2px solid var(--bg-color);
+        }
+
+        .message-content {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .msg-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .msg-sender {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-secondary);
+        }
+
+        .msg-time {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .msg-bubble {
+            background-color: var(--surface-color);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 14px 18px;
+            border-radius: 0 16px 16px 16px;
+            font-size: 14.5px;
+            line-height: 1.6;
+            color: #e6edf3;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            word-break: break-word;
+        }
+
+        /* Control Input Area Matrix */
+        .input-area {
+            padding: 24px 28px;
+            background-color: rgba(11, 12, 16, 0.85);
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(8px);
+        }
+
+        .input-wrapper {
+            background-color: var(--chat-input-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            padding: 10px 20px;
+            gap: 14px;
+            box-shadow: inset 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        .input-wrapper:focus-within {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 20px rgba(102, 252, 241, 0.12), inset 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        .chat-input {
+            flex: 1;
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--text-primary);
+            font-size: 14.5px;
+            padding: 6px 0;
+        }
+
+        .chat-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .action-btn:hover {
+            color: var(--accent-cyan);
+            background-color: rgba(102, 252, 241, 0.06);
+        }
+
+        /* Right Hand Intelligence Panel */
+        .intel-panel {
+            background-color: var(--sidebar-bg);
+            border-left: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            padding: 24px 20px;
+            overflow-y: auto;
+            gap: 28px;
+        }
+
+        .intel-section-title {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+        }
+
+        .intel-card {
+            background-color: rgba(11, 12, 16, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            border-radius: 14px;
+            padding: 16px;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .stat-box {
+            background-color: rgba(255,255,255,0.02);
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.01);
+        }
+
+        .stat-val {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--accent-blue);
+            margin-bottom: 2px;
+        }
+
+        .stat-lbl {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* Vector Icon Engine Classes */
+        .icon {
+            display: inline-block;
+            width: 22px;
+            height: 22px;
+            stroke-width: 2;
+            stroke: currentColor;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            vertical-align: middle;
+        }
+
+        .icon-sm { width: 18px; height: 18px; stroke-width: 2; }
+        .icon-lg { width: 28px; height: 28px; }
+        .icon-cyan { color: var(--accent-cyan); }
+        .icon-pink { color: var(--accent-pink); }
+        .icon-blue { color: var(--accent-blue); }
+        
+        .icon-paypal {
+            width: 20px;
+            height: 20px;
+            fill: #003087;
+            stroke: none;
+        }
+        .icon-paypal-italic {
+            fill: #0079c1;
+            margin-left: -6px;
+        }
+
+        .orb-visual {
+            width: 36px;
+            height: 36px;
+            position: relative;
+        }
+
+        /* Custom Scrollbar Architecture */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.2);
+            background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-            background: rgba(0, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--primary-accent);
-        }
-
-        /* Cinematic Loading Portal Splash Overlay Styles */
-        #splash-loading-portal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #04060a;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s ease;
-        }
-
-        #splash-loading-portal.hidden {
-            opacity: 0;
-            transform: scale(1.05);
-            pointer-events: none;
-        }
-
-        .splash-logo-container {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .splash-logo-img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            animation: pulseLogo 2s ease-in-out infinite;
-        }
-
-        .splash-headline {
-            font-size: 32px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: #ffffff;
-            margin-bottom: 8px;
-            text-align: center;
-            text-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
-        }
-
-        .splash-user-subtitle {
-            font-size: 16px;
-            color: var(--primary-accent);
-            font-weight: 500;
-            margin-bottom: 30px;
-            min-height: 24px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .progress-track-wrapper {
-            width: 280px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid rgba(0, 255, 255, 0.1);
-        }
-
-        .progress-bar-fill {
-            width: 0%;
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-hover), var(--primary-accent));
-            box-shadow: 0 0 16px var(--primary-accent);
-            transition: width 0.1s linear;
-        }
-
-        @keyframes pulseLogo {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.2)); }
-            50% { transform: scale(1.06); filter: drop-shadow(0 0 24px var(--primary-accent)); }
-        }
-
-        /* Reconstructed Workspace Identity Screen Overlay */
-        #secure-login-gate-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: #111217;
-            z-index: 8000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            box-sizing: border-box;
-            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s ease;
-        }
-
-        #secure-login-gate-overlay.hidden {
-            opacity: 0;
-            transform: scale(0.96);
-            pointer-events: none;
-        }
-
-        .login-card-glassmorphic-wrapper {
-            width: 440px;
-            background: var(--login-card-bg);
-            border-radius: 8px;
-            padding: 32px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .login-card-header {
-            text-align: center;
-        }
-
-        .login-title-h1 {
-            font-size: 24px;
-            font-weight: 700;
-            color: #ffffff;
-            margin: 0 0 8px 0;
-            letter-spacing: -0.5px;
-        }
-
-        .login-subtitle-p {
-            font-size: 13px;
-            color: #949ba4;
-            margin: 0;
-            line-height: 1.4;
-        }
-
-        .registration-input-group-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        .form-label-node {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #b5bac1;
-            margin-bottom: 8px;
-            display: block;
-        }
-
-        .form-text-input-field {
-            width: 100%;
-            background: var(--login-input-bg);
-            border: 1px solid rgba(0, 0, 0, 0.3);
-            padding: 10px 12px;
-            border-radius: 4px;
-            color: #dbdee1;
-            font-size: 15px;
-            outline: none;
-            transition: border-color 0.2s ease;
-        }
-
-        .form-text-input-field:focus {
-            border-color: #5865f2;
-        }
-
-        .avatar-file-upload-trigger-container {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-
-        .avatar-upload-preview-frame {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: #2b2d31;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #949ba4;
-            font-size: 16px;
-            font-weight: 600;
-            flex-shrink: 0;
-            overflow: hidden;
-            border: none;
-        }
-
-        .avatar-upload-preview-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .custom-file-input-facade-btn {
-            background: #4e5058;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 4px;
-            font-size: 13px;
-            font-weight: 500;
-            color: #ffffff;
-            transition: background 0.2s ease;
-        }
-
-        .custom-file-input-facade-btn:hover {
-            background: #6d6f78;
-        }
-
-        .submit-portal-access-btn {
-            width: 100%;
-            background: var(--login-btn-primary);
-            color: #ffffff;
-            border: none;
-            padding: 12px;
-            border-radius: 4px;
-            font-size: 15px;
-            font-weight: 600;
-            transition: background 0.2s ease;
-            margin-top: 10px;
-        }
-
-        .submit-portal-access-btn:hover {
-            background: var(--login-btn-hover);
-        }
-
-        /* Master Application Layout Window Frame */
-        #app-frame {
-            display: flex;
-            width: 100vw;
-            height: 100vh;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            background: var(--bg-dark-gradient);
-        }
-
-        #app-frame.visible {
-            opacity: 1;
-        }
-
-        /* Vertical Global 5-Tab Rails Frame Layout */
-        .global-nav-rail {
-            width: var(--nav-rail-width);
-            height: 100%;
-            background: rgba(3, 6, 10, 0.95);
-            border-right: 1px solid var(--border-subtle);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 16px 0;
-            gap: 18px;
-            z-index: 10;
-        }
-
-        /* Hover-Scale Tab Item Physics Core */
-        .rail-tab-item {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-subtle);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-muted);
-            position: relative;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
-            cursor: pointer;
-        }
-
-        .rail-tab-item svg {
-            width: 20px;
-            height: 20px;
-            fill: currentColor;
-            display: block;
-        }
-
-        .rail-tab-item:hover {
-            color: var(--primary-accent);
-            background: rgba(0, 255, 255, 0.05);
-            border-color: var(--primary-accent);
-            transform: scale(1.15);
-            box-shadow: 0 0 14px var(--primary-glow);
-        }
-
-        .rail-tab-item.active {
-            color: #07090e;
-            background: var(--primary-accent);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 12px rgba(0, 255, 255, 0.5);
-        }
-
-        /* Standard Sub-context Left Sidebar panel */
-        .sidebar-panel {
-            width: var(--sidebar-width);
-            min-width: var(--sidebar-width);
-            background: var(--bg-sidebar);
-            border-right: 1px solid var(--border-subtle);
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-
-        .sidebar-header {
-            padding: 16px;
-            background: rgba(15, 25, 35, 0.4);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border-subtle);
-            height: 70px;
-        }
-
-        .profile-node-area {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            min-width: 0;
-        }
-
-        .user-tag-avatar {
-            width: 36px;
-            height: 36px;
-            background: rgba(0, 255, 255, 0.1);
-            border: 1px solid var(--primary-accent);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px;
-            font-weight: 700;
-            color: var(--primary-accent);
-            box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
-            flex-shrink: 0;
-            overflow: hidden;
-        }
-
-        .user-tag-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .sidebar-title {
-            font-weight: 700;
-            font-size: 14px;
-            color: var(--text-main);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .sidebar-tools {
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            background: rgba(5, 10, 15, 0.3);
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .sm-btn {
-            width: 100%;
-            padding: 10px 12px;
-            font-size: 13px;
-            font-weight: 600;
-            background: rgba(255, 255, 255, 0.02);
-            color: var(--text-main);
-            border: 1px solid var(--border-subtle);
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            text-align: left;
-            cursor: pointer;
-        }
-
-        .sm-btn:hover {
-            background: rgba(0, 255, 255, 0.08);
-            border-color: var(--primary-accent);
-            color: #ffffff;
-            box-shadow: 0 0 8px rgba(0, 255, 255, 0.15);
-        }
-
-        .sm-btn.danger {
-            background: rgba(255, 51, 68, 0.05);
-            color: var(--danger-red);
-            border-color: rgba(255, 51, 68, 0.2);
-        }
-
-        .sm-btn.danger:hover {
-            background: var(--danger-red);
-            border-color: var(--danger-red);
-            color: white;
-            box-shadow: 0 0 8px rgba(255, 51, 68, 0.3);
-        }
-
-        .shop-trigger-btn {
-            width: 100%;
-            padding: 12px;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: transparent;
-            color: var(--primary-accent);
-            border: 1px solid var(--primary-accent);
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            text-align: center;
-            box-shadow: 0 0 6px var(--primary-glow);
-            cursor: pointer;
-        }
-
-        .shop-trigger-btn:hover {
-            background: var(--primary-hover);
-            color: #000000;
-            box-shadow: 0 0 14px var(--primary-accent);
-        }
-
-        .contacts-vertical-stack {
-            flex: 1;
-            overflow-y: auto;
-            padding: 8px 0;
-        }
-
-        .chat-list-row {
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-            transition: background 0.2s ease, border-left 0.2s ease;
-            border-left: 3px solid transparent;
-            cursor: pointer;
-        }
-
-        .chat-list-row:hover, .chat-list-row.active {
-            background: rgba(0, 255, 255, 0.03);
-            border-left-color: var(--primary-accent);
-        }
-
-        .row-avatar {
-            font-size: 14px;
-            font-weight: 700;
-            width: 32px;
-            height: 32px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-subtle);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            flex-shrink: 0;
-            color: var(--text-muted);
-        }
-
-        .chat-list-row:hover .row-avatar, .chat-list-row.active .row-avatar {
-            color: var(--primary-accent);
-            border-color: var(--primary-accent);
-        }
-
-        .row-meta {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .row-name {
-            font-weight: 600;
-            font-size: 13.5px;
-            margin-bottom: 2px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .row-preview {
-            font-size: 11px;
-            color: var(--text-muted);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .workspace-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: var(--bg-dark);
-            position: relative;
-            height: 100%;
-        }
-
-        .workspace-header {
-            padding: 14px 24px;
-            background: var(--bg-panel);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border-subtle);
-            height: 70px;
-            box-sizing: border-box;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-
-        .header-profile {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .header-profile-icon {
-            width: 18px;
-            height: 18px;
-            fill: var(--primary-accent);
-            filter: drop-shadow(0 0 4px var(--primary-glow));
-        }
-
-        .header-profile .title {
-            font-weight: 600;
-            font-size: 16px;
-            letter-spacing: 0.5px;
-        }
-
-        .thread-scroll-view {
-            flex: 1;
-            overflow-y: auto;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            box-sizing: border-box;
-        }
-
-        .msg-bubble {
-            max-width: 65%;
-            padding: 12px 16px;
-            border-radius: 12px;
-            line-height: 1.5;
-            font-size: 14px;
-            display: flex;
-            flex-direction: column;
-            word-wrap: break-word;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-subtle);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .msg-bubble.sent {
-            background: rgba(0, 255, 255, 0.05);
-            border-color: rgba(0, 255, 255, 0.3);
-            align-self: flex-end;
-            border-bottom-right-radius: 0;
-        }
-
-        .msg-bubble.received {
-            background: rgba(255, 255, 255, 0.02);
-            align-self: flex-start;
-            border-bottom-left-radius: 0;
-        }
-
-        .msg-author {
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--primary-accent);
-            margin-bottom: 4px;
-            letter-spacing: 0.5px;
-        }
-
-        .msg-bubble.sent .msg-author {
-            color: #ffffff;
-        }
-
-        .msg-footer {
-            font-size: 10px;
-            color: var(--text-muted);
-            margin-top: 6px;
-            align-self: flex-end;
-        }
-
-        /* Voice Message Audio Node Controller Styles */
-        .voice-memo-node-frame {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(0, 255, 255, 0.05);
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            padding: 8px 12px;
-            border-radius: 6px;
-            margin-top: 4px;
-            min-width: 200px;
-        }
-        
-        .voice-play-trigger-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: var(--primary-accent);
-            border: none;
-            color: #000000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-        }
-
-        .voice-play-trigger-btn svg {
-            width: 12px;
-            height: 12px;
-            fill: #000000;
-        }
-        
-        .voice-waveform-simulation {
-            flex: 1;
-            height: 16px;
-            display: flex;
-            align-items: center;
-            gap: 3px;
-        }
-        
-        .waveform-bar-element {
-            flex: 1;
-            background: rgba(0, 255, 255, 0.4);
-            border-radius: 2px;
-            transition: height 0.15s ease;
-        }
-        
-        .waveform-bar-element.active-pulse {
-            background: var(--primary-accent);
-            animation: simulateVoiceWave 0.6s ease infinite alternate;
-        }
-
-        @keyframes simulateVoiceWave {
-            0% { height: 4px; }
-            100% { height: 16px; }
-        }
-
-        .input-dock-bar {
-            padding: 16px 24px;
-            background: var(--bg-panel);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-top: 1px solid var(--border-subtle);
-            height: 75px;
-            box-sizing: border-box;
-            position: relative;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-
-        .input-dock-bar input[type="text"] {
-            flex: 1;
-            background: var(--input-bg);
-            border: 1px solid var(--border-subtle);
-            padding: 12px 16px;
-            border-radius: 6px;
-            color: #ffffff;
-            font-size: 14px;
-            outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
-        }
-
-        .input-dock-bar input[type="text"]:focus {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 8px var(--primary-glow);
-        }
-
-        .cooldown-progress-track {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            height: 3px;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.02);
-            pointer-events: none;
-        }
-
-        .cooldown-progress-fill {
-            height: 100%;
-            width: 0%;
-            background: var(--primary-accent);
-            box-shadow: 0 0 8px var(--primary-accent);
-        }
-
-        .emoji-trigger-node-btn, .mic-record-trigger-btn {
-            background: transparent;
-            border: 1px solid var(--border-subtle);
-            color: var(--text-muted);
-            padding: 8px;
-            border-radius: 6px;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            cursor: pointer;
-        }
-
-        .emoji-trigger-node-btn svg, .mic-record-trigger-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
-
-        .emoji-trigger-node-btn:hover, .mic-record-trigger-btn:hover {
-            color: var(--primary-accent);
-            border-color: var(--primary-accent);
-            background: rgba(0, 255, 255, 0.05);
-        }
-        
-        .mic-record-trigger-btn.recording-active {
-            color: var(--danger-red);
-            border-color: var(--danger-red);
-            background: rgba(255, 51, 68, 0.1);
-            animation: pulseRecordBorder 1s infinite alternate;
-        }
-
-        @keyframes pulseRecordBorder {
-            from { box-shadow: 0 0 4px rgba(255, 51, 68, 0.2); }
-            to { box-shadow: 0 0 12px rgba(255, 51, 68, 0.6); }
-        }
-
-        .emoji-picker-matrix-overlay {
-            position: absolute;
-            bottom: 85px;
-            right: 24px;
-            width: 320px;
-            height: 240px;
-            background: rgba(10, 16, 26, 0.95);
-            border: 1px solid var(--border-active);
-            border-radius: 8px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-            display: none;
-            flex-direction: column;
-            z-index: 1000;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-        }
-
-        .emoji-picker-header {
-            padding: 10px 12px;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            border-bottom: 1px solid var(--border-subtle);
-            text-transform: uppercase;
-        }
-
-        .emoji-grid-scroller {
-            flex: 1;
-            overflow-y: auto;
-            padding: 10px;
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 8px;
-        }
-
-        .emoji-grid-item-cell {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 6px;
-            border-radius: 4px;
-            transition: background 0.15s ease, transform 0.1s ease;
-            color: var(--text-main);
-            cursor: pointer;
-        }
-
-        .emoji-grid-item-cell svg {
-            width: 22px;
-            height: 22px;
-            fill: currentColor;
-        }
-
-        .emoji-grid-item-cell:hover {
-            background: rgba(0, 255, 255, 0.15);
-            color: var(--primary-accent);
-            transform: scale(1.15);
-        }
-
-        .send-btn {
-            background: transparent;
-            color: var(--primary-accent);
-            border: 1px solid var(--primary-accent);
-            padding: 12px 20px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 13px;
-            transition: all 0.2s ease;
-            box-shadow: 0 0 4px var(--primary-glow);
-            cursor: pointer;
-        }
-
-        .send-btn:hover {
-            background: var(--primary-accent);
-            color: #000000;
-            box-shadow: 0 0 12px var(--primary-accent);
-        }
-
-        .send-btn:disabled {
-            border-color: var(--border-subtle);
-            color: var(--text-muted);
-            background: transparent;
-            box-shadow: none;
-            cursor: not-allowed;
-        }
-
-        .call-action-btn {
-            background: transparent;
-            border: 1px solid var(--primary-accent);
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--primary-accent);
-            padding: 8px 16px;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 0 6px var(--primary-glow);
-            cursor: pointer;
-        }
-
-        .call-action-btn:hover {
-            background: var(--primary-accent);
-            color: #000000;
-            box-shadow: 0 0 14px var(--primary-accent);
-        }
-
-        #call-interface-layer {
-            display: none;
-            flex-direction: column;
-            background: rgba(4, 6, 10, 0.9);
-            padding: 16px;
-            border-bottom: 1px solid var(--border-subtle);
-            box-sizing: border-box;
-        }
-
-        .media-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            min-height: 260px;
-        }
-
-        @media (max-width: 768px) {
-            .media-grid { grid-template-columns: 1fr; }
-        }
-
-        .media-window {
-            background: var(--input-bg);
-            border-radius: 8px;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--border-subtle);
-            overflow: hidden;
-            height: 260px;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.6);
-        }
-
-        .media-window.speaking-active {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 16px var(--primary-glow), inset 0 0 20px rgba(0, 255, 255, 0.1);
-        }
-
-        .live-video-element {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            background: #000;
-        }
-
-        .stream-canvas-mock {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            background: radial-gradient(circle, rgba(10,20,30,0.8) 0%, rgba(4,6,10,1) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            top: 0;
-            left: 0;
-        }
-
-        .stream-label {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            background: rgba(4,6,10,0.85);
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 11px;
-            color: #fff;
-            z-index: 2;
-            font-weight: 600;
-            border: 1px solid var(--border-subtle);
-            border-left: 3px solid var(--primary-accent);
-            letter-spacing: 0.5px;
-        }
-
-        .avatar-placeholder-call {
-            width: 68px;
-            height: 68px;
-            border-radius: 50%;
-            background: rgba(0, 255, 255, 0.05);
-            border: 1px solid var(--primary-accent);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1;
-            box-shadow: 0 0 16px var(--primary-glow);
-        }
-        .avatar-placeholder-call img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-        }
-        .call-controls-bar {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 12px;
-            margin-top: 14px;
-            background: rgba(10, 20, 30, 0.5);
-            padding: 10px 16px;
-            border-radius: 8px;
-            flex-wrap: wrap;
-            border: 1px solid var(--border-subtle);
-        }
-        .control-btn {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-main);
-            padding: 10px 16px;
-            border-radius: 6px;
-            font-weight: 600;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-        .control-btn:hover {
-            background: rgba(0, 255, 255, 0.05);
-            border-color: var(--primary-accent);
-            color: #fff;
-        }
-        .control-btn.active-state {
-            background: rgba(255, 51, 68, 0.2);
-            border-color: var(--danger-red);
-            color: #fff;
-        }
-        .control-btn.active-state:hover {
-            background: var(--danger-red);
-        }
-        .call-timer-node {
-            color: var(--primary-accent);
-            font-family: monospace;
-            font-size: 13px;
-            background: rgba(0,0,0,0.4);
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-weight: 700;
-            border: 1px solid var(--border-subtle);
-        }
-        .states-hub-container-view {
-            padding: 16px 24px;
-            background: rgba(5, 10, 15, 0.2);
-            border-bottom: 1px solid var(--border-subtle);
-            display: none;
-            flex-direction: column;
-            gap: 12px;
-        }
-        .states-header-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .states-row-title {
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-        }
-        .states-carousel-scroller-track {
-            display: flex;
-            gap: 14px;
-            overflow-x: auto;
-            padding-bottom: 8px;
-        }
-        .state-content-card-node {
-            width: 110px;
-            height: 160px;
-            border-radius: 8px;
-            border: 1px solid var(--border-subtle);
-            background: var(--input-bg);
-            flex-shrink: 0;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 10px;
-        }
-        .state-content-card-node:hover {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 10px var(--primary-glow);
-        }
-        .state-media-preview-element {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-        .state-author-tag {
-            font-size: 11px;
-            font-weight: 600;
-            color: #ffffff;
-            z-index: 2;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        #nexus-shop-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: var(--bg-dark);
-            background-image: var(--bg-dark-gradient);
-            z-index: 5000;
-            display: none;
-            flex-direction: column;
-            box-sizing: border-box;
-        }
-        .shop-header-navbar {
-            height: 75px;
-            background: var(--bg-panel);
-            border-bottom: 1px solid var(--border-subtle);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 30px;
-            box-sizing: border-box;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-        .back-nav-link {
-            font-size: 13px;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255,255,255,0.02);
-            padding: 10px 16px;
-            border-radius: 6px;
-            border: 1px solid var(--border-subtle);
-            transition: all 0.2s ease;
-        }
-        .back-nav-link:hover {
-            color: var(--primary-accent);
-            border-color: var(--primary-accent);
-            background: rgba(0,255,255,0.05);
-            box-shadow: 0 0 8px var(--primary-glow);
-        }
-        .shop-headline-title {
-            font-weight: 800;
-            font-size: 18px;
-            letter-spacing: 2px;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(0,255,255,0.2);
-        }
-        .balance-container-pill {
-            background: rgba(245, 166, 35, 0.05);
-            border: 1px solid var(--gold-accent);
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-weight: 700;
-            color: var(--gold-accent);
-            font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 0 10px rgba(245,166,35,0.15);
-        }
-        .shop-showcase-scroller {
-            flex: 1;
-            overflow-y: auto;
-            padding: 40px;
-            box-sizing: border-box;
-        }
-        
-        .shop-layout-split-view {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .shop-section-heading {
-            font-size: 14px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--primary-accent);
-            border-bottom: 1px solid var(--border-subtle);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        .shop-items-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
-        }
-        .shop-item-card {
-            background: var(--bg-panel);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-            overflow: hidden;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease, box-shadow 0.3s ease;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-        .shop-item-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary-accent);
-            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.15);
-        }
-        .item-badge-exclusive {
-            position: absolute;
-            top: 12px;
-            left: 12px;
-            background: var(--pink-neon);
-            color: #ffffff;
-            font-size: 9px;
-            font-weight: 800;
-            padding: 4px 8px;
-            border-radius: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 0 8px var(--pink-neon);
-        }
-        .item-graphic-wrapper {
-            height: 120px;
-            background: radial-gradient(circle, rgba(0,255,255,0.1) 0%, transparent 70%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 16px;
-            position: relative;
-        }
-        
-        .item-graphic-svg-node {
-            width: 44px;
-            height: 44px;
-            color: var(--primary-accent);
-            fill: currentColor;
-            z-index: 2;
-        }
-
-        .item-graphic-ring {
-            position: absolute;
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            border: 1px dashed rgba(0, 255, 255, 0.2);
-            animation: rotateRing 12s linear infinite;
-        }
-        .item-meta-name {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #ffffff;
-            letter-spacing: 0.5px;
-        }
-        .item-meta-desc {
-            font-size: 12px;
-            color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 20px;
-            flex: 1;
-        }
-        .item-action-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-top: auto;
-            gap: 10px;
-        }
-        .item-price-tag {
-            font-weight: 700;
-            font-size: 14px;
-            color: var(--gold-accent);
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .item-price-tag svg {
-            width: 14px;
-            height: 14px;
-            fill: currentColor;
-        }
-
-        .buy-action-trigger {
-            background: transparent;
-            color: var(--primary-accent);
-            border: 1px solid var(--primary-accent);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: 700;
-            font-size: 12px;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            text-align: center;
-            cursor: pointer;
-        }
-        .buy-action-trigger:hover {
-            background: var(--primary-accent);
-            color: #000000;
-            box-shadow: 0 0 10px var(--primary-accent);
-        }
-        .buy-action-trigger.unlocked {
-            background: rgba(0, 255, 102, 0.1) !important;
-            border-color: var(--success-green) !important;
-            color: var(--success-green) !important;
-            cursor: default;
-        }
-
-        /* High Fidelity Premium Token Matrix Modal Styles */
-        .nexus-gate-premium-modal-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(4, 6, 12, 0.95);
-            z-index: 9500;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .premium-card-container {
-            width: 100%;
-            max-width: 480px;
-            background: #121622;
-            border: 2px solid var(--gold-accent);
-            box-shadow: 0 0 30px rgba(245, 166, 35, 0.2);
-            border-radius: 12px;
-            padding: 32px;
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            text-align: center;
-            align-items: center;
-        }
-        .premium-card-icon-frame {
-            width: 48px;
-            height: 48px;
-            color: var(--gold-accent);
-            fill: currentColor;
-        }
-        .premium-card-title {
-            font-size: 22px;
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: 1px;
-            margin: 0;
-            text-transform: uppercase;
-        }
-        .premium-card-desc {
-            font-size: 14px;
-            color: var(--text-muted);
-            line-height: 1.6;
-            margin: 0;
-        }
-        .premium-link-input-display {
-            width: 100%;
-            background: #090c12;
-            border: 1px solid var(--border-subtle);
-            padding: 12px;
-            border-radius: 6px;
-            color: var(--primary-accent);
-            font-family: monospace;
-            font-size: 12px;
-            text-align: left;
-            word-break: break-all;
-            user-select: all;
-            -webkit-user-select: all;
-        }
-        .premium-action-row-buttons {
-            display: flex;
-            gap: 12px;
-            margin-top: 10px;
-            width: 100%;
-        }
-        .premium-btn-action {
-            flex: 1;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 700;
-            border: none;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-            cursor: pointer;
-        }
-        .premium-btn-action.paypal-primary {
-            background: var(--gold-accent);
-            color: #000000;
-        }
-        .premium-btn-action.paypal-primary:hover {
-            box-shadow: 0 0 16px rgba(245, 166, 35, 0.5);
-            transform: translateY(-1px);
-        }
-        .premium-btn-action.dismiss-secondary {
-            background: rgba(255,255,255,0.05);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-main);
-        }
-        .premium-btn-action.dismiss-secondary:hover {
-            background: rgba(255,255,255,0.1);
-        }
-
-        @keyframes rotateRing {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            background: rgba(102, 252, 241, 0.3);
         }
     </style>
 </head>
 <body>
 
-    <!-- Cinematic Loading Portal Splash Overlay -->
-    <div id="splash-loading-portal">
-        <div class="splash-logo-container">
-            <!-- Asset Placeholder Facade Frame -->
-            <svg viewBox="0 0 24 24" class="splash-logo-img" style="color: var(--primary-accent); fill: currentColor;">
-                <path d="M12 2L2 22h20L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 11v4h2v-4h-2zm0 6v2h2v-2h-2z"/>
-            </svg>
-        </div>
-        <div class="splash-headline">NexusChat Client</div>
-        <div class="splash-user-subtitle" id="splash-user-target">Initializing Platform...</div>
-        <div class="progress-track-wrapper">
-            <div class="progress-bar-fill" id="splash-bar-fill"></div>
-        </div>
-    </div>
-
-    <!-- Redesigned High-Fidelity Workspace Identity Screen Overlay -->
-    <div id="secure-login-gate-overlay">
-        <div class="login-card-glassmorphic-wrapper">
-            <div class="login-card-header">
-                <h1 class="login-title-h1">Create Workspace Identity</h1>
-                <p class="login-subtitle-p">Build your custom client user block variables to enter NexusChat</p>
-            </div>
-
-            <form class="registration-input-group-form" onsubmit="event.preventDefault();">
-                <div>
-                    <label class="form-label-node">Display Handle Name</label>
-                    <input type="text" id="portal-username-input-node" class="form-text-input-field" placeholder="e.g. NexusDeveloper" required>
-                </div>
-                
-                <div>
-                    <label class="form-label-node">Avatar Resource Asset</label>
-                    <div class="avatar-file-upload-trigger-container">
-                        <div class="avatar-upload-preview-frame" id="portal-avatar-preview-box">?</div>
-                        <input type="file" id="portal-avatar-file-input" accept="image/*" style="display: none;" onchange="handleLocalAvatarSelection(event)">
-                        <button type="button" class="custom-file-input-facade-btn" onclick="document.getElementById('portal-avatar-file-input').click()">Upload File Asset</button>
-                    </div>
-                </div>
-
-                <button type="button" class="submit-portal-access-btn" onclick="executeManualProfileCommit()">Enter App Matrix</button>
-            </form>
-        </div>
-    </div>
-
-    <!-- Invite Generator Notification Display Modal -->
-    <div id="nexus-invite-portal-overlay" class="nexus-gate-premium-modal-wrapper">
-        <div class="premium-card-container" style="border-color: var(--primary-accent); box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);">
-            <h2 class="premium-card-title" style="color: var(--primary-accent)">Secure Matrix Code Matrix</h2>
-            <p class="premium-card-desc">Your private end-to-end routing pipeline parameters have successfully synchronized. Copy the code from the field layout index container frame structure node block below:</p>
-            <textarea class="premium-link-input-display" id="nexus-invite-modal-textarea-display" readonly style="height: 80px; resize: none;"></textarea>
-            <div class="premium-action-row-buttons">
-                <button class="premium-btn-action paypal-primary" style="background: var(--primary-accent);" onclick="executeManualModalCopyPattern()">Select Matrix Address</button>
-                <button class="premium-btn-action dismiss-secondary" onclick="document.getElementById('nexus-invite-portal-overlay').style.display = 'none'">Close View</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Live Limit Subscription Target Overlay Frame -->
-    <div id="nexus-premium-upgrade-overlay" class="nexus-gate-premium-modal-wrapper">
-        <div class="premium-card-container">
-            <svg viewBox="0 0 24 24" class="premium-card-icon-frame">
-                <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67V7z"/>
-            </svg>
-            <h2 class="premium-card-title">Call Frame Duration Terminated</h2>
-            <p class="premium-card-desc">You have encountered the maximum 1-minute test access limitation boundary loop parameters. Purchase the <strong>Call Max Hours Pass</strong> container upgrade for \$5.00 USD to enable unlimited communication loops.</p>
-            <div class="premium-action-row-buttons">
-                <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" class="premium-btn-action paypal-primary">Upgrade via PayPal</a>
-                <button class="premium-btn-action dismiss-secondary" onclick="closePremiumLimitOverlayReset()">Acknowledge</button>
-            </div>
-        </div>
-    </div>
-
-    <div id="app-frame">
-        <div class="global-nav-rail">
-            <div class="rail-tab-item active" id="tab-node-chat" onclick="switchGlobalRailContext('chat')" title="Home/Chat">
-                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
-            </div>
-            <div class="rail-tab-item" id="tab-node-groups" onclick="switchGlobalRailContext('groups')" title="Groups Ecosystem">
-                <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-            </div>
-            <div class="rail-tab-item" id="tab-node-states" onclick="switchGlobalRailContext('states')" title="States Hub Engagement Stream">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 12 10 12-4.48 12-12S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-            </div>
-            <div class="rail-tab-item" id="tab-node-settings" onclick="switchGlobalRailContext('settings')" title="Account Integration Matrix Settings">
-                <svg viewBox="0 0 24 24"><path d="M19.43 12.98c.04-.32.07-.64.07-.98s-.03-.66-.07-.98l2.11-1.65c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.3-.61-.22l-2.49 1c-.52-.4-1.08-.73-1.69-.98l-.38-2.65C14.46 2.18 14.25 2 14 2h-4c-.25 0-.46.18-.49.42l-.38 2.65c-.61.25-1.17.59-1.69.98l-2.49-1c-.23-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.65c-.04.32-.07.65-.07.98s.03.66.07.98l-2.11 1.65c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.3.61.22l2.49-1c.52.4 1.08.73 1.69.98l.38 2.65c.03.24.24.42.49.42h4c.25 0 .46-.18.49-.42l.38-2.65c.61-.25 1.17-.59 1.69-.98l2.49 1c.23.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.65zM12 15.5c-1.93 0-3-1.07-3-3s1.07-3 3-3 3 1.07 3 3-1.07 3-3 3z"/></svg>
-            </div>
-            <div class="rail-tab-item" id="tab-node-integrations" onclick="switchGlobalRailContext('integrations')" title="Extensions & Integrations Hub">
-                <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2zm-9-4h4v4h-4V5zm7 14H7v-6h10v6z"/></svg>
-            </div>
-        </div>
-        
-        <div class="sidebar-panel">
-            <div class="sidebar-header">
-                <div class="profile-node-area">
-                    <div class="user-tag-avatar" id="my-avatar-node">N</div>
-                    <div class="sidebar-title" id="my-username-node">Connecting Pipeline...</div>
+    <!-- SCREEN BLOCK 1: ENTERPRISE LOADING VECTOR AND MATRIX HUB -->
+    <div id="splash-screen" class="screen active">
+        <div class="splash-container">
+            <div class="logo-wrapper">
+                <div class="logo-box">
+                    <span class="logo-letter">N</span>
                 </div>
             </div>
-            
-            <div class="sidebar-tools" id="sidebar-context-controls-box">
-                <button class="shop-trigger-btn" onclick="openPremiumStorefront()">Open Nexus Shop</button>
-                <button class="sm-btn" id="sidebar-action-primary-btn" onclick="triggerChannelCreation()">+ New Channel Stream</button>
-                <button class="sm-btn" style="border-color: var(--gold-accent); color: var(--gold-accent);" onclick="generatePrivateFriendMatrixCode()">🔗 Copy Invite Address Code</button>
-                <button class="sm-btn danger" onclick="performProfileHardwareReset()">Reset Active Session Container</button>
-            </div>
-            
-            <div class="contacts-vertical-stack" id="contacts-vertical-stack"></div>
-        </div>
 
-        <div class="workspace-panel">
-            <div class="workspace-header">
-                <div class="header-profile">
-                    <svg viewBox="0 0 24 24" class="header-profile-icon">
-                        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-3zm0 16H5V5h14v14z"/>
+            <div class="splash-title-block">
+                <h1>NexusChat Client</h1>
+                <div class="status-text" id="status-display">Initializing Cluster Node...</div>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar-fill" id="progress-fill"></div>
+            </div>
+
+            <!-- Operational Core Shop Block -->
+            <div class="shop-card">
+                <div class="shop-header">
+                    <svg class="icon icon-pink" viewBox="0 0 24 24">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
                     </svg>
-                    <div class="title" id="active-chat-headline-node">Global Public Lobby</div>
+                    <span class="shop-title">Nexus Core Shop</span>
                 </div>
-                <button class="call-action-btn" onclick="toggleVoiceVideoCall()">Connect Live Streams</button>
-            </div>
+                <p class="shop-desc">Enhance infrastructure connectivity channels and expand processing limits with global orbs modules.</p>
 
-            <div class="states-hub-container-view" id="states-hub-engagement-view">
-                <div class="states-header-row">
-                    <span class="states-row-title">Live Connections Engagement Feed</span>
-                    <input type="file" id="states-media-file-capture-pipe" accept="video/*,image/*" style="display: none;" onchange="processNewStateMediaUpload(event)">
-                    <button class="call-action-btn" style="padding: 4px 10px; font-size: 11px;" onclick="document.getElementById('states-media-file-capture-pipe').click()">Create New States</button>
-                </div>
-                <div class="states-carousel-scroller-track" id="states-carousel-scroller-track"></div>
-            </div>
-
-            <div id="call-interface-layer">
-                <div class="media-grid">
-                    <div class="media-window" id="webcam-hardware-window-node">
-                        <video id="hardware-webcam-stream" class="live-video-element" autoplay playsinline muted></video>
-                        <div class="stream-canvas-mock" id="webcam-canvas">
-                            <div class="avatar-placeholder-call" id="webcam-avatar-placeholder-node">N</div>
-                        </div>
-                        <div class="stream-label" id="webcam-label">Camera Interface Offline</div>
-                    </div>
-                    <div class="media-window">
-                        <video id="hardware-screenshare-stream" class="live-video-element" autoplay playsinline></video>
-                        <div class="stream-canvas-mock" id="screenshare-canvas" style="background: #030508;">
-                            <svg viewBox="0 0 24 24" style="width: 44px; height: 44px; fill: var(--primary-accent); opacity: 0.15;">
-                                <path d="M21 2H3c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h7l-2 3v1h8v-1l-2-3h7c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H3V4h14v12z"/>
+                <div class="item-row">
+                    <div class="item-info">
+                        <div class="orb-visual">
+                            <svg viewBox="0 0 32 32" style="width:100%; height:100%;">
+                                <defs>
+                                    <radialGradient id="orbGrad" cx="50%" cy="50%" r="50%">
+                                        <stop offset="0%" stop-color="#66fcf1" stop-opacity="1"/>
+                                        <stop offset="65%" stop-color="#45f3ff" stop-opacity="0.6"/>
+                                        <stop offset="100%" stop-color="#0b0c10" stop-opacity="0"/>
+                                    </radialGradient>
+                                </defs>
+                                <circle cx="16" cy="16" r="13" fill="url(#orbGrad)"/>
+                                <circle cx="16" cy="16" r="9" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.8"/>
+                                <circle cx="16" cy="16" r="4" fill="#ffffff"/>
                             </svg>
                         </div>
-                        <div class="stream-label" id="screenshare-label">Screen Capture Pipe Offline</div>
+                        <div class="item-details">
+                            <h4>Nexus Ultra Orbs Pack</h4>
+                            <p>Allocation array of 250 units</p>
+                        </div>
+                    </div>
+                    <div class="price-tag">$4.99</div>
+                </div>
+
+                <div class="paypal-button-container">
+                    <a href="https://www.paypal.com/checkoutnow" target="_blank" rel="noopener noreferrer" class="paypal-btn">
+                        <span class="paypal-text">
+                            <svg class="icon-paypal" viewBox="0 0 24 24">
+                                <path d="M20 7.5c0 3-2.5 5.5-5.5 5.5h-2.2l-1.3 5.5H8.2l2.3-9.5H14.5c3 0 5.5-1.5 5.5-1.5z"/>
+                            </svg>
+                            <svg class="icon-paypal icon-paypal-italic" viewBox="0 0 24 24">
+                                <path d="M17 10.5c0 3-2.5 5.5-5.5 5.5H9.3l-1.3 5.5H5.2l2.3-9.5H11.5c3 0 5.5-1.5 5.5-1.5z"/>
+                            </svg>
+                            Buy Now with PayPal
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCREEN BLOCK 2: RUNTIME APPLICATION DATA CONTROL PLATFORM -->
+    <div id="chat-screen" class="screen">
+        
+        <!-- Sidebar Shell -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <svg class="icon icon-cyan" viewBox="0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                </svg>
+                <h2>Nexus Mainframe</h2>
+            </div>
+            
+            <div class="navigation-scroller">
+                <div>
+                    <div class="navigation-group-header">Communication Channels</div>
+                    <div class="channel-list" id="channel-container">
+                        <!-- Rendered systematically by state engine -->
                     </div>
                 </div>
 
-                <div class="call-controls-bar">
-                    <button class="control-btn" id="mute-audio-toggle" onclick="toggleMuteState()">Audio Unmuted</button>
-                    <button class="control-btn" id="webcam-video-toggle" onclick="toggleWebcamState()">Enable Camera</button>
-                    <button class="control-btn" id="screenshare-video-toggle" onclick="toggleScreenShareState()">Share Screen</button>
-                    <button class="control-btn active-state" onclick="toggleVoiceVideoCall()">Disconnect Stream</button>
-                    <div class="call-timer-node" id="call-duration-clock">00:00</div>
+                <div>
+                    <div class="navigation-group-header">Subsystems</div>
+                    <div class="channel-list">
+                        <div class="channel-item" id="nav-shop-trigger">
+                            <div class="channel-item-meta">
+                                <svg class="icon icon-sm icon-pink" viewBox="0 0 24 24">
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <path d="M12 8v8M8 12h8"></path>
+                                </svg>
+                                Buy More Orbs
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="thread-scroll-view" id="chat-thread-viewport"></div>
-
-            <div class="input-dock-bar">
-                <button type="button" class="mic-record-trigger-btn" id="voice-memo-toggle-btn" onclick="toggleVoiceMessageRecording()" title="Record Voice Message">
-                    <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
-                </button>
-
-                <input type="text" id="text-message-input-node" placeholder="Type a message into active stream..." onkeypress="trapInputKeypress(event)">
-                
-                <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Matrix Symbol">
-                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 1.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
-                </button>
-                
-                <div class="emoji-picker-matrix-overlay" id="emoji-picker-matrix-overlay">
-                    <div class="emoji-picker-header">Select Symbol Input</div>
-                    <div class="emoji-grid-scroller" id="emoji-grid-scroller-target"></div>
+            <!-- User Status Base Panel -->
+            <div class="user-profile-anchor">
+                <div class="profile-meta-block">
+                    <div class="avatar" style="width:34px; height:34px; font-size:13px;">
+                        OP
+                        <div class="status-indicator"></div>
+                    </div>
+                    <div class="profile-details">
+                        <h4>Operator_Node</h4>
+                        <p id="profile-orb-count">Orbs Active: 0</p>
+                    </div>
                 </div>
+                <button class="action-btn" id="theme-toggle-btn" title="Toggle Theme Matrix">
+                    <svg class="icon icon-sm" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.22" x2="5.64" y2="17.78"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
 
-                <button class="send-btn" id="send-message-dispatch-btn" onclick="executeTextDispatch()">Send Message</button>
-                
-                <div class="cooldown-progress-track">
-                    <div class="cooldown-progress-fill" id="cooldown-progress-fill-bar"></div>
+        <!-- Chat Architecture Chassis -->
+        <div class="chat-main">
+            <div class="chat-header">
+                <div class="channel-info-title" id="current-channel-title">
+                    <svg class="icon icon-cyan" viewBox="0 0 24 24"><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line></svg>
+                    loading-channel
+                </div>
+                <div class="header-actions">
+                    <button class="action-btn" id="clear-log-btn" title="Clear Stream Log">
+                        <svg class="icon icon-sm" viewBox="0 0 24 24">
+                            <polyline points="3 6 5 6 21 6"></polyline>
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Message Frame Logger -->
+            <div class="messages-container" id="chat-messages-log">
+                <!-- Programmatically generated by application modules -->
+            </div>
+
+            <!-- Action Input Bar -->
+            <div class="input-area">
+                <div class="input-wrapper">
+                    <input type="text" class="chat-input" id="terminal-input" placeholder="Transmit packet down-channel...">
+                    <button class="action-btn" id="terminal-send-btn">
+                        <svg class="icon" viewBox="0 0 24 24">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
                 </div>
             </div>
         </div>
+
+        <!-- Right Side Data-Intel Panel -->
+        <div class="intel-panel">
+            <div>
+                <div class="intel-section-title">System Metrics</div>
+                <div class="intel-card">
+                    <div class="stat-grid">
+                        <div class="stat-box">
+                            <div class="stat-val" id="metric-latency">42ms</div>
+                            <div class="stat-lbl">Relay Delay</div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-val" id="metric-load">0.02%</div>
+                            <div class="stat-lbl">Core Overhead</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <div class="intel-section-title">Identity Parameters</div>
+                <div class="intel-card" style="display:flex; flex-direction:column; gap:12px;">
+                    <div style="display:flex; justify-content:space-between; font-size:13px;">
+                        <span style="color:var(--text-muted)">Node Class:</span>
+                        <span style="font-weight:700; color:var(--accent-blue)">Standard Operator</span>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-size:13px;">
+                        <span style="color:var(--text-muted)">Buffer Token:</span>
+                        <span style="font-family:monospace; color:var(--text-secondary)">0x8F9C...2A</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <div id="nexus-shop-screen">
-        <div class="shop-header-navbar">
-            <a href="#" class="back-nav-link" onclick="closePremiumStorefront()">← Go Back</a>
-            <div class="shop-headline-title">NEXUS MULTIVERSE STOREFRONT</div>
-            
-            <div class="balance-container-pill">
-                <span>Balance:</span>
-                <span id="shop-balance-display-node">50,000 Orbs</span>
-            </div>
-        </div>
-
-        <div class="shop-showcase-scroller">
-            <div class="shop-layout-split-view">
-                
-                <div>
-                    <div class="shop-section-heading">Acquire Premium Currency (Orbs Pipeline)</div>
-                    <div class="shop-items-grid" id="shop-currency-grid-target"></div>
-                </div>
-
-                <div>
-                    <div class="shop-section-heading">Multi-Verse Customizations Shop</div>
-                    <div class="shop-items-grid" id="shop-items-grid-target"></div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
+    <!-- LARGE ARCHITECTURE STATE ENGINE SCRIPTING ENGINE -->
     <script>
-        let audioCtx;
-        function initAudioContext() {
-            if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        /**
+         * NEXUS CHAT CLIENT - ENTERPRISE DATA ENGINE SYSTEM
+         * Structural Database Initialization Modules
+         */
+        const AppState = {
+            currentChannel: "global-lounge",
+            orbsCount: 1250,
+            themeMode: "dark",
+            metrics: {
+                latency: 38,
+                load: 0.05
+            },
+            channels: {
+                "global-lounge": {
+                    name: "global-lounge",
+                    unread: 0,
+                    history: [
+                        { sender: "Axiom_Node", tag: "AX", time: "11:04 AM", text: "Main network interface pipeline generated successfully." },
+                        { sender: "Core_Daemon", tag: "CD", time: "11:15 AM", text: "Security layer validation verified. Welcome back operator." }
+                    ]
+                },
+                "orbs-subscribers": {
+                    name: "orbs-subscribers",
+                    unread: 3,
+                    history: [
+                        { sender: "Nexus_Prime", tag: "NP", time: "09:20 AM", text: "Exclusive access token structural arrays processing." },
+                        { sender: "Orbiter_Alpha", tag: "OA", time: "10:14 AM", text: "Orbs allocation configurations verified." }
+                    ]
+                },
+                "development-log": {
+                    name: "development-log",
+                    unread: 0,
+                    history: [
+                        { sender: "System_Log", tag: "SL", time: "01:00 AM", text: "All emoticons and emojis extracted out from compilation binaries safely." },
+                        { sender: "Compiler", tag: "CP", time: "02:45 AM", text: "Custom inline vector scaling modules active." }
+                    ]
+                }
             }
-        }
+        };
 
-        function playSynthFrequency(frequency, type, duration, volume = 0.2) {
-            try {
-                initAudioContext();
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = type;
-                osc.frequency.value = frequency;
-                gain.gain.setValueAtTime(volume, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + duration);
-            } catch (e) { 
-                console.log("Audio oscillation bypass caught: ", e); 
-            }
-        }
+        // Splash screen state transition definitions
+        const splashStages = [
+            { progress: 5, text: "Configuring kernel registers..." },
+            { progress: 12, text: "Allocating heap memory parameters..." },
+            { progress: 20, text: "Opening downstream routing sockets..." },
+            { progress: 28, text: "Connecting to secure relay node..." },
+            { progress: 35, text: "Establishing standard handshake authorization..." },
+            { progress: 42, text: "Syncing protocol manifests..." },
+            { progress: 50, text: "Validating structural integrity metrics..." },
+            { progress: 58, text: "Evaluating crypto key signatures..." },
+            { progress: 65, text: "Mapping visual matrix render buffers..." },
+            { progress: 72, text: "Parsing internal stylesheet layers..." },
+            { progress: 80, text: "Authenticating local node session..." },
+            { progress: 88, text: "Assembling core client dashboards..." },
+            { progress: 95, text: "Finalizing thread state triggers..." },
+            { progress: 100, text: "Nexus Ecosystem Operational" }
+        ];
 
-        function triggerMsgAlertTone() {
-            playSynthFrequency(750, 'sine', 0.15, 0.15);
-            setTimeout(() => playSynthFrequency(980, 'sine', 0.18, 0.15), 50);
-        }
+        // Core Dom Pointers
+        const dom = {
+            splashScreen: document.getElementById('splash-screen'),
+            chatScreen: document.getElementById('chat-screen'),
+            progressFill: document.getElementById('progress-fill'),
+            statusDisplay: document.getElementById('status-display'),
+            channelContainer: document.getElementById('channel-container'),
+            chatMessagesLog: document.getElementById('chat-messages-log'),
+            currentChannelTitle: document.getElementById('current-channel-title'),
+            terminalInput: document.getElementById('terminal-input'),
+            terminalSendBtn: document.getElementById('terminal-send-btn'),
+            clearLogBtn: document.getElementById('clear-log-btn'),
+            themeToggleBtn: document.getElementById('theme-toggle-btn'),
+            navShopTrigger: document.getElementById('nav-shop-trigger'),
+            profileOrbCount: document.getElementById('profile-orb-count'),
+            metricLatency: document.getElementById('metric-latency'),
+            metricLoad: document.getElementById('metric-load')
+        };
 
-        function triggerToggleMuteTone(isMuted) {
-            if (isMuted) {
-                playSynthFrequency(480, 'triangle', 0.15, 0.2);
-                setTimeout(() => playSynthFrequency(350, 'triangle', 0.18, 0.2), 50);
+        let activeStageIndex = 0;
+
+        /**
+         * Sequential Loop Loading Matrix
+         */
+        function processSplashSequence() {
+            if (activeStageIndex < splashStages.length) {
+                const currentStage = splashStages[activeStageIndex];
+                dom.progressFill.style.width = currentStage.progress + '%';
+                dom.statusDisplay.textContent = currentStage.text;
+                activeStageIndex++;
+                
+                // Flexible progressive simulation pacing
+                let dynamicDelay = 180;
+                if (currentStage.progress > 40 && currentStage.progress < 70) dynamicDelay = 110;
+                if (currentStage.progress > 85) dynamicDelay = 220;
+
+                setTimeout(processSplashSequence, dynamicDelay);
             } else {
-                playSynthFrequency(350, 'triangle', 0.15, 0.2);
-                setTimeout(() => playSynthFrequency(480, 'triangle', 0.18, 0.2), 50);
+                setTimeout(initializeMainSystemLayout, 400);
             }
         }
 
-        let currentProfileSessionName = "";
-        let currentProfileAvatarUrl = "";
-        let activeGlobalRailTab = "chat"; 
-        let activeChannelId = 'global-lobby';
-        let isCooldownActive = false;
+        /**
+         * Structural System Transition Initialization View
+         */
+        function initializeMainSystemLayout() {
+            dom.splashScreen.classList.remove('active');
+            dom.splashScreen.style.display = 'none';
+            dom.chatScreen.classList.add('active');
+            
+            // Build internal state layouts
+            syncProfileInformation();
+            renderChannelNavigationTree();
+            renderActiveChannelMessagesLog();
+            spawnBackgroundMetricsWorker();
 
-        let voiceMediaRecorder = null;
-        let voiceRecordedChunks = [];
-        let isVoiceRecording = false;
+            // Trigger window resize recalculations
+            if (typeof window.dispatchEvent === 'function') {
+                window.dispatchEvent(new Event('resize'));
+            }
+        }
 
-        let mqttClient = null;
-        const currentNetworkMeshRoomTopic = "nexuschat/matrix/public_lobby_sync";
+        /**
+         * Rendering Modules for Left Side Panel Channels Tree
+         */
+        function renderChannelNavigationTree() {
+            dom.channelContainer.innerHTML = '';
+            
+            Object.keys(AppState.channels).forEach(channelKey => {
+                const chan = AppState.channels[channelKey];
+                const activeClass = AppState.currentChannel === channelKey ? 'active' : '';
+                
+                const item = document.createElement('div');
+                item.className = `channel-item ${activeClass}`;
+                item.setAttribute('data-channel-id', channelKey);
+                
+                let unreadBadgeMarkup = '';
+                if (chan.unread > 0) {
+                    unreadBadgeMarkup = `<span class="badge">${chan.unread}</span>`;
+                }
 
-        let identityLinkingMatrix = {
-            google: { connected: false, name: null, avatar: null },
-            discord: { connected: false, name: null, avatar: null },
-            microsoft: { connected: false, name: null, avatar: null }
-        };
+                item.innerHTML = `
+                    <div class="channel-item-meta">
+                        <svg class="icon icon-sm" viewBox="0 0 24 24">
+                            <line x1="4" y1="9" x2="20" y2="9"></line>
+                            <line x1="4" y1="15" x2="20" y2="15"></line>
+                            <line x1="10" y1="3" x2="8" y2="21"></line>
+                            <line x1="16" y1="3" x2="14" y2="21"></line>
+                        </svg>
+                        <span>${chan.name}</span>
+                    </div>
+                    ${unreadBadgeMarkup}
+                `;
+                
+                item.addEventListener('click', () => {
+                    handleChannelShiftAction(channelKey);
+                });
 
-        let activeGroupHubs = [
-            { id: 'hub-alpha', name: 'Strategic Architecture' },
-            { id: 'hub-beta', name: 'Delta Engineering Crew' }
-        ];
+                dom.channelContainer.appendChild(item);
+            });
+        }
 
-        let channelDatabase = {
-            'global-lobby': { name: "Real Online Stream Lobby", history: [] }
-        };
+        /**
+         * Channel Routing Shift Trigger Handler
+         */
+        function handleChannelShiftAction(targetChannelKey) {
+            if (AppState.currentChannel === targetChannelKey) return;
+            
+            AppState.currentChannel = targetChannelKey;
+            AppState.channels[targetChannelKey].unread = 0; // Mark read
+            
+            renderChannelNavigationTree();
+            renderActiveChannelMessagesLog();
+        }
 
-        let liveStatesContentFeed = [];
+        /**
+         * Messages List Logger Core Rendering Framework
+         */
+        function renderActiveChannelMessagesLog() {
+            const activeChan = AppState.channels[AppState.currentChannel];
+            dom.currentChannelTitle.innerHTML = `
+                <svg class="icon icon-cyan" viewBox="0 0 24 24"><line x1="4" y1="9" x2="20" y2="9"></line><line x1="4" y1="15" x2="20" y2="15"></line><line x1="10" y1="3" x2="8" y2="21"></line><line x1="16" y1="3" x2="14" y2="21"></line></svg>
+                ${activeChan.name}
+            `;
+            
+            dom.chatMessagesLog.innerHTML = '';
+            
+            activeChan.history.forEach(msg => {
+                const card = document.createElement('div');
+                card.className = 'message-card';
+                
+                card.innerHTML = `
+                    <div class="avatar">${msg.tag}<div class="status-indicator"></div></div>
+                    <div class="message-content">
+                        <div class="msg-meta">
+                            <span class="msg-sender">${msg.sender}</span>
+                            <span class="msg-time">${msg.time}</span>
+                        </div>
+                        <div class="msg-bubble"></div>
+                    </div>
+                `;
+                
+                card.querySelector('.msg-bubble').textContent = msg.text;
+                dom.chatMessagesLog.appendChild(card);
+            });
+            
+            dom.chatMessagesLog.scrollTop = dom.chatMessagesLog.scrollHeight;
+        }
 
-        let localHardwareVideoStream = null;
-        let localHardwareDisplayStream = null;
-        let localMicrophoneAudioSource = null;
-        let localAudioAnalyserNode = null;
-        let micAnimationRequestId = null;
-        
-        let isCallActive = false;
-        let isAudioMuted = false;
-        let isCameraActive = false;
-        let isScreenSharing = false;
-        let callTimerInterval = null;
-        let elapsedCallSeconds = 0;
+        /**
+         * Client Packet Transmission Processing Node
+         */
+        function executePacketTransmission() {
+            const textContent = dom.terminalInput.value.trim();
+            if (textContent === '') return;
 
-        let betaWalletBalanceOrbs = 50000;
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
-        const shopInventoryMatrix = [
-            { id: 'nexus-elite', name: 'Nexus Elite Tier', desc: 'Premium custom user frame and advanced server scaling variables.', cost: 0, costDisplay: 'Free Tier Asset', iconType: 'elite', exclusive: true },
-            { id: 'magic-mists', name: 'Obsidian Cyan Theme Pack', desc: 'Forces alternative custom linear lighting vectors across target panels.', cost: 3500, costDisplay: '3500 Orbs', iconType: 'theme', exclusive: false },
-            { id: 'cyber-neon', name: 'Cyberpunk Sound Pack', desc: 'Alters notification alerts into retro digital oscillation clips.', cost: 1200, costDisplay: '1200 Orbs', iconType: 'audio', exclusive: false }
-        ];
+            // Append to database structure array memory model
+            AppState.channels[AppState.currentChannel].history.push({
+                sender: "Operator_Node",
+                tag: "OP",
+                time: timeString,
+                text: textContent
+            });
 
-        const orbPurchaseMatrix = [
-            { id: 'orbs-pack-sm', name: '1,000 Orbs Cache', desc: 'Micro currency packet injector for standard user customization components.', amount: 1000, price: '1.99', paypalUrl: 'https://www.paypal.com' },
-            { id: 'orbs-pack-md', name: '5,000 Orbs Vault', desc: 'Highly optimized transaction bundle configuration block.', amount: 5000, price: '4.99', paypalUrl: 'https://www.paypal.com' },
-            { id: 'orbs-pack-lg', name: '15,000 Orbs Matrix', desc: 'Elite core package allocation tier mapping maximum custom values.', amount: 15000, price: '9.99', paypalUrl: 'https://www.paypal.com' }
-        ];
+            renderActiveChannelMessagesLog();
+            dom.terminalInput.value = '';
 
-        // 8 Highly Optimized Matrix Icon Path Vectors to replace raw emojis natively
-        const svgIconVault = {
-            elite: `<svg viewBox="0 0 24 24" class="item-graphic-svg-node"><path d="M12 2L1 21h22L12 2zm0 4l7.53 13H4.47L12 6z"/></svg>`,
-            theme: `<svg viewBox="0 0 24 24" class="item-graphic-svg-node"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 12.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 16.5 8z"/></svg>`,
-            audio: `<svg viewBox="0 0 24 24" class="item-graphic-svg-node"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg>`,
-            orbIcon: `<svg viewBox="0 0 24 24"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 12 10 12-4.47 12-12S17.52 2 12 2zm0 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>`,
-            happySymbol: `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 3c-2.33 0-4.31 1.46-5.11 3.5h10.22c-.8-2.04-2.78-3.5-5.11-3.5z"/></svg>`,
-            sadSymbol: `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-11c.83 0 1.5.67 1.5 1.5S16.33 11 15.5 11 14 10.33 14 9.5s.67-1.5 1.5-1.5zm-7 0c.83 0 1.5.67 1.5 1.5S9.33 11 8.5 11 7 10.33 7 9.5 7.67 8 8.5 8zm3.5 6c-2.33 0-4.31 1.46-5.11 3.5h10.22c-.8-2.04-2.78-3.5-5.11-3.5z" transform="rotate(180 12 14)"/></svg>`,
-            coolSymbol: `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zM4.31 9.5h15.38c-.34-.84-1.2-1.5-2.19-1.5H6.5c-.99 0-1.85.66-2.19 1.5zM12 17.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>`,
-            sparkSymbol: `<svg viewBox="0 0 24 24"><path d="M12 2l2.4 7.2L22 10l-5.6 4.8L18 22l-6-4.8L6 22l1.6-7.2L2 10l7.6-.8z"/></svg>`
-        };
+            // Simulate systemic downstream validation pulse reply echo
+            setTimeout(() => {
+                if (AppState.currentChannel === "global-lounge") {
+                    triggerDaemonAutoResponse("Packet hash acknowledged. Transmission stream integrity checked.");
+                }
+            }, 800);
+        }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            syncBalanceIndicatorDisplay();
-            generateStorefrontCards();
-            populateSymbolPickerGrid();
-            evaluateCachedProfileState();
-            checkForPrivateInviteAddressParameters();
-            setupFiveMinuteInviteRefreshLoop();
+        /**
+         * Automated Core Reply Generation System Node
+         */
+        function triggerDaemonAutoResponse(replyStringText) {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+            AppState.channels[AppState.currentChannel].history.push({
+                sender: "Core_Daemon",
+                tag: "CD",
+                time: timeString,
+                text: replyStringText
+            });
+
+            renderActiveChannelMessagesLog();
+        }
+
+        /**
+         * Sync Profile Information Data
+         */
+        function syncProfileInformation() {
+            dom.profileOrbCount.textContent = `Orbs Active: ${AppState.orbsCount}`;
+        }
+
+        /**
+         * Environmental Performance Data Metrics Polling Simulator
+         */
+        function spawnBackgroundMetricsWorker() {
+            setInterval(() => {
+                // Fluctuating metric generation parameters
+                AppState.metrics.latency = Math.floor(Math.random() * 15) + 30;
+                AppState.metrics.load = (Math.random() * 0.08 + 0.01).toFixed(3);
+
+                dom.metricLatency.textContent = AppState.metrics.latency + "ms";
+                dom.metricLoad.textContent = AppState.metrics.load + "%";
+            }, 3000);
+        }
+
+        /**
+         * System Configuration Event Bindings Architecture
+         */
+        dom.terminalSendBtn.addEventListener('click', executePacketTransmission);
+        dom.terminalInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') executePacketTransmission();
         });
 
-        function syncBalanceIndicatorDisplay() {
-            const displayNode = document.getElementById('shop-balance-display-node');
-            if (displayNode) {
-                displayNode.innerText = `${betaWalletBalanceOrbs.toLocaleString()} Orbs`;
-            }
-        }
-
-        /* Setup real online messaging backend matrix link pipeline safely via public broker */
-        function connectRealTimeMqttPipeline() {
-            mqttClient = mqtt.connect('wss://broker.hivemq.com:8000/mqtt');
-
-            mqttClient.on('connect', () => {
-                console.log("Nexus Network Engine Pipeline Linked Successfully Online.");
-                mqttClient.subscribe(currentNetworkMeshRoomTopic);
-                
-                appendBubbleElement("System Protocol", "Connected directly to real-time sync matrix pipeline. Try running this file on your mobile or another PC tab!", "received");
-            });
-
-            mqttClient.on('message', (topic, dataPacket) => {
-                try {
-                    const parsedPayload = JSON.parse(dataPacket.toString());
-                    if (parsedPayload.senderTokenId !== currentProfileSessionName + "_token") {
-                        if (parsedPayload.dataType === "voice") {
-                            injectVoiceBubbleToChatLog(parsedPayload.sender, parsedPayload.mediaData, "received");
-                        } else {
-                            appendBubbleElement(parsedPayload.sender, parsedPayload.text, "received");
-                        }
-                    }
-                } catch(err) {
-                    console.log("Error evaluating dynamic stream packet input", err);
-                }
-            });
-        }
-
-        /* Checks URL parameters for private friend matrix invite links */
-        function checkForPrivateInviteAddressParameters() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const matrixCode = urlParams.get('matrix_invite') || urlParams.get('call');
-            if (matrixCode) {
-                try {
-                    const decName = atob(matrixCode);
-                    const pvtChannelId = 'pvt-node-' + matrixCode;
-                    
-                    channelDatabase[pvtChannelId] = {
-                        name: `Private Matrix (${decName})`,
-                        history: [
-                            { author: "System Protocol", content: `Established direct, end-to-end routing channel connection to player data handle [${decName}].`, variant: "received", timeCode: "Now" }
-                        ]
-                    };
-                    
-                    activeChannelId = pvtChannelId;
-                } catch(e) {
-                    console.log("Error handling URL routing parameter base64 string", e);
-                }
-            }
-        }
-
-        /* Continuous background processing task: generates a fresh token hash vector parameters layout block stack every 5 minutes */
-        function setupFiveMinuteInviteRefreshLoop() {
-            setInterval(() => {
-                if (currentProfileSessionName && currentProfileSessionName.trim() !== "") {
-                    const dynamicObfuscatedSalt = btoa(currentProfileSessionName + "-" + Date.now());
-                    const generatedLinkNode = `${window.location.origin}${window.location.pathname}?matrix_invite=${dynamicObfuscatedSalt}`;
-                    
-                    appendBubbleElement("System Protocol", `Automated Cycle Refresh complete: Fresh secure 5-minute invite address code generated dynamically: ${generatedLinkNode}`, "received");
-                }
-            }, 300000);
-        }
-
-        /* Generates a unique b64 address invitation code and triggers high fidelity display layer prompt box context */
-        function generatePrivateFriendMatrixCode() {
-            playSynthFrequency(880, 'sine', 0.2, 0.3);
-            if (!currentProfileSessionName) {
-                alert("Please initialize your workspace profile handle first before generating codes.");
-                return;
-            }
-            
-            const generatedB64Token = btoa(currentProfileSessionName + "-" + Math.floor(Math.random() * 1000));
-            const absoluteLandingURL = `${window.location.origin}${window.location.pathname}?matrix_invite=${generatedB64Token}`;
-            
-            const textareaDisplay = document.getElementById('nexus-invite-modal-textarea-display');
-            if (textareaDisplay) {
-                textareaDisplay.value = absoluteLandingURL;
-            }
-            
-            const auxTextArea = document.createElement("textarea");
-            auxTextArea.value = absoluteLandingURL;
-            document.body.appendChild(auxTextArea);
-            auxTextArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(auxTextArea);
-            
-            document.getElementById('nexus-invite-portal-overlay').style.display = 'flex';
-            appendBubbleElement("System Sync", `Generated secure invite matrix pointer hash token address link code cleanly. Ready for private peer pairing parameters.`, "received");
-        }
-
-        /* Focus and selects the inner link parameters explicitly within the modal frame node layer */
-        function executeManualModalCopyPattern() {
-            const targetDisplay = document.getElementById('nexus-invite-modal-textarea-display');
-            if (targetDisplay) {
-                targetDisplay.focus();
-                targetDisplay.select();
-                document.execCommand('copy');
-                alert("Link text sequence highlighted and captured safely inside your system storage pipeline clipboard layers.");
-            }
-        }
-
-        function evaluateCachedProfileState() {
-            let cachedName = localStorage.getItem('nexuschat_user_v6');
-            let cachedAvatar = localStorage.getItem('nexuschat_avatar_v6');
-            
-            if (cachedName && cachedName.trim() !== "") {
-                currentProfileSessionName = cachedName;
-                currentProfileAvatarUrl = cachedAvatar || "";
-                executeProfileUIRenderSync();
-                runCinematicProgressBar();
-                connectRealTimeMqttPipeline();
-            } else {
-                document.getElementById('splash-loading-portal').setTimeout;
-                document.getElementById('secure-login-gate-overlay').classList.remove('hidden');
-                document.getElementById('splash-loading-portal').classList.add('hidden');
-            }
-        }
-
-        function handleLocalAvatarSelection(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const previewBox = document.getElementById('portal-avatar-preview-box');
-                previewBox.innerHTML = `<img src="${e.target.result}" alt="Profile Preview">`;
-                currentProfileAvatarUrl = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function executeManualProfileCommit() {
-            const inputField = document.getElementById('portal-username-input-node');
-            let inputName = inputField.value.trim().replace(/\s+/g, '');
-            
-            if (!inputName) {
-                alert("Please enter a valid unique display string name.");
-                return;
-            }
-
-            currentProfileSessionName = inputName;
-            localStorage.setItem('nexuschat_user_v6', currentProfileSessionName);
-            if (currentProfileAvatarUrl) {
-                localStorage.setItem('nexuschat_avatar_v6', currentProfileAvatarUrl);
-            }
-
-            executeProfileUIRenderSync();
-            
-            document.getElementById('secure-login-gate-overlay').classList.add('hidden');
-            document.getElementById('splash-loading-portal').classList.remove('hidden');
-            runCinematicProgressBar();
-            connectRealTimeMqttPipeline();
-        }
-
-        function executeProfileUIRenderSync() {
-            document.getElementById('splash-user-target').innerText = currentProfileSessionName;
-            document.getElementById('my-username-node').innerText = currentProfileSessionName;
-            
-            const avatarNode = document.getElementById('my-avatar-node');
-            if (currentProfileAvatarUrl && currentProfileAvatarUrl.trim() !== "") {
-                avatarNode.innerHTML = `<img src="${currentProfileAvatarUrl}" alt="Avatar">`;
-            } else {
-                avatarNode.innerText = currentProfileSessionName.charAt(0).toUpperCase();
-            }
-        }
-
-        function runCinematicProgressBar() {
-            let progress = 0;
-            const fillBar = document.getElementById('splash-bar-fill');
-            const loaderInterval = setInterval(() => {
-                if (progress >= 100) {
-                    clearInterval(loaderInterval);
-                    terminateLoadingSplashSequence();
-                } else {
-                    progress += Math.floor(Math.random() * 20) + 8;
-                    if (progress > 100) progress = 100;
-                    if (fillBar) fillBar.style.width = progress + '%';
-                }
-            }, 50);
-        }
-
-        function terminateLoadingSplashSequence() {
-            setTimeout(() => {
-                document.getElementById('splash-loading-portal').classList.add('hidden');
-                document.getElementById('app-frame').classList.add('visible');
-                renderSidebarContextPanel();
-                loadTargetChannel(activeChannelId);
-            }, 200);
-        }
-
-        function switchGlobalRailContext(targetTab) {
-            playSynthFrequency(440, 'sine', 0.1, 0.1);
-            const tabs = ["chat", "groups", "states", "settings", "integrations"];
-            tabs.forEach(t => {
-                const node = document.getElementById(`tab-node-${t}`);
-                if (node) node.classList.remove('active');
-            });
-            activeGlobalRailTab = targetTab;
-            const activeNode = document.getElementById(`tab-node-${targetTab}`);
-            if (activeNode) activeNode.classList.add('active');
-            const statesView = document.getElementById('states-hub-engagement-view');
-            if (targetTab === 'states') {
-                statesView.style.display = 'flex';
-            } else {
-                statesView.style.display = 'none';
-            }
-            renderSidebarContextPanel();
-        }
-
-        function renderSidebarContextPanel() {
-            const container = document.getElementById('contacts-vertical-stack');
-            const primaryBtn = document.getElementById('sidebar-action-primary-btn');
-            if (!container || !primaryBtn) return;
-            container.innerHTML = '';
-            
-            if (activeGlobalRailTab === 'chat' || activeGlobalRailTab === 'states') {
-                primaryBtn.style.display = "block";
-                primaryBtn.innerText = "+ New Channel Stream";
-                primaryBtn.onclick = triggerChannelCreation;
-                for (let id in channelDatabase) {
-                    const isActive = (id === activeChannelId) ? 'active' : '';
-                    container.innerHTML += `<div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')"> <div class="row-avatar">#</div> <div class="row-meta"> <div class="row-name">${channelDatabase[id].name}</div> <div class="row-preview">Open communication logs...</div> </div> </div>`;
-                }
-            } else if (activeGlobalRailTab === 'groups') {
-                primaryBtn.style.display = "block";
-                primaryBtn.innerText = "+ Create Team Hub";
-                primaryBtn.onclick = () => {
-                    const title = prompt("Enter custom title label for group hub:");
-                    if (!title || !title.trim()) return;
-                    activeGroupHubs.push({ id: 'hub-' + Date.now(), name: title.trim() });
-                    renderSidebarContextPanel();
-                };
-                activeGroupHubs.forEach(group => {
-                    container.innerHTML += `<div class="chat-list-row"> <div class="row-avatar">#</div> <div class="row-meta"> <div class="row-name">${group.name}</div> <div class="row-preview">Active Team Workspace Node</div> </div> </div>`;
-                });
-            } else if (activeGlobalRailTab === 'settings') {
-                primaryBtn.style.display = "block";
-                primaryBtn.innerText = "Check Status Keys";
-                primaryBtn.onclick = () => alert("Security layers running securely.");
-                const connections = [
-                    { id: 'google', name: 'Google Workspace' },
-                    { id: 'discord', name: 'Discord Gateway' },
-                    { id: 'microsoft', name: 'Microsoft Identity' }
-                ];
-                connections.forEach(c => {
-                    const isLinked = identityLinkingMatrix[c.id].connected;
-                    const statusText = isLinked ? "Connected ✓" : "Disconnected ✗";
-                    container.innerHTML += `<div style="padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.02);"> <div style="font-weight:600; font-size:13px; margin-bottom:4px;">${c.name}</div> <div style="font-size:11px; color: ${isLinked ? 'var(--success-green)' : 'var(--text-muted)'}; margin-bottom:8px;">${statusText}</div> </div>`;
-                });
-            } else if (activeGlobalRailTab === 'integrations') {
-                primaryBtn.style.display = "none";
-                container.innerHTML = `<div style="padding: 16px; font-size: 12px; color: var(--text-muted); text-align: center;">No third-party packages wired to current profile context.</div>`;
-            }
-        }
-
-        function loadTargetChannel(channelId) {
-            if (!channelDatabase[channelId]) return;
-            activeChannelId = channelId;
-            document.getElementById('active-chat-headline-node').innerText = channelDatabase[channelId].name;
-            
-            const rows = document.querySelectorAll('.chat-list-row');
-            rows.forEach(row => row.classList.remove('active'));
-            
-            renderSidebarContextPanel();
-            repaintMessageLogs();
-        }
-
-        function populateSymbolPickerGrid() {
-            const scroller = document.getElementById('emoji-grid-scroller-target');
-            if (!scroller) return;
-            scroller.innerHTML = '';
-            
-            const internalSymbols = [
-                { token: '[HAPPY_MATRIX_NODE]', label: 'happySymbol' },
-                { token: '[SAD_MATRIX_NODE]', label: 'sadSymbol' },
-                { token: '[COOL_MATRIX_NODE]', label: 'coolSymbol' },
-                { token: '[SPARK_MATRIX_NODE]', label: 'sparkSymbol' }
+        dom.clearLogBtn.addEventListener('click', () => {
+            AppState.channels[AppState.currentChannel].history = [
+                { sender: "System_Log", tag: "SL", time: "System", text: "Log session diagnostics cleared by client administrative request." }
             ];
+            renderActiveChannelMessagesLog();
+        });
 
-            internalSymbols.forEach(sym => {
-                const cell = document.createElement('div');
-                cell.className = 'emoji-grid-item-cell';
-                cell.innerHTML = svgIconVault[sym.label];
-                cell.setAttribute('title', `Insert ${sym.token}`);
-                cell.onclick = () => injectSymbolTokenToInputBox(sym.token);
-                scroller.appendChild(cell);
-            });
-        }
-
-        function toggleInlineEmojiPickerTray() {
-            const overlay = document.getElementById('emoji-picker-matrix-overlay');
-            if (!overlay) return;
-            overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
-        }
-
-        function injectSymbolTokenToInputBox(tokenString) {
-            const textInput = document.getElementById('text-message-input-node');
-            if (!textInput) return;
-            textInput.value += " " + tokenString + " ";
-            textInput.focus();
-            toggleInlineEmojiPickerTray();
-        }
-
-        function executeTextDispatch() {
-            if (isCooldownActive) {
-                alert("Spam detected. Cooldown active.");
-                return;
-            }
-            const inputField = document.getElementById('text-message-input-node');
-            const dispatchBtn = document.getElementById('send-message-dispatch-btn');
-            const progressFill = document.getElementById('cooldown-progress-fill-bar');
-            const dataString = inputField.value.trim();
-            if (!dataString) return;
-            
-            appendBubbleElement(currentProfileSessionName, dataString, "sent");
-
-            if (mqttClient && mqttClient.connected) {
-                const payloadPacket = {
-                    sender: currentProfileSessionName,
-                    senderTokenId: currentProfileSessionName + "_token",
-                    dataType: "text",
-                    text: dataString
-                };
-                mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify(payloadPacket));
-            }
-
-            inputField.value = '';
-            isCooldownActive = true;
-            inputField.disabled = true;
-            dispatchBtn.disabled = true;
-            
-            if (progressFill) {
-                progressFill.style.transition = 'none';
-                progressFill.style.width = '100%';
-                setTimeout(() => {
-                    progressFill.style.transition = 'width 2000ms linear';
-                    progressFill.style.width = '0%';
-                }, 10);
-            }
-            
-            setTimeout(() => {
-                isCooldownActive = false;
-                inputField.disabled = false;
-                dispatchBtn.disabled = false;
-                inputField.focus();
-            }, 2000);
-        }
-
-        async function toggleVoiceMessageRecording() {
-            const recBtn = document.getElementById('voice-memo-toggle-btn');
-            if (!isVoiceRecording) {
-                try {
-                    const audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                    voiceRecordedChunks = [];
-                    voiceMediaRecorder = new MediaRecorder(audioStream);
-                    
-                    voiceMediaRecorder.ondataavailable = (e) => {
-                        if (e.data.size > 0) voiceRecordedChunks.push(e.data);
-                    };
-                    
-                    voiceMediaRecorder.onstop = () => {
-                        const voiceBlob = new Blob(voiceRecordedChunks, { type: 'audio/webm' });
-                        const voiceReader = new FileReader();
-                        voiceReader.readAsDataURL(voiceBlob);
-                        voiceReader.onloadend = function() {
-                            const rawBase64VoiceString = voiceReader.result;
-                            
-                            injectVoiceBubbleToChatLog(currentProfileSessionName, rawBase64VoiceString, "sent");
-
-                            if (mqttClient && mqttClient.connected) {
-                                const payloadPacket = {
-                                    sender: currentProfileSessionName,
-                                    senderTokenId: currentProfileSessionName + "_token",
-                                    dataType: "voice",
-                                    mediaData: rawBase64VoiceString
-                                };
-                                mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify(payloadPacket));
-                            }
-                        }
-                        audioStream.getTracks().forEach(t => t.stop());
-                    };
-                    
-                    voiceMediaRecorder.start();
-                    isVoiceRecording = true;
-                    recBtn.classList.add('recording-active');
-                    recBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-2h2v2zm0-4H9V7h2v5zm4 4h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>`;
-                    playSynthFrequency(660, 'sine', 0.1, 0.3);
-                } catch(err) {
-                    console.error("Recording system failure mapping microphone inputs:", err);
-                    alert("Unable to allocate system recording devices. Please confirm microphone access rules.");
-                }
+        dom.themeToggleBtn.addEventListener('click', () => {
+            if (AppState.themeMode === "dark") {
+                document.body.classList.add('light-theme');
+                AppState.themeMode = "light";
             } else {
-                if (voiceMediaRecorder && voiceMediaRecorder.state !== "inactive") {
-                    voiceMediaRecorder.stop();
-                }
-                isVoiceRecording = false;
-                recBtn.classList.remove('recording-active');
-                recBtn.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>`;
-                playSynthFrequency(440, 'sine', 0.15, 0.2);
+                document.body.classList.remove('light-theme');
+                AppState.themeMode = "dark";
             }
-        }
+        });
 
-        function injectVoiceBubbleToChatLog(author, blobURL, variant) {
-            if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
-            const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        dom.navShopTrigger.addEventListener('click', () => {
+            // Re-route processing state back to splash node shop interface safely
+            dom.chatScreen.classList.remove('active');
+            dom.splashScreen.style.display = 'flex';
+            dom.splashScreen.classList.add('active');
             
-            channelDatabase[activeChannelId].history.push({ 
-                author, 
-                content: "", 
-                variant, 
-                timeCode,
-                voiceURL: blobURL 
-            });
-            
-            repaintMessageLogs();
-        }
+            // Re-configure stage loaders for immediate workspace shifts back
+            activeStageIndex = splashStages.length - 1; 
+            dom.progressFill.style.width = '100%';
+            dom.statusDisplay.textContent = "Nexus Core Shop Module Loaded";
+        });
 
-        function appendBubbleElement(author, content, variant) {
-            if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
-            const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            channelDatabase[activeChannelId].history.push({ author, content, variant, timeCode });
-            if (variant === 'received') triggerMsgAlertTone();
-            repaintMessageLogs();
-        }
-
-        function parseCustomTokensToVectorHTML(rawTextString) {
-            let processedOutput = rawTextString
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;");
-
-            const tokenMapping = [
-                { pattern: /\[HAPPY_MATRIX_NODE\]/g, html: `<span style="display:inline-block; vertical-align:middle; width:20px; height:20px; color:var(--primary-accent); fill:currentColor; margin:0 2px;">${svgIconVault.happySymbol}</span>` },
-                { pattern: /\[SAD_MATRIX_NODE\]/g, html: `<span style="display:inline-block; vertical-align:middle; width:20px; height:20px; color:var(--text-muted); fill:currentColor; margin:0 2px;">${svgIconVault.sadSymbol}</span>` },
-                { pattern: /\[COOL_MATRIX_NODE\]/g, html: `<span style="display:inline-block; vertical-align:middle; width:20px; height:20px; color:var(--gold-accent); fill:currentColor; margin:0 2px;">${svgIconVault.coolSymbol}</span>` },
-                { pattern: /\[SPARK_MATRIX_NODE\]/g, html: `<span style="display:inline-block; vertical-align:middle; width:20px; height:20px; color:var(--pink-neon); fill:currentColor; margin:0 2px;">${svgIconVault.sparkSymbol}</span>` }
-            ];
-
-            tokenMapping.forEach(mapRule => {
-                processedOutput = processedOutput.replace(mapRule.pattern, mapRule.html);
-            });
-
-            return processedOutput;
-        }
-
-        function repaintMessageLogs() {
-            const viewTarget = document.getElementById('chat-thread-viewport');
-            if(!viewTarget) return;
-            viewTarget.innerHTML = '';
-            const logs = channelDatabase[activeChannelId].history || [];
-            
-            logs.forEach((msg, idx) => {
-                if (msg.voiceURL) {
-                    viewTarget.innerHTML += `
-                        <div class="msg-bubble ${msg.variant}">
-                            <span class="msg-author">${msg.author}</span>
-                            <div class="voice-memo-node-frame">
-                                <button class="voice-play-trigger-btn" onclick="playTargetVoiceTrack('${msg.voiceURL}', this)">
-                                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                </button>
-                                <div class="voice-waveform-simulation">
-                                    <div class="waveform-bar-element" style="height: 40%"></div>
-                                    <div class="waveform-bar-element" style="height: 70%"></div>
-                                    <div class="waveform-bar-element" style="height: 50%"></div>
-                                    <div class="waveform-bar-element" style="height: 90%"></div>
-                                    <div class="waveform-bar-element" style="height: 60%"></div>
-                                    <div class="waveform-bar-element" style="height: 80%"></div>
-                                </div>
-                            </div>
-                            <div class="msg-footer">${msg.timeCode}</div>
-                        </div>`;
-                } else {
-                    const parsedContentHTML = parseCustomTokensToVectorHTML(msg.content);
-                    viewTarget.innerHTML += `<div class="msg-bubble ${msg.variant}"> <span class="msg-author">${msg.author}</span> <div>${parsedContentHTML}</div> <div class="msg-footer">${msg.timeCode}</div> </div>`;
-                }
-            });
-            viewTarget.scrollTop = viewTarget.scrollHeight;
-        }
-
-        function playTargetVoiceTrack(trackURL, elementNode) {
-            const voiceAudio = new Audio(trackURL);
-            const waveBars = elementNode.parentElement.querySelectorAll('.waveform-bar-element');
-            
-            elementNode.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
-            waveBars.forEach(bar => bar.classList.add('active-pulse'));
-            
-            voiceAudio.play();
-            voiceAudio.onended = () => {
-                elementNode.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
-                waveBars.forEach(bar => bar.classList.remove('active-pulse'));
-            };
-        }
-
-        function trapInputKeypress(e) {
-            if (e.key === 'Enter') executeTextDispatch();
-        }
-
-        function triggerChannelCreation() {
-            const titleInput = prompt("Enter name for new custom chat room:");
-            if (!titleInput || titleInput.trim() === "") return;
-            const generatedId = 'ch-node-' + Date.now();
-            channelDatabase[generatedId] = { name: titleInput.trim(), history: [] };
-            loadTargetChannel(generatedId);
-        }
-
-        function performProfileHardwareReset() {
-            localStorage.removeItem('nexuschat_user_v6');
-            localStorage.removeItem('nexuschat_avatar_v6');
-            window.location.reload();
-        }
-
-        function processNewStateMediaUpload(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const assetBlobUrl = URL.createObjectURL(file);
-            const isVideo = file.type.startsWith('video/');
-            const newStateNode = {
-                id: 'state-id-' + Date.now(),
-                author: currentProfileSessionName,
-                url: assetBlobUrl,
-                videoType: isVideo
-            };
-            liveStatesContentFeed.unshift(newStateNode);
-            repaintStatesCarouselTrack();
-        }
-
-        function repaintStatesCarouselTrack() {
-            const track = document.getElementById('states-carousel-scroller-track');
-            if (!track) return;
-            track.innerHTML = '';
-            liveStatesContentFeed.forEach(state => {
-                let mediaElementHTML = state.videoType
-                    ? `<video src="${state.url}" class="state-media-preview-element" autoplay loop muted playsinline></video>`
-                    : `<img src="${state.url}" class="state-media-preview-element" alt="State Asset">`;
-                track.innerHTML += `<div class="state-content-card-node"> ${mediaElementHTML} <div class="state-author-tag">${state.author}</div> </div>`;
-            });
-        }
-
-        function generateStorefrontCards() {
-            const customizationsTarget = document.getElementById('shop-items-grid-target');
-            if (customizationsTarget) {
-                customizationsTarget.innerHTML = '';
-                shopInventoryMatrix.forEach(item => {
-                    const badgeHTML = item.exclusive ? `<div class="item-badge-exclusive">EXCLUSIVE</div>` : '';
-                    const isAffordable = betaWalletBalanceOrbs >= item.cost;
-                    const disabledState = !isAffordable ? 'disabled style="opacity: 0.4; cursor: not-allowed;"' : '';
-                    
-                    customizationsTarget.innerHTML += `
-                        <div class="shop-item-card"> 
-                            ${badgeHTML} 
-                            <div class="item-graphic-wrapper"> 
-                                <div class="item-graphic-ring"></div> 
-                                ${svgIconVault[item.iconType]} 
-                            </div> 
-                            <div class="item-meta-name">${item.name}</div> 
-                            <div class="item-meta-desc">${item.desc}</div> 
-                            <div class="item-action-row"> 
-                                <div class="item-price-tag">
-                                    <span style="display:inline-block; width:14px; height:14px; fill:currentColor; margin-right:4px;">${svgIconVault.orbIcon}</span>
-                                    ${item.costDisplay}
-                                </div> 
-                                <button class="buy-action-trigger" id="btn-claim-${item.id}" ${disabledState} onclick="executeItemPurchase('${item.id}', ${item.cost})">Unlock Item</button> 
-                            </div> 
-                        </div>`;
-                });
-            }
-
-            const currencyTarget = document.getElementById('shop-currency-grid-target');
-            if (currencyTarget) {
-                currencyTarget.innerHTML = '';
-                orbPurchaseMatrix.forEach(pack => {
-                    currencyTarget.innerHTML += `
-                        <div class="shop-item-card" style="border-color: rgba(245, 166, 35, 0.3);">
-                            <div class="item-graphic-wrapper">
-                                <div class="item-graphic-ring" style="border-color: rgba(245, 166, 35, 0.2);"></div>
-                                <div style="width:40px; height:40px; color:var(--gold-accent); fill:currentColor;">${svgIconVault.orbIcon}</div>
-                            </div>
-                            <div class="item-meta-name" style="color:var(--gold-accent);">${pack.name}</div>
-                            <div class="item-meta-desc">${pack.desc}</div>
-                            <div class="item-action-row">
-                                <div class="item-price-tag">\$${pack.price} USD</div>
-                                <a href="${pack.paypalUrl}" target="_blank" rel="noopener noreferrer" class="buy-action-trigger" style="color:var(--gold-accent); border-color:var(--gold-accent);" onclick="simulateOrbInboundCredit(${pack.amount})">Buy via PayPal</a>
-                            </div>
-                        </div>`;
-                });
-            }
-        }
-
-        function simulateOrbInboundCredit(amountToCredit) {
-            // Real-time account parameter data synchronization total verification math block rule
-            const originalWalletBalance = betaWalletBalanceOrbs;
-            betaWalletBalanceOrbs = originalWalletBalance + amountToCredit;
-            
-            console.log(`Real-Time Calculation: ${originalWalletBalance} + ${amountToCredit} = ${betaWalletBalanceOrbs}`);
-            
-            syncBalanceIndicatorDisplay();
-            generateStorefrontCards();
-            
-            setTimeout(() => {
-                appendBubbleElement("System Store", `PayPal checkout transmission confirmed. Successfully credited +${amountToCredit.toLocaleString()} Orbs into your active storage configuration.`, "received");
-            }, 1000);
-        }
-
-        function executeItemPurchase(itemId, itemCost) {
-            if (betaWalletBalanceOrbs < itemCost) {
-                alert("Insufficient Orbs balance. Purchase a pack through the PayPal injection hub.");
-                return;
-            }
-
-            const targetBtn = document.getElementById(`btn-claim-${itemId}`);
-            playSynthFrequency(880, 'sine', 0.3, 0.4);
-            
-            const originalWalletBalance = betaWalletBalanceOrbs;
-            betaWalletBalanceOrbs = originalWalletBalance - itemCost;
-            console.log(`Real-Time Transaction: ${originalWalletBalance} - ${itemCost} = ${betaWalletBalanceOrbs}`);
-            
-            syncBalanceIndicatorDisplay();
-            generateStorefrontCards();
-
-            if (targetBtn) {
-                targetBtn.innerText = "✓ Unlocked";
-                targetBtn.classList.add('unlocked');
-                targetBtn.disabled = true;
-                targetBtn.onclick = null;
-            }
-            appendBubbleElement("System Store", `Successfully locked [${itemId}] structural asset modifications to your profile container!`, "received");
-        }
-
-        function openPremiumStorefront() {
-            playSynthFrequency(580, 'sine', 0.2, 0.2);
-            syncBalanceIndicatorDisplay();
-            generateStorefrontCards();
-            document.getElementById('nexus-shop-screen').style.display = 'flex';
-        }
-
-        function closePremiumStorefront() {
-            playSynthFrequency(440, 'sine', 0.15, 0.15);
-            document.getElementById('nexus-shop-screen').style.display = 'none';
-        }
-
-        async function toggleVoiceVideoCall() {
-            const layerBlock = document.getElementById('call-interface-layer');
-            const joinBtn = document.querySelector('.call-action-btn');
-            isCallActive = !isCallActive;
-            if (isCallActive) {
-                layerBlock.style.display = 'flex';
-                joinBtn.innerText = "Disconnect Stream";
-                joinBtn.style.borderColor = "var(--danger-red)";
-                joinBtn.style.color = "var(--danger-red)";
-                initiateChronometerClock();
-                playSynthFrequency(520, 'sine', 0.2, 0.25);
-            } else {
-                layerBlock.style.display = 'none';
-                joinBtn.innerText = "Connect Live Streams";
-                joinBtn.style.borderColor = "var(--primary-accent)";
-                joinBtn.style.color = "var(--primary-accent)";
-                terminateChronometerClock();
-                cleanupHardwareTracks();
-                playSynthFrequency(320, 'sine', 0.2, 0.25);
-            }
-        }
-
-        async function toggleWebcamState() {
-            const videoElement = document.getElementById('hardware-webcam-stream');
-            const camBtn = document.getElementById('webcam-video-toggle');
-            const mockBox = document.getElementById('webcam-canvas');
-            const label = document.getElementById('webcam-label');
-            if (!isCallActive) return alert("Please enter the live call channel stream frame first.");
-            isCameraActive = !isCameraActive;
-            triggerToggleMuteTone(!isCameraActive);
-            
-            if (isCameraActive) {
-                try {
-                    localHardwareVideoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                    videoElement.srcObject = localHardwareVideoStream;
-                    mockBox.style.display = 'none';
-                    camBtn.innerText = "Disable Camera";
-                    camBtn.classList.add('active-state');
-                    label.innerText = "Live System Camera Feed (Active)";
-                    initiateMicrophoneAnalysisAudioEngine(localHardwareVideoStream);
-                } catch (err) {
-                    console.error("Camera device mapping failure: ", err);
-                    alert("Could not access your physical webcam device.");
-                    isCameraActive = false;
-                }
-            } else {
-                if (localHardwareVideoStream) {
-                    localHardwareVideoStream.getTracks().forEach(track => track.stop());
-                }
-                videoElement.srcObject = null;
-                mockBox.style.display = 'flex';
-                camBtn.innerText = "Enable Camera";
-                camBtn.classList.remove('active-state');
-                label.innerText = "Camera Interface Offline";
-                haltMicrophoneAnalysisAudioEngine();
-            }
-        }
-
-        function initiateMicrophoneAnalysisAudioEngine(streamObject) {
-            try {
-                initAudioContext();
-                localMicrophoneAudioSource = audioCtx.createMediaStreamSource(streamObject);
-                localAudioAnalyserNode = audioCtx.createAnalyser();
-                localAudioAnalyserNode.fftSize = 64;
-                localMicrophoneAudioSource.connect(localAudioAnalyserNode);
-                executeEqualizerRenderFrameLoop();
-            } catch (err) {
-                console.log("Audio visualizer node assignment error: ", err);
-            }
-        }
-
-        function executeEqualizerRenderFrameLoop() {
-            if (!localAudioAnalyserNode) return;
-            const bufferLen = localAudioAnalyserNode.frequencyBinCount;
-            const dataArray = new Uint8Array(bufferLen);
-            localAudioAnalyserNode.getByteFrequencyData(dataArray);
-            let frequencySum = 0;
-            for (let i = 0; i < bufferLen; i++) {
-                frequencySum += dataArray[i];
-            }
-            const averageVolume = frequencySum / bufferLen;
-            const targetContainer = document.getElementById('webcam-hardware-window-node');
-            
-            if (targetContainer) {
-                if (averageVolume > 25) {
-                    targetContainer.classList.add('speaking-active');
-                    let dynamicGlowRadius = Math.min(30, Math.floor(averageVolume / 3));
-                    targetContainer.style.boxShadow = `0 0 ${dynamicGlowRadius}px var(--primary-glow), inset 0 0 20px rgba(0, 255, 255, 0.15)`;
-                } else {
-                    targetContainer.classList.remove('speaking-active');
-                    targetContainer.style.boxShadow = 'none';
-                }
-            }
-            micAnimationRequestId = requestAnimationFrame(executeEqualizerRenderFrameLoop);
-        }
-
-        function haltMicrophoneAnalysisAudioEngine() {
-            if (micAnimationRequestId) cancelAnimationFrame(micAnimationRequestId);
-            const targetContainer = document.getElementById('webcam-hardware-window-node');
-            if (targetContainer) {
-                targetContainer.classList.remove('speaking-active');
-                targetContainer.style.boxShadow = 'none';
-            }
-            if (localMicrophoneAudioSource) localMicrophoneAudioSource.disconnect();
-            localAudioAnalyserNode = null;
-            localMicrophoneAudioSource = null;
-        }
-
-        async function toggleScreenShareState() {
-            const shareElement = document.getElementById('hardware-screenshare-stream');
-            const screenBtn = document.getElementById('screenshare-video-toggle');
-            const mockBox = document.getElementById('screenshare-canvas');
-            const label = document.getElementById('screenshare-label');
-            if (!isCallActive) return alert("Please enter the live call channel stream frame first.");
-            isScreenSharing = !isScreenSharing;
-            playSynthFrequency(600, 'triangle', 0.1, 0.2);
-            
-            if (isScreenSharing) {
-                try {
-                    localHardwareDisplayStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-                    shareElement.srcObject = localHardwareDisplayStream;
-                    mockBox.style.display = 'none';
-                    screenBtn.innerText = "Stop Sharing";
-                    screenBtn.classList.add('active-state');
-                    label.innerText = "Display Canvas Sharing Live";
-                    localHardwareDisplayStream.getVideoTracks()[0].onended = () => {
-                        if (isScreenSharing) toggleScreenShareState();
-                    };
-                } catch (err) {
-                    console.error("Screen Share capture error: ", err);
-                    isScreenSharing = false;
-                }
-            } else {
-                if (localHardwareDisplayStream) {
-                    localHardwareDisplayStream.getTracks().forEach(track => track.stop());
-                }
-                shareElement.srcObject = null;
-                mockBox.style.display = 'flex';
-                screenBtn.innerText = "Share Screen";
-                screenBtn.classList.remove('active-state');
-                label.innerText = "Screen Capture Pipe Offline";
-            }
-        }
-
-        function toggleMuteState() {
-            isAudioMuted = !isAudioMuted;
-            const muteBtn = document.getElementById('mute-audio-toggle');
-            if (localHardwareVideoStream) {
-                localHardwareVideoStream.getAudioTracks().forEach(track => {
-                    track.enabled = !isAudioMuted;
-                });
-            }
-            if (isAudioMuted) {
-                muteBtn.innerText = "Audio Muted";
-                muteBtn.classList.add('active-state');
-            } else {
-                muteBtn.innerText = "Audio Unmuted";
-                muteBtn.classList.remove('active-state');
-            }
-            triggerToggleMuteTone(isAudioMuted);
-        }
-
-        function cleanupHardwareTracks() {
-            haltMicrophoneAnalysisAudioEngine();
-            if (localHardwareVideoStream) {
-                localHardwareVideoStream.getTracks().forEach(track => track.stop());
-                localHardwareVideoStream = null;
-            }
-            if (localHardwareDisplayStream) {
-                localHardwareDisplayStream.getTracks().forEach(track => track.stop());
-                localHardwareDisplayStream = null;
-            }
-            document.getElementById('hardware-webcam-stream').srcObject = null;
-            document.getElementById('hardware-screenshare-stream').srcObject = null;
-            document.getElementById('webcam-canvas').style.display = 'flex';
-            document.getElementById('screenshare-canvas').style.display = 'flex';
-            isCameraActive = false;
-            isScreenSharing = false;
-            isAudioMuted = false;
-            
-            const camBtn = document.getElementById('webcam-video-toggle');
-            const screenBtn = document.getElementById('screenshare-video-toggle');
-            const muteBtn = document.getElementById('mute-audio-toggle');
-            if (camBtn) camBtn.classList.remove('active-state');
-            if (screenBtn) screenBtn.classList.remove('active-state');
-            if (muteBtn) {
-                muteBtn.innerText = "Audio Unmuted";
-                muteBtn.classList.remove('active-state');
-            }
-        }
-
-        function initiateChronometerClock() {
-            elapsedCallSeconds = 0;
-            const durationClock = document.getElementById('call-duration-clock');
-            callTimerInterval = setInterval(() => {
-                elapsedCallSeconds++;
-                
-                if (elapsedCallSeconds >= 60) {
-                    executePremiumLimitationCutoff();
-                    return;
-                }
-                
-                let displayMinutes = String(Math.floor(elapsedCallSeconds / 60)).padStart(2, '0');
-                let displaySeconds = String(elapsedCallSeconds % 60).padStart(2, '0');
-                if (durationClock) durationClock.innerText = `${displayMinutes}:${displaySeconds}`;
-            }, 1000);
-        }
-
-        function executePremiumLimitationCutoff() {
-            terminateChronometerClock();
-            cleanupHardwareTracks();
-            isCallActive = false;
-            
-            const layerBlock = document.getElementById('call-interface-layer');
-            const joinBtn = document.querySelector('.call-action-btn');
-            if (layerBlock) layerBlock.style.display = 'none';
-            if (joinBtn) {
-                joinBtn.innerText = "Connect Live Streams";
-                joinBtn.style.borderColor = "var(--primary-accent)";
-                joinBtn.style.color = "var(--primary-accent)";
-            }
-            
-            document.getElementById('nexus-premium-upgrade-overlay').style.display = 'flex';
-            playSynthFrequency(220, 'sawtooth', 0.4, 0.3);
-        }
-
-        function closePremiumLimitOverlayReset() {
-            document.getElementById('nexus-premium-upgrade-overlay').style.display = 'none';
-        }
-
-        function terminateChronometerClock() {
-            clearInterval(callTimerInterval);
-            document.getElementById('call-duration-clock').innerText = "00:00";
-        }
+        // Bootstrap Runtime Sequence initialization trigger
+        window.onload = function() {
+            setTimeout(processSplashSequence, 300);
+        };
     </script>
 </body>
 </html>
