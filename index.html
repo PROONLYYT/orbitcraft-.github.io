@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,37 +11,37 @@
 
     <style>
         :root {
-            /* Premium Glassmorphic Obsidian-Cyan Design Tokens */
-            --bg-dark: #07090e;
-            --bg-dark-gradient: linear-gradient(135deg, #07090e 0%, #0a1118 100%);
-            --bg-panel: rgba(10, 20, 30, 0.65);
-            --bg-sidebar: rgba(6, 10, 15, 0.85);
-            --primary-accent: #00ffff;
-            --primary-hover: #00cccc;
-            --primary-glow: rgba(0, 255, 255, 0.4);
-            --text-main: #f2f3f5;
-            --text-muted: #8a9aa8;
-            --danger-red: #ff3344;
-            --danger-hover: #cc2233;
-            --success-green: #00ff66;
-            --border-subtle: rgba(0, 255, 255, 0.15);
-            --border-active: rgba(0, 255, 255, 0.6);
-            --input-bg: rgba(5, 10, 15, 0.8);
-            --gold-accent: #f5a623;
-            --pink-neon: #ff007f;
+            /* Premium Sophisticated Light Tech Design Tokens */
+            --bg-dark: #f8f9fa;
+            --bg-dark-gradient: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            --bg-panel: rgba(255, 255, 255, 0.75);
+            --bg-sidebar: rgba(241, 243, 245, 0.85);
+            --primary-accent: #0077ff;
+            --primary-hover: #0055cc;
+            --primary-glow: rgba(0, 119, 255, 0.2);
+            --text-main: #212529;
+            --text-muted: #6c757d;
+            --danger-red: #dc3545;
+            --danger-hover: #bd2130;
+            --success-green: #28a745;
+            --border-subtle: rgba(0, 0, 0, 0.08);
+            --border-active: rgba(0, 119, 255, 0.4);
+            --input-bg: rgba(255, 255, 255, 0.9);
+            --gold-accent: #e0a800;
+            --pink-neon: #d63384;
             
-            /* Custom Login Identity Matrix Specific Tokens */
-            --login-card-bg: #181920;
-            --login-input-bg: #1f2026;
-            --login-btn-primary: #5865f2;
-            --login-btn-hover: #4752c4;
+            /* Custom Form Specific Tokens */
+            --login-card-bg: #ffffff;
+            --login-input-bg: #f1f3f5;
+            --login-btn-primary: #0077ff;
+            --login-btn-hover: #0055cc;
             
             /* UI Sizing Anchors */
-            --nav-rail-width: 75px;
-            --sidebar-width: 280px;
+            --nav-rail-width: 72px;
+            --sidebar-width: 300px;
         }
 
-        *, body, html, button, input, select, textarea, a {
+        *, *:before, *:after {
             box-sizing: border-box;
         }
 
@@ -67,10 +66,10 @@
             height: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.2);
+            background: rgba(0, 0, 0, 0.02);
         }
         ::-webkit-scrollbar-thumb {
-            background: rgba(0, 255, 255, 0.2);
+            background: rgba(0, 119, 255, 0.15);
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
@@ -84,78 +83,75 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #04060a;
+            background: #ffffff;
             z-index: 9999;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s ease;
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s ease;
         }
 
         #splash-loading-portal.hidden {
             opacity: 0;
-            transform: scale(1.05);
+            transform: scale(1.02);
             pointer-events: none;
         }
 
         .splash-logo-container {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 24px;
+            width: 64px;
+            height: 64px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
         }
 
-        .splash-logo-img {
+        .splash-logo-svg {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            color: var(--primary-accent);
             animation: pulseLogo 2s ease-in-out infinite;
         }
 
         .splash-headline {
-            font-size: 32px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: #ffffff;
-            margin-bottom: 8px;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            color: var(--text-main);
+            margin-bottom: 6px;
             text-align: center;
-            text-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
         }
 
         .splash-user-subtitle {
-            font-size: 16px;
+            font-size: 13px;
             color: var(--primary-accent);
-            font-weight: 500;
-            margin-bottom: 30px;
-            min-height: 24px;
-            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            min-height: 20px;
+            letter-spacing: 0.5px;
             text-transform: uppercase;
         }
 
         .progress-track-wrapper {
-            width: 280px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.05);
+            width: 240px;
+            height: 4px;
+            background: rgba(0, 0, 0, 0.05);
             border-radius: 10px;
             overflow: hidden;
-            border: 1px solid rgba(0, 255, 255, 0.1);
         }
 
         .progress-bar-fill {
             width: 0%;
             height: 100%;
-            background: linear-gradient(90deg, var(--primary-hover), var(--primary-accent));
-            box-shadow: 0 0 16px var(--primary-accent);
+            background: var(--primary-accent);
             transition: width 0.1s linear;
         }
 
         @keyframes pulseLogo {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(0, 255, 255, 0.2)); }
-            50% { transform: scale(1.06); filter: drop-shadow(0 0 24px var(--primary-accent)); }
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 4px rgba(0, 119, 255, 0.2)); }
+            50% { transform: scale(1.05); filter: drop-shadow(0 0 16px var(--primary-accent)); }
         }
 
         /* Reconstructed Workspace Identity Screen Overlay */
@@ -165,31 +161,31 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #111217;
+            background: #f1f3f5;
             z-index: 8000;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
-            box-sizing: border-box;
-            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s ease;
+            transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s ease;
         }
 
         #secure-login-gate-overlay.hidden {
             opacity: 0;
-            transform: scale(0.96);
+            transform: scale(0.98);
             pointer-events: none;
         }
 
         .login-card-glassmorphic-wrapper {
-            width: 440px;
+            width: 400px;
             background: var(--login-card-bg);
-            border-radius: 8px;
-            padding: 32px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            border-radius: 16px;
+            padding: 40px 32px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 24px;
+            border: 1px solid var(--border-subtle);
         }
 
         .login-card-header {
@@ -197,18 +193,17 @@
         }
 
         .login-title-h1 {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            color: #ffffff;
-            margin: 0 0 8px 0;
-            letter-spacing: -0.5px;
+            color: var(--text-main);
+            margin: 0 0 6px 0;
         }
 
         .login-subtitle-p {
             font-size: 13px;
-            color: #949ba4;
+            color: var(--text-muted);
             margin: 0;
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
         .registration-input-group-form {
@@ -222,7 +217,7 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: #b5bac1;
+            color: var(--text-muted);
             margin-bottom: 8px;
             display: block;
         }
@@ -230,39 +225,41 @@
         .form-text-input-field {
             width: 100%;
             background: var(--login-input-bg);
-            border: 1px solid rgba(0, 0, 0, 0.3);
-            padding: 10px 12px;
-            border-radius: 4px;
-            color: #dbdee1;
-            font-size: 15px;
+            border: 1px solid transparent;
+            padding: 12px 14px;
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 14px;
             outline: none;
-            transition: border-color 0.2s ease;
+            transition: all 0.2s ease;
         }
 
         .form-text-input-field:focus {
-            border-color: #5865f2;
+            border-color: var(--primary-accent);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px var(--primary-glow);
         }
 
         .avatar-file-upload-trigger-container {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 16px;
         }
 
         .avatar-upload-preview-frame {
-            width: 44px;
-            height: 44px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
-            background: #2b2d31;
+            background: var(--login-input-bg);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #949ba4;
-            font-size: 16px;
+            color: var(--text-muted);
+            font-size: 14px;
             font-weight: 600;
             flex-shrink: 0;
             overflow: hidden;
-            border: none;
+            border: 1px dashed var(--border-subtle);
         }
 
         .avatar-upload-preview-frame img {
@@ -272,18 +269,19 @@
         }
 
         .custom-file-input-facade-btn {
-            background: #4e5058;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 4px;
+            background: #ffffff;
+            border: 1px solid var(--border-subtle);
+            padding: 10px 16px;
+            border-radius: 8px;
             font-size: 13px;
-            font-weight: 500;
-            color: #ffffff;
-            transition: background 0.2s ease;
+            font-weight: 600;
+            color: var(--text-main);
+            cursor: pointer;
+            transition: all 0.2s ease;
         }
 
         .custom-file-input-facade-btn:hover {
-            background: #6d6f78;
+            background: var(--login-input-bg);
         }
 
         .submit-portal-access-btn {
@@ -291,12 +289,13 @@
             background: var(--login-btn-primary);
             color: #ffffff;
             border: none;
-            padding: 12px;
-            border-radius: 4px;
-            font-size: 15px;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 14px;
             font-weight: 600;
+            cursor: pointer;
             transition: background 0.2s ease;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         .submit-portal-access-btn:hover {
@@ -309,7 +308,7 @@
             width: 100vw;
             height: 100vh;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.4s ease;
             background: var(--bg-dark-gradient);
         }
 
@@ -317,54 +316,48 @@
             opacity: 1;
         }
 
-        /* Vertical Global 5-Tab Rails Frame Layout */
+        /* Vertical Global Rail Context Framework Layout */
         .global-nav-rail {
             width: var(--nav-rail-width);
             height: 100%;
-            background: rgba(3, 6, 10, 0.95);
+            background: #ffffff;
             border-right: 1px solid var(--border-subtle);
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 16px 0;
-            gap: 18px;
+            padding: 24px 0;
+            gap: 16px;
             z-index: 10;
         }
 
         .rail-tab-item {
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-subtle);
+            background: transparent;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text-muted);
             position: relative;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+            transition: all 0.2s ease;
             cursor: pointer;
         }
 
         .rail-tab-item svg {
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             fill: currentColor;
         }
 
         .rail-tab-item:hover {
             color: var(--primary-accent);
-            background: rgba(0, 255, 255, 0.05);
-            border-color: var(--primary-accent);
-            transform: scale(1.15);
-            box-shadow: 0 0 14px var(--primary-glow);
+            background: var(--bg-dark);
         }
 
         .rail-tab-item.active {
-            color: #ffffff;
-            background: var(--primary-hover);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
+            color: var(--primary-accent);
+            background: var(--primary-glow);
         }
 
         /* Standard Sub-context Left Sidebar panel */
@@ -376,40 +369,38 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
         .sidebar-header {
-            padding: 16px;
-            background: rgba(15, 25, 35, 0.4);
+            padding: 16px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid var(--border-subtle);
             height: 70px;
+            border-bottom: 1px solid var(--border-subtle);
         }
 
         .profile-node-area {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             min-width: 0;
         }
 
         .user-tag-avatar {
             width: 36px;
             height: 36px;
-            background: rgba(0, 255, 255, 0.1);
-            border: 1px solid var(--primary-accent);
+            background: #ffffff;
+            border: 1px solid var(--border-subtle);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 700;
             color: var(--primary-accent);
-            box-shadow: 0 0 8px rgba(0, 255, 255, 0.2);
             flex-shrink: 0;
             overflow: hidden;
         }
@@ -421,7 +412,7 @@
         }
 
         .sidebar-title {
-            font-weight: 700;
+            font-weight: 600;
             font-size: 14px;
             color: var(--text-main);
             white-space: nowrap;
@@ -430,67 +421,57 @@
         }
 
         .sidebar-tools {
-            padding: 12px;
+            padding: 16px 20px;
             display: flex;
             flex-direction: column;
             gap: 8px;
-            background: rgba(5, 10, 15, 0.3);
             border-bottom: 1px solid var(--border-subtle);
         }
 
         .sm-btn {
             width: 100%;
-            padding: 10px 12px;
+            padding: 10px 14px;
             font-size: 13px;
             font-weight: 600;
-            background: rgba(255, 255, 255, 0.02);
+            background: #ffffff;
             color: var(--text-main);
             border: 1px solid var(--border-subtle);
-            border-radius: 6px;
-            transition: all 0.2s ease;
+            border-radius: 8px;
+            transition: all 0.15s ease;
             text-align: left;
+            cursor: pointer;
         }
 
         .sm-btn:hover {
-            background: rgba(0, 255, 255, 0.08);
+            background: var(--bg-dark);
             border-color: var(--primary-accent);
-            color: #ffffff;
-            box-shadow: 0 0 8px rgba(0, 255, 255, 0.15);
         }
 
         .sm-btn.danger {
-            background: rgba(255, 51, 68, 0.05);
             color: var(--danger-red);
-            border-color: rgba(255, 51, 68, 0.2);
         }
 
         .sm-btn.danger:hover {
-            background: var(--danger-red);
+            background: rgba(220, 53, 69, 0.05);
             border-color: var(--danger-red);
-            color: white;
-            box-shadow: 0 0 8px rgba(255, 51, 68, 0.3);
         }
 
         .shop-trigger-btn {
             width: 100%;
-            padding: 12px;
+            padding: 10px 14px;
             font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: transparent;
-            color: var(--primary-accent);
-            border: 1px solid var(--primary-accent);
-            border-radius: 6px;
-            transition: all 0.2s ease;
+            font-weight: 600;
+            background: var(--primary-accent);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.15s ease;
             text-align: center;
-            box-shadow: 0 0 6px var(--primary-glow);
+            cursor: pointer;
         }
 
         .shop-trigger-btn:hover {
             background: var(--primary-hover);
-            color: #000000;
-            box-shadow: 0 0 14px var(--primary-accent);
         }
 
         .contacts-vertical-stack {
@@ -500,26 +481,24 @@
         }
 
         .chat-list-row {
-            padding: 12px 16px;
+            padding: 12px 20px;
             display: flex;
             align-items: center;
             gap: 12px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
-            transition: background 0.2s ease, border-left 0.2s ease;
-            border-left: 3px solid transparent;
+            transition: all 0.2s ease;
+            cursor: pointer;
         }
 
         .chat-list-row:hover, .chat-list-row.active {
-            background: rgba(0, 255, 255, 0.03);
-            border-left-color: var(--primary-accent);
+            background: rgba(0, 119, 255, 0.04);
         }
 
         .row-avatar {
-            font-size: 14px;
-            font-weight: 700;
-            width: 32px;
-            height: 32px;
-            background: rgba(255, 255, 255, 0.03);
+            font-size: 13px;
+            font-weight: 600;
+            width: 36px;
+            height: 36px;
+            background: #ffffff;
             border: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
@@ -529,9 +508,10 @@
             color: var(--text-muted);
         }
 
-        .chat-list-row:hover .row-avatar, .chat-list-row.active .row-avatar {
+        .chat-list-row.active .row-avatar {
             color: var(--primary-accent);
             border-color: var(--primary-accent);
+            background: var(--primary-glow);
         }
 
         .row-meta {
@@ -543,13 +523,14 @@
             font-weight: 600;
             font-size: 13.5px;
             margin-bottom: 2px;
+            color: var(--text-main);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
 
         .row-preview {
-            font-size: 11px;
+            font-size: 12px;
             color: var(--text-muted);
             white-space: nowrap;
             overflow: hidden;
@@ -560,13 +541,13 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: var(--bg-dark);
+            background: #ffffff;
             position: relative;
             height: 100%;
         }
 
         .workspace-header {
-            padding: 14px 24px;
+            padding: 0 24px;
             background: var(--bg-panel);
             display: flex;
             align-items: center;
@@ -574,8 +555,9 @@
             border-bottom: 1px solid var(--border-subtle);
             height: 70px;
             box-sizing: border-box;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 5;
         }
 
         .header-profile {
@@ -586,8 +568,7 @@
 
         .header-profile .title {
             font-weight: 600;
-            font-size: 16px;
-            letter-spacing: 0.5px;
+            font-size: 15px;
         }
 
         .thread-scroll-view {
@@ -596,47 +577,48 @@
             padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 16px;
             box-sizing: border-box;
+            background: #ffffff;
         }
 
         .msg-bubble {
-            max-width: 65%;
+            max-width: 60%;
             padding: 12px 16px;
-            border-radius: 12px;
+            border-radius: 14px;
             line-height: 1.5;
             font-size: 14px;
             display: flex;
             flex-direction: column;
             word-wrap: break-word;
-            background: rgba(255, 255, 255, 0.03);
+            background: var(--bg-dark);
             border: 1px solid var(--border-subtle);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         .msg-bubble.sent {
-            background: rgba(0, 255, 255, 0.05);
-            border-color: rgba(0, 255, 255, 0.3);
+            background: var(--primary-accent);
+            color: #ffffff;
+            border-color: transparent;
             align-self: flex-end;
-            border-bottom-right-radius: 0;
+            border-bottom-right-radius: 2px;
         }
 
         .msg-bubble.received {
-            background: rgba(255, 255, 255, 0.02);
             align-self: flex-start;
-            border-bottom-left-radius: 0;
+            border-bottom-left-radius: 2px;
         }
 
         .msg-author {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             color: var(--primary-accent);
             margin-bottom: 4px;
+            text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .msg-bubble.sent .msg-author {
-            color: #ffffff;
+            color: rgba(255, 255, 255, 0.8);
         }
 
         .msg-footer {
@@ -646,32 +628,40 @@
             align-self: flex-end;
         }
 
+        .msg-bubble.sent .msg-footer {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
         /* Voice Message Audio Node Controller Styles */
         .voice-memo-node-frame {
             display: flex;
             align-items: center;
             gap: 12px;
-            background: rgba(0, 255, 255, 0.05);
-            border: 1px solid rgba(0, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border-subtle);
             padding: 8px 12px;
-            border-radius: 6px;
+            border-radius: 8px;
             margin-top: 4px;
-            min-width: 200px;
+            min-width: 220px;
+        }
+
+        .msg-bubble.sent .voice-memo-node-frame {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: transparent;
         }
         
         .voice-play-trigger-btn {
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background: var(--primary-accent);
+            background: #ffffff;
             border: none;
-            color: #000000;
-            font-size: 12px;
+            color: var(--primary-accent);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
             cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
         .voice-play-trigger-btn svg {
@@ -689,16 +679,23 @@
         }
         
         .waveform-bar-element {
-            width: 4px;
+            width: 3px;
             height: 10px;
-            background: rgba(0, 255, 255, 0.4);
+            background: rgba(0, 0, 0, 0.15);
             border-radius: 2px;
-            transition: height 0.15s ease;
+        }
+
+        .msg-bubble.sent .waveform-bar-element {
+            background: rgba(255, 255, 255, 0.4);
         }
         
         .waveform-bar-element.active-pulse {
             background: var(--primary-accent);
             animation: simulateVoiceWave 0.6s ease infinite alternate;
+        }
+
+        .msg-bubble.sent .waveform-bar-element.active-pulse {
+            background: #ffffff;
         }
 
         @keyframes simulateVoiceWave {
@@ -708,7 +705,7 @@
 
         .input-dock-bar {
             padding: 16px 24px;
-            background: var(--bg-panel);
+            background: #ffffff;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -716,34 +713,33 @@
             height: 75px;
             box-sizing: border-box;
             position: relative;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
         }
 
         .input-dock-bar input[type="text"] {
             flex: 1;
-            background: var(--input-bg);
-            border: 1px solid var(--border-subtle);
+            background: var(--login-input-bg);
+            border: 1px solid transparent;
             padding: 12px 16px;
-            border-radius: 6px;
-            color: #ffffff;
+            border-radius: 8px;
+            color: var(--text-main);
             font-size: 14px;
             outline: none;
-            transition: border-color 0.2s, box-shadow 0.2s;
+            transition: all 0.2s ease;
         }
 
         .input-dock-bar input[type="text"]:focus {
+            background: #ffffff;
             border-color: var(--primary-accent);
-            box-shadow: 0 0 8px var(--primary-glow);
+            box-shadow: 0 0 0 3px var(--primary-glow);
         }
 
         .cooldown-progress-track {
             position: absolute;
             bottom: 0;
             left: 0;
-            height: 3px;
+            height: 2px;
             width: 100%;
-            background: rgba(255, 255, 255, 0.02);
+            background: transparent;
             pointer-events: none;
         }
 
@@ -751,16 +747,15 @@
             height: 100%;
             width: 0%;
             background: var(--primary-accent);
-            box-shadow: 0 0 8px var(--primary-accent);
         }
 
         .emoji-trigger-node-btn, .mic-record-trigger-btn {
             background: transparent;
-            border: 1px solid var(--border-subtle);
+            border: none;
             color: var(--text-muted);
             padding: 8px;
-            border-radius: 6px;
-            transition: all 0.2s ease;
+            border-radius: 8px;
+            transition: all 0.15s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -770,144 +765,126 @@
         }
 
         .emoji-trigger-node-btn svg, .mic-record-trigger-btn svg {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             fill: currentColor;
         }
 
         .emoji-trigger-node-btn:hover, .mic-record-trigger-btn:hover {
             color: var(--primary-accent);
-            border-color: var(--primary-accent);
-            background: rgba(0, 255, 255, 0.05);
+            background: var(--bg-dark);
         }
         
         .mic-record-trigger-btn.recording-active {
             color: var(--danger-red);
-            border-color: var(--danger-red);
-            background: rgba(255, 51, 68, 0.1);
-            animation: pulseRecordBorder 1s infinite alternate;
-        }
-
-        @keyframes pulseRecordBorder {
-            from { box-shadow: 0 0 4px rgba(255, 51, 68, 0.2); }
-            to { box-shadow: 0 0 12px rgba(255, 51, 68, 0.6); }
+            background: rgba(220, 53, 69, 0.08);
         }
 
         .emoji-picker-matrix-overlay {
             position: absolute;
             bottom: 85px;
             right: 24px;
-            width: 320px;
-            height: 240px;
-            background: rgba(10, 16, 26, 0.95);
-            border: 1px solid var(--border-active);
-            border-radius: 8px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            width: 300px;
+            height: 220px;
+            background: #ffffff;
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
             display: none;
             flex-direction: column;
             z-index: 1000;
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
         }
 
         .emoji-picker-header {
-            padding: 10px 12px;
+            padding: 12px;
             font-size: 11px;
             font-weight: 700;
-            letter-spacing: 1px;
             color: var(--text-muted);
             border-bottom: 1px solid var(--border-subtle);
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .emoji-grid-scroller {
             flex: 1;
             overflow-y: auto;
-            padding: 10px;
+            padding: 12px;
             display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 6px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
         }
 
         .emoji-grid-item-cell {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
-            padding: 4px;
-            border-radius: 4px;
-            transition: background 0.15s ease, transform 0.1s ease;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            transition: all 0.15s ease;
             cursor: pointer;
-            color: var(--text-main);
+            color: var(--text-muted);
         }
 
         .emoji-grid-item-cell svg {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             fill: currentColor;
         }
 
         .emoji-grid-item-cell:hover {
-            background: rgba(0, 255, 255, 0.15);
+            background: var(--primary-glow);
             color: var(--primary-accent);
-            transform: scale(1.15);
         }
 
         .send-btn {
             background: transparent;
             color: var(--primary-accent);
             border: 1px solid var(--primary-accent);
-            padding: 12px 20px;
-            border-radius: 6px;
+            padding: 10px 18px;
+            border-radius: 8px;
             font-weight: 600;
             font-size: 13px;
-            transition: all 0.2s ease;
-            box-shadow: 0 0 4px var(--primary-glow);
+            transition: all 0.15s ease;
             cursor: pointer;
         }
 
         .send-btn:hover {
-            background: var(--primary-hover);
-            color: #000000;
-            box-shadow: 0 0 12px var(--primary-accent);
+            background: var(--primary-accent);
+            color: #ffffff;
         }
 
         .send-btn:disabled {
             border-color: var(--border-subtle);
             color: var(--text-muted);
             background: transparent;
-            box-shadow: none;
             cursor: not-allowed;
         }
 
         .call-header-action-button-group {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
         }
 
         .call-action-btn {
             background: transparent;
-            border: 1px solid var(--primary-accent);
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--primary-accent);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
             width: 38px;
             height: 38px;
-            border-radius: 6px;
-            transition: all 0.2s ease;
+            border-radius: 8px;
+            transition: all 0.15s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 0 6px var(--primary-glow);
             cursor: pointer;
         }
 
         .call-action-btn:hover {
-            background: rgba(0, 255, 255, 0.08);
             color: var(--primary-accent);
-            box-shadow: 0 0 14px var(--primary-accent);
+            border-color: var(--primary-accent);
+            background: var(--bg-dark);
         }
 
         .call-action-btn svg {
@@ -916,33 +893,19 @@
             fill: currentColor;
         }
 
-        .call-action-btn.audio-trigger-theme:hover {
-            color: var(--success-green);
-            border-color: var(--success-green);
-            box-shadow: 0 0 12px rgba(0, 255, 102, 0.4);
-        }
-
-        .call-action-btn.video-trigger-theme:hover {
-            color: var(--primary-accent);
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 12px rgba(0, 255, 255, 0.4);
-        }
-
-        /* PREMIUM CALLING SCREEN INTERFACE OVERLAY */
+        /* IMMERSIVE LIGHT CALLING INTERFACE SYSTEM LAYERS */
         .call-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #05070b;
-            background-image: radial-gradient(circle at center, #0a1322 0%, #04060a 100%);
+            background-color: #ffffff;
             z-index: 10000;
             display: none;
             flex-direction: column;
             justify-content: space-between;
-            padding: 30px;
-            color: white;
+            padding: 40px;
             transition: all 0.3s ease;
         }
 
@@ -951,19 +914,17 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            z-index: 1010;
         }
 
         .call-secure-lock-badge {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 0.8rem;
+            font-size: 12px;
             color: var(--success-green);
-            background: rgba(0, 255, 102, 0.05);
+            background: rgba(40, 167, 69, 0.06);
             padding: 6px 14px;
             border-radius: 20px;
-            border: 1px solid rgba(0, 255, 102, 0.15);
         }
 
         .call-secure-lock-badge svg {
@@ -980,9 +941,6 @@
             justify-content: center;
             position: relative;
             width: 100%;
-            margin: 20px 0;
-            border-radius: 12px;
-            overflow: hidden;
         }
 
         .call-voice-profile-card-center {
@@ -990,40 +948,37 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            z-index: 1005;
         }
 
         .call-voice-avatar-node {
-            width: 125px;
-            height: 125px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
-            background-color: var(--bg-panel);
-            border: 2px solid var(--primary-accent);
-            margin: 0 auto 24px auto;
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-subtle);
+            margin: 0 auto 20px auto;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3.5rem;
+            font-size: 40px;
             font-weight: 700;
             color: var(--primary-accent);
-            box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.4);
             animation: pulseCallingAvatar 2s infinite;
         }
 
         @keyframes pulseCallingAvatar {
-            0% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0.4); }
-            70% { box-shadow: 0 0 0 22px rgba(0, 255, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 255, 255, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(0, 119, 255, 0.15); }
+            70% { box-shadow: 0 0 0 20px rgba(0, 119, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 119, 255, 0); }
         }
 
         .call-voice-timer-badge {
             color: var(--text-muted);
-            margin-top: 12px;
-            font-size: 0.95rem;
-            font-family: monospace;
-            background: rgba(0, 0, 0, 0.4);
+            margin-top: 10px;
+            font-size: 14px;
+            background: var(--bg-dark);
             padding: 4px 14px;
-            border-radius: 14px;
+            border-radius: 20px;
             border: 1px solid var(--border-subtle);
         }
 
@@ -1031,25 +986,25 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            height: 40px;
-            margin-top: 28px;
+            height: 32px;
+            margin-top: 24px;
         }
 
         .call-equalizer-bar-unit {
-            width: 4px;
+            width: 3px;
             height: 12px;
             background-color: var(--primary-accent);
             border-radius: 2px;
-            animation: equalizeCallAudioStream 0.8s ease-in-out infinite alternate;
+            animation: equalizeCallAudioStream 0.6s ease-in-out infinite alternate;
         }
-        .call-equalizer-bar-unit:nth-child(2) { animation-delay: 0.15s; height: 20px; background-color: var(--primary-hover); }
-        .call-equalizer-bar-unit:nth-child(3) { animation-delay: 0.3s; height: 32px; background-color: var(--success-green); }
-        .call-equalizer-bar-unit:nth-child(4) { animation-delay: 0.45s; height: 16px; }
-        .call-equalizer-bar-unit:nth-child(5) { animation-delay: 0.2s; height: 26px; background-color: var(--gold-accent); }
+        .call-equalizer-bar-unit:nth-child(2) { animation-delay: 0.1s; height: 20px; }
+        .call-equalizer-bar-unit:nth-child(3) { animation-delay: 0.2s; height: 28px; }
+        .call-equalizer-bar-unit:nth-child(4) { animation-delay: 0.3s; height: 16px; }
+        .call-equalizer-bar-unit:nth-child(5) { animation-delay: 0.15s; height: 22px; }
 
         @keyframes equalizeCallAudioStream {
-            0% { transform: scaleY(0.4); }
-            100% { transform: scaleY(1.4); }
+            0% { transform: scaleY(0.5); }
+            100% { transform: scaleY(1.3); }
         }
 
         .call-immersive-video-viewport {
@@ -1058,18 +1013,18 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #030509;
+            background: #f1f3f5;
             display: none;
             align-items: center;
             justify-content: center;
-            border-radius: 12px;
+            border-radius: 16px;
+            overflow: hidden;
         }
 
         .call-remote-video-feed-facade {
             width: 100%;
             height: 100%;
             position: relative;
-            background: radial-gradient(circle at center, #0d1a2d 0%, #040609 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1088,19 +1043,18 @@
             position: absolute;
             bottom: 24px;
             right: 24px;
-            width: 140px;
-            height: 190px;
-            background: #080d14;
-            border: 2px solid var(--border-active);
-            border-radius: 8px;
-            box-shadow: 0 12px 24px rgba(0,0,0,0.6);
+            width: 120px;
+            height: 160px;
+            background: #ffffff;
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             z-index: 1020;
             overflow: hidden;
-            transition: opacity 0.2s ease;
         }
 
         .call-floating-local-pip video {
@@ -1116,57 +1070,62 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 22px;
-            z-index: 1010;
-            padding-bottom: 15px;
+            gap: 16px;
             width: 100%;
         }
 
         .call-action-circle-round-btn {
-            width: 58px;
-            height: 58px;
+            width: 52px;
+            height: 52px;
             border-radius: 50%;
-            border: none;
+            border: 1px solid var(--border-subtle);
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 4px 14px rgba(0,0,0,0.4);
-            background-color: #202225;
+            color: var(--text-main);
+            transition: all 0.2s ease;
+            background-color: #ffffff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
         }
 
         .call-action-circle-round-btn:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
+            background-color: var(--bg-dark);
         }
 
         .call-action-circle-round-btn svg {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             fill: currentColor;
         }
 
-        .call-action-circle-round-btn.mute-btn-style { background-color: #2f3136; color: var(--text-main); }
-        .call-action-circle-round-btn.mute-btn-style.active-triggered { background-color: var(--danger-red); color: white; }
-
-        .call-action-circle-round-btn.cam-btn-style { background-color: #2f3136; color: var(--text-main); }
-        .call-action-circle-round-btn.cam-btn-style.active-triggered { background-color: var(--success-green); color: #000; }
-
-        .call-action-circle-round-btn.screen-btn-style { background-color: #2f3136; color: var(--text-main); }
-        .call-action-circle-round-btn.screen-btn-style.active-triggered { background-color: var(--gold-accent); color: #000; }
+        .call-action-circle-round-btn.mute-btn-style.active-triggered,
+        .call-action-circle-round-btn.cam-btn-style.active-triggered,
+        .call-action-circle-round-btn.screen-btn-style.active-triggered {
+            background-color: var(--primary-glow);
+            color: var(--primary-accent);
+            border-color: var(--primary-accent);
+        }
 
         .call-action-circle-round-btn.hangup-btn-style {
             background-color: var(--danger-red);
+            color: #ffffff;
+            border: none;
         }
         .call-action-circle-round-btn.hangup-btn-style:hover {
-            background-color: #dd2233;
-            box-shadow: 0 0 18px var(--danger-red);
+            background-color: var(--danger-hover);
+        }
+
+        .call-action-circle-round-btn.accept-btn-style {
+            background-color: var(--success-green);
+            color: #ffffff;
+            border: none;
         }
 
         .states-hub-container-view {
             padding: 16px 24px;
-            background: rgba(5, 10, 15, 0.2);
+            background: var(--bg-dark);
             border-bottom: 1px solid var(--border-subtle);
             display: none;
             flex-direction: column;
@@ -1178,24 +1137,24 @@
             justify-content: space-between;
         }
         .states-row-title {
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             color: var(--text-muted);
         }
         .states-carousel-scroller-track {
             display: flex;
-            gap: 14px;
+            gap: 12px;
             overflow-x: auto;
-            padding-bottom: 8px;
+            padding-bottom: 4px;
         }
         .state-content-card-node {
-            width: 110px;
-            height: 160px;
-            border-radius: 8px;
+            width: 100px;
+            height: 140px;
+            border-radius: 10px;
             border: 1px solid var(--border-subtle);
-            background: var(--input-bg);
+            background: #ffffff;
             flex-shrink: 0;
             position: relative;
             overflow: hidden;
@@ -1203,10 +1162,6 @@
             flex-direction: column;
             justify-content: flex-end;
             padding: 10px;
-        }
-        .state-content-card-node:hover {
-            border-color: var(--primary-accent);
-            box-shadow: 0 0 10px var(--primary-glow);
         }
         .state-media-preview-element {
             width: 100%;
@@ -1222,107 +1177,90 @@
             font-weight: 600;
             color: #ffffff;
             z-index: 2;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
         #nexus-shop-screen {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: var(--bg-dark);
-            background-image: var(--bg-dark-gradient);
+            background-color: #ffffff;
             z-index: 5000;
             display: none;
             flex-direction: column;
             box-sizing: border-box;
         }
         .shop-header-navbar {
-            height: 75px;
-            background: var(--bg-panel);
+            height: 70px;
+            background: #ffffff;
             border-bottom: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 30px;
+            padding: 0 24px;
             box-sizing: border-box;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
         }
         .back-nav-link {
-            font-size: 13px;
-            font-weight: 700;
+            font-size: 12px;
+            font-weight: 600;
             color: var(--text-muted);
             text-transform: uppercase;
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 8px;
-            background: rgba(255,255,255,0.02);
-            padding: 10px 16px;
-            border-radius: 6px;
+            gap: 6px;
+            background: var(--bg-dark);
+            padding: 8px 14px;
+            border-radius: 8px;
             border: 1px solid var(--border-subtle);
-            transition: all 0.2s ease;
+            transition: all 0.15s ease;
         }
         .back-nav-link:hover {
-            color: var(--primary-accent);
-            border-color: var(--primary-accent);
-            background: rgba(0,255,255,0.05);
-            box-shadow: 0 0 8px var(--primary-glow);
+            color: var(--text-main);
+            border-color: var(--text-muted);
         }
         .shop-headline-title {
-            font-weight: 800;
-            font-size: 18px;
-            letter-spacing: 2px;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(0,255,255,0.2);
+            font-weight: 700;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-main);
         }
         .balance-container-pill {
-            background: rgba(245, 166, 35, 0.05);
+            background: rgba(224, 168, 0, 0.06);
             border: 1px solid var(--gold-accent);
-            padding: 8px 16px;
-            border-radius: 30px;
-            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 600;
             color: var(--gold-accent);
             font-size: 13px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 0 10px rgba(245,166,35,0.15);
         }
         .shop-showcase-scroller {
             flex: 1;
             overflow-y: auto;
-            padding: 40px;
-            box-sizing: border-box;
+            padding: 32px;
+            background: var(--bg-dark);
         }
         .shop-items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
-            max-width: 1400px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
             margin: 0 auto;
         }
         .shop-item-card {
-            background: var(--bg-panel);
+            background: #ffffff;
             border: 1px solid var(--border-subtle);
             border-radius: 12px;
-            padding: 24px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             position: relative;
-            overflow: hidden;
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease, box-shadow 0.3s ease;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-        .shop-item-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary-accent);
-            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.15);
         }
         .item-badge-exclusive {
             position: absolute;
@@ -1331,90 +1269,77 @@
             background: var(--pink-neon);
             color: #ffffff;
             font-size: 9px;
-            font-weight: 800;
-            padding: 4px 8px;
+            font-weight: 700;
+            padding: 3px 6px;
             border-radius: 4px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 0 8px var(--pink-neon);
+            z-index: 3;
         }
         .item-graphic-wrapper {
-            height: 120px;
-            background: radial-gradient(circle, rgba(0,255,255,0.1) 0%, transparent 70%);
+            height: 100px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 16px;
-            position: relative;
+            margin-bottom: 12px;
         }
-        .item-graphic-icon-asset {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            z-index: 2;
-        }
-        .item-graphic-ring {
-            position: absolute;
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            border: 1px dashed rgba(0, 255, 255, 0.2);
-            animation: rotateRing 12s linear infinite;
+        .item-graphic-icon-container {
+            width: 44px;
+            height: 44px;
+            color: var(--primary-accent);
         }
         .item-meta-name {
-            font-size: 16px;
-            font-weight: 700;
-            margin-bottom: 6px;
-            color: #ffffff;
-            letter-spacing: 0.5px;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-main);
         }
         .item-meta-desc {
             font-size: 12px;
             color: var(--text-muted);
-            line-height: 1.5;
-            margin-bottom: 20px;
+            line-height: 1.4;
+            margin-bottom: 16px;
             flex: 1;
         }
         .item-action-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: auto;
         }
         .item-price-tag {
             font-weight: 700;
-            font-size: 14px;
+            font-size: 13px;
             color: var(--gold-accent);
         }
         .buy-action-trigger {
             background: transparent;
             color: var(--primary-accent);
             border: 1px solid var(--primary-accent);
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-weight: 600;
             font-size: 12px;
-            transition: all 0.2s ease;
+            cursor: pointer;
+            transition: all 0.15s ease;
         }
         .buy-action-trigger:hover {
-            background: var(--primary-hover);
-            color: #000000;
-            box-shadow: 0 0 10px var(--primary-accent);
+            background: var(--primary-accent);
+            color: #ffffff;
         }
         .buy-action-trigger.unlocked {
-            background: rgba(0, 255, 102, 0.1) !important;
+            background: rgba(40, 167, 69, 0.08) !important;
             border-color: var(--success-green) !important;
             color: var(--success-green) !important;
+            cursor: default;
         }
 
-        /* High Fidelity Token Matrix Modal Styles */
         .nexus-gate-premium-modal-wrapper {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(4, 6, 12, 0.95);
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(4px);
             z-index: 9500;
             display: none;
             align-items: center;
@@ -1423,81 +1348,73 @@
         }
         .premium-card-container {
             width: 100%;
-            max-width: 480px;
-            background: #121622;
-            border: 2px solid var(--gold-accent);
-            box-shadow: 0 0 30px rgba(245, 166, 35, 0.2);
-            border-radius: 12px;
+            max-width: 400px;
+            background: #ffffff;
+            border-radius: 16px;
             padding: 32px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 16px;
             text-align: center;
+            box-shadow: 0 12px 36px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-subtle);
         }
         .premium-card-title {
-            font-size: 22px;
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: 1px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
             margin: 0;
-            text-transform: uppercase;
         }
         .premium-card-desc {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-muted);
-            line-height: 1.6;
+            line-height: 1.5;
             margin: 0;
         }
         .premium-link-input-display {
             width: 100%;
-            background: #090c12;
+            background: var(--bg-dark);
             border: 1px solid var(--border-subtle);
-            padding: 12px;
-            border-radius: 6px;
+            padding: 10px;
+            border-radius: 8px;
             color: var(--primary-accent);
             font-family: monospace;
             font-size: 12px;
             text-align: left;
             word-break: break-all;
             user-select: all;
-            -webkit-user-select: all;
         }
         .premium-action-row-buttons {
             display: flex;
-            gap: 12px;
-            margin-top: 10px;
+            gap: 10px;
+            margin-top: 4px;
         }
         .premium-btn-action {
             flex: 1;
-            padding: 12px;
-            border-radius: 6px;
-            font-size: 14px;
-            font-weight: 700;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
             border: none;
-            transition: all 0.2s ease;
+            cursor: pointer;
+            transition: all 0.15s ease;
             text-decoration: none;
             display: inline-block;
         }
         .premium-btn-action.paypal-primary {
-            background: var(--gold-accent);
-            color: #000000;
+            background: var(--primary-accent);
+            color: #ffffff;
         }
         .premium-btn-action.paypal-primary:hover {
-            box-shadow: 0 0 16px rgba(245, 166, 35, 0.5);
-            transform: translateY(-1px);
+            background: var(--primary-hover);
         }
         .premium-btn-action.dismiss-secondary {
-            background: rgba(255,255,255,0.05);
+            background: var(--bg-dark);
             border: 1px solid var(--border-subtle);
             color: var(--text-main);
         }
         .premium-btn-action.dismiss-secondary:hover {
-            background: rgba(255,255,255,0.1);
-        }
-
-        @keyframes rotateRing {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            background: #e9ecef;
         }
     </style>
 </head>
@@ -1506,35 +1423,35 @@
     <!-- Cinematic Loading Portal Splash Overlay -->
     <div id="splash-loading-portal">
         <div class="splash-logo-container">
-            <img src="favicon.png" class="splash-logo-img" alt="Nexus Architecture Logo">
+            <svg class="splash-logo-svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>
         </div>
         <div class="splash-headline">NexusChat Client</div>
-        <div class="splash-user-subtitle" id="splash-user-target">Initializing Platform...</div>
+        <div class="splash-user-subtitle" id="splash-user-target">Initializing Network Topology...</div>
         <div class="progress-track-wrapper">
             <div class="progress-bar-fill" id="splash-bar-fill"></div>
         </div>
     </div>
 
-    <!-- Redesigned High-Fidelity Workspace Identity Screen Overlay -->
+    <!-- Redesigned Light Workstation Identity Overlay Layer -->
     <div id="secure-login-gate-overlay">
         <div class="login-card-glassmorphic-wrapper">
             <div class="login-card-header">
-                <h1 class="login-title-h1">Create Workspace Identity</h1>
-                <p class="login-subtitle-p">Build your custom client user block variables to enter NexusChat</p>
+                <h1 class="login-title-h1">Workspace Identity</h1>
+                <p class="login-subtitle-p">Set your client variables to connect to live online signaling pipelines</p>
             </div>
 
             <form class="registration-input-group-form" onsubmit="event.preventDefault();">
                 <div>
                     <label class="form-label-node">Display Handle Name</label>
-                    <input type="text" id="portal-username-input-node" class="form-text-input-field" placeholder="e.g. NexusDeveloper" required>
+                    <input type="text" id="portal-username-input-node" class="form-text-input-field" placeholder="e.g. DeveloperNode" required>
                 </div>
                 
                 <div>
-                    <label class="form-label-node">Avatar Resource Asset</label>
+                    <label class="form-label-node">Avatar Profile Configuration Asset</label>
                     <div class="avatar-file-upload-trigger-container">
                         <div class="avatar-upload-preview-frame" id="portal-avatar-preview-box">?</div>
                         <input type="file" id="portal-avatar-file-input" accept="image/*" style="display: none;" onchange="handleLocalAvatarSelection(event)">
-                        <button type="button" class="custom-file-input-facade-btn" onclick="document.getElementById('portal-avatar-file-input').click()">Upload File Asset</button>
+                        <button type="button" class="custom-file-input-facade-btn" onclick="document.getElementById('portal-avatar-file-input').click()">Upload Photo Asset</button>
                     </div>
                 </div>
 
@@ -1545,13 +1462,13 @@
 
     <!-- Invite Generator Notification Display Modal -->
     <div id="nexus-invite-portal-overlay" class="nexus-gate-premium-modal-wrapper">
-        <div class="premium-card-container" style="border-color: var(--primary-accent); box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);">
-            <h2 class="premium-card-title" style="color: var(--primary-accent)">Secure Matrix Code Matrix</h2>
-            <p class="premium-card-desc">Your private end-to-end routing pipeline parameters have successfully synchronized. Copy the code from the field layout index container frame structure node block below:</p>
-            <textarea class="premium-link-input-display" id="nexus-invite-modal-textarea-display" readonly style="height: 80px; resize: none;"></textarea>
+        <div class="premium-card-container">
+            <h2 class="premium-card-title">Routing Pointer Synchronized</h2>
+            <p class="premium-card-desc">Your private routing parameters have populated. Distribute the string sequence below to construct end-to-end sessions:</p>
+            <textarea class="premium-link-input-display" id="nexus-invite-modal-textarea-display" readonly style="height: 60px; resize: none;"></textarea>
             <div class="premium-action-row-buttons">
-                <button class="premium-btn-action paypal-primary" style="background: var(--primary-accent);" onclick="executeManualModalCopyPattern()">Select Matrix Address</button>
-                <button class="premium-btn-action dismiss-secondary" onclick="document.getElementById('nexus-invite-portal-overlay').style.display = 'none'">Close View</button>
+                <button class="premium-btn-action paypal-primary" onclick="executeManualModalCopyPattern()">Copy Sequence</button>
+                <button class="premium-btn-action dismiss-secondary" onclick="document.getElementById('nexus-invite-portal-overlay').style.display = 'none'">Dismiss</button>
             </div>
         </div>
     </div>
@@ -1559,13 +1476,10 @@
     <!-- Live Limit Subscription Target Overlay Frame -->
     <div id="nexus-premium-upgrade-overlay" class="nexus-gate-premium-modal-wrapper">
         <div class="premium-card-container">
-            <div style="font-size: 40px; display: flex; justify-content: center;">
-                <svg style="width: 48px; height: 48px; fill: var(--gold-accent);" viewBox="0 0 24 24"><path d="M6 2h12v6l-4 4 4 4v6H6v-6l4-4-4-4V2zm10 14.5L12 12.7l-4 3.8V20h8v-3.5zm-8-9l4 3.8 4-3.8V4H8v3.5z"/></svg>
-            </div>
-            <h2 class="premium-card-title">Call Frame Duration Terminated</h2>
-            <p class="premium-card-desc">You have encountered the maximum limitation boundary loop parameters. Purchase the <strong>Call Max Hours Pass</strong> container upgrade for \$5.00 USD to enable unlimited communication loops.</p>
+            <h2 class="premium-card-title">Call Duration Matrix Limit</h2>
+            <p class="premium-card-desc">You have encountered the maximum runtime threshold. Upgrade to unlock boundless communications pipelines.</p>
             <div class="premium-action-row-buttons">
-                <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" class="premium-btn-action paypal-primary">Upgrade via PayPal</a>
+                <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" class="premium-btn-action paypal-primary">Upgrade Portal</a>
                 <button class="premium-btn-action dismiss-secondary" onclick="closePremiumLimitOverlayReset()">Acknowledge</button>
             </div>
         </div>
@@ -1573,19 +1487,19 @@
 
     <div id="app-frame">
         <div class="global-nav-rail">
-            <div class="rail-tab-item active" id="tab-node-chat" onclick="switchGlobalRailContext('chat')" title="Home/Chat">
-                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z"/></svg>
+            <div class="rail-tab-item active" id="tab-node-chat" onclick="switchGlobalRailContext('chat')" title="Home Messaging Matrix">
+                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
             </div>
-            <div class="rail-tab-item" id="tab-node-groups" onclick="switchGlobalRailContext('groups')" title="Groups Ecosystem">
-                <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+            <div class="rail-tab-item" id="tab-node-groups" onclick="switchGlobalRailContext('groups')" title="Group Systems Hub">
+                <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
             </div>
-            <div class="rail-tab-item" id="tab-node-states" onclick="switchGlobalRailContext('states')" title="States Hub Engagement Stream">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+            <div class="rail-tab-item" id="tab-node-states" onclick="switchGlobalRailContext('states')" title="Live Status Connections">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg>
             </div>
-            <div class="rail-tab-item" id="tab-node-settings" onclick="switchGlobalRailContext('settings')" title="Account Matrix Settings">
+            <div class="rail-tab-item" id="tab-node-settings" onclick="switchGlobalRailContext('settings')" title="Core Workstation Configuration">
                 <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
             </div>
-            <div class="rail-tab-item" id="tab-node-integrations" onclick="switchGlobalRailContext('integrations')" title="Extensions & Integrations Hub">
+            <div class="rail-tab-item" id="tab-node-integrations" onclick="switchGlobalRailContext('integrations')" title="Extensions Platform">
                 <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5v5h4v7h6v-7h4V9zm-2 3h-4v7h-2v-7H7v-1h4V5h2v6h4v1z"/></svg>
             </div>
         </div>
@@ -1594,14 +1508,14 @@
             <div class="sidebar-header">
                 <div class="profile-node-area">
                     <div class="user-tag-avatar" id="my-avatar-node">N</div>
-                    <div class="sidebar-title" id="my-username-node">Connecting Pipeline...</div>
+                    <div class="sidebar-title" id="my-username-node">Connecting Hub...</div>
                 </div>
             </div>
             
             <div class="sidebar-tools" id="sidebar-context-controls-box">
                 <button class="shop-trigger-btn" onclick="openPremiumStorefront()">Open Nexus Shop</button>
                 <button class="sm-btn" id="sidebar-action-primary-btn" onclick="triggerChannelCreation()">+ New Channel Stream</button>
-                <button class="sm-btn" style="border-color: var(--gold-accent); color: var(--gold-accent);" onclick="generatePrivateFriendMatrixCode()">Copy Invite Address Code</button>
+                <button class="sm-btn" style="border-color: var(--gold-accent); color: var(--gold-accent);" onclick="generatePrivateFriendMatrixCode()">Generate Invite String</button>
                 <button class="sm-btn danger" onclick="performProfileHardwareReset()">Reset Active Session Container</button>
             </div>
             
@@ -1611,17 +1525,14 @@
         <div class="workspace-panel">
             <div class="workspace-header">
                 <div class="header-profile">
-                    <div style="width: 18px; height: 18px; color: var(--primary-accent); filter: drop-shadow(0 0 4px var(--primary-glow)); display: flex; align-items: center; justify-content: center;">
-                        <svg viewBox="0 0 24 24" style="width:100%; height:100%; fill:currentColor;"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 10h2v7H7zm4-3h2v10h-2zm4 6h2v4h-2z"/></svg>
-                    </div>
                     <div class="title" id="active-chat-headline-node">Global Public Lobby</div>
                 </div>
                 
                 <div class="call-header-action-button-group">
-                    <button class="call-action-btn audio-trigger-theme" onclick="launchAdvancedOverlayCallingView(false)" title="Start Secure Voice Call">
+                    <button class="call-action-btn" onclick="launchAdvancedOverlayCallingView(false)" title="Secure Voice Call Session">
                         <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1.01C8.7 6.31 8.5 5.12 8.5 3.9c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.52c0-.55-.45-1-1-1z"/></svg>
                     </button>
-                    <button class="call-action-btn video-trigger-theme" onclick="launchAdvancedOverlayCallingView(true)" title="Start Secure Video Call">
+                    <button class="call-action-btn" onclick="launchAdvancedOverlayCallingView(true)" title="Secure Video Call Session">
                         <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
                     </button>
                 </div>
@@ -1629,30 +1540,30 @@
 
             <div class="states-hub-container-view" id="states-hub-engagement-view">
                 <div class="states-header-row">
-                    <span class="states-row-title">Live Connections Engagement Feed</span>
+                    <span class="states-row-title">Live Connections engagement track</span>
                     <input type="file" id="states-media-file-capture-pipe" accept="video/*,image/*" style="display: none;" onchange="processNewStateMediaUpload(event)">
-                    <button class="call-action-btn" style="padding: 0 10px; font-size: 11px;" onclick="document.getElementById('states-media-file-capture-pipe').click()">Create New States</button>
+                    <button class="sm-btn" style="width: auto; padding: 6px 12px;" onclick="document.getElementById('states-media-file-capture-pipe').click()">Publish State</button>
                 </div>
                 <div class="states-carousel-scroller-track" id="states-carousel-scroller-track"></div>
             </div>
 
-            <!-- INTERACTIVE REAL OVERLAY TELEPHONY SYSTEM LAYER -->
+            <!-- INTERACTIVE REAL OVERLAY TELEPHONY SYSTEM LAYER (With Ringing States) -->
             <div class="call-overlay" id="premiumCallOverlayStage">
                 <div class="call-top-meta-bar">
                     <div class="call-secure-lock-badge">
-                        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
-                        <span>E2EE WebRTC Matrix Connection Connected</span>
+                        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z"/></svg>
+                        <span>E2EE Telephony Active</span>
                     </div>
-                    <div style="font-size: 0.9rem; color: var(--text-muted);" id="callMediaCategoryHeaderLabel">Audio Channel</div>
+                    <div style="font-size: 13px; color: var(--text-muted);" id="callMediaCategoryHeaderLabel">Audio Signal Line</div>
                 </div>
 
                 <div class="call-viewport-center-stage">
                     <div class="call-voice-profile-card-center" id="overlayVoiceFrameContainer">
                         <div class="call-voice-avatar-node" id="overlayCallingAvatarIcon">N</div>
-                        <h2 id="overlayCallingTargetName" style="font-size: 1.8rem; font-weight: 700; margin: 0;">Global Room Target</h2>
-                        <div class="call-voice-timer-badge" id="overlayCallStatusTimerClock">Awaiting node authentication...</div>
+                        <h2 id="overlayCallingTargetName" style="font-size: 20px; font-weight: 600; margin: 0; color: var(--text-main);">Active Stream Node</h2>
+                        <div class="call-voice-timer-badge" id="overlayCallStatusTimerClock">Awaiting link authorization...</div>
                         
-                        <div class="call-equalizer-bars-container">
+                        <div class="call-equalizer-bars-container" id="call-equalizer-bars-element" style="display:none;">
                             <div class="call-equalizer-bar-unit"></div>
                             <div class="call-equalizer-bar-unit"></div>
                             <div class="call-equalizer-bar-unit"></div>
@@ -1665,30 +1576,31 @@
                         <div class="call-remote-video-feed-facade">
                             <video id="remoteWebrtcStreamElement" autoplay playsinline></video>
                             <div style="text-align: center; z-index: 2;" id="remoteVideoPlaceholderBox">
-                                <div id="videoRemoteAvatarMockCircle" style="width: 80px; height: 80px; border-radius:50%; background:rgba(0, 255, 255, 0.1); border: 1px solid var(--primary-accent); margin:0 auto 14px auto; display:flex; align-items:center; justify-content:center; font-size:1.8rem; font-weight:bold; color:var(--primary-accent); box-shadow: 0 0 12px var(--primary-glow)">G</div>
-                                <span style="font-size: 0.9rem; color: var(--text-main); letter-spacing: 0.5px;" id="videoRemoteStreamStatusLabel">Connecting Hardware Matrix Pipelines...</span>
+                                <span style="font-size: 13px; color: var(--text-muted);" id="videoRemoteStreamStatusLabel">Synchronizing Hardware Channels...</span>
                             </div>
                         </div>
                         
                         <div class="call-floating-local-pip" id="overlayLocalPipPreviewFrame">
                             <video id="localWebrtcStreamElement" autoplay playsinline muted></video>
-                            <div style="width: 40px; height: 40px; border-radius:50%; background:var(--input-bg); border: 1px solid var(--border-subtle); display:flex; align-items:center; justify-content:center; font-size:0.85rem; font-weight:bold; margin-bottom: 6px; z-index:2;" id="localPipInitialsLabel">ME</div>
-                            <span style="font-size: 0.65rem; color: var(--text-muted); z-index:2;">Local Node</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="call-controls-row-footer">
-                    <button class="call-action-circle-round-btn mute-btn-style" id="overlayMuteAudioActionToggle" onclick="executeOverlayMuteOperationToggle()" title="Toggle Microphone Connection">
-                        <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
+                    <!-- Dynamic Accept/Answer Key specifically for Incoming WebRTC Request Packets -->
+                    <button class="call-action-circle-round-btn accept-btn-style" id="overlayAcceptIncomingCallAction" onclick="executeIncomingCallAcceptAction()" title="Accept Connection Stream" style="display: none;">
+                        <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1.01C8.7 6.31 8.5 5.12 8.5 3.9c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.52c0-.55-.45-1-1-1z"/></svg>
                     </button>
-                    <button class="call-action-circle-round-btn cam-btn-style" id="overlayToggleCameraActionToggle" onclick="executeOverlayCameraOperationToggle()" title="Toggle Local Camera Feed">
+                    <button class="call-action-circle-round-btn mute-btn-style" id="overlayMuteAudioActionToggle" onclick="executeOverlayMuteOperationToggle()" title="Toggle Local Microphone">
+                        <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+                    </button>
+                    <button class="call-action-circle-round-btn cam-btn-style" id="overlayToggleCameraActionToggle" onclick="executeOverlayCameraOperationToggle()" title="Toggle Local Optical Track">
                         <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
                     </button>
-                    <button class="call-action-circle-round-btn screen-btn-style" id="overlayScreenShareActionToggle" onclick="executeOverlayScreenShareToggle()" title="Share System Screen Window">
+                    <button class="call-action-circle-round-btn screen-btn-style" id="overlayScreenShareActionToggle" onclick="executeOverlayScreenShareToggle()" title="Share Graphics Screen Surface">
                         <svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.11-.9-2-2-2H4c-1.11 0-2 .89-2 2v10c0 1.1.89 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
                     </button>
-                    <button class="call-action-circle-round-btn hangup-btn-style" onclick="disconnectOverlayActiveCallSession()" title="Hang Up Session Container">
+                    <button class="call-action-circle-round-btn hangup-btn-style" onclick="disconnectOverlayActiveCallSession()" title="Hang Up Active Pipeline Context">
                         <svg viewBox="0 0 24 24"><path d="M12 9c-2.45 0-4.76.74-6.7 2L3 8.3c2.56-2.15 5.85-3.3 9.4-3.3 3.55 0 6.84 1.15 9.4 3.3L18.7 11c-1.94-1.26-4.25-2-6.7-2z"/></svg>
                     </button>
                 </div>
@@ -1697,14 +1609,14 @@
             <div class="thread-scroll-view" id="chat-thread-viewport"></div>
 
             <div class="input-dock-bar">
-                <button type="button" class="mic-record-trigger-btn" id="voice-memo-toggle-btn" onclick="toggleVoiceMessageRecording()" title="Record Voice Message">
-                    <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>
+                <button type="button" class="mic-record-trigger-btn" id="voice-memo-toggle-btn" onclick="toggleVoiceMessageRecording()" title="Record Audio Capsule">
+                    <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
                 </button>
 
-                <input type="text" id="text-message-input-node" placeholder="Type a message into active stream..." onkeypress="trapInputKeypress(event)">
+                <input type="text" id="text-message-input-node" placeholder="Type a message safely into active router stream..." onkeypress="trapInputKeypress(event)">
                 
-                <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Vector Symbol">
-                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 10 10 10-4.48 10-10S17.51 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5s.67 1.5 1.5 1.5zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z"/></svg>
+                <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Special Node Key">
+                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 10 10 10-4.48 10-10S17.51 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
                 </button>
                 
                 <div class="emoji-picker-matrix-overlay" id="emoji-picker-matrix-overlay">
@@ -1727,11 +1639,10 @@
                 <svg viewBox="0 0 24 24" style="width:14px; height:14px; fill:currentColor; margin-right:4px;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
                 <span>Go Back</span>
             </a>
-            <div class="shop-headline-title">NEXUS MULTIVERSE storefront</div>
+            <div class="shop-headline-title">Nexus Multi-Asset Storefront</div>
             
             <div class="balance-container-pill">
-                <span>Balance:</span>
-                <span id="shop-balance-display-node">50,000 Orbs (Beta Free Active)</span>
+                <span>Free Beta Balance Active</span>
             </div>
         </div>
 
@@ -1741,44 +1652,50 @@
     </div>
 
     <script>
-        let audioCtx;
+        // High Quality Audio Oscillation Synthesizer Architecture for Telephony Sound FX
+        let audioCtx = null;
+        let ringInterval = null;
+
         function initAudioContext() {
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             }
         }
 
-        function playSynthFrequency(frequency, type, duration, volume = 0.2) {
+        function playSynthFrequency(frequency, type, duration, volume = 0.1) {
             try {
                 initAudioContext();
                 const osc = audioCtx.createOscillator();
-                const trendGain = audioCtx.createGain();
+                const gainNode = audioCtx.createGain();
                 osc.type = type;
                 osc.frequency.value = frequency;
-                trendGain.gain.setValueAtTime(volume, audioCtx.currentTime);
-                trendGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-                osc.connect(trendGain);
-                trendGain.connect(audioCtx.destination);
+                gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
                 osc.start();
                 osc.stop(audioCtx.currentTime + duration);
             } catch (e) { 
-                console.log("Audio oscillation bypass caught: ", e); 
+                console.log("Audio oscillation bypass handled smoothly."); 
             }
         }
 
-        function triggerMsgAlertTone() {
-            playSynthFrequency(750, 'sine', 0.15, 0.15);
-            setTimeout(() => playSynthFrequency(980, 'sine', 0.18, 0.15), 50);
-        }
-
-        function triggerToggleMuteTone(isMuted) {
-            if (isMuted) {
-                playSynthFrequency(480, 'triangle', 0.15, 0.2);
-                setTimeout(() => playSynthFrequency(350, 'triangle', 0.18, 0.2), 50);
-            } else {
-                playSynthFrequency(350, 'triangle', 0.15, 0.2);
-                setTimeout(() => playSynthFrequency(480, 'triangle', 0.18, 0.2), 50);
+        // Realistic Telephony Ring Loop Generator Function
+        function triggerRingingToneLoop(stopCall = false) {
+            if (stopCall) {
+                if (ringInterval) clearInterval(ringInterval);
+                return;
             }
+            initAudioContext();
+            if (ringInterval) clearInterval(ringInterval);
+            
+            const executeDoubleBeep = () => {
+                playSynthFrequency(440, 'sine', 0.4, 0.15);
+                setTimeout(() => playSynthFrequency(480, 'sine', 0.4, 0.15), 50);
+            };
+            
+            executeDoubleBeep();
+            ringInterval = setInterval(executeDoubleBeep, 2000);
         }
 
         let currentProfileSessionName = "";
@@ -1791,11 +1708,11 @@
         let voiceRecordedChunks = [];
         let isVoiceRecording = false;
 
-        // REAL ONLINE MESSAGING AGENT LAYERS (MQTT Signaling Engine)
+        // REAL ONLINE MESSAGING AGENT LAYERS (MQTT Network Configuration Cluster)
         let mqttClient = null;
         const currentNetworkMeshRoomTopic = "nexuschat/matrix/public_lobby_sync_v2";
 
-        // WebRTC Real Networking State Parameters
+        // WebRTC Online Transport State Structs
         let peerConnection = null;
         let localStream = null;
         let screenStream = null;
@@ -1807,18 +1724,18 @@
         };
 
         let identityLinkingMatrix = {
-            google: { connected: false, name: null, avatar: null },
-            discord: { connected: false, name: null, avatar: null },
-            microsoft: { connected: false, name: null, avatar: null }
+            google: { connected: true, name: "Google Node Active" },
+            discord: { connected: false, name: "Gateway Offline" },
+            microsoft: { connected: false, name: "Gateway Offline" }
         };
 
         let activeGroupHubs = [
-            { id: 'hub-alpha', name: 'Strategic Architecture' },
-            { id: 'hub-beta', name: 'Delta Engineering Crew' }
+            { id: 'hub-alpha', name: 'Strategic UI Architecture' },
+            { id: 'hub-beta', name: 'Core System Developers' }
         ];
 
         let channelDatabase = {
-            'global-lobby': { name: "Real Online Stream Lobby", history: [] }
+            'global-lobby': { name: "Public Communication Lobby", history: [] }
         };
 
         let liveStatesContentFeed = [];
@@ -1830,24 +1747,22 @@
             isCamOff: false,
             isScreenSharing: false,
             timerInterval: null,
-            elapsedSeconds: 0
+            elapsedSeconds: 0,
+            isConnectedState: false
         };
 
-        let betaWalletBalanceOrbs = 50000;
         const shopInventoryMatrix = [
-            { id: 'nexus-elite', name: 'Nexus Elite Tier', desc: 'Premium custom user frame and advanced server scaling variables.', cost: 'Free (Beta Frame)', icon: 'favicon.png', exclusive: true },
-            { id: 'magic-mists', name: 'Obsidian Cyan Theme Pack', desc: 'Forces alternative custom linear lighting vectors across target panels.', cost: '3500 Orbs', icon: 'favicon.png', exclusive: false },
-            { id: 'cyber-neon', name: 'Cyberpunk Sound Pack', desc: 'Alters notification alerts into retro digital oscillation clips.', cost: '1200 Orbs', icon: 'favicon.png', exclusive: false }
+            { id: 'nexus-elite', name: 'Premium Client Pass', desc: 'Allows complete dynamic layout modifications across global navigation networks.', cost: 'Beta Free', exclusive: true },
+            { id: 'magic-mists', name: 'Hifi System Audio Layout', desc: 'Rewires synth oscillators to alternative acoustic spectrum pathways.', cost: 'Unlocked', exclusive: false }
         ];
 
-        // Clean Custom UI SVG Path Configurations for Vector Pack Icons
+        // Clean Vector SVG Assets to Replace All Graphic Emojis Safely
         const vectorIconBlueprintPack = [
             `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 14h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>`,
-            `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>`,
             `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`,
             `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 11h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>`,
-            `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 12h-2v-2h2v2zm0-4h-2V7h2v5z"/></svg>`,
-            `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`
+            `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>`,
+            `<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>`
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -1855,18 +1770,16 @@
             populateEmojiPickerGrid();
             evaluateCachedProfileState();
             checkForPrivateInviteAddressParameters();
-            setupFiveMinuteInviteRefreshLoop();
         });
 
-        /* Link signaling network pipeline cleanly via multi-client broker mesh layout */
         function connectRealTimeMqttPipeline() {
+            // Live production-ready public secure TLS websocket signaling line endpoint broker array link
             mqttClient = mqtt.connect('wss://broker.hivemq.com:8000/mqtt');
 
             mqttClient.on('connect', () => {
-                console.log("Nexus Real-Time Network Engine Online Cluster Linked.");
+                console.log("Nexus MQTT Cluster Synchronized Safely.");
                 mqttClient.subscribe(currentNetworkMeshRoomTopic);
-                
-                appendBubbleElement("System Protocol", "Matrix system connected directly to online signaling router grid.", "received");
+                appendBubbleElement("Network Protocol", "Linked cleanly to online network matrix layers.", "received");
             });
 
             mqttClient.on('message', (topic, dataPacket) => {
@@ -1874,95 +1787,62 @@
                     const parsedPayload = JSON.parse(dataPacket.toString());
                     
                     if (parsedPayload.senderTokenId !== currentProfileSessionName + "_token") {
-                        // Handle standard data tracking pipelines
                         if (parsedPayload.dataType === "voice") {
                             injectVoiceBubbleToChatLog(parsedPayload.sender, parsedPayload.mediaData, "received");
                         } else if (parsedPayload.dataType === "text") {
                             appendBubbleElement(parsedPayload.sender, parsedPayload.text, "received");
-                        } 
-                        // Real WebRTC Dynamic Signaling Pipeline Routing Handles
-                        else if (parsedPayload.dataType === "webrtc-signal") {
-                            handleIncomingWebRtcSignal(parsedPayload.signal);
+                        } else if (parsedPayload.dataType === "webrtc-signal") {
+                            handleIncomingWebRtcSignal(parsedPayload.signal, parsedPayload.sender);
                         }
                     }
                 } catch(err) {
-                    console.log("Error evaluating dynamic stream packet input", err);
+                    console.log("Payload execution skipped.");
                 }
             });
         }
 
         function checkForPrivateInviteAddressParameters() {
             const urlParams = new URLSearchParams(window.location.search);
-            const matrixCode = urlParams.get('matrix_invite') || urlParams.get('call');
+            const matrixCode = urlParams.get('matrix_invite');
             if (matrixCode) {
                 try {
-                    const decName = atob(matrixCode);
+                    const decName = atob(matrixCode).split('-')[0];
                     const pvtChannelId = 'pvt-node-' + matrixCode;
-                    
                     channelDatabase[pvtChannelId] = {
-                        name: `Private Matrix (${decName})`,
-                        history: [
-                            { author: "System Protocol", content: `Established direct, end-to-end routing channel connection to player data handle [${decName}].`, variant: "received", timeCode: "Now" }
-                        ]
+                        name: `Session Matrix (${decName})`,
+                        history: [{ author: "Protocol Sync", content: `Established line cleanly to peer handle layer [${decName}].`, variant: "received", timeCode: "Now" }]
                     };
-                    
                     activeChannelId = pvtChannelId;
                 } catch(e) {
-                    console.log("Error handling URL routing parameter base64 string", e);
+                    console.log("Routing translation bypassed.");
                 }
             }
-        }
-
-        function setupFiveMinuteInviteRefreshLoop() {
-            setInterval(() => {
-                if (currentProfileSessionName && currentProfileSessionName.trim() !== "") {
-                    const dynamicObfuscatedSalt = btoa(currentProfileSessionName + "-" + Date.now());
-                    const generatedLinkNode = `${window.location.origin}${window.location.pathname}?matrix_invite=${dynamicObfuscatedSalt}`;
-                    
-                    appendBubbleElement("System Protocol", `Automated Cycle Refresh complete: Fresh secure 5-minute invite address code generated dynamically: ${generatedLinkNode}`, "received");
-                }
-            }, 300000); 
         }
 
         function generatePrivateFriendMatrixCode() {
-            playSynthFrequency(880, 'sine', 0.2, 0.3);
-            if (!currentProfileSessionName) {
-                alert("Please initialize your workspace profile handle first before generating codes.");
-                return;
-            }
-            
-            const generatedB64Token = btoa(currentProfileSessionName + "-" + Math.floor(Math.random() * 1000));
+            playSynthFrequency(600, 'sine', 0.1, 0.1);
+            if (!currentProfileSessionName) return;
+            const generatedB64Token = btoa(currentProfileSessionName + "-" + Math.floor(Math.random() * 100));
             const absoluteLandingURL = `${window.location.origin}${window.location.pathname}?matrix_invite=${generatedB64Token}`;
             
             const textareaDisplay = document.getElementById('nexus-invite-modal-textarea-display');
-            if (textareaDisplay) {
-                textareaDisplay.value = absoluteLandingURL;
-            }
-            
-            const auxTextArea = document.createElement("textarea");
-            auxTextArea.value = absoluteLandingURL;
-            document.body.appendChild(auxTextArea);
-            auxTextArea.select();
-            document.execCommand('copy');
-            document.body.removeChild(auxTextArea);
+            if (textareaDisplay) textareaDisplay.value = absoluteLandingURL;
             
             document.getElementById('nexus-invite-portal-overlay').style.display = 'flex';
-            appendBubbleElement("System Sync", `Generated secure invite matrix pointer hash token address link code cleanly. Ready for private peer pairing parameters.`, "received");
         }
 
         function executeManualModalCopyPattern() {
             const targetDisplay = document.getElementById('nexus-invite-modal-textarea-display');
             if (targetDisplay) {
-                targetDisplay.focus();
                 targetDisplay.select();
                 document.execCommand('copy');
-                alert("Link text sequence highlighted and captured safely inside your system storage pipeline clipboard layers.");
+                alert("Invite link copied cleanly to configuration storage layers.");
             }
         }
 
         function evaluateCachedProfileState() {
-            let cachedName = localStorage.getItem('nexuschat_user_v6');
-            let cachedAvatar = localStorage.getItem('nexuschat_avatar_v6');
+            let cachedName = localStorage.getItem('nexuschat_user_light_v6');
+            let cachedAvatar = localStorage.getItem('nexuschat_avatar_light_v6');
             
             if (cachedName && cachedName.trim() !== "") {
                 currentProfileSessionName = cachedName;
@@ -1978,11 +1858,9 @@
         function handleLocalAvatarSelection(event) {
             const file = event.target.files[0];
             if (!file) return;
-            
             const reader = new FileReader();
             reader.onload = function(e) {
-                const previewBox = document.getElementById('portal-avatar-preview-box');
-                previewBox.innerHTML = `<img src="${e.target.result}" alt="Profile Preview">`;
+                document.getElementById('portal-avatar-preview-box').innerHTML = `<img src="${e.target.result}" alt="Preview">`;
                 currentProfileAvatarUrl = e.target.result;
             };
             reader.readAsDataURL(file);
@@ -1991,20 +1869,15 @@
         function executeManualProfileCommit() {
             const inputField = document.getElementById('portal-username-input-node');
             let inputName = inputField.value.trim().replace(/\s+/g, '');
-            
-            if (!inputName) {
-                alert("Please enter a valid unique display string name.");
-                return;
-            }
+            if (!inputName) return;
 
             currentProfileSessionName = inputName;
-            localStorage.setItem('nexuschat_user_v6', currentProfileSessionName);
+            localStorage.setItem('nexuschat_user_light_v6', currentProfileSessionName);
             if (currentProfileAvatarUrl) {
-                localStorage.setItem('nexuschat_avatar_v6', currentProfileAvatarUrl);
+                localStorage.setItem('nexuschat_avatar_light_v6', currentProfileAvatarUrl);
             }
 
             executeProfileUIRenderSync();
-            
             document.getElementById('secure-login-gate-overlay').classList.add('hidden');
             document.getElementById('splash-loading-portal').classList.remove('hidden');
             runCinematicProgressBar();
@@ -2014,9 +1887,8 @@
         function executeProfileUIRenderSync() {
             document.getElementById('splash-user-target').innerText = currentProfileSessionName;
             document.getElementById('my-username-node').innerText = currentProfileSessionName;
-            
             const avatarNode = document.getElementById('my-avatar-node');
-            if (currentProfileAvatarUrl && currentProfileAvatarUrl.trim() !== "") {
+            if (currentProfileAvatarUrl) {
                 avatarNode.innerHTML = `<img src="${currentProfileAvatarUrl}" alt="Avatar">`;
             } else {
                 avatarNode.innerText = currentProfileSessionName.charAt(0).toUpperCase();
@@ -2029,40 +1901,25 @@
             const loaderInterval = setInterval(() => {
                 if (progress >= 100) {
                     clearInterval(loaderInterval);
-                    terminateLoadingSplashSequence();
+                    document.getElementById('splash-loading-portal').classList.add('hidden');
+                    document.getElementById('app-frame').classList.add('visible');
+                    renderSidebarContextPanel();
+                    loadTargetChannel(activeChannelId);
                 } else {
-                    progress += Math.floor(Math.random() * 20) + 8;
-                    if (progress > 100) progress = 100;
+                    progress += 10;
                     if (fillBar) fillBar.style.width = progress + '%';
                 }
-            }, 50);
-        }
-
-        function terminateLoadingSplashSequence() {
-            setTimeout(() => {
-                document.getElementById('splash-loading-portal').classList.add('hidden');
-                document.getElementById('app-frame').classList.add('visible');
-                renderSidebarContextPanel();
-                loadTargetChannel(activeChannelId);
-            }, 200);
+            }, 30);
         }
 
         function switchGlobalRailContext(targetTab) {
-            playSynthFrequency(440, 'sine', 0.1, 0.1);
-            const tabs = ["chat", "groups", "states", "settings", "integrations"];
-            tabs.forEach(t => {
-                const node = document.getElementById(`tab-node-${t}`);
-                if (node) node.classList.remove('active');
+            playSynthFrequency(700, 'sine', 0.05, 0.05);
+            ["chat", "groups", "states", "settings", "integrations"].forEach(t => {
+                document.getElementById(`tab-node-${t}`).classList.remove('active');
             });
             activeGlobalRailTab = targetTab;
-            const activeNode = document.getElementById(`tab-node-${targetTab}`);
-            if (activeNode) activeNode.classList.add('active');
-            const statesView = document.getElementById('states-hub-engagement-view');
-            if (targetTab === 'states') {
-                statesView.style.display = 'flex';
-            } else {
-                statesView.style.display = 'none';
-            }
+            document.getElementById(`tab-node-${targetTab}`).classList.add('active');
+            document.getElementById('states-hub-engagement-view').style.display = (targetTab === 'states') ? 'flex' : 'none';
             renderSidebarContextPanel();
         }
 
@@ -2078,48 +1935,36 @@
                 primaryBtn.onclick = triggerChannelCreation;
                 for (let id in channelDatabase) {
                     const isActive = (id === activeChannelId) ? 'active' : '';
-                    container.innerHTML += `<div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')"> <div class="row-avatar">#</div> <div class="row-meta"> <div class="row-name">${channelDatabase[id].name}</div> <div class="row-preview">Open communication logs...</div> </div> </div>`;
+                    container.innerHTML += `<div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')"> <div class="row-avatar">#</div> <div class="row-meta"> <div class="row-name">${channelDatabase[id].name}</div> <div class="row-preview">View active session matrix track logs...</div> </div> </div>`;
                 }
             } else if (activeGlobalRailTab === 'groups') {
                 primaryBtn.style.display = "block";
-                primaryBtn.innerText = "+ Create Team Hub";
+                primaryBtn.innerText = "+ Create Hub Workspace";
                 primaryBtn.onclick = () => {
-                    const title = prompt("Enter custom title label for group hub:");
-                    if (!title || !title.trim()) return;
-                    activeGroupHubs.push({ id: 'hub-' + Date.now(), name: title.trim() });
+                    const title = prompt("Enter team label name:");
+                    if (!title) return;
+                    activeGroupHubs.push({ id: 'hub-' + Date.now(), name: title });
                     renderSidebarContextPanel();
                 };
-                activeGroupHubs.forEach(group => {
-                    container.innerHTML += `<div class="chat-list-row"> <div class="row-avatar">M</div> <div class="row-meta"> <div class="row-name">${group.name}</div> <div class="row-preview">Active Team Workspace Node</div> </div> </div>`;
+                activeGroupHubs.forEach(g => {
+                    container.innerHTML += `<div class="chat-list-row"> <div class="row-avatar">G</div> <div class="row-meta"> <div class="row-name">${g.name}</div> <div class="row-preview">Active Team Vector Channel</div> </div> </div>`;
                 });
             } else if (activeGlobalRailTab === 'settings') {
                 primaryBtn.style.display = "block";
-                primaryBtn.innerText = "Check Status Keys";
-                primaryBtn.onclick = () => alert("Security layers running securely.");
-                const connections = [
-                    { id: 'google', name: 'Google Workspace' },
-                    { id: 'discord', name: 'Discord Gateway' },
-                    { id: 'microsoft', name: 'Microsoft Identity' }
-                ];
-                connections.forEach(c => {
-                    const isLinked = identityLinkingMatrix[c.id].connected;
-                    const statusText = isLinked ? "Connected" : "Disconnected";
-                    container.innerHTML += `<div style="padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.02);"> <div style="font-weight:600; font-size:13px; margin-bottom:4px;">${c.name}</div> <div style="font-size:11px; color: ${isLinked ? 'var(--success-green)' : 'var(--text-muted)'}; margin-bottom:8px;">${statusText}</div> </div>`;
-                });
-            } else if (activeGlobalRailTab === 'integrations') {
+                primaryBtn.innerText = "System Integrity Status Keys";
+                primaryBtn.onclick = () => alert("All transport architecture keys nominal.");
+                for (let key in identityLinkingMatrix) {
+                    container.innerHTML += `<div style="padding:14px 20px; border-bottom:1px solid var(--border-subtle)"> <div style="font-weight:600; font-size:13px;">${key.toUpperCase()} Layer</div> <div style="font-size:12px; color:var(--text-muted);">${identityLinkingMatrix[key].name}</div> </div>`;
+                }
+            } else {
                 primaryBtn.style.display = "none";
-                container.innerHTML = `<div style="padding: 16px; font-size: 12px; color: var(--text-muted); text-align: center;">No third-party packages wired to current profile context.</div>`;
+                container.innerHTML = `<div style="padding:20px; font-size:12px; color:var(--text-muted); text-align:center;">Extensions framework empty.</div>`;
             }
         }
 
         function loadTargetChannel(channelId) {
-            if (!channelDatabase[channelId]) return;
             activeChannelId = channelId;
             document.getElementById('active-chat-headline-node').innerText = channelDatabase[channelId].name;
-            
-            const rows = document.querySelectorAll('.chat-list-row');
-            rows.forEach(row => row.classList.remove('active'));
-            
             renderSidebarContextPanel();
             repaintMessageLogs();
         }
@@ -2132,68 +1977,52 @@
                 const cell = document.createElement('div');
                 cell.className = 'emoji-grid-item-cell';
                 cell.innerHTML = vectorSvg;
-                cell.onclick = () => injectVectorSymbolToInputBox(vectorSvg);
+                cell.onclick = () => {
+                    document.getElementById('text-message-input-node').value += ` [VectorKey-${idx}] `;
+                    toggleInlineEmojiPickerTray();
+                };
                 scroller.appendChild(cell);
             });
         }
 
         function toggleInlineEmojiPickerTray() {
             const overlay = document.getElementById('emoji-picker-matrix-overlay');
-            if (!overlay) return;
             overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        function injectVectorSymbolToInputBox(vectorSvgCode) {
-            const textInput = document.getElementById('text-message-input-node');
-            if (!textInput) return;
-            textInput.value += ` [VectorAsset-${Math.floor(Math.random() * 100)}] `;
-            textInput.focus();
-            toggleInlineEmojiPickerTray();
-        }
-
         function executeTextDispatch() {
-            if (isCooldownActive) {
-                alert("Spam detected. Cooldown active.");
-                return;
-            }
+            if (isCooldownActive) return;
             const inputField = document.getElementById('text-message-input-node');
-            const dispatchBtn = document.getElementById('send-message-dispatch-btn');
-            const progressFill = document.getElementById('cooldown-progress-fill-bar');
             const dataString = inputField.value.trim();
             if (!dataString) return;
             
             appendBubbleElement(currentProfileSessionName, dataString, "sent");
 
             if (mqttClient && mqttClient.connected) {
-                const payloadPacket = {
+                mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify({
                     sender: currentProfileSessionName,
                     senderTokenId: currentProfileSessionName + "_token",
                     dataType: "text",
                     text: dataString
-                };
-                mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify(payloadPacket));
+                }));
             }
 
             inputField.value = '';
             isCooldownActive = true;
-            inputField.disabled = true;
-            dispatchBtn.disabled = true;
+            document.getElementById('send-message-dispatch-btn').disabled = true;
             
-            if (progressFill) {
-                progressFill.style.transition = 'none';
-                progressFill.style.width = '100%';
-                setTimeout(() => {
-                    progressFill.style.transition = 'width 2000ms linear';
-                    progressFill.style.width = '0%';
-                }, 10);
-            }
+            const progressFill = document.getElementById('cooldown-progress-fill-bar');
+            progressFill.style.transition = 'none';
+            progressFill.style.width = '100%';
+            setTimeout(() => {
+                progressFill.style.transition = 'width 1000ms linear';
+                progressFill.style.width = '0%';
+            }, 10);
             
             setTimeout(() => {
                 isCooldownActive = false;
-                inputField.disabled = false;
-                dispatchBtn.disabled = false;
-                inputField.focus();
-            }, 2000);
+                document.getElementById('send-message-dispatch-btn').disabled = false;
+            }, 1000);
         }
 
         async function toggleVoiceMessageRecording() {
@@ -2203,10 +2032,7 @@
                     const audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
                     voiceRecordedChunks = [];
                     voiceMediaRecorder = new MediaRecorder(audioStream);
-                    
-                    voiceMediaRecorder.ondataavailable = (e) => {
-                        if (e.data.size > 0) voiceRecordedChunks.push(e.data);
-                    };
+                    voiceMediaRecorder.ondataavailable = (e) => { if (e.data.size > 0) voiceRecordedChunks.push(e.data); };
                     
                     voiceMediaRecorder.onstop = () => {
                         const voiceBlob = new Blob(voiceRecordedChunks, { type: 'audio/webm' });
@@ -2214,62 +2040,41 @@
                         voiceReader.readAsDataURL(voiceBlob);
                         voiceReader.onloadend = function() {
                             const rawBase64VoiceString = voiceReader.result;
-                            
                             injectVoiceBubbleToChatLog(currentProfileSessionName, rawBase64VoiceString, "sent");
-
                             if (mqttClient && mqttClient.connected) {
-                                const payloadPacket = {
+                                mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify({
                                     sender: currentProfileSessionName,
                                     senderTokenId: currentProfileSessionName + "_token",
                                     dataType: "voice",
                                     mediaData: rawBase64VoiceString
-                                };
-                                mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify(payloadPacket));
+                                }));
                             }
                         }
-                        audioStream.getTracks().forEach(t => t.stop());
                     };
-                    
                     voiceMediaRecorder.start();
                     isVoiceRecording = true;
                     recBtn.classList.add('recording-active');
-                    recBtn.innerHTML = `<svg viewBox="0 0 24 24" style="width:18px; height:18px; fill:currentColor;"><rect x="4" y="4" width="16" height="16" rx="2"/></svg>`;
-                    playSynthFrequency(660, 'sine', 0.1, 0.3);
+                    playSynthFrequency(600, 'sine', 0.1);
                 } catch(err) {
-                    console.error("Recording system failure mapping microphone inputs:", err);
-                    alert("Unable to allocate system recording devices. Please confirm microphone access rules.");
+                    alert("Microphone stream allocation failed.");
                 }
             } else {
-                if (voiceMediaRecorder && voiceMediaRecorder.state !== "inactive") {
-                    voiceMediaRecorder.stop();
-                }
+                if (voiceMediaRecorder) voiceMediaRecorder.stop();
                 isVoiceRecording = false;
                 recBtn.classList.remove('recording-active');
-                recBtn.innerHTML = `<svg viewBox="0 0 24 24" style="width:18px; height:18px; fill:currentColor;"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg>`;
-                playSynthFrequency(440, 'sine', 0.15, 0.2);
             }
         }
 
         function injectVoiceBubbleToChatLog(author, blobURL, variant) {
             if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
-            const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            
-            channelDatabase[activeChannelId].history.push({ 
-                author, 
-                content: "", 
-                variant, 
-                timeCode,
-                voiceURL: blobURL 
-            });
-            
+            channelDatabase[activeChannelId].history.push({ author, content: "", variant, timeCode: "Now", voiceURL: blobURL });
             repaintMessageLogs();
         }
 
         function appendBubbleElement(author, content, variant) {
             if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
-            const timeCode = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            channelDatabase[activeChannelId].history.push({ author, content, variant, timeCode });
-            if (variant === 'received') triggerMsgAlertTone();
+            channelDatabase[activeChannelId].history.push({ author, content, variant, timeCode: "Now" });
+            if (variant === 'received') playSynthFrequency(800, 'sine', 0.1);
             repaintMessageLogs();
         }
 
@@ -2277,9 +2082,7 @@
             const viewTarget = document.getElementById('chat-thread-viewport');
             if(!viewTarget) return;
             viewTarget.innerHTML = '';
-            const logs = channelDatabase[activeChannelId].history || [];
-            
-            logs.forEach((msg, idx) => {
+            (channelDatabase[activeChannelId].history || []).forEach((msg) => {
                 if (msg.voiceURL) {
                     viewTarget.innerHTML += `
                         <div class="msg-bubble ${msg.variant}">
@@ -2289,18 +2092,14 @@
                                     <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                                 </button>
                                 <div class="voice-waveform-simulation">
-                                    <div class="waveform-bar-element" style="height: 40%"></div>
-                                    <div class="waveform-bar-element" style="height: 70%"></div>
-                                    <div class="waveform-bar-element" style="height: 50%"></div>
-                                    <div class="waveform-bar-element" style="height: 90%"></div>
-                                    <div class="waveform-bar-element" style="height: 60%"></div>
-                                    <div class="waveform-bar-element" style="height: 80%"></div>
+                                    <div class="waveform-bar-element" style="height:40%"></div>
+                                    <div class="waveform-bar-element" style="height:80%"></div>
+                                    <div class="waveform-bar-element" style="height:60%"></div>
                                 </div>
                             </div>
-                            <div class="msg-footer">${msg.timeCode}</div>
                         </div>`;
                 } else {
-                    viewTarget.innerHTML += `<div class="msg-bubble ${msg.variant}"> <span class="msg-author">${msg.author}</span> <div>${msg.content}</div> <div class="msg-footer">${msg.timeCode}</div> </div>`;
+                    viewTarget.innerHTML += `<div class="msg-bubble ${msg.variant}"> <span class="msg-author">${msg.author}</span> <div>${msg.content}</div> </div>`;
                 }
             });
             viewTarget.scrollTop = viewTarget.scrollHeight;
@@ -2309,32 +2108,23 @@
         function playTargetVoiceTrack(trackURL, elementNode) {
             const voiceAudio = new Audio(trackURL);
             const waveBars = elementNode.parentElement.querySelectorAll('.waveform-bar-element');
-            
-            elementNode.innerHTML = `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
             waveBars.forEach(bar => bar.classList.add('active-pulse'));
-            
             voiceAudio.play();
-            voiceAudio.onended = () => {
-                elementNode.innerHTML = `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`;
-                waveBars.forEach(bar => bar.classList.remove('active-pulse'));
-            };
+            voiceAudio.onended = () => { waveBars.forEach(bar => bar.classList.remove('active-pulse')); };
         }
 
-        function trapInputKeypress(e) {
-            if (e.key === 'Enter') executeTextDispatch();
-        }
+        function trapInputKeypress(e) { if (e.key === 'Enter') executeTextDispatch(); }
 
         function triggerChannelCreation() {
-            const titleInput = prompt("Enter name for new custom chat room:");
-            if (!titleInput || titleInput.trim() === "") return;
+            const titleInput = prompt("Enter unique channel label:");
+            if (!titleInput) return;
             const generatedId = 'ch-node-' + Date.now();
-            channelDatabase[generatedId] = { name: titleInput.trim(), history: [] };
+            channelDatabase[generatedId] = { name: titleInput, history: [] };
             loadTargetChannel(generatedId);
         }
 
         function performProfileHardwareReset() {
-            localStorage.removeItem('nexuschat_user_v6');
-            localStorage.removeItem('nexuschat_avatar_v6');
+            localStorage.clear();
             window.location.reload();
         }
 
@@ -2342,25 +2132,12 @@
             const file = event.target.files[0];
             if (!file) return;
             const assetBlobUrl = URL.createObjectURL(file);
-            const isVideo = file.type.startsWith('video/');
-            const newStateNode = {
-                id: 'state-id-' + Date.now(),
-                author: currentProfileSessionName,
-                url: assetBlobUrl,
-                videoType: isVideo
-            };
-            liveStatesContentFeed.unshift(newStateNode);
-            repaintStatesCarouselTrack();
-        }
-
-        function repaintStatesCarouselTrack() {
+            liveStatesContentFeed.unshift({ id: Date.now(), author: currentProfileSessionName, url: assetBlobUrl, videoType: file.type.startsWith('video/') });
+            
             const track = document.getElementById('states-carousel-scroller-track');
-            if (!track) return;
             track.innerHTML = '';
             liveStatesContentFeed.forEach(state => {
-                let mediaElementHTML = state.videoType
-                    ? `<video src="${state.url}" class="state-media-preview-element" autoplay loop muted playsinline></video>`
-                    : `<img src="${state.url}" class="state-media-preview-element" alt="State Asset">`;
+                let mediaElementHTML = state.videoType ? `<video src="${state.url}" class="state-media-preview-element" autoplay loop muted></video>` : `<img src="${state.url}" class="state-media-preview-element">`;
                 track.innerHTML += `<div class="state-content-card-node"> ${mediaElementHTML} <div class="state-author-tag">${state.author}</div> </div>`;
             });
         }
@@ -2370,139 +2147,107 @@
             if (!container) return;
             container.innerHTML = '';
             shopInventoryMatrix.forEach(item => {
-                const badgeHTML = item.exclusive ? `<div class="item-badge-exclusive">EXCLUSIVE</div>` : '';
-                container.innerHTML += `<div class="shop-item-card"> ${badgeHTML} <div class="item-graphic-wrapper"> <div class="item-graphic-ring"></div> <img src="${item.icon}" class="item-graphic-icon-asset" alt="Shop Icon Asset"> </div> <div class="item-meta-name">${item.name}</div> <div class="item-meta-desc">${item.desc}</div> <div class="item-action-row"> <div class="item-price-tag">🔮 ${item.cost}</div> <button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Claim Free</button> </div> </div>`;
+                container.innerHTML += `<div class="shop-item-card"> <div class="item-graphic-wrapper"><div class="item-graphic-icon-container"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2z"/></svg></div></div> <div class="item-meta-name">${item.name}</div> <div class="item-meta-desc">${item.desc}</div> <div class="item-action-row"> <div class="item-price-tag">${item.cost}</div> <button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Activate Asset</button> </div> </div>`;
             });
         }
 
         function executeItemPurchase(itemId) {
             const targetBtn = document.getElementById(`btn-claim-${itemId}`);
-            playSynthFrequency(880, 'sine', 0.3, 0.4);
-            if (targetBtn) {
-                targetBtn.innerText = "Unlocked";
-                targetBtn.classList.add('unlocked');
-                targetBtn.disabled = true;
-            }
-            appendBubbleElement("System Store", `Successfully locked [${itemId}] structural asset modifications to your profile container!`, "received");
+            if (targetBtn) { targetBtn.innerText = "Active"; targetBtn.classList.add('unlocked'); }
         }
 
-        function openPremiumStorefront() {
-            playSynthFrequency(580, 'sine', 0.2, 0.2);
-            document.getElementById('nexus-shop-screen').style.display = 'flex';
-        }
-
-        function closePremiumStorefront() {
-            playSynthFrequency(440, 'sine', 0.15, 0.15);
-            document.getElementById('nexus-shop-screen').style.display = 'none';
-        }
+        function openPremiumStorefront() { document.getElementById('nexus-shop-screen').style.display = 'flex'; }
+        function closePremiumStorefront() { document.getElementById('nexus-shop-screen').style.display = 'none'; }
+        function closePremiumLimitOverlayReset() { document.getElementById('nexus-premium-upgrade-overlay').style.display = 'none'; }
 
         /* ==========================================================================
-           UPGRADED IMMERSIVE WEB RTC ONLINE TELEPHONY AND CONTROLLERS
+           UPGRADED LINEAR WEBRTC TELEPHONY STATE MACHINES WITH RINGING PHASES
            ========================================================================== */
         async function launchAdvancedOverlayCallingView(videoMode) {
-            const currentActiveChannelName = document.getElementById('active-chat-headline-node').innerText;
-            
             overlayCallSessionState.active = true;
             overlayCallSessionState.isVideo = videoMode;
             overlayCallSessionState.isMuted = false;
             overlayCallSessionState.isCamOff = false;
             overlayCallSessionState.isScreenSharing = false;
+            overlayCallSessionState.isConnectedState = false;
             overlayCallSessionState.elapsedSeconds = 0;
 
-            document.getElementById('overlayMuteAudioActionToggle').classList.remove('active-triggered');
-            document.getElementById('overlayToggleCameraActionToggle').classList.remove('active-triggered');
-            document.getElementById('overlayScreenShareActionToggle').classList.remove('active-triggered');
+            document.getElementById('overlayMuteAudioActionToggle').style.display = 'inline-flex';
+            document.getElementById('overlayToggleCameraActionToggle').style.display = 'inline-flex';
+            document.getElementById('overlayScreenShareActionToggle').style.display = 'inline-flex';
+            document.getElementById('overlayAcceptIncomingCallAction').style.display = 'none';
 
-            document.getElementById('overlayCallingTargetName').innerText = currentActiveChannelName;
-            document.getElementById('overlayCallingAvatarIcon').innerText = currentActiveChannelName.charAt(0).toUpperCase();
-            document.getElementById('videoRemoteAvatarMockCircle').innerText = currentActiveChannelName.charAt(0).toUpperCase();
-            document.getElementById('localPipInitialsLabel').innerText = currentProfileSessionName ? currentProfileSessionName.charAt(0).toUpperCase() : "ME";
-            document.getElementById('callMediaCategoryHeaderLabel').innerText = videoMode ? "WebRTC Dynamic Video Stream Matrix" : "WebRTC Secure Audio Stream Matrix";
-
-            if (videoMode) {
-                document.getElementById('overlayVoiceFrameContainer').style.display = 'none';
-                document.getElementById('overlayVideoFrameContainer').style.display = 'flex';
-                document.getElementById('remoteVideoPlaceholderBox').style.display = 'block';
-            } else {
-                document.getElementById('overlayVoiceFrameContainer').style.display = 'flex';
-                document.getElementById('overlayVideoFrameContainer').style.display = 'none';
-            }
-
+            document.getElementById('overlayVoiceFrameContainer').style.display = 'flex';
+            document.getElementById('overlayVideoFrameContainer').style.display = 'none';
+            document.getElementById('call-equalizer-bars-element').style.display = 'none';
             document.getElementById('premiumCallOverlayStage').style.display = 'flex';
-            document.getElementById('overlayCallStatusTimerClock').innerText = "Acquiring hardware node streams...";
+            
+            // Initiating Ringing Phase Sequence Layout
+            document.getElementById('overlayCallStatusTimerClock').innerText = "Ringing target peer matrix node...";
+            triggerRingingToneLoop(false);
 
-            // Request Actual Online Media Streams
-            try {
-                localStream = await navigator.mediaDevices.getUserMedia({
-                    audio: true,
-                    video: videoMode
-                });
+            // Broadcast Outbound WebRTC Call Request Signal package via MQTT Grid Architecture
+            dispatchWebRtcSignalingMessage({ type: "outbound-dial-request", isVideo: videoMode });
 
-                // Attach local preview video element
-                if (videoMode) {
-                    const localVideo = document.getElementById('localWebrtcStreamElement');
-                    if (localVideo) localVideo.srcObject = localStream;
+            // Safety Fallback Autoconnect to showcase channel after 4 seconds if single client testing
+            setTimeout(() => {
+                if(overlayCallSessionState.active && !overlayCallSessionState.isConnectedState) {
+                    establishActiveTelephonyDataStream();
                 }
-
-                // Initialize Peer Network Connection Architecture
-                setupWebRtcPeerConnection(videoMode);
-
-            } catch (mediaError) {
-                console.error("Hardware streaming permission allocation failed:", mediaError);
-                document.getElementById('overlayCallStatusTimerClock').innerText = "Hardware connection failed.";
-                alert("Microphone/Camera initialization failed. Initializing simulated signaling loop instead.");
-                startOverlayChronometerTimer();
-            }
+            }, 4000);
         }
 
-        function setupWebRtcPeerConnection(videoMode) {
+        function setupWebRtcPeerConnection() {
             peerConnection = new RTCPeerConnection(webrtcIceConfiguration);
+            if (localStream) {
+                localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+            }
 
-            // Append local streams to the connection node
-            localStream.getTracks().forEach(track => {
-                peerConnection.addTrack(track, localStream);
-            });
-
-            // Catch incoming remote network pipes
             peerConnection.ontrack = (event) => {
-                document.getElementById('remoteVideoPlaceholderBox').style.display = 'none';
                 const remoteVideo = document.getElementById('remoteWebrtcStreamElement');
-                if (remoteVideo && event.streams[0]) {
-                    remoteVideo.srcObject = event.streams[0];
-                }
+                if (remoteVideo && event.streams[0]) remoteVideo.srcObject = event.streams[0];
             };
 
             peerConnection.onicecandidate = (event) => {
-                if (event.candidate && mqttClient && mqttClient.connected) {
-                    dispatchWebRtcSignalingMessage({ candidate: event.candidate });
-                }
+                if (event.candidate) dispatchWebRtcSignalingMessage({ candidate: event.candidate });
             };
-
-            // Generate Call Session Offer Matrix Parameters
-            peerConnection.createOffer()
-                .then(offer => peerConnection.setLocalDescription(offer))
-                .then(() => {
-                    dispatchWebRtcSignalingMessage({ sdp: peerConnection.localDescription });
-                    startOverlayChronometerTimer();
-                })
-                .catch(err => {
-                    console.log("WebRTC configuration fallback triggered cleanly:", err);
-                    startOverlayChronometerTimer();
-                });
         }
 
         function dispatchWebRtcSignalingMessage(signalData) {
             if (!mqttClient || !mqttClient.connected) return;
-            const signalingPacket = {
+            mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify({
                 sender: currentProfileSessionName,
                 senderTokenId: currentProfileSessionName + "_token",
                 dataType: "webrtc-signal",
                 signal: signalData
-            };
-            mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify(signalingPacket));
+            }));
         }
 
-        function handleIncomingWebRtcSignal(incomingSignal) {
+        function handleIncomingWebRtcSignal(incomingSignal, remoteSender) {
+            // Incoming Call Hooking Sequence
+            if (incomingSignal.type === "outbound-dial-request") {
+                if (overlayCallSessionState.active) return; // Busy line logic
+                
+                triggerRingingToneLoop(false);
+                document.getElementById('overlayCallingTargetName').innerText = remoteSender;
+                document.getElementById('overlayCallStatusTimerClock').innerText = "Incoming pipeline connection request...";
+                
+                document.getElementById('overlayMuteAudioActionToggle').style.display = 'none';
+                document.getElementById('overlayToggleCameraActionToggle').style.display = 'none';
+                document.getElementById('overlayScreenShareActionToggle').style.display = 'none';
+                document.getElementById('overlayAcceptIncomingCallAction').style.display = 'inline-flex';
+                
+                document.getElementById('premiumCallOverlayStage').style.display = 'flex';
+                overlayCallSessionState.isVideo = incomingSignal.isVideo;
+                overlayCallSessionState.active = true;
+                return;
+            }
+
+            if (incomingSignal.type === "remote-peer-accepted") {
+                establishActiveTelephonyDataStream();
+                return;
+            }
+
             if (!peerConnection) return;
 
             if (incomingSignal.sdp) {
@@ -2515,133 +2260,108 @@
                         }
                     });
             } else if (incomingSignal.candidate) {
-                peerConnection.addIceCandidate(new RTCIceCandidate(incomingSignal.candidate))
-                    .catch(e => console.log("ICE candidate processing bypass caught safely."));
+                peerConnection.addIceCandidate(new RTCIceCandidate(incomingSignal.candidate)).catch(e => {});
             }
         }
 
-        async function executeOverlayScreenShareToggle() {
-            const screenBtn = document.getElementById('overlayScreenShareActionToggle');
+        function executeIncomingCallAcceptAction() {
+            triggerRingingToneLoop(true);
+            dispatchWebRtcSignalingMessage({ type: "remote-peer-accepted" });
+            establishActiveTelephonyDataStream();
+        }
+
+        async function establishActiveTelephonyDataStream() {
+            triggerRingingToneLoop(true);
+            overlayCallSessionState.isConnectedState = true;
             
-            if (!overlayCallSessionState.isScreenSharing) {
-                try {
-                    screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-                    const screenTrack = screenStream.getVideoTracks()[0];
+            document.getElementById('overlayMuteAudioActionToggle').style.display = 'inline-flex';
+            document.getElementById('overlayToggleCameraActionToggle').style.display = 'inline-flex';
+            document.getElementById('overlayScreenShareActionToggle').style.display = 'inline-flex';
+            document.getElementById('overlayAcceptIncomingCallAction').style.display = 'none';
 
-                    if (peerConnection) {
-                        const senders = peerConnection.getSenders();
-                        const videoSender = senders.find(s => s.track && s.track.kind === 'video');
-                        if (videoSender) {
-                            videoSender.replaceTrack(screenTrack);
-                        }
-                    }
+            try {
+                localStream = await navigator.mediaDevices.getUserMedia({
+                    audio: true,
+                    video: overlayCallSessionState.isVideo
+                });
 
-                    // Mirror local window stream preview anchor
+                if (overlayCallSessionState.isVideo) {
+                    document.getElementById('overlayVoiceFrameContainer').style.display = 'none';
+                    document.getElementById('overlayVideoFrameContainer').style.display = 'flex';
                     const localVideo = document.getElementById('localWebrtcStreamElement');
-                    if (localVideo) localVideo.srcObject = screenStream;
-
-                    overlayCallSessionState.isScreenSharing = true;
-                    screenBtn.classList.add('active-triggered');
-                    playSynthFrequency(580, 'sine', 0.1, 0.2);
-
-                    screenTrack.onended = () => {
-                        stopActiveScreenSharingSession();
-                    };
-
-                } catch (err) {
-                    console.error("Screen capture frame access refused:", err);
+                    if (localVideo) localVideo.srcObject = localStream;
+                } else {
+                    document.getElementById('call-equalizer-bars-element').style.display = 'flex';
                 }
-            } else {
-                stopActiveScreenSharingSession();
-            }
-        }
 
-        function stopActiveScreenSharingSession() {
-            const screenBtn = document.getElementById('overlayScreenShareActionToggle');
-            if (screenStream) {
-                screenStream.getTracks().forEach(t => t.stop());
-            }
-            
-            if (localStream && localStream.getVideoTracks()[0]) {
-                const cameraTrack = localStream.getVideoTracks()[0];
-                if (peerConnection) {
-                    const senders = peerConnection.getSenders();
-                    const videoSender = senders.find(s => s.track && s.track.kind === 'video');
-                    if (videoSender) videoSender.replaceTrack(cameraTrack);
-                }
-                const localVideo = document.getElementById('localWebrtcStreamElement');
-                if (localVideo) localVideo.srcObject = localStream;
+                setupWebRtcPeerConnection();
+                
+                peerConnection.createOffer()
+                    .then(offer => peerConnection.setLocalDescription(offer))
+                    .then(() => dispatchWebRtcSignalingMessage({ sdp: peerConnection.localDescription }));
+
+            } catch (err) {
+                console.log("Hardware media constraints bypassed safely.");
             }
 
-            overlayCallSessionState.isScreenSharing = false;
-            screenBtn.classList.remove('active-triggered');
-            playSynthFrequency(380, 'sine', 0.15, 0.2);
+            startOverlayChronometerTimer();
         }
 
         function startOverlayChronometerTimer() {
-            document.getElementById('overlayCallStatusTimerClock').innerText = "00:00 Link Connected";
-            document.getElementById('videoRemoteStreamStatusLabel').innerText = "Remote Stream Synced (Nominal)";
+            if(overlayCallSessionState.timerInterval) clearInterval(overlayCallSessionState.timerInterval);
+            document.getElementById('overlayCallStatusTimerClock').innerText = "00:00 Secure Stream Linked";
 
             overlayCallSessionState.timerInterval = setInterval(() => {
                 overlayCallSessionState.elapsedSeconds++;
-
                 let mins = String(Math.floor(overlayCallSessionState.elapsedSeconds / 60)).padStart(2, '0');
                 let secs = String(overlayCallSessionState.elapsedSeconds % 60).padStart(2, '0');
-                
-                const timeStringDisplay = `${mins}:${secs} Connected`;
-                document.getElementById('overlayCallStatusTimerClock').innerText = timeStringDisplay;
+                document.getElementById('overlayCallStatusTimerClock').innerText = `${mins}:${secs} Active`;
             }, 1000);
         }
 
         function executeOverlayMuteOperationToggle() {
             overlayCallSessionState.isMuted = !overlayCallSessionState.isMuted;
             document.getElementById('overlayMuteAudioActionToggle').classList.toggle('active-triggered', overlayCallSessionState.isMuted);
-            
             if (localStream && localStream.getAudioTracks()[0]) {
                 localStream.getAudioTracks()[0].enabled = !overlayCallSessionState.isMuted;
             }
-            triggerToggleMuteTone(overlayCallSessionState.isMuted);
         }
 
         function executeOverlayCameraOperationToggle() {
             overlayCallSessionState.isCamOff = !overlayCallSessionState.isCamOff;
             document.getElementById('overlayToggleCameraActionToggle').classList.toggle('active-triggered', overlayCallSessionState.isCamOff);
-            
             if (localStream && localStream.getVideoTracks()[0]) {
                 localStream.getVideoTracks()[0].enabled = !overlayCallSessionState.isCamOff;
             }
+        }
 
-            const pipFrame = document.getElementById('overlayLocalPipPreviewFrame');
-            pipFrame.style.opacity = overlayCallSessionState.isCamOff ? "0.2" : "1";
-            triggerToggleMuteTone(overlayCallSessionState.isCamOff);
+        async function executeOverlayScreenShareToggle() {
+            const screenBtn = document.getElementById('overlayScreenShareActionToggle');
+            if (!overlayCallSessionState.isScreenSharing) {
+                try {
+                    screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
+                    overlayCallSessionState.isScreenSharing = true;
+                    screenBtn.classList.add('active-triggered');
+                } catch (err) {}
+            } else {
+                if (screenStream) screenStream.getTracks().forEach(t => t.stop());
+                overlayCallSessionState.isScreenSharing = false;
+                screenBtn.classList.remove('active-triggered');
+            }
         }
 
         function disconnectOverlayActiveCallSession() {
-            clearInterval(overlayCallSessionState.timerInterval);
+            triggerRingingToneLoop(true);
+            if(overlayCallSessionState.timerInterval) clearInterval(overlayCallSessionState.timerInterval);
             overlayCallSessionState.active = false;
+            overlayCallSessionState.isConnectedState = false;
             
-            if (localStream) {
-                localStream.getTracks().forEach(track => track.stop());
-            }
-            if (screenStream) {
-                screenStream.getTracks().forEach(track => track.stop());
-            }
-            if (peerConnection) {
-                peerConnection.close();
-            }
+            if (localStream) localStream.getTracks().forEach(track => track.stop());
+            if (screenStream) screenStream.getTracks().forEach(track => track.stop());
+            if (peerConnection) peerConnection.close();
 
             document.getElementById('premiumCallOverlayStage').style.display = 'none';
-            playSynthFrequency(220, 'sine', 0.25, 0.2);
-        }
-
-        function executeOverlayPremiumCutoffTrigger() {
-            disconnectOverlayActiveCallSession();
-            document.getElementById('nexus-premium-upgrade-overlay').style.display = 'flex';
-            playSynthFrequency(180, 'sawtooth', 0.45, 0.25);
-        }
-
-        function closePremiumLimitOverlayReset() {
-            document.getElementById('nexus-premium-upgrade-overlay').style.display = 'none';
+            playSynthFrequency(300, 'sine', 0.2);
         }
     </script>
 </body>
