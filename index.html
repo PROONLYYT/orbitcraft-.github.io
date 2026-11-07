@@ -1464,10 +1464,10 @@
     <div id="nexus-invite-portal-overlay" class="nexus-gate-premium-modal-wrapper">
         <div class="premium-card-container">
             <h2 class="premium-card-title">Routing Pointer Synchronized</h2>
-            <p class="premium-card-desc">Your private routing parameters have populated. Distribute the string sequence below to construct end-to-end sessions:</p>
-            <textarea class="premium-link-input-display" id="nexus-invite-modal-textarea-display" readonly style="height: 60px; resize: none;"></textarea>
+            <p class="premium-card-desc">Provide this session code parameter sequence to your friend to initialize a live network channel bridge:</p>
+            <textarea class="premium-link-input-display" id="nexus-invite-modal-textarea-display" readonly style="height: 60px; resize: none; font-size: 14px; font-weight: bold; text-align: center; color: var(--primary-accent);"></textarea>
             <div class="premium-action-row-buttons">
-                <button class="premium-btn-action paypal-primary" onclick="executeManualModalCopyPattern()">Copy Sequence</button>
+                <button class="premium-btn-action paypal-primary" onclick="executeManualModalCopyPattern()">Copy Code Sequence</button>
                 <button class="premium-btn-action dismiss-secondary" onclick="document.getElementById('nexus-invite-portal-overlay').style.display = 'none'">Dismiss</button>
             </div>
         </div>
@@ -1497,7 +1497,7 @@
                 <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg>
             </div>
             <div class="rail-tab-item" id="tab-node-settings" onclick="switchGlobalRailContext('settings')" title="Core Workstation Configuration">
-                <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18 1.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
             </div>
             <div class="rail-tab-item" id="tab-node-integrations" onclick="switchGlobalRailContext('integrations')" title="Extensions Platform">
                 <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5v5h4v7h6v-7h4V9zm-2 3h-4v7h-2v-7H7v-1h4V5h2v6h4v1z"/></svg>
@@ -1514,8 +1514,8 @@
             
             <div class="sidebar-tools" id="sidebar-context-controls-box">
                 <button class="shop-trigger-btn" onclick="openPremiumStorefront()">Open Nexus Shop</button>
-                <button class="sm-btn" id="sidebar-action-primary-btn" onclick="triggerChannelCreation()">+ New Channel Stream</button>
-                <button class="sm-btn" style="border-color: var(--gold-accent); color: var(--gold-accent);" onclick="generatePrivateFriendMatrixCode()">Generate Invite String</button>
+                <button class="sm-btn" id="sidebar-action-primary-btn" onclick="triggerChannelCreation()">+ Connect to Code Matrix</button>
+                <button class="sm-btn" style="border-color: var(--gold-accent); color: var(--gold-accent);" onclick="generatePrivateFriendMatrixCode()">Generate Invite Code</button>
                 <button class="sm-btn danger" onclick="performProfileHardwareReset()">Reset Active Session Container</button>
             </div>
             
@@ -1708,9 +1708,9 @@
         let voiceRecordedChunks = [];
         let isVoiceRecording = false;
 
-        // REAL ONLINE MESSAGING AGENT LAYERS (MQTT Network Configuration Cluster)
+        // Bypassing native iframe restrictions with a global public secure secure WebSockets TLS cluster link
         let mqttClient = null;
-        const currentNetworkMeshRoomTopic = "nexuschat/matrix/public_lobby_sync_v2";
+        let currentNetworkMeshRoomTopic = "nexuschat/matrix/public_lobby_sync_v2";
 
         // WebRTC Online Transport State Structs
         let peerConnection = null;
@@ -1769,17 +1769,16 @@
             generateStorefrontCards();
             populateEmojiPickerGrid();
             evaluateCachedProfileState();
-            checkForPrivateInviteAddressParameters();
         });
 
         function connectRealTimeMqttPipeline() {
-            // Live production-ready public secure TLS websocket signaling line endpoint broker array link
-            mqttClient = mqtt.connect('wss://broker.hivemq.com:8000/mqtt');
+            // Using a resilient secure WebSocket over TLS (port 8084) gateway node that runs everywhere
+            mqttClient = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
 
             mqttClient.on('connect', () => {
                 console.log("Nexus MQTT Cluster Synchronized Safely.");
                 mqttClient.subscribe(currentNetworkMeshRoomTopic);
-                appendBubbleElement("Network Protocol", "Linked cleanly to online network matrix layers.", "received");
+                appendBubbleElement("Network Protocol", "Linked cleanly to online router pipeline cluster.", "received");
             });
 
             mqttClient.on('message', (topic, dataPacket) => {
@@ -1801,32 +1800,23 @@
             });
         }
 
-        function checkForPrivateInviteAddressParameters() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const matrixCode = urlParams.get('matrix_invite');
-            if (matrixCode) {
-                try {
-                    const decName = atob(matrixCode).split('-')[0];
-                    const pvtChannelId = 'pvt-node-' + matrixCode;
-                    channelDatabase[pvtChannelId] = {
-                        name: `Session Matrix (${decName})`,
-                        history: [{ author: "Protocol Sync", content: `Established line cleanly to peer handle layer [${decName}].`, variant: "received", timeCode: "Now" }]
-                    };
-                    activeChannelId = pvtChannelId;
-                } catch(e) {
-                    console.log("Routing translation bypassed.");
-                }
-            }
-        }
-
         function generatePrivateFriendMatrixCode() {
             playSynthFrequency(600, 'sine', 0.1, 0.1);
-            if (!currentProfileSessionName) return;
-            const generatedB64Token = btoa(currentProfileSessionName + "-" + Math.floor(Math.random() * 100));
-            const absoluteLandingURL = `${window.location.origin}${window.location.pathname}?matrix_invite=${generatedB64Token}`;
             
-            const textareaDisplay = document.getElementById('nexus-invite-modal-textarea-display');
-            if (textareaDisplay) textareaDisplay.value = absoluteLandingURL;
+            // Generate a lightweight numeric session token
+            const sessionPasscode = String(Math.floor(100000 + Math.random() * 900000));
+            
+            const targetDisplay = document.getElementById('nexus-invite-modal-textarea-display');
+            if (targetDisplay) targetDisplay.value = sessionPasscode;
+            
+            // Dynamically shift active routing coordinates
+            if (mqttClient && mqttClient.connected) {
+                mqttClient.unsubscribe(currentNetworkMeshRoomTopic);
+            }
+            currentNetworkMeshRoomTopic = "nexuschat/matrix/room_channel_" + sessionPasscode;
+            if (mqttClient && mqttClient.connected) {
+                mqttClient.subscribe(currentNetworkMeshRoomTopic);
+            }
             
             document.getElementById('nexus-invite-portal-overlay').style.display = 'flex';
         }
@@ -1836,7 +1826,7 @@
             if (targetDisplay) {
                 targetDisplay.select();
                 document.execCommand('copy');
-                alert("Invite link copied cleanly to configuration storage layers.");
+                alert("Invite code copied cleanly into active workstation memory.");
             }
         }
 
@@ -1848,7 +1838,6 @@
                 currentProfileSessionName = cachedName;
                 currentProfileAvatarUrl = cachedAvatar || "";
                 
-                // Hide the workspace login dialog outright since we possess active state pointers
                 document.getElementById('secure-login-gate-overlay').style.display = 'none';
                 
                 executeProfileUIRenderSync();
@@ -1935,7 +1924,7 @@
             
             if (activeGlobalRailTab === 'chat' || activeGlobalRailTab === 'states') {
                 primaryBtn.style.display = "block";
-                primaryBtn.innerText = "+ New Channel Stream";
+                primaryBtn.innerText = "+ Connect to Code Matrix";
                 primaryBtn.onclick = triggerChannelCreation;
                 for (let id in channelDatabase) {
                     const isActive = (id === activeChannelId) ? 'active' : '';
@@ -2120,11 +2109,27 @@
         function trapInputKeypress(e) { if (e.key === 'Enter') executeTextDispatch(); }
 
         function triggerChannelCreation() {
-            const titleInput = prompt("Enter unique channel label:");
-            if (!titleInput) return;
-            const generatedId = 'ch-node-' + Date.now();
-            channelDatabase[generatedId] = { name: titleInput, history: [] };
+            const inputCode = prompt("Enter the 6-digit session matrix code:");
+            if (!inputCode || inputCode.trim().length !== 6) {
+                alert("Invalid code format parameter.");
+                return;
+            }
+            
+            const sanitizedCode = inputCode.trim();
+            const generatedId = 'ch-node-' + sanitizedCode;
+            
+            // Adjust subscription topic parameters to map into peer network space
+            if (mqttClient && mqttClient.connected) {
+                mqttClient.unsubscribe(currentNetworkMeshRoomTopic);
+            }
+            currentNetworkMeshRoomTopic = "nexuschat/matrix/room_channel_" + sanitizedCode;
+            if (mqttClient && mqttClient.connected) {
+                mqttClient.subscribe(currentNetworkMeshRoomTopic);
+            }
+            
+            channelDatabase[generatedId] = { name: "Private Channel Matrix: " + sanitizedCode, history: [] };
             loadTargetChannel(generatedId);
+            appendBubbleElement("System Protocol", "Session pipeline re-routed to coordinate matrix: " + sanitizedCode, "sent");
         }
 
         function performProfileHardwareReset() {
