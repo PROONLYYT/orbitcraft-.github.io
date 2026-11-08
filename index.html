@@ -80,7 +80,7 @@
             height: 100vh;
             background: #ffffff;
             z-index: 9999;
-            display: flex;
+            display: none; /* Controlled dynamically by initialization state machines now */
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -303,7 +303,6 @@
         #app-frame {
             display: flex;
             width: 100vw;
-            height: 100vw;
             height: 100vh;
             opacity: 0;
             transition: opacity 0.4s ease;
@@ -349,7 +348,7 @@
         }
 
         .rail-tab-item:hover {
-            color: var(--primary-accent);
+            color: var(--text-muted);
             background: var(--bg-dark);
         }
 
@@ -1375,7 +1374,7 @@
 </head>
 <body>
 
-    <!-- Cinematic Loading Portal Splash Overlay -->
+    <!-- Cinematic Loading Portal Splash Overlay (Configured with display: none initially) -->
     <div id="splash-loading-portal">
         <div class="splash-logo-container">
             <!-- Minecraft Style Character by Character Entrance Base Holder -->
@@ -1749,7 +1748,6 @@
         function initializeChristmasCountdownEngine() {
             let initialTargetTimestamp = localStorage.getItem('nexus_xmas_target_timestamp_v3');
             if (!initialTargetTimestamp) {
-                // Compute future milestone boundary: exactly 12d 2h 20m from current instant
                 const segmentDays = 12 * 24 * 60 * 60 * 1000;
                 const segmentHours = 2 * 60 * 60 * 1000;
                 const segmentMinutes = 20 * 60 * 1000;
@@ -1769,7 +1767,7 @@
                 const m = Math.floor((delta % (60 * 60 * 1000)) / (60 * 1000));
                 const s = Math.floor((delta % (60 * 1000)) / 1000);
                 
-                document.getElementById('global-xmas-countdown-node').innerText = `${d}v ${h}h ${m}m ${s}s`;
+                document.getElementById('global-xmas-countdown-node').innerText = `${d}d ${h}h ${m}m ${s}s`;
             };
             updateClockTick();
             setInterval(updateClockTick, 1000);
@@ -1812,12 +1810,19 @@
             if (cachedName && cachedName.trim() !== "") {
                 currentProfileSessionName = cachedName;
                 currentProfileAvatarUrl = cachedAvatar || "";
+                
+                // Active session exists: Show loading splash portal directly
                 document.getElementById('secure-login-gate-overlay').style.display = 'none';
+                document.getElementById('splash-loading-portal').style.display = 'flex';
+                
                 executeProfileUIRenderSync();
+                runMinecraftEntranceSequence();
                 runCinematicProgressBar();
                 connectRealTimeMqttPipeline();
             } else {
-                runMinecraftEntranceSequence();
+                // First boot layout sequence: Hide splash panel cleanly so they can enter inputs
+                document.getElementById('secure-login-gate-overlay').style.display = 'flex';
+                document.getElementById('splash-loading-portal').style.display = 'none';
             }
         }
 
@@ -1867,8 +1872,13 @@
             localStorage.setItem('nexuschat_avatar_v7', currentProfileAvatarUrl);
 
             executeProfileUIRenderSync();
+            
+            // UI Switch: Turn off login card form overlay, turn on loading splash layout framework
             document.getElementById('secure-login-gate-overlay').classList.add('hidden');
-            document.getElementById('splash-loading-portal').classList.remove('hidden');
+            const splashEl = document.getElementById('splash-loading-portal');
+            splashEl.style.display = 'flex';
+            splashEl.classList.remove('hidden');
+            
             runMinecraftEntranceSequence();
             runCinematicProgressBar();
             connectRealTimeMqttPipeline();
@@ -1901,7 +1911,7 @@
                     progress += 4;
                     if (fillBar) fillBar.style.width = progress + '%';
                 }
-            }, 120); // Extends the initial portal boot up loading window cleanly to roughly 3 seconds
+            }, 120); // Extends the loading time safely to roughly 3 seconds
         }
 
         function switchGlobalRailContext(targetTab) {
@@ -1998,7 +2008,6 @@
             overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        // Custom Vector Text Emoji Parsing Engine Architecture
         function parseVectorEmojiTagsInText(inputString) {
             let sanitizedText = inputString.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
             vectorIconBlueprintPack.forEach((item, idx) => {
@@ -2215,7 +2224,7 @@
 
         /* ==========================================================================
            COMPUTATIONAL HIGH-INTELLIGENCE AI INTEGRATION ENGINE (NexusAI Contexts)
-           ========================================================================== */
+           ========================================================================= */
         function executeAiQueryDispatch() {
             const aiInput = document.getElementById('ai-message-input-node');
             const userQuery = aiInput.value.trim();
@@ -2223,7 +2232,6 @@
 
             const aiViewport = document.getElementById('ai-thread-viewport');
             
-            // Print user message entry segment
             aiViewport.innerHTML += `
                 <div class="msg-bubble sent">
                     <span class="msg-author">${currentProfileSessionName || "Client User"}</span>
@@ -2233,7 +2241,6 @@
             aiInput.value = '';
             aiViewport.scrollTop = aiViewport.scrollHeight;
 
-            // Engine response calculation modeling context
             setTimeout(() => {
                 let normalizedText = userQuery.toLowerCase();
                 let aiResponseString = "I have cross-referenced your parameters with the Nexus database matrix. The prompt syntax requires refinement.";
@@ -2242,7 +2249,6 @@
                     aiResponseString = "NexusChat is engineered atop a real-time MQTT infrastructure cluster using secure WebSockets transport channels (port 8084). It integrates direct peer-to-peer WebRTC signaling topologies with standard STUN server synchronization vectors.";
                 } else if (normalizedText.includes("math") || normalizedText.includes("+") || normalizedText.includes("-") || normalizedText.includes("*") || normalizedText.includes("/")) {
                     try {
-                        // Safe evaluation segment for clean math parsing queries
                         let formulaPattern = userQuery.replace(/[^-+/*0-9.() ]/g, '');
                         if(formulaPattern.trim().length > 0) {
                             let resultVal = eval(formulaPattern);
@@ -2266,7 +2272,6 @@
                 playSynthFrequency(900, 'sine', 0.1);
             }, 750);
         }
-
 
         /* ==========================================================================
            UPGRADED WEBRTC TELEPHONY STATE MACHINES WITH DYNAMIC ROUTING DELAYS
@@ -2294,7 +2299,6 @@
             document.getElementById('overlayCallStatusTimerClock').innerText = "Connecting across secure network arrays...";
             document.getElementById('overlayCallingAvatarIcon').classList.remove('ringing-pulse');
             
-            // Trigger delay simulating hardware connection buffer initialization sequence
             const routingDelaySeconds = Math.floor(Math.random() * 3) + 3; // 3 to 5 second randomized threshold
             
             overlayCallSessionState.routingTimeout = setTimeout(() => {
@@ -2303,10 +2307,8 @@
                 document.getElementById('overlayCallingAvatarIcon').classList.add('ringing-pulse');
                 triggerRingingToneLoop(false);
 
-                // Broadcast WebRTC signalling package over the MQTT cluster grid
                 dispatchWebRtcSignalingMessage({ type: "outbound-dial-request", isVideo: videoMode });
 
-                // Automatic mock fallback link connection sequence for isolated device environments
                 overlayCallSessionState.routingTimeout = setTimeout(() => {
                     if(overlayCallSessionState.active && !overlayCallSessionState.isConnectedState) {
                         establishActiveTelephonyDataStream();
@@ -2481,4 +2483,3 @@
     </script>
 </body>
 </html>
-
