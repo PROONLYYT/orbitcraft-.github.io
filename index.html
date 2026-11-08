@@ -80,7 +80,7 @@
             height: 100vh;
             background: #ffffff;
             z-index: 9999;
-            display: none; /* Controlled dynamically by initialization state machines now */
+            display: none; /* Changed to display none explicitly to prevent asset lockups */
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -160,7 +160,7 @@
             height: 100vh;
             background: #f8fafc;
             z-index: 8000;
-            display: flex;
+            display: none; /* Managed cleanly via JavaScript initialization flow */
             align-items: center;
             justify-content: center;
             padding: 20px;
@@ -651,7 +651,7 @@
             color: rgba(255, 255, 255, 0.82);
         }
 
-        /* Render Vector Graphic Text Tokens Perfectly Inline */
+        /* Render Vector Graphic Text Tokens Inline */
         .vector-badge-inline-node {
             display: inline-flex;
             align-items: center;
@@ -907,7 +907,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            width: 100%;
+width: 100%;
         }
 
         .call-secure-lock-badge {
@@ -1374,7 +1374,7 @@
 </head>
 <body>
 
-    <!-- Cinematic Loading Portal Splash Overlay (Configured with display: none initially) -->
+    <!-- Cinematic Loading Portal Splash Overlay (Configured with display: none explicitly) -->
     <div id="splash-loading-portal">
         <div class="splash-logo-container">
             <!-- Minecraft Style Character by Character Entrance Base Holder -->
@@ -1728,7 +1728,7 @@
             { id: 'magic-mists', name: 'Hifi System Audio Layout', desc: 'Rewires synth oscillators to alternative acoustic spectrum pathways.', cost: '$2.50 via PayPal', link: 'https://www.paypal.com', exclusive: false, locked: false }
         ];
 
-        // Clean Vector SVG Assets to Replace All Graphic Emojis Safely
+        // Vector SVG Assets
         const vectorIconBlueprintPack = [
             { label: "Warning", svg: `<svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>` },
             { label: "Verified", svg: `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>` },
@@ -1744,7 +1744,7 @@
             evaluateCachedProfileState();
         });
 
-        // Rigid Persistent Holiday Counter Implementation Logic
+        // Holiday Counter Persistent Implementation Logic
         function initializeChristmasCountdownEngine() {
             let initialTargetTimestamp = localStorage.getItem('nexus_xmas_target_timestamp_v3');
             if (!initialTargetTimestamp) {
@@ -1807,11 +1807,12 @@
         function evaluateCachedProfileState() {
             let cachedName = localStorage.getItem('nexuschat_user_v7');
             let cachedAvatar = localStorage.getItem('nexuschat_avatar_v7');
+            
             if (cachedName && cachedName.trim() !== "") {
                 currentProfileSessionName = cachedName;
                 currentProfileAvatarUrl = cachedAvatar || "";
                 
-                // Active session exists: Show loading splash portal directly
+                // Active session exists: Show loading splash portal container cleanly
                 document.getElementById('secure-login-gate-overlay').style.display = 'none';
                 document.getElementById('splash-loading-portal').style.display = 'flex';
                 
@@ -1820,7 +1821,7 @@
                 runCinematicProgressBar();
                 connectRealTimeMqttPipeline();
             } else {
-                // First boot layout sequence: Hide splash panel cleanly so they can enter inputs
+                // First boot sequence: Reveal login card form container, guarantee splash layout is down
                 document.getElementById('secure-login-gate-overlay').style.display = 'flex';
                 document.getElementById('splash-loading-portal').style.display = 'none';
             }
@@ -1873,8 +1874,8 @@
 
             executeProfileUIRenderSync();
             
-            // UI Switch: Turn off login card form overlay, turn on loading splash layout framework
-            document.getElementById('secure-login-gate-overlay').classList.add('hidden');
+            // UI Toggle Switch: Hide login layout panel form, uncover loading splash layer
+            document.getElementById('secure-login-gate-overlay').style.display = 'none';
             const splashEl = document.getElementById('splash-loading-portal');
             splashEl.style.display = 'flex';
             splashEl.classList.remove('hidden');
@@ -1900,18 +1901,26 @@
         function runCinematicProgressBar() {
             let progress = 0;
             const fillBar = document.getElementById('splash-bar-fill');
+            if (!fillBar) return;
+            
+            fillBar.style.width = '0%'; // Reset to 0 before starting track interval loop
+            
             const loaderInterval = setInterval(() => {
                 if (progress >= 100) {
                     clearInterval(loaderInterval);
                     document.getElementById('splash-loading-portal').classList.add('hidden');
-                    document.getElementById('app-frame').classList.add('visible');
+                    // Give a slight delay before showing workspace context to let scale transitions smooth out
+                    setTimeout(() => {
+                        document.getElementById('splash-loading-portal').style.display = 'none';
+                        document.getElementById('app-frame').classList.add('visible');
+                    }, 400);
                     renderSidebarContextPanel();
                     loadTargetChannel(activeChannelId);
                 } else {
                     progress += 4;
-                    if (fillBar) fillBar.style.width = progress + '%';
+                    fillBar.style.width = progress + '%';
                 }
-            }, 120); // Extends the loading time safely to roughly 3 seconds
+            }, 120); // Spreads the linear calculation step to hit exactly ~3 seconds
         }
 
         function switchGlobalRailContext(targetTab) {
