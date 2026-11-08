@@ -11,28 +11,28 @@
 
     <style>
         :root {
-            /* Premium Sophisticated Light Tech Design Tokens */
+            /* Ultra Premium Sophisticated Light Tech Design Tokens */
             --bg-dark: #f4f6f9;
             --bg-dark-gradient: linear-gradient(135deg, #f4f6f9 0%, #e2e8f0 100%);
-            --bg-panel: rgba(255, 255, 255, 0.85);
+            --bg-panel: rgba(255, 255, 255, 0.82);
             --bg-sidebar: rgba(248, 250, 252, 0.9);
-            --primary-accent: #0077ff;
-            --primary-hover: #0055cc;
-            --primary-glow: rgba(0, 119, 255, 0.15);
-            --text-main: #0f172a;
+            --primary-accent: #0066ff;
+            --primary-hover: #0044cc;
+            --primary-glow: rgba(0, 102, 255, 0.12);
+            --text-main: #1e293b;
             --text-muted: #64748b;
             --danger-red: #ef4444;
             --danger-hover: #dc2626;
-            --success-green: #22c55e;
-            --border-subtle: rgba(15, 23, 42, 0.06);
-            --border-active: rgba(0, 119, 255, 0.3);
+            --success-green: #10b981;
+            --border-subtle: rgba(0, 0, 0, 0.06);
+            --border-active: rgba(0, 102, 255, 0.3);
             --input-bg: rgba(241, 245, 249, 0.9);
             --gold-accent: #f59e0b;
             --pink-neon: #ec4899;
-            --christmas-red: #ef4444;
+            --christmas-red: #de2f2f;
             
             /* UI Sizing Anchors */
-            --nav-rail-width: 72px;
+            --nav-rail-width: 76px;
             --sidebar-width: 320px;
         }
 
@@ -48,7 +48,7 @@
             background: var(--bg-dark);
             background-image: var(--bg-dark-gradient);
             color: var(--text-main);
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             overflow: hidden;
             display: flex;
             user-select: none;
@@ -57,116 +57,101 @@
 
         /* Scannable Scrollbar Elements */
         ::-webkit-scrollbar {
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: transparent;
+            background: rgba(0, 0, 0, 0.01);
         }
         ::-webkit-scrollbar-thumb {
-            background: rgba(0, 119, 255, 0.15);
-            border-radius: 99px;
+            background: rgba(0, 102, 255, 0.15);
+            border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary-accent);
         }
 
-        /* Netflix-style Immersive Cinematically Elegant Loading Splash Portal Overlay */
+        /* Cinematic Loading Portal Splash Overlay Styles */
         #splash-loading-portal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #000000; /* Deep theatrical background for the true intro pop */
+            background: #ffffff;
             z-index: 9999;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            opacity: 1;
-            transform: scale(1);
-            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s ease;
         }
 
         #splash-loading-portal.hidden {
             opacity: 0;
-            transform: scale(1.1) translateY(-20px);
+            transform: scale(1.05);
             pointer-events: none;
         }
 
-        .netflix-logo-reveal-container {
-            position: relative;
-            width: 120px;
-            height: 120px;
+        .splash-logo-container {
             margin-bottom: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
+            position: relative;
         }
 
-        /* Reusable embedded application logo blueprint styled dynamically */
-        .app-custom-logo-graphic {
-            width: 100%;
-            height: 100%;
+        /* Minecraft-Style Character-By-Character Text Entrance Frame */
+        .minecraft-logo-anim-frame {
+            display: flex;
+            gap: 4px;
+            font-size: 32px;
+            font-weight: 900;
+            letter-spacing: 2px;
             color: var(--primary-accent);
-            filter: drop-shadow(0 0 12px rgba(0, 119, 255, 0.4));
-            animation: netflixLogoImpact 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+            text-transform: uppercase;
         }
 
-        @keyframes netflixLogoImpact {
-            0% { transform: scale(0.3); opacity: 0; filter: brightness(2) blur(8px); }
-            70% { transform: scale(1.05); opacity: 0.9; filter: brightness(1.2) blur(0px); }
-            100% { transform: scale(1); opacity: 1; filter: brightness(1); }
-        }
-
-        .splash-headline {
-            font-size: 26px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-            color: #ffffff;
-            margin-bottom: 8px;
-            text-align: center;
+        .minecraft-char-token {
+            display: inline-block;
             opacity: 0;
-            animation: textFadeUpDelay 0.8s ease 0.4s forwards;
+            transform: translateY(30px) scale(0.5);
+            animation: mcCharEntrance 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes mcCharEntrance {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .splash-user-subtitle {
-            font-size: 13px;
-            color: var(--primary-accent);
-            font-weight: 700;
-            margin-bottom: 32px;
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 24px;
             min-height: 20px;
             letter-spacing: 1px;
             text-transform: uppercase;
-            opacity: 0;
-            animation: textFadeUpDelay 0.8s ease 0.6s forwards;
-        }
-
-        @keyframes textFadeUpDelay {
-            0% { opacity: 0; transform: translateY(10px); }
-            100% { opacity: 1; transform: translateY(0); }
         }
 
         .progress-track-wrapper {
-            width: 200px;
-            height: 3px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 99px;
+            width: 260px;
+            height: 5px;
+            background: rgba(0, 0, 0, 0.04);
+            border-radius: 10px;
             overflow: hidden;
-            opacity: 0;
-            animation: textFadeUpDelay 0.8s ease 0.7s forwards;
         }
 
         .progress-bar-fill {
             width: 0%;
             height: 100%;
             background: var(--primary-accent);
-            box-shadow: 0 0 8px var(--primary-accent);
             transition: width 0.1s linear;
         }
 
-        /* Identity Entrance Screen Overlay */
+        /* Reconstructed Workspace Identity Screen Overlay */
         #secure-login-gate-overlay {
             position: fixed;
             top: 0;
@@ -179,24 +164,24 @@
             align-items: center;
             justify-content: center;
             padding: 20px;
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s ease;
         }
 
         #secure-login-gate-overlay.hidden {
             opacity: 0;
-            transform: scale(0.97);
+            transform: scale(0.95);
             pointer-events: none;
         }
 
         .login-card-glassmorphic-wrapper {
-            width: 420px;
+            width: 440px;
             background: #ffffff;
             border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.05);
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
             display: flex;
             flex-direction: column;
-            gap: 28px;
+            gap: 24px;
             border: 1px solid var(--border-subtle);
         }
 
@@ -209,11 +194,10 @@
             font-weight: 800;
             color: var(--text-main);
             margin: 0 0 8px 0;
-            letter-spacing: -0.5px;
         }
 
         .login-subtitle-p {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-muted);
             margin: 0;
             line-height: 1.5;
@@ -222,24 +206,24 @@
         .registration-input-group-form {
             display: flex;
             flex-direction: column;
-            gap: 22px;
+            gap: 16px;
         }
 
         .form-label-node {
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: var(--text-muted);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             display: block;
         }
 
-        .form-text-input-field {
+        .form-text-input-field, .form-select-field {
             width: 100%;
             background: var(--input-bg);
             border: 1px solid transparent;
-            padding: 14px;
+            padding: 12px 14px;
             border-radius: 10px;
             color: var(--text-main);
             font-size: 14px;
@@ -247,7 +231,7 @@
             transition: all 0.2s ease;
         }
 
-        .form-text-input-field:focus {
+        .form-text-input-field:focus, .form-select-field:focus {
             border-color: var(--primary-accent);
             background: #ffffff;
             box-shadow: 0 0 0 3px var(--primary-glow);
@@ -268,11 +252,11 @@
             align-items: center;
             justify-content: center;
             color: var(--text-muted);
-            font-size: 16px;
-            font-weight: 700;
+            font-size: 14px;
+            font-weight: 600;
             flex-shrink: 0;
             overflow: hidden;
-            border: 1px dashed rgba(15, 23, 42, 0.15);
+            border: 2px dashed rgba(0,0,0,0.1);
         }
 
         .avatar-upload-preview-frame img {
@@ -304,7 +288,7 @@
             border: none;
             padding: 14px;
             border-radius: 10px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.2s ease;
@@ -319,9 +303,10 @@
         #app-frame {
             display: flex;
             width: 100vw;
+            height: 100vw;
             height: 100vh;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.4s ease;
             background: var(--bg-dark-gradient);
         }
 
@@ -339,13 +324,13 @@
             flex-direction: column;
             align-items: center;
             padding: 24px 0;
-            gap: 18px;
+            gap: 14px;
             z-index: 10;
         }
 
         .rail-tab-item {
-            width: 46px;
-            height: 46px;
+            width: 48px;
+            height: 48px;
             border-radius: 14px;
             background: transparent;
             display: flex;
@@ -371,6 +356,37 @@
         .rail-tab-item.active {
             color: var(--primary-accent);
             background: var(--primary-glow);
+        }
+
+        /* Static Christmas Clock Component Container */
+        .christmas-countdown-rail-widget {
+            margin-top: auto;
+            width: 56px;
+            background: rgba(222, 47, 47, 0.06);
+            border: 1px dashed var(--christmas-red);
+            border-radius: 12px;
+            padding: 8px 4px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            text-align: center;
+        }
+
+        .xmas-widget-title {
+            font-size: 8px;
+            font-weight: 800;
+            color: var(--christmas-red);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .xmas-widget-clock {
+            font-size: 9px;
+            font-weight: 700;
+            color: var(--text-main);
+            font-family: monospace;
+            line-height: 1.2;
         }
 
         /* Standard Sub-context Left Sidebar panel */
@@ -403,8 +419,8 @@
         }
 
         .user-tag-avatar {
-            width: 38px;
-            height: 38px;
+            width: 40px;
+            height: 40px;
             background: #ffffff;
             border: 1px solid var(--border-subtle);
             border-radius: 50%;
@@ -415,30 +431,14 @@
             font-weight: 700;
             color: var(--primary-accent);
             flex-shrink: 0;
-            position: relative;
-            overflow: visible;
+            overflow: hidden;
         }
 
         .user-tag-avatar img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 50%;
         }
-
-        /* Persistent Discord-style Presence Indicator Badge */
-        .status-dot-indicator {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 11px;
-            height: 11px;
-            border-radius: 50%;
-            border: 2px solid #ffffff;
-            z-index: 4;
-        }
-        .status-dot-indicator.online { background-color: var(--success-green); }
-        .status-dot-indicator.offline { background-color: var(--danger-red); }
 
         .sidebar-title {
             font-weight: 700;
@@ -449,75 +449,8 @@
             text-overflow: ellipsis;
         }
 
-        /* Embedded Christmas Dynamic Countdown Clock Container Widget */
-        .christmas-countdown-container {
-            margin: 12px 16px 4px 16px;
-            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 14px;
-            color: #ffffff;
-            box-shadow: 0 4px 15px rgba(15, 23, 42, 0.1);
-            position: relative;
-            overflow: hidden;
-        }
-        .christmas-countdown-container::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            width: 60px;
-            height: 60px;
-            background: rgba(239, 68, 68, 0.1);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-        .xmas-widget-title {
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #f87171;
-            font-weight: 800;
-            margin-bottom: 6px;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        .xmas-clock-digits-row {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-        .xmas-time-block {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.06);
-            padding: 6px;
-            border-radius: 6px;
-            min-width: 42px;
-        }
-        .xmas-time-block .num {
-            font-size: 16px;
-            font-weight: 800;
-            font-family: monospace;
-            color: #ffffff;
-        }
-        .xmas-time-block .lbl {
-            font-size: 9px;
-            text-transform: uppercase;
-            color: #94a3b8;
-            margin-top: 1px;
-            font-weight: 600;
-        }
-        .xmas-clock-divider {
-            font-size: 14px;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.3);
-        }
-
         .sidebar-tools {
-            padding: 12px 16px;
+            padding: 16px 20px;
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -554,9 +487,9 @@
 
         .shop-trigger-btn {
             width: 100%;
-            padding: 10px 14px;
+            padding: 11px 14px;
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 600;
             background: var(--primary-accent);
             color: #ffffff;
             border: none;
@@ -577,28 +510,21 @@
         }
 
         .chat-list-row {
-            padding: 12px 16px;
+            padding: 14px 20px;
             display: flex;
             align-items: center;
             gap: 12px;
             transition: all 0.2s ease;
             cursor: pointer;
-            margin: 2px 8px;
-            border-radius: 8px;
         }
 
         .chat-list-row:hover, .chat-list-row.active {
-            background: rgba(0, 119, 255, 0.05);
-        }
-
-        .row-avatar-container {
-            position: relative;
-            flex-shrink: 0;
+            background: rgba(0, 102, 255, 0.04);
         }
 
         .row-avatar {
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 600;
             width: 38px;
             height: 38px;
             background: #ffffff;
@@ -607,6 +533,7 @@
             align-items: center;
             justify-content: center;
             border-radius: 50%;
+            flex-shrink: 0;
             color: var(--text-muted);
         }
 
@@ -637,58 +564,6 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-        }
-
-        /* App Integration Connector Item Row Styles */
-        .integration-row-card {
-            padding: 14px 16px;
-            background: #ffffff;
-            border: 1px solid var(--border-subtle);
-            margin: 6px 12px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .integration-info-node {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .integration-icon-frame {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            background: var(--bg-dark);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary-accent);
-        }
-        .integration-icon-frame svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
-        .integration-meta-title {
-            font-weight: 600;
-            font-size: 13px;
-        }
-        .integration-link-action-btn {
-            background: var(--input-bg);
-            border: 1px solid var(--border-subtle);
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--text-main);
-            cursor: pointer;
-            transition: all 0.15s ease;
-        }
-        .integration-link-action-btn:hover {
-            background: var(--primary-accent);
-            color: #ffffff;
-            border-color: transparent;
         }
 
         .workspace-panel {
@@ -723,7 +598,6 @@
         .header-profile .title {
             font-weight: 700;
             font-size: 16px;
-            letter-spacing: -0.3px;
         }
 
         .thread-scroll-view {
@@ -734,7 +608,7 @@
             flex-direction: column;
             gap: 16px;
             box-sizing: border-box;
-            background: #ffffff;
+            background: #f8fafc;
         }
 
         .msg-bubble {
@@ -742,12 +616,13 @@
             padding: 12px 16px;
             border-radius: 16px;
             line-height: 1.5;
-            font-size: 14.5px;
+            font-size: 14px;
             display: flex;
             flex-direction: column;
             word-wrap: break-word;
-            background: var(--bg-dark);
+            background: #ffffff;
             border: 1px solid var(--border-subtle);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
         }
 
         .msg-bubble.sent {
@@ -756,6 +631,7 @@
             border-color: transparent;
             align-self: flex-end;
             border-bottom-right-radius: 2px;
+            box-shadow: 0 4px 10px rgba(0, 102, 255, 0.15);
         }
 
         .msg-bubble.received {
@@ -773,93 +649,53 @@
         }
 
         .msg-bubble.sent .msg-author {
-            color: rgba(255, 255, 255, 0.8);
+            color: rgba(255, 255, 255, 0.82);
         }
 
-        /* Embedded Inline Video Player Presentation Track Styles */
-        .msg-inline-video-payload-wrapper {
-            margin-top: 6px;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid var(--border-subtle);
-            background: #000000;
-            max-width: 320px;
-            display: block;
-        }
-        .msg-inline-video-payload-wrapper video {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .voice-memo-node-frame {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            background: rgba(15, 23, 42, 0.04);
-            border: 1px solid var(--border-subtle);
-            padding: 8px 12px;
-            border-radius: 8px;
-            margin-top: 4px;
-            min-width: 220px;
-        }
-
-        .msg-bubble.sent .voice-memo-node-frame {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: transparent;
-        }
-        
-        .voice-play-trigger-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: #ffffff;
-            border: none;
-            color: var(--primary-accent);
-            display: flex;
+        /* Render Vector Graphic Text Tokens Perfectly Inline */
+        .vector-badge-inline-node {
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            background: rgba(0, 102, 255, 0.08);
+            border: 1px solid var(--primary-accent);
+            border-radius: 6px;
+            padding: 2px 6px;
+            margin: 0 2px;
+            vertical-align: middle;
+            color: var(--primary-accent);
+            font-weight: 700;
+            font-size: 11px;
         }
 
-        .voice-play-trigger-btn svg {
+        .msg-bubble.sent .vector-badge-inline-node {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #ffffff;
+            color: #ffffff;
+        }
+
+        .vector-badge-inline-node svg {
             width: 14px;
             height: 14px;
+            margin-right: 4px;
             fill: currentColor;
         }
-        
-        .voice-waveform-simulation {
-            flex: 1;
-            height: 16px;
-            display: flex;
-            align-items: center;
-            gap: 3px;
-        }
-        
-        .waveform-bar-element {
-            width: 3px;
-            height: 10px;
-            background: rgba(0, 0, 0, 0.15);
-            border-radius: 2px;
+
+        .msg-embed-video-player {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 10px;
+            margin-top: 6px;
+            outline: none;
+            background: #000000;
         }
 
-        .msg-bubble.sent .waveform-bar-element {
-            background: rgba(255, 255, 255, 0.4);
-        }
-        
-        .waveform-bar-element.active-pulse {
-            background: var(--primary-accent);
-            animation: simulateVoiceWave 0.6s ease infinite alternate;
-        }
-
-        .msg-bubble.sent .waveform-bar-element.active-pulse {
-            background: #ffffff;
-        }
-
-        @keyframes simulateVoiceWave {
-            0% { height: 4px; }
-            100% { height: 16px; }
+        .msg-embed-image {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 10px;
+            margin-top: 6px;
+            object-fit: cover;
         }
 
         .input-dock-bar {
@@ -908,7 +744,7 @@
             background: var(--primary-accent);
         }
 
-        .emoji-trigger-node-btn, .mic-record-trigger-btn, .video-upload-trigger-btn {
+        .emoji-trigger-node-btn, .mic-record-trigger-btn, .media-attach-trigger-btn {
             background: transparent;
             border: none;
             color: var(--text-muted);
@@ -923,13 +759,13 @@
             cursor: pointer;
         }
 
-        .emoji-trigger-node-btn svg, .mic-record-trigger-btn svg, .video-upload-trigger-btn svg {
+        .emoji-trigger-node-btn svg, .mic-record-trigger-btn svg, .media-attach-trigger-btn svg {
             width: 20px;
             height: 20px;
             fill: currentColor;
         }
 
-        .emoji-trigger-node-btn:hover, .mic-record-trigger-btn:hover, .video-upload-trigger-btn:hover {
+        .emoji-trigger-node-btn:hover, .mic-record-trigger-btn:hover, .media-attach-trigger-btn:hover {
             color: var(--primary-accent);
             background: var(--bg-dark);
         }
@@ -939,27 +775,25 @@
             background: rgba(239, 68, 68, 0.08);
         }
 
-        /* Fully Rebuilt Dynamic Modular Custom Path Vector Emoji Picker Tray Matrix Overlay */
         .emoji-picker-matrix-overlay {
             position: absolute;
             bottom: 85px;
             right: 24px;
-            width: 320px;
-            height: 240px;
+            width: 300px;
+            height: 220px;
             background: #ffffff;
             border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            box-shadow: 0 10px 35px rgba(15, 23, 42, 0.1);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
             display: none;
             flex-direction: column;
             z-index: 1000;
-            overflow: hidden;
         }
 
         .emoji-picker-header {
-            padding: 14px;
+            padding: 12px;
             font-size: 11px;
-            font-weight: 800;
+            font-weight: 700;
             color: var(--text-muted);
             border-bottom: 1px solid var(--border-subtle);
             text-transform: uppercase;
@@ -971,44 +805,30 @@
             overflow-y: auto;
             padding: 12px;
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
         }
 
         .emoji-grid-item-cell {
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 8px;
-            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
             transition: all 0.15s ease;
             cursor: pointer;
-            background: var(--bg-dark);
-            border: 1px solid transparent;
+            color: var(--text-muted);
         }
 
         .emoji-grid-item-cell svg {
-            width: 24px;
-            height: 24px;
-            color: var(--text-main);
-            transition: transform 0.15s ease;
-        }
-
-        .emoji-grid-item-cell .emoji-tag-lbl {
-            font-size: 9px;
-            font-weight: 700;
-            color: var(--text-muted);
-            margin-top: 4px;
-            text-transform: uppercase;
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
         }
 
         .emoji-grid-item-cell:hover {
             background: var(--primary-glow);
-            border-color: rgba(0, 119, 255, 0.2);
-        }
-        .emoji-grid-item-cell:hover svg {
-            transform: scale(1.15);
             color: var(--primary-accent);
         }
 
@@ -1068,7 +888,7 @@
             fill: currentColor;
         }
 
-        /* IMMERSIVE LIGHT CALLING INTERFACE SYSTEM LAYERS */
+        /* IMMERSIVE CALLING OVERLAY MODAL */
         .call-overlay {
             position: fixed;
             top: 0;
@@ -1091,43 +911,21 @@
             width: 100%;
         }
 
-        /* Modernized Call/Add Peer Dynamic UI Node Overlay Panels */
         .call-secure-lock-badge {
             display: flex;
             align-items: center;
             gap: 8px;
             font-size: 12px;
             color: var(--success-green);
-            background: rgba(34, 197, 94, 0.08);
+            background: rgba(16, 185, 129, 0.06);
             padding: 6px 14px;
             border-radius: 20px;
-            font-weight: 600;
         }
 
         .call-secure-lock-badge svg {
             width: 14px;
             height: 14px;
             fill: currentColor;
-        }
-
-        .add-peer-call-trigger-pill {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--input-bg);
-            border: 1px solid var(--border-subtle);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-            color: var(--text-main);
-            cursor: pointer;
-            transition: all 0.15s ease;
-        }
-        .add-peer-call-trigger-pill:hover {
-            background: var(--primary-glow);
-            border-color: var(--primary-accent);
-            color: var(--primary-accent);
         }
 
         .call-viewport-center-stage {
@@ -1160,13 +958,16 @@
             font-size: 40px;
             font-weight: 700;
             color: var(--primary-accent);
+        }
+
+        .call-voice-avatar-node.ringing-pulse {
             animation: pulseCallingAvatar 2s infinite;
         }
 
         @keyframes pulseCallingAvatar {
-            0% { box-shadow: 0 0 0 0 rgba(0, 119, 255, 0.15); }
-            70% { box-shadow: 0 0 0 20px rgba(0, 119, 255, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 119, 255, 0); }
+            0% { box-shadow: 0 0 0 0 rgba(0, 102, 255, 0.2); }
+            70% { box-shadow: 0 0 0 24px rgba(0, 102, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 102, 255, 0); }
         }
 
         .call-voice-timer-badge {
@@ -1174,7 +975,7 @@
             margin-top: 10px;
             font-size: 14px;
             background: var(--bg-dark);
-            padding: 4px 14px;
+            padding: 5px 16px;
             border-radius: 20px;
             border: 1px solid var(--border-subtle);
         }
@@ -1192,7 +993,7 @@
             height: 12px;
             background-color: var(--primary-accent);
             border-radius: 2px;
-            animation: equalizeCallAudioStream 0.6s ease-in-out infinite alternate;
+            animation: equalizeCallAudioStream 0.5s ease-in-out infinite alternate;
         }
         .call-equalizer-bar-unit:nth-child(2) { animation-delay: 0.1s; height: 20px; }
         .call-equalizer-bar-unit:nth-child(3) { animation-delay: 0.2s; height: 28px; }
@@ -1200,8 +1001,8 @@
         .call-equalizer-bar-unit:nth-child(5) { animation-delay: 0.15s; height: 22px; }
 
         @keyframes equalizeCallAudioStream {
-            0% { transform: scaleY(0.5); }
-            100% { transform: scaleY(1.3); }
+            0% { transform: scaleY(0.6); }
+            100% { transform: scaleY(1.4); }
         }
 
         .call-immersive-video-viewport {
@@ -1210,7 +1011,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #f1f3f5;
+            background: #f1f5f9;
             display: none;
             align-items: center;
             justify-content: center;
@@ -1240,12 +1041,12 @@
             position: absolute;
             bottom: 24px;
             right: 24px;
-            width: 120px;
-            height: 160px;
+            width: 130px;
+            height: 180px;
             background: #ffffff;
             border: 1px solid var(--border-subtle);
             border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -1272,8 +1073,8 @@
         }
 
         .call-action-circle-round-btn {
-            width: 52px;
-            height: 52px;
+            width: 54px;
+            height: 54px;
             border-radius: 50%;
             border: 1px solid var(--border-subtle);
             cursor: pointer;
@@ -1283,11 +1084,11 @@
             color: var(--text-main);
             transition: all 0.2s ease;
             background-color: #ffffff;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+            box-shadow: 0 4px 14px rgba(0,0,0,0.02);
         }
 
         .call-action-circle-round-btn:hover {
-            transform: scale(1.05);
+            transform: scale(1.06);
             background-color: var(--bg-dark);
         }
 
@@ -1320,64 +1121,13 @@
             border: none;
         }
 
-        .states-hub-container-view {
-            padding: 16px 24px;
-            background: var(--bg-dark);
-            border-bottom: 1px solid var(--border-subtle);
-            display: none;
+        /* NexusAI Operational Module Panel View */
+        .ai-workspace-container {
+            flex: 1;
+            display: flex;
             flex-direction: column;
-            gap: 12px;
-        }
-        .states-header-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-        .states-row-title {
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: var(--text-muted);
-        }
-        .states-carousel-scroller-track {
-            display: flex;
-            gap: 12px;
-            overflow-x: auto;
-            padding-bottom: 4px;
-        }
-        .state-content-card-node {
-            width: 100px;
-            height: 140px;
-            border-radius: 10px;
-            border: 1px solid var(--border-subtle);
             background: #ffffff;
-            flex-shrink: 0;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 10px;
-        }
-        .state-media-preview-element {
-            width: 100%;
             height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 1;
-        }
-        .state-author-tag {
-            font-size: 11px;
-            font-weight: 600;
-            color: #ffffff;
-            z-index: 2;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         #nexus-shop-screen {
@@ -1429,11 +1179,11 @@
             color: var(--text-main);
         }
         .balance-container-pill {
-            background: rgba(245, 158, 11, 0.08);
+            background: rgba(245, 158, 11, 0.06);
             border: 1px solid var(--gold-accent);
             padding: 6px 14px;
             border-radius: 20px;
-            font-weight: 700;
+            font-weight: 600;
             color: var(--gold-accent);
             font-size: 13px;
         }
@@ -1445,81 +1195,89 @@
         }
         .shop-items-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
         .shop-item-card {
             background: #ffffff;
             border: 1px solid var(--border-subtle);
-            border-radius: 16px;
+            border-radius: 14px;
             padding: 24px;
             display: flex;
             flex-direction: column;
             position: relative;
-            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.02);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.01);
         }
         .item-badge-exclusive {
             position: absolute;
-            top: 14px;
-            left: 14px;
+            top: 12px;
+            left: 12px;
             background: var(--pink-neon);
             color: #ffffff;
             font-size: 9px;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 6px;
+            font-weight: 700;
+            padding: 3px 6px;
+            border-radius: 4px;
+            text-transform: uppercase;
+            z-index: 3;
+        }
+        .item-badge-locked {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: var(--text-muted);
+            color: #ffffff;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 3px 6px;
+            border-radius: 4px;
             text-transform: uppercase;
             z-index: 3;
         }
         .item-graphic-wrapper {
-            height: 120px;
+            height: 90px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 12px;
-            position: relative;
         }
-        
-        /* High fidelity responsive profile ring SVG asset blueprint matching image payload specs */
-        .shop-item-ring-showcase-svg {
-            width: 100px;
-            height: 100px;
-            filter: drop-shadow(0 0 8px rgba(0, 119, 255, 0.3));
+        .item-graphic-icon-container {
+            width: 44px;
+            height: 44px;
+            color: var(--primary-accent);
         }
-        
         .item-meta-name {
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             color: var(--text-main);
         }
         .item-meta-desc {
-            font-size: 13px;
+            font-size: 12px;
             color: var(--text-muted);
             line-height: 1.4;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
             flex: 1;
         }
         .item-action-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-top: auto;
         }
         .item-price-tag {
-            font-weight: 800;
-            font-size: 14px;
+            font-weight: 700;
+            font-size: 13px;
             color: var(--gold-accent);
         }
         .buy-action-trigger {
             background: transparent;
             color: var(--primary-accent);
             border: 1px solid var(--primary-accent);
-            padding: 8px 16px;
+            padding: 6px 14px;
             border-radius: 8px;
-            font-weight: 700;
+            font-weight: 600;
             font-size: 12px;
             cursor: pointer;
             transition: all 0.15s ease;
@@ -1529,15 +1287,15 @@
             color: #ffffff;
         }
         .buy-action-trigger.unlocked {
-            background: rgba(34, 197, 94, 0.08) !important;
+            background: rgba(16, 185, 129, 0.08) !important;
             border-color: var(--success-green) !important;
             color: var(--success-green) !important;
             cursor: default;
         }
         .buy-action-trigger:disabled {
-            background: var(--input-bg) !important;
-            border-color: var(--border-subtle) !important;
-            color: var(--text-muted) !important;
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            color: #94a3b8;
             cursor: not-allowed;
         }
 
@@ -1547,8 +1305,8 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(15, 23, 42, 0.3);
-            backdrop-filter: blur(8px);
+            background: rgba(15, 23, 42, 0.15);
+            backdrop-filter: blur(4px);
             z-index: 9500;
             display: none;
             align-items: center;
@@ -1557,54 +1315,40 @@
         }
         .premium-card-container {
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             background: #ffffff;
-            border-radius: 20px;
+            border-radius: 16px;
             padding: 32px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 16px;
             text-align: center;
-            box-shadow: 0 20px 40px rgba(15, 23, 42, 0.1);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
             border: 1px solid var(--border-subtle);
         }
         .premium-card-title {
-            font-size: 19px;
-            font-weight: 800;
+            font-size: 18px;
+            font-weight: 700;
             color: var(--text-main);
             margin: 0;
-            letter-spacing: -0.3px;
         }
         .premium-card-desc {
-            font-size: 14px;
+            font-size: 13px;
             color: var(--text-muted);
             line-height: 1.5;
             margin: 0;
         }
-        .premium-link-input-display {
-            width: 100%;
-            background: var(--bg-dark);
-            border: 1px solid var(--border-subtle);
-            padding: 12px;
-            border-radius: 8px;
-            color: var(--primary-accent);
-            font-family: monospace;
-            font-size: 13px;
-            text-align: left;
-            word-break: break-all;
-            user-select: all;
-        }
         .premium-action-row-buttons {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             margin-top: 4px;
         }
         .premium-btn-action {
             flex: 1;
-            padding: 12px;
+            padding: 11px;
             border-radius: 8px;
             font-size: 13px;
-            font-weight: 700;
+            font-weight: 600;
             border: none;
             cursor: pointer;
             transition: all 0.15s ease;
@@ -1631,27 +1375,24 @@
 </head>
 <body>
 
-    <!-- Cinematic Loading Portal Splash Overlay (Netflix Inspired Animation Engine) -->
+    <!-- Cinematic Loading Portal Splash Overlay -->
     <div id="splash-loading-portal">
-        <div class="netflix-logo-reveal-container">
-            <!-- Our Custom Application Branding Logo Embedded Directly -->
-            <svg class="app-custom-logo-graphic" viewBox="0 0 24 24">
-                <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-            </svg>
+        <div class="splash-logo-container">
+            <!-- Minecraft Style Character by Character Entrance Base Holder -->
+            <div class="minecraft-logo-anim-frame" id="minecraft-logo-text-target"></div>
         </div>
-        <div class="splash-headline">NexusChat Client</div>
         <div class="splash-user-subtitle" id="splash-user-target">Initializing Network Topology...</div>
         <div class="progress-track-wrapper">
             <div class="progress-bar-fill" id="splash-bar-fill"></div>
         </div>
     </div>
 
-    <!-- Identity Overlay Layer -->
+    <!-- Redesigned Workstation Identity Overlay Layer -->
     <div id="secure-login-gate-overlay">
         <div class="login-card-glassmorphic-wrapper">
             <div class="login-card-header">
                 <h1 class="login-title-h1">Workspace Identity</h1>
-                <p class="login-subtitle-p">Set your client variables to connect to live online signaling pipelines</p>
+                <p class="login-subtitle-p">Complete your verification parameters to launch the telemetry client context</p>
             </div>
 
             <form class="registration-input-group-form" onsubmit="event.preventDefault();">
@@ -1659,9 +1400,25 @@
                     <label class="form-label-node">Display Handle Name</label>
                     <input type="text" id="portal-username-input-node" class="form-text-input-field" placeholder="e.g. DeveloperNode" required>
                 </div>
+
+                <div style="display: flex; gap: 12px;">
+                    <div style="flex: 1;">
+                        <label class="form-label-node">Age Parameter</label>
+                        <input type="number" id="portal-age-input-node" class="form-text-input-field" placeholder="Age" min="1" required>
+                    </div>
+                    <div style="flex: 1;">
+                        <label class="form-label-node">Gender Matrix</label>
+                        <select id="portal-gender-input-node" class="form-select-field" required>
+                            <option value="" disabled selected>Select</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Non-Binary">Non-Binary</option>
+                        </select>
+                    </div>
+                </div>
                 
                 <div>
-                    <label class="form-label-node">Avatar Profile Configuration Asset</label>
+                    <label class="form-label-node">Avatar Profile Image Asset (Mandatory)</label>
                     <div class="avatar-file-upload-trigger-container">
                         <div class="avatar-upload-preview-frame" id="portal-avatar-preview-box">?</div>
                         <input type="file" id="portal-avatar-file-input" accept="image/*" style="display: none;" onchange="handleLocalAvatarSelection(event)">
@@ -1674,213 +1431,176 @@
         </div>
     </div>
 
-    <!-- Invite Generator Notification Display Modal -->
-    <div id="nexus-invite-portal-overlay" class="nexus-gate-premium-modal-wrapper">
-        <div class="premium-card-container">
-            <h2 class="premium-card-title">Routing Pointer Synchronized</h2>
-            <p class="premium-card-desc">Provide this session code parameter sequence to your friend to initialize a live network channel bridge:</p>
-            <textarea class="premium-link-input-display" id="nexus-invite-modal-textarea-display" readonly style="height: 60px; resize: none; font-size: 14px; font-weight: bold; text-align: center; color: var(--primary-accent);"></textarea>
-            <div class="premium-action-row-buttons">
-                <button class="premium-btn-action paypal-primary" onclick="executeManualModalCopyPattern()">Copy Code Sequence</button>
-                <button class="premium-btn-action dismiss-secondary" onclick="document.getElementById('nexus-invite-portal-overlay').style.display = 'none'">Dismiss</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Live Limit Subscription Target Overlay Frame -->
-    <div id="nexus-premium-upgrade-overlay" class="nexus-gate-premium-modal-wrapper">
-        <div class="premium-card-container">
-            <h2 class="premium-card-title">Call Duration Matrix Limit</h2>
-            <p class="premium-card-desc">You have encountered the maximum runtime threshold. Upgrade to unlock boundless communications pipelines.</p>
-            <div class="premium-action-row-buttons">
-                <a href="https://www.paypal.com" target="_blank" rel="noopener noreferrer" class="premium-btn-action paypal-primary">Upgrade Portal</a>
-                <button class="premium-btn-action dismiss-secondary" onclick="closePremiumLimitOverlayReset()">Acknowledge</button>
-            </div>
-        </div>
-    </div>
-
     <div id="app-frame">
         <div class="global-nav-rail">
             <div class="rail-tab-item active" id="tab-node-chat" onclick="switchGlobalRailContext('chat')" title="Home Messaging Matrix">
                 <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
             </div>
-            <div class="rail-tab-item" id="tab-node-friends" onclick="switchGlobalRailContext('friends')" title="Roster Contacts Frame">
-                <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            <div class="rail-tab-item" id="tab-node-ai" onclick="switchGlobalRailContext('ai')" title="NexusAI Intelligence Node">
+                <svg viewBox="0 0 24 24"><path d="M12 2c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l2.79-2.79C10.09 18.66 11.03 19 12 19c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>
             </div>
             <div class="rail-tab-item" id="tab-node-groups" onclick="switchGlobalRailContext('groups')" title="Group Systems Hub">
                 <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
             </div>
-            <div class="rail-tab-item" id="tab-node-integrations" onclick="switchGlobalRailContext('integrations')" title="Extensions Platform App Linking">
-                <svg viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H8V4h12v12z"/></svg>
-            </div>
             <div class="rail-tab-item" id="tab-node-settings" onclick="switchGlobalRailContext('settings')" title="Core Workstation Configuration">
-                <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18 1.4-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+            </div>
+
+            <!-- Christmas Update Counter Left Widget -->
+            <div class="christmas-countdown-rail-widget" title="Christmas Protocol Sync Status">
+                <div class="xmas-widget-title">XMAS</div>
+                <div class="xmas-widget-clock" id="global-xmas-countdown-node">00d 00h</div>
             </div>
         </div>
         
         <div class="sidebar-panel">
             <div class="sidebar-header">
                 <div class="profile-node-area">
-                    <div class="user-tag-avatar" id="my-avatar-node">
-                        N
-                        <div class="status-dot-indicator online"></div>
-                    </div>
+                    <div class="user-tag-avatar" id="my-avatar-node">N</div>
                     <div class="sidebar-title" id="my-username-node">Connecting Hub...</div>
-                </div>
-            </div>
-
-            <!-- Christmas Realtime Countdown Timer Dashboard Widget Anchor -->
-            <div class="christmas-countdown-container">
-                <div class="xmas-widget-title">
-                    <svg viewBox="0 0 24 24" style="width:12px; height:12px; fill:currentColor;"><path d="M12 2L1 21h22L12 2zm0 4l6.5 11h-13L12 6z"/></svg>
-                    Christmas Upgrade Deploy
-                </div>
-                <div class="xmas-clock-digits-row">
-                    <div class="xmas-time-block">
-                        <span class="num" id="xmas-days-node">12</span>
-                        <span class="lbl">Days</span>
-                    </div>
-                    <div class="xmas-clock-divider">:</div>
-                    <div class="xmas-time-block">
-                        <span class="num" id="xmas-hours-node">08</span>
-                        <span class="lbl">Hrs</span>
-                    </div>
-                    <div class="xmas-clock-divider">:</div>
-                    <div class="xmas-time-block">
-                        <span class="num" id="xmas-mins-node">12</span>
-                        <span class="lbl">Min</span>
-                    </div>
-                    <div class="xmas-clock-divider">:</div>
-                    <div class="xmas-time-block">
-                        <span class="num" id="xmas-secs-node">00</span>
-                        <span class="lbl">Sec</span>
-                    </div>
                 </div>
             </div>
             
             <div class="sidebar-tools" id="sidebar-context-controls-box">
                 <button class="shop-trigger-btn" onclick="openPremiumStorefront()">Open Nexus Shop</button>
                 <button class="sm-btn" id="sidebar-action-primary-btn" onclick="triggerChannelCreation()">+ Connect to Code Matrix</button>
-                <button class="sm-btn" style="border-color: var(--gold-accent); color: var(--gold-accent);" onclick="generatePrivateFriendMatrixCode()">Generate Invite Code</button>
                 <button class="sm-btn danger" onclick="performProfileHardwareReset()">Reset Active Session Container</button>
             </div>
             
             <div class="contacts-vertical-stack" id="contacts-vertical-stack"></div>
         </div>
 
-        <div class="workspace-panel">
-            <div class="workspace-header">
-                <div class="header-profile">
-                    <div class="title" id="active-chat-headline-node">Global Public Lobby</div>
-                </div>
-                
-                <div class="call-header-action-button-group">
-                    <button class="call-action-btn" onclick="launchAdvancedOverlayCallingView(false)" title="Secure Voice Call Session">
-                        <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1.01C8.7 6.31 8.5 5.12 8.5 3.9c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.52c0-.55-.45-1-1-1z"/></svg>
-                    </button>
-                    <button class="call-action-btn" onclick="launchAdvancedOverlayCallingView(true)" title="Secure Video Call Session">
-                        <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-                    </button>
-                </div>
-            </div>
-
-            <!-- INTERACTIVE REAL OVERLAY TELEPHONY SYSTEM LAYER (With Modernized Substructures) -->
-            <div class="call-overlay" id="premiumCallOverlayStage">
-                <div class="call-top-meta-bar">
-                    <div class="call-secure-lock-badge">
-                        <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z"/></svg>
-                        <span>E2EE Telephony Active</span>
+        <!-- Master Interactive Center Content Section Switcher -->
+        <div id="master-panel-view-container" style="flex:1; display:flex; height:100%;">
+            
+            <!-- Context 1: Core Chat System Framework Workspace -->
+            <div class="workspace-panel" id="view-workspace-chat">
+                <div class="workspace-header">
+                    <div class="header-profile">
+                        <div class="title" id="active-chat-headline-node">Global Public Lobby</div>
                     </div>
-                    <!-- Upgraded Add Participant to Active Signaling Call Stream Framework Interface Button -->
-                    <div class="add-peer-call-trigger-pill" onclick="executeDialoutPeerExpansionPrompt()">
-                        <svg viewBox="0 0 24 24" style="width:14px; height:14px; fill:currentColor;"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-                        <span>Add Friend</span>
-                    </div>
-                    <div style="font-size: 13px; color: var(--text-muted);" id="callMediaCategoryHeaderLabel">Audio Signal Line</div>
-                </div>
-
-                <div class="call-viewport-center-stage">
-                    <div class="call-voice-profile-card-center" id="overlayVoiceFrameContainer">
-                        <div class="call-voice-avatar-node" id="overlayCallingAvatarIcon">N</div>
-                        <h2 id="overlayCallingTargetName" style="font-size: 20px; font-weight: 600; margin: 0; color: var(--text-main);">Active Stream Node</h2>
-                        <div class="call-voice-timer-badge" id="overlayCallStatusTimerClock">Awaiting link authorization...</div>
-                        
-                        <div class="call-equalizer-bars-container" id="call-equalizer-bars-element" style="display:none;">
-                            <div class="call-equalizer-bar-unit"></div>
-                            <div class="call-equalizer-bar-unit"></div>
-                            <div class="call-equalizer-bar-unit"></div>
-                            <div class="call-equalizer-bar-unit"></div>
-                            <div class="call-equalizer-bar-unit"></div>
-                        </div>
-                    </div>
-
-                    <div class="call-immersive-video-viewport" id="overlayVideoFrameContainer">
-                        <div class="call-remote-video-feed-facade">
-                            <video id="remoteWebrtcStreamElement" autoplay playsinline></video>
-                            <div style="text-align: center; z-index: 2;" id="remoteVideoPlaceholderBox">
-                                <span style="font-size: 13px; color: var(--text-muted);" id="videoRemoteStreamStatusLabel">Synchronizing Hardware Channels...</span>
-                            </div>
-                        </div>
-                        
-                        <div class="call-floating-local-pip" id="overlayLocalPipPreviewFrame">
-                            <video id="localWebrtcStreamElement" autoplay playsinline muted></video>
-                        </div>
+                    
+                    <div class="call-header-action-button-group">
+                        <button class="call-action-btn" onclick="launchAdvancedOverlayCallingView(false)" title="Secure Voice Call Session">
+                            <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1.01C8.7 6.31 8.5 5.12 8.5 3.9c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.52c0-.55-.45-1-1-1z"/></svg>
+                        </button>
+                        <button class="call-action-btn" onclick="launchAdvancedOverlayCallingView(true)" title="Secure Video Call Session">
+                            <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                        </button>
                     </div>
                 </div>
 
-                <div class="call-controls-row-footer">
-                    <button class="call-action-circle-round-btn accept-btn-style" id="overlayAcceptIncomingCallAction" onclick="executeIncomingCallAcceptAction()" title="Accept Connection Stream" style="display: none;">
-                        <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1.01C8.7 6.31 8.5 5.12 8.5 3.9c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.52c0-.55-.45-1-1-1z"/></svg>
-                    </button>
-                    <button class="call-action-circle-round-btn mute-btn-style" id="overlayMuteAudioActionToggle" onclick="executeOverlayMuteOperationToggle()" title="Toggle Local Microphone">
+                <div class="thread-scroll-view" id="chat-thread-viewport"></div>
+
+                <div class="input-dock-bar">
+                    <button type="button" class="mic-record-trigger-btn" id="voice-memo-toggle-btn" onclick="toggleVoiceMessageRecording()" title="Record Audio Capsule">
                         <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
                     </button>
-                    <button class="call-action-circle-round-btn cam-btn-style" id="overlayToggleCameraActionToggle" onclick="executeOverlayCameraOperationToggle()" title="Toggle Local Optical Track">
-                        <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+
+                    <!-- Media Upload Trigger Element Node -->
+                    <button type="button" class="media-attach-trigger-btn" onclick="document.getElementById('chat-media-attachment-hidden-input').click()" title="Attach Multimedia File Asset">
+                        <svg viewBox="0 0 24 24"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-3.31 2.69-6 6-6s6 2.69 6 6v10c0 4.42-3.58 8-8 8s-8-3.58-8-8V4h2v11c0 3.31 2.69 6 6 6s6-2.69 6-6V5c0-2.21-1.79-4-4-4s-4 1.79-4 4v11.5c0 1.1.9 2 2 2s2-.9 2-2V6h2z"/></svg>
                     </button>
-                    <button class="call-action-circle-round-btn screen-btn-style" id="overlayScreenShareActionToggle" onclick="executeOverlayScreenShareToggle()" title="Share Graphics Screen Surface">
-                        <svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.11-.9-2-2-2H4c-1.11 0-2 .89-2 2v10c0 1.1.89 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
+                    <input type="file" id="chat-media-attachment-hidden-input" accept="image/*,video/*" style="display:none;" onchange="executeLocalMediaAttachmentUpload(event)">
+
+                    <input type="text" id="text-message-input-node" placeholder="Type a message safely into active router stream..." onkeypress="trapInputKeypress(event)">
+                    
+                    <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Special Vector Key Tag">
+                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 10 10 10-4.48 10-10S17.51 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
                     </button>
-                    <button class="call-action-circle-round-btn hangup-btn-style" onclick="disconnectOverlayActiveCallSession()" title="Hang Up Active Pipeline Context">
-                        <svg viewBox="0 0 24 24"><path d="M12 9c-2.45 0-4.76.74-6.7 2L3 8.3c2.56-2.15 5.85-3.3 9.4-3.3 3.55 0 6.84 1.15 9.4 3.3L18.7 11c-1.94-1.26-4.25-2-6.7-2z"/></svg>
-                    </button>
+                    
+                    <div class="emoji-picker-matrix-overlay" id="emoji-picker-matrix-overlay">
+                        <div class="emoji-picker-header">Select Vector Matrix Input</div>
+                        <div class="emoji-grid-scroller" id="emoji-grid-scroller-target"></div>
+                    </div>
+
+                    <button class="send-btn" id="send-message-dispatch-btn" onclick="executeTextDispatch()">Send Message</button>
+                    
+                    <div class="cooldown-progress-track">
+                        <div class="cooldown-progress-fill" id="cooldown-progress-fill-bar"></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="thread-scroll-view" id="chat-thread-viewport"></div>
-
-            <div class="input-dock-bar">
-                <button type="button" class="mic-record-trigger-btn" id="voice-memo-toggle-btn" onclick="toggleVoiceMessageRecording()" title="Record Audio Capsule">
-                    <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
-                </button>
-
-                <!-- Dedicated local machine video asset loader channel -->
-                <input type="file" id="chat-video-attachment-raw-pipe" accept="video/*" style="display: none;" onchange="executeLocalVideoPayloadUpload(event)">
-                <button type="button" class="video-upload-trigger-btn" onclick="document.getElementById('chat-video-attachment-raw-pipe').click()" title="Upload Mp4 Video Frame Clip">
-                    <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM14 13h-3v3H9v-3H6v-2h3V8h2v3h3v2z"/></svg>
-                </button>
-
-                <input type="text" id="text-message-input-node" placeholder="Type a message safely into active router stream..." onkeypress="trapInputKeypress(event)">
-                
-                <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Custom Graphic Vector Token Key">
-                    <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 10 10 10-4.48 10-10S17.51 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
-                </button>
-                
-                <div class="emoji-picker-matrix-overlay" id="emoji-picker-matrix-overlay">
-                    <div class="emoji-picker-header">Custom App Vector Graphics Matrix</div>
-                    <div class="emoji-grid-scroller" id="emoji-grid-scroller-target"></div>
+            <!-- Context 2: Smart NexusAI Operational Terminal Framework -->
+            <div class="ai-workspace-container" id="view-workspace-ai" style="display:none;">
+                <div class="workspace-header">
+                    <div class="header-profile">
+                        <div class="title" style="color: var(--primary-accent); display:flex; align-items:center; gap:8px;">
+                            <span>NexusAI Smart Engine Node</span>
+                        </div>
+                    </div>
                 </div>
-
-                <button class="send-btn" id="send-message-dispatch-btn" onclick="executeTextDispatch()">Send Message</button>
-                
-                <div class="cooldown-progress-track">
-                    <div class="cooldown-progress-fill" id="cooldown-progress-fill-bar"></div>
+                <div class="thread-scroll-view" id="ai-thread-viewport" style="background:#f1f5f9;">
+                    <div class="msg-bubble received">
+                        <span class="msg-author">NexusAI Operational System</span>
+                        <div>Greetings. I am the high-tier diagnostic NexusAI model. I possess detailed computational telemetry concerning WebRTC channels, MQTT networking architecture, mathematical queries, and local workspace data parameters. Ask any operational request.</div>
+                    </div>
+                </div>
+                <div class="input-dock-bar">
+                    <input type="text" id="ai-message-input-node" placeholder="Query NexusAI computational engine..." onkeypress="if(event.key==='Enter') executeAiQueryDispatch()">
+                    <button class="send-btn" onclick="executeAiQueryDispatch()">Query AI</button>
                 </div>
             </div>
+
         </div>
     </div>
 
-    <!-- Multi-Asset Storefront Matrix Frame Screen Container -->
+    <!-- INTERACTIVE REAL OVERLAY TELEPHONY SYSTEM LAYER -->
+    <div class="call-overlay" id="premiumCallOverlayStage">
+        <div class="call-top-meta-bar">
+            <div class="call-secure-lock-badge">
+                <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z"/></svg>
+                <span>E2EE Telephony Active</span>
+            </div>
+            <div style="font-size: 13px; color: var(--text-muted);" id="callMediaCategoryHeaderLabel">Audio Signal Line</div>
+        </div>
+
+        <div class="call-viewport-center-stage">
+            <div class="call-voice-profile-card-center" id="overlayVoiceFrameContainer">
+                <div class="call-voice-avatar-node" id="overlayCallingAvatarIcon">N</div>
+                <h2 id="overlayCallingTargetName" style="font-size: 20px; font-weight: 700; margin: 0; color: var(--text-main);">Active Stream Node</h2>
+                <div class="call-voice-timer-badge" id="overlayCallStatusTimerClock">Initializing Router Vectors...</div>
+                
+                <div class="call-equalizer-bars-container" id="call-equalizer-bars-element" style="display:none;">
+                    <div class="call-equalizer-bar-unit"></div>
+                    <div class="call-equalizer-bar-unit"></div>
+                    <div class="call-equalizer-bar-unit"></div>
+                    <div class="call-equalizer-bar-unit"></div>
+                    <div class="call-equalizer-bar-unit"></div>
+                </div>
+            </div>
+
+            <div class="call-immersive-video-viewport" id="overlayVideoFrameContainer">
+                <div class="call-remote-video-feed-facade">
+                    <video id="remoteWebrtcStreamElement" autoplay playsinline></video>
+                </div>
+                <div class="call-floating-local-pip" id="overlayLocalPipPreviewFrame">
+                    <video id="localWebrtcStreamElement" autoplay playsinline muted></video>
+                </div>
+            </div>
+        </div>
+
+        <div class="call-controls-row-footer">
+            <button class="call-action-circle-round-btn accept-btn-style" id="overlayAcceptIncomingCallAction" onclick="executeIncomingCallAcceptAction()" title="Accept Connection Stream" style="display: none;">
+                <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1.01C8.7 6.31 8.5 5.12 8.5 3.9c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.52c0-.55-.45-1-1-1z"/></svg>
+            </button>
+            <button class="call-action-circle-round-btn mute-btn-style" id="overlayMuteAudioActionToggle" onclick="executeOverlayMuteOperationToggle()" title="Toggle Local Microphone">
+                <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+            </button>
+            <button class="call-action-circle-round-btn cam-btn-style" id="overlayToggleCameraActionToggle" onclick="executeOverlayCameraOperationToggle()" title="Toggle Local Optical Track">
+                <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+            </button>
+            <button class="call-action-circle-round-btn screen-btn-style" id="overlayScreenShareActionToggle" onclick="executeOverlayScreenShareToggle()" title="Share Graphics Screen Surface">
+                <svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.11-.9-2-2-2H4c-1.11 0-2 .89-2 2v10c0 1.1.89 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
+            </button>
+            <button class="call-action-circle-round-btn hangup-btn-style" onclick="disconnectOverlayActiveCallSession()" title="Hang Up Active Pipeline Context">
+                <svg viewBox="0 0 24 24"><path d="M12 9c-2.45 0-4.76.74-6.7 2L3 8.3c2.56-2.15 5.85-3.3 9.4-3.3 3.55 0 6.84 1.15 9.4 3.3L18.7 11c-1.94-1.26-4.25-2-6.7-2z"/></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- Multi-Asset Storefront Screen Matrix -->
     <div id="nexus-shop-screen">
         <div class="shop-header-navbar">
             <a href="#" class="back-nav-link" onclick="closePremiumStorefront()">
@@ -1888,12 +1608,8 @@
                 <span>Go Back</span>
             </a>
             <div class="shop-headline-title">Nexus Multi-Asset Storefront</div>
-            
-            <div class="balance-container-pill">
-                <span>Secure Validation Token Hub</span>
-            </div>
+            <div class="balance-container-pill"><span>Free Beta Balance Active</span></div>
         </div>
-
         <div class="shop-showcase-scroller">
             <div class="shop-items-grid" id="shop-items-grid-target"></div>
         </div>
@@ -1903,6 +1619,25 @@
         // High Quality Audio Oscillation Synthesizer Architecture for Telephony Sound FX
         let audioCtx = null;
         let ringInterval = null;
+        let unreadMessageCount = 0;
+        let pageIsFocused = true;
+
+        window.addEventListener('focus', () => {
+            pageIsFocused = true;
+            unreadMessageCount = 0;
+            updateBrowserTabTitleFacade();
+        });
+        window.addEventListener('blur', () => {
+            pageIsFocused = false;
+        });
+
+        function updateBrowserTabTitleFacade() {
+            if (unreadMessageCount > 0) {
+                document.title = `(1) NexusChat Messenger Client`;
+            } else {
+                document.title = "NexusChat Messenger Client";
+            }
+        }
 
         function initAudioContext() {
             if (!audioCtx) {
@@ -1935,29 +1670,15 @@
             }
             initAudioContext();
             if (ringInterval) clearInterval(ringInterval);
-            
             const executeDoubleBeep = () => {
                 playSynthFrequency(440, 'sine', 0.4, 0.15);
                 setTimeout(() => playSynthFrequency(480, 'sine', 0.4, 0.15), 50);
             };
-            
             executeDoubleBeep();
             ringInterval = setInterval(executeDoubleBeep, 2000);
         }
 
-        // Global Static Markers Used for Calculating the Relative Offset Timeline
-        let initialDaysTarget = 12;
-        let initialHoursTarget = 8;
-        let initialMinsTarget = 12;
-
-        // Static Hardcoded Friend Roster Database Array for Discord Styling Match
-        const friendsRosterDatabase = [
-            { name: "AlphaArchitect", status: "online", statusText: "Designing UI Matrices", initial: "A" },
-            { name: "BetaSystemsNode", status: "online", statusText: "MQTT Core Broker Testing", initial: "B" },
-            { name: "LegacyStackDev", status: "offline", statusText: "Away from terminal", initial: "L" },
-            { name: "CyberSentinel", status: "online", statusText: "Securing WebRTC pipelines", initial: "C" }
-        ];
-
+        // Global State Architecture Configuration variables
         let currentProfileSessionName = "";
         let currentProfileAvatarUrl = "";
         let activeGlobalRailTab = "chat"; 
@@ -1969,7 +1690,7 @@
         let isVoiceRecording = false;
 
         let mqttClient = null;
-        let currentNetworkMeshRoomTopic = "nexuschat/matrix/public_lobby_sync_v2";
+        let currentNetworkMeshRoomTopic = "nexuschat/matrix/public_lobby_sync_v3";
 
         let peerConnection = null;
         let localStream = null;
@@ -1997,102 +1718,84 @@
             isCamOff: false,
             isScreenSharing: false,
             timerInterval: null,
+            routingTimeout: null,
             elapsedSeconds: 0,
             isConnectedState: false
         };
 
-        // Fully Dynamic Premium Real Time ECommerce Core Inventory Array Matrix
-        let isChristmasHatUnlockedGlobalState = false;
         const shopInventoryMatrix = [
-            { id: 'nexus-elite-pass', name: 'Premium Workstation Client Pass', desc: 'Allows complete dynamic custom CSS variables modification loops across active frameworks.', cost: 19.99, isFreeBeta: false, isChristmasAsset: false },
-            { id: 'hifi-acoustic-spectrum', name: 'HiFi Oscillator Audio Pack', desc: 'Rewires synth oscillators to alternative high fidelity acoustic sound FX spectrum pathways.', cost: 9.50, isFreeBeta: false, isChristmasAsset: false },
-            { id: 'christmas-hat-exclusive', name: 'Exclusive Santa Hat Variant Node', desc: 'Holiday themed customized cosmetic profile asset component node block. Unlocks automatically when countdown reaches terminal coordinates.', cost: 0.00, isFreeBeta: false, isChristmasAsset: true }
+            { id: 'christmas-gift-exclusive', name: 'Christmas Alpha Module', desc: 'Special free operational skin. Locked until the upcoming seasonal calendar drop event.', cost: 'Free', exclusive: true, locked: true },
+            { id: 'nexus-elite', name: 'Premium Client Pass', desc: 'Allows complete dynamic layout modifications across global navigation networks.', cost: '$4.99 via PayPal', link: 'https://www.paypal.com', exclusive: false, locked: false },
+            { id: 'magic-mists', name: 'Hifi System Audio Layout', desc: 'Rewires synth oscillators to alternative acoustic spectrum pathways.', cost: '$2.50 via PayPal', link: 'https://www.paypal.com', exclusive: false, locked: false }
         ];
 
-        // 100% Pure Custom Path Vector SVGs Built To Entirely Deprecate Standard Font Face Emojis
-        const applicationVectorEmojiPack = [
-            { tag: "SmileNode", path: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M8 14s1.5 2 4 2 4-2 4-2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="9" cy="9" r="1.5" fill="currentColor"/><circle cx="15" cy="9" r="1.5" fill="currentColor"/></svg>` },
-            { tag: "HeartNode", path: `<svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="none" stroke="currentColor" stroke-width="2"/></svg>` },
-            { tag: "ThumbsUp", path: `<svg viewBox="0 0 24 24"><path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.75 0 1.41-.41 1.75-1.03l3.13-7.3a1.99 1.99 0 0 0 .12-.77v-2z" fill="none" stroke="currentColor" stroke-width="2"/></svg>` },
-            { tag: "StarAsset", path: `<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="none" stroke="currentColor" stroke-width="2"/></svg>` },
-            { tag: "AlertNode", path: `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" fill="none" stroke="currentColor" stroke-width="2"/></svg>` },
-            { tag: "CheckToken", path: `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" fill="none" stroke="currentColor" stroke-width="2"/></svg>` },
-            { tag: "FireFlame", path: `<svg viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 6.51 4 8.83 4 11.41c0 4.42 3.58 8 8 8s8-3.58 8-8c0-4.73-4-9.33-6.5-10.74z" fill="none" stroke="currentColor" stroke-width="2"/></svg>` },
-            { tag: "RocketKey", path: `<svg viewBox="0 0 24 24"><path d="M12 2s0 2-3 5c-1 1-1.5 2.5-1.5 4 0 2.5 2 4.5 4.5 4.5s4.5-2 4.5-4.5c0-1.5-.5-3-1.5-4-3-3-3-5-3-5z" fill="none" stroke="currentColor" stroke-width="2"/></svg>` }
+        // Clean Vector SVG Assets to Replace All Graphic Emojis Safely
+        const vectorIconBlueprintPack = [
+            { label: "Warning", svg: `<svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>` },
+            { label: "Verified", svg: `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>` },
+            { label: "Plus", svg: `<svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>` },
+            { label: "Star", svg: `<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>` },
+            { label: "Alert", svg: `<svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>` }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
-            initializeTrueChronometerEngine();
+            initializeChristmasCountdownEngine();
             generateStorefrontCards();
             populateEmojiPickerGrid();
             evaluateCachedProfileState();
         });
 
-        // Dynamic Milestone Chronometer Architecture to Prevent Refresh Glitches
-        function initializeTrueChronometerEngine() {
-            let savedMilestoneTimestamp = localStorage.getItem('nexus_christmas_milestone_v2');
-            
-            if (!savedMilestoneTimestamp) {
-                // Compute absolute future target coordinate point from right now on first run
-                let currentEpochMs = Date.now();
-                let additionalOffsetSeconds = (initialDaysTarget * 86400) + (initialHoursTarget * 3600) + (initialMinsTarget * 60);
-                savedMilestoneTimestamp = String(currentEpochMs + (additionalOffsetSeconds * 1000));
-                localStorage.setItem('nexus_christmas_milestone_v2', savedMilestoneTimestamp);
+        // Rigid Persistent Holiday Counter Implementation Logic
+        function initializeChristmasCountdownEngine() {
+            let initialTargetTimestamp = localStorage.getItem('nexus_xmas_target_timestamp_v3');
+            if (!initialTargetTimestamp) {
+                // Compute future milestone boundary: exactly 12d 2h 20m from current instant
+                const segmentDays = 12 * 24 * 60 * 60 * 1000;
+                const segmentHours = 2 * 60 * 60 * 1000;
+                const segmentMinutes = 20 * 60 * 1000;
+                const futureTarget = Date.now() + segmentDays + segmentHours + segmentMinutes;
+                localStorage.setItem('nexus_xmas_target_timestamp_v3', futureTarget);
+                initialTargetTimestamp = futureTarget;
             }
 
-            const targetMilestoneTimeValue = parseInt(savedMilestoneTimestamp, 10);
-
-            const calculateTimeRemainingNode = () => {
-                let currentEpochMs = Date.now();
-                let deltaSecondsRemaining = Math.floor((targetMilestoneTimeValue - currentEpochMs) / 1000);
-
-                if (deltaSecondsRemaining <= 0) {
-                    deltaSecondsRemaining = 0;
-                    if (!isChristmasHatUnlockedGlobalState) {
-                        isChristmasHatUnlockedGlobalState = true;
-                        generateStorefrontCards(); // Re-trigger marketplace inventory state adjustments
-                    }
+            const updateClockTick = () => {
+                const delta = parseInt(initialTargetTimestamp) - Date.now();
+                if (delta <= 0) {
+                    document.getElementById('global-xmas-countdown-node').innerText = "00d 00h 00m";
+                    return;
                 }
-
-                // Structural grid layout transformations
-                let dynamicDaysLeft = Math.floor(deltaSecondsRemaining / 86400);
-                let residueSeconds = deltaSecondsRemaining % 86400;
-                let dynamicHoursLeft = Math.floor(residueSeconds / 3600);
-                residueSeconds %= 3600;
-                let dynamicMinsLeft = Math.floor(residueSeconds / 60);
-                let dynamicSecsLeft = residueSeconds % 60;
-
-                // Bind fields cleanly to viewport nodes
-                document.getElementById('xmas-days-node').innerText = String(dynamicDaysLeft).padStart(2, '0');
-                document.getElementById('xmas-hours-node').innerText = String(dynamicHoursLeft).padStart(2, '0');
-                document.getElementById('xmas-mins-node').innerText = String(dynamicMinsLeft).padStart(2, '0');
-                document.getElementById('xmas-secs-node').innerText = String(dynamicSecsLeft).padStart(2, '0');
+                const d = Math.floor(delta / (24 * 60 * 60 * 1000));
+                const h = Math.floor((delta % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+                const m = Math.floor((delta % (60 * 60 * 1000)) / (60 * 1000));
+                const s = Math.floor((delta % (60 * 1000)) / 1000);
+                
+                document.getElementById('global-xmas-countdown-node').innerText = `${d}v ${h}h ${m}m ${s}s`;
             };
-
-            calculateTimeRemainingNode();
-            setInterval(calculateTimeRemainingNode, 1000);
+            updateClockTick();
+            setInterval(updateClockTick, 1000);
         }
 
         function connectRealTimeMqttPipeline() {
             mqttClient = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
-
             mqttClient.on('connect', () => {
-                console.log("Nexus MQTT Cluster Synchronized Safely.");
                 mqttClient.subscribe(currentNetworkMeshRoomTopic);
-                appendBubbleElement("Network Protocol", "Linked cleanly to online router pipeline cluster.", "received");
+                appendBubbleElement("Network Protocol", "Linked cleanly to secure cross-device routing matrix.", "received");
             });
 
             mqttClient.on('message', (topic, dataPacket) => {
                 try {
                     const parsedPayload = JSON.parse(dataPacket.toString());
-                    
                     if (parsedPayload.senderTokenId !== currentProfileSessionName + "_token") {
+                        if (!pageIsFocused) {
+                            unreadMessageCount++;
+                            updateBrowserTabTitleFacade();
+                        }
                         if (parsedPayload.dataType === "voice") {
                             injectVoiceBubbleToChatLog(parsedPayload.sender, parsedPayload.mediaData, "received");
-                        } else if (parsedPayload.dataType === "video-payload") {
-                            injectVideoBubbleToChatLog(parsedPayload.sender, parsedPayload.mediaData, "received");
                         } else if (parsedPayload.dataType === "text") {
                             appendBubbleElement(parsedPayload.sender, parsedPayload.text, "received");
+                        } else if (parsedPayload.dataType === "media") {
+                            injectMediaBubbleToChatLog(parsedPayload.sender, parsedPayload.mediaData, parsedPayload.fileType, "received");
                         } else if (parsedPayload.dataType === "webrtc-signal") {
                             handleIncomingWebRtcSignal(parsedPayload.signal, parsedPayload.sender);
                         }
@@ -2103,36 +1806,9 @@
             });
         }
 
-        function generatePrivateFriendMatrixCode() {
-            playSynthFrequency(600, 'sine', 0.1, 0.1);
-            const sessionPasscode = String(Math.floor(100000 + Math.random() * 900000));
-            const targetDisplay = document.getElementById('nexus-invite-modal-textarea-display');
-            if (targetDisplay) targetDisplay.value = sessionPasscode;
-            
-            if (mqttClient && mqttClient.connected) {
-                mqttClient.unsubscribe(currentNetworkMeshRoomTopic);
-            }
-            currentNetworkMeshRoomTopic = "nexuschat/matrix/room_channel_" + sessionPasscode;
-            if (mqttClient && mqttClient.connected) {
-                mqttClient.subscribe(currentNetworkMeshRoomTopic);
-            }
-            
-            document.getElementById('nexus-invite-portal-overlay').style.display = 'flex';
-        }
-
-        function executeManualModalCopyPattern() {
-            const targetDisplay = document.getElementById('nexus-invite-modal-textarea-display');
-            if (targetDisplay) {
-                targetDisplay.select();
-                document.execCommand('copy');
-                alert("Invite code copied cleanly into active workstation memory.");
-            }
-        }
-
         function evaluateCachedProfileState() {
-            let cachedName = localStorage.getItem('nexuschat_user_light_v6');
-            let cachedAvatar = localStorage.getItem('nexuschat_avatar_light_v6');
-            
+            let cachedName = localStorage.getItem('nexuschat_user_v7');
+            let cachedAvatar = localStorage.getItem('nexuschat_avatar_v7');
             if (cachedName && cachedName.trim() !== "") {
                 currentProfileSessionName = cachedName;
                 currentProfileAvatarUrl = cachedAvatar || "";
@@ -2141,8 +1817,22 @@
                 runCinematicProgressBar();
                 connectRealTimeMqttPipeline();
             } else {
-                document.getElementById('splash-loading-portal').classList.add('hidden');
+                runMinecraftEntranceSequence();
             }
+        }
+
+        function runMinecraftEntranceSequence() {
+            const targetContainer = document.getElementById('minecraft-logo-text-target');
+            if (!targetContainer) return;
+            targetContainer.innerHTML = '';
+            const bannerString = "NEXUSCHAT";
+            bannerString.split('').forEach((char, index) => {
+                const element = document.createElement('span');
+                element.className = 'minecraft-char-token';
+                element.innerText = char;
+                element.style.animationDelay = `${index * 0.1}s`;
+                targetContainer.appendChild(element);
+            });
         }
 
         function handleLocalAvatarSelection(event) {
@@ -2157,31 +1847,43 @@
         }
 
         function executeManualProfileCommit() {
-            const inputField = document.getElementById('portal-username-input-node');
-            let inputName = inputField.value.trim().replace(/\s+/g, '');
-            if (!inputName) return;
-
-            currentProfileSessionName = inputName;
-            localStorage.setItem('nexuschat_user_light_v6', currentProfileSessionName);
-            if (currentProfileAvatarUrl) {
-                localStorage.setItem('nexuschat_avatar_light_v6', currentProfileAvatarUrl);
+            const usernameInput = document.getElementById('portal-username-input-node');
+            const ageInput = document.getElementById('portal-age-input-node');
+            const genderInput = document.getElementById('portal-gender-input-node');
+            
+            let nameVal = usernameInput.value.trim().replace(/\s+/g, '');
+            if (!nameVal || !ageInput.value || !genderInput.value) {
+                alert("Please properly fill out your profile authorization variables.");
+                return;
             }
+
+            if (!currentProfileAvatarUrl) {
+                alert("Account creation suspended. A custom profile image asset upload is mandatory.");
+                return;
+            }
+
+            currentProfileSessionName = nameVal;
+            localStorage.setItem('nexuschat_user_v7', currentProfileSessionName);
+            localStorage.setItem('nexuschat_avatar_v7', currentProfileAvatarUrl);
 
             executeProfileUIRenderSync();
             document.getElementById('secure-login-gate-overlay').classList.add('hidden');
             document.getElementById('splash-loading-portal').classList.remove('hidden');
+            runMinecraftEntranceSequence();
             runCinematicProgressBar();
             connectRealTimeMqttPipeline();
         }
 
         function executeProfileUIRenderSync() {
-            document.getElementById('splash-user-target').innerText = currentProfileSessionName;
             document.getElementById('my-username-node').innerText = currentProfileSessionName;
             const avatarNode = document.getElementById('my-avatar-node');
+            const overlayNode = document.getElementById('overlayCallingAvatarIcon');
+            
             if (currentProfileAvatarUrl) {
-                avatarNode.innerHTML = `<img src="${currentProfileAvatarUrl}" alt="Avatar"><div class="status-dot-indicator online"></div>`;
+                avatarNode.innerHTML = `<img src="${currentProfileAvatarUrl}" alt="Avatar">`;
+                if(overlayNode) overlayNode.innerHTML = `<img src="${currentProfileAvatarUrl}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;" alt="Avatar">`;
             } else {
-                avatarNode.innerHTML = `${currentProfileSessionName.charAt(0).toUpperCase()}<div class="status-dot-indicator online"></div>`;
+                avatarNode.innerText = currentProfileSessionName.charAt(0).toUpperCase();
             }
         }
 
@@ -2196,19 +1898,33 @@
                     renderSidebarContextPanel();
                     loadTargetChannel(activeChannelId);
                 } else {
-                    progress += 5;
+                    progress += 4;
                     if (fillBar) fillBar.style.width = progress + '%';
                 }
-            }, 40);
+            }, 120); // Extends the initial portal boot up loading window cleanly to roughly 3 seconds
         }
 
         function switchGlobalRailContext(targetTab) {
             playSynthFrequency(700, 'sine', 0.05, 0.05);
-            ["chat", "friends", "groups", "integrations", "settings"].forEach(t => {
-                document.getElementById(`tab-node-${t}`).classList.remove('active');
+            ["chat", "ai", "groups", "settings"].forEach(t => {
+                const doc = document.getElementById(`tab-node-${t}`);
+                if (doc) doc.classList.remove('active');
             });
             activeGlobalRailTab = targetTab;
-            document.getElementById(`tab-node-${targetTab}`).classList.add('active');
+            const currentTabEl = document.getElementById(`tab-node-${targetTab}`);
+            if (currentTabEl) currentTabEl.classList.add('active');
+
+            const viewChatWorkspace = document.getElementById('view-workspace-chat');
+            const viewAiWorkspace = document.getElementById('view-workspace-ai');
+
+            if (targetTab === 'ai') {
+                viewChatWorkspace.style.display = 'none';
+                viewAiWorkspace.style.display = 'flex';
+            } else {
+                viewChatWorkspace.style.display = 'flex';
+                viewAiWorkspace.style.display = 'none';
+            }
+
             renderSidebarContextPanel();
         }
 
@@ -2226,29 +1942,13 @@
                     const isActive = (id === activeChannelId) ? 'active' : '';
                     container.innerHTML += `<div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')"> <div class="row-avatar">#</div> <div class="row-meta"> <div class="row-name">${channelDatabase[id].name}</div> <div class="row-preview">View active session matrix track logs...</div> </div> </div>`;
                 }
-            } else if (activeGlobalRailTab === 'friends') {
-                // Roster Context Mode Matching Clean Discord Paradigm Design
+            } else if (activeGlobalRailTab === 'ai') {
                 primaryBtn.style.display = "block";
-                primaryBtn.innerText = "+ Add Friend Identity Node";
+                primaryBtn.innerText = "Clear NexusAI Thread Context";
                 primaryBtn.onclick = () => {
-                    const fName = prompt("Enter friend display handle:");
-                    if (!fName) return;
-                    friendsRosterDatabase.unshift({ name: fName, status: "online", statusText: "Just added to roster", initial: fName.charAt(0).toUpperCase() });
-                    renderSidebarContextPanel();
+                    document.getElementById('ai-thread-viewport').innerHTML = `<div class="msg-bubble received"><span class="msg-author">NexusAI Operational System</span><div>Thread stack cleared cleanly. Ask any question.</div></div>`;
                 };
-                friendsRosterDatabase.forEach(f => {
-                    container.innerHTML += `
-                        <div class="chat-list-row">
-                            <div class="row-avatar-container">
-                                <div class="row-avatar">${f.initial}</div>
-                                <div class="status-dot-indicator ${f.status}"></div>
-                            </div>
-                            <div class="row-meta">
-                                <div class="row-name">${f.name}</div>
-                                <div class="row-preview">${f.statusText}</div>
-                            </div>
-                        </div>`;
-                });
+                container.innerHTML = `<div style="padding:20px; font-size:12px; color:var(--text-muted); line-height:1.5;">NexusAI Model 2026 Core Status: <span style="color:var(--success-green); font-weight:700;">ONLINE</span><br><br>Capable of solving math operations, discussing the architecture of this messenger platform, or rendering system diagnostics instantly.</div>`;
             } else if (activeGlobalRailTab === 'groups') {
                 primaryBtn.style.display = "block";
                 primaryBtn.innerText = "+ Create Hub Workspace";
@@ -2261,31 +1961,11 @@
                 activeGroupHubs.forEach(g => {
                     container.innerHTML += `<div class="chat-list-row"> <div class="row-avatar">G</div> <div class="row-meta"> <div class="row-name">${g.name}</div> <div class="row-preview">Active Team Vector Channel</div> </div> </div>`;
                 });
-            } else if (activeGlobalRailTab === 'integrations') {
-                // Application Linking Configuration Engine Tab Pane Block
-                primaryBtn.style.display = "none";
-                const integrationNodesList = [
-                    { name: "YouTube Platform Portal", key: "youtube", domain: "https://www.youtube.com" },
-                    { name: "Facebook Connect Pipeline", key: "facebook", domain: "https://www.facebook.com" },
-                    { name: "Discord Gateway Bridge", key: "discord", domain: "https://discord.com" }
-                ];
-                integrationNodesList.forEach(node => {
-                    container.innerHTML += `
-                        <div class="integration-row-card">
-                            <div class="integration-info-node">
-                                <div class="integration-icon-frame">
-                                    <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-                                </div>
-                                <div class="integration-meta-title">${node.name}</div>
-                            </div>
-                            <button class="integration-link-action-btn" onclick="window.open('${node.domain}', '_blank')">Link Link</button>
-                        </div>`;
-                });
             } else {
                 primaryBtn.style.display = "block";
                 primaryBtn.innerText = "System Integrity Status Keys";
                 primaryBtn.onclick = () => alert("All transport architecture keys nominal.");
-                container.innerHTML = `<div style="padding:24px; text-align:center; font-size:12px; color:var(--text-muted);">Settings pipeline configuration menu fully verified.</div>`;
+                container.innerHTML = `<div style="padding:20px; font-size:12px; color:var(--text-muted); text-align:center;">Configurations Framework Synced.</div>`;
             }
         }
 
@@ -2300,12 +1980,13 @@
             const scroller = document.getElementById('emoji-grid-scroller-target');
             if (!scroller) return;
             scroller.innerHTML = '';
-            applicationVectorEmojiPack.forEach((emojiItem) => {
+            vectorIconBlueprintPack.forEach((item, idx) => {
                 const cell = document.createElement('div');
                 cell.className = 'emoji-grid-item-cell';
-                cell.innerHTML = `${emojiItem.path}<span class="emoji-tag-lbl">${emojiItem.tag.substring(0,6)}</span>`;
+                cell.innerHTML = item.svg;
+                cell.title = item.label;
                 cell.onclick = () => {
-                    document.getElementById('text-message-input-node').value += ` [${emojiItem.tag}] `;
+                    document.getElementById('text-message-input-node').value += ` [VectorKey-${idx}] `;
                     toggleInlineEmojiPickerTray();
                 };
                 scroller.appendChild(cell);
@@ -2317,6 +1998,18 @@
             overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
         }
 
+        // Custom Vector Text Emoji Parsing Engine Architecture
+        function parseVectorEmojiTagsInText(inputString) {
+            let sanitizedText = inputString.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            vectorIconBlueprintPack.forEach((item, idx) => {
+                const queryTag = `[VectorKey-${idx}]`;
+                while (sanitizedText.includes(queryTag)) {
+                    sanitizedText = sanitizedText.replace(queryTag, `<span class="vector-badge-inline-node">${item.svg}${item.label}</span>`);
+                }
+            });
+            return sanitizedText;
+        }
+
         function executeTextDispatch() {
             if (isCooldownActive) return;
             const inputField = document.getElementById('text-message-input-node');
@@ -2324,7 +2017,6 @@
             if (!dataString) return;
             
             appendBubbleElement(currentProfileSessionName, dataString, "sent");
-
             if (mqttClient && mqttClient.connected) {
                 mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify({
                     sender: currentProfileSessionName,
@@ -2352,32 +2044,24 @@
             }, 1000);
         }
 
-        function executeLocalVideoPayloadUpload(event) {
-            const videoFile = event.target.files[0];
-            if (!videoFile) return;
-
-            const videoBlobUrl = URL.createObjectURL(videoFile);
-            injectVideoBubbleToChatLog(currentProfileSessionName, videoBlobUrl, "sent");
-
-            // Convert to reader to broadcast data across local pipeline spaces safely
-            const vReader = new FileReader();
-            vReader.readAsDataURL(videoFile);
-            vReader.onloadend = function() {
+        function executeLocalMediaAttachmentUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const payloadString = e.target.result;
+                injectMediaBubbleToChatLog(currentProfileSessionName, payloadString, file.type, "sent");
                 if (mqttClient && mqttClient.connected) {
                     mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify({
                         sender: currentProfileSessionName,
                         senderTokenId: currentProfileSessionName + "_token",
-                        dataType: "video-payload",
-                        mediaData: vReader.result
+                        dataType: "media",
+                        mediaData: payloadString,
+                        fileType: file.type
                     }));
                 }
             };
-        }
-
-        function injectVideoBubbleToChatLog(author, baseDataUrl, variant) {
-            if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
-            channelDatabase[activeChannelId].history.push({ author, content: "", variant, inlineVideoUrl: baseDataUrl });
-            repaintMessageLogs();
+            reader.readAsDataURL(file);
         }
 
         async function toggleVoiceMessageRecording() {
@@ -2426,6 +2110,12 @@
             repaintMessageLogs();
         }
 
+        function injectMediaBubbleToChatLog(author, mediaData, fileType, variant) {
+            if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
+            channelDatabase[activeChannelId].history.push({ author, content: "", variant, mediaURL: mediaData, fileType: fileType });
+            repaintMessageLogs();
+        }
+
         function appendBubbleElement(author, content, variant) {
             if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
             channelDatabase[activeChannelId].history.push({ author, content, variant });
@@ -2442,46 +2132,28 @@
                     viewTarget.innerHTML += `
                         <div class="msg-bubble ${msg.variant}">
                             <span class="msg-author">${msg.author}</span>
-                            <div class="voice-memo-node-frame">
-                                <button class="voice-play-trigger-btn" onclick="playTargetVoiceTrack('${msg.voiceURL}', this)">
-                                    <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                </button>
-                                <div class="voice-waveform-simulation">
-                                    <div class="waveform-bar-element" style="height:40%"></div>
-                                    <div class="waveform-bar-element" style="height:80%"></div>
-                                    <div class="waveform-bar-element" style="height:60%"></div>
-                                </div>
+                            <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
+                                <button class="sm-btn" style="width:auto; padding:6px 12px;" onclick="new Audio('${msg.voiceURL}').play()">Play Voice capsule</button>
                             </div>
                         </div>`;
-                } else if (msg.inlineVideoUrl) {
+                } else if (msg.mediaURL) {
+                    let mediaRenderNode = "";
+                    if (msg.fileType && msg.fileType.startsWith('video/')) {
+                        mediaRenderNode = `<video src="${msg.mediaURL}" controls class="msg-embed-video-player"></video>`;
+                    } else {
+                        mediaRenderNode = `<img src="${msg.mediaURL}" class="msg-embed-image" alt="Uploaded Asset">`;
+                    }
                     viewTarget.innerHTML += `
                         <div class="msg-bubble ${msg.variant}">
                             <span class="msg-author">${msg.author}</span>
-                            <div class="msg-inline-video-payload-wrapper">
-                                <video src="${msg.inlineVideoUrl}" controls playsinline></video>
-                            </div>
+                            <div>${mediaRenderNode}</div>
                         </div>`;
                 } else {
-                    // Parsed custom internal vector rendering loops to match request requirements
-                    let textProcessingBuffer = msg.content;
-                    applicationVectorEmojiPack.forEach((item, index) => {
-                        const targetPatternString = `[${item.tag}]`;
-                        while(textProcessingBuffer.includes(targetPatternString)) {
-                            textProcessingBuffer = textProcessingBuffer.replace(targetPatternString, `<span style="display:inline-block; width:18px; height:18px; vertical-align:middle; margin:0 2px; color:inherit;">${item.path}</span>`);
-                        }
-                    });
-                    viewTarget.innerHTML += `<div class="msg-bubble ${msg.variant}"> <span class="msg-author">${msg.author}</span> <div>${textProcessingBuffer}</div> </div>`;
+                    const parsedHtmlBody = parseVectorEmojiTagsInText(msg.content);
+                    viewTarget.innerHTML += `<div class="msg-bubble ${msg.variant}"> <span class="msg-author">${msg.author}</span> <div>${parsedHtmlBody}</div> </div>`;
                 }
             });
             viewTarget.scrollTop = viewTarget.scrollHeight;
-        }
-
-        function playTargetVoiceTrack(trackURL, elementNode) {
-            const voiceAudio = new Audio(trackURL);
-            const waveBars = elementNode.parentElement.querySelectorAll('.waveform-bar-element');
-            waveBars.forEach(bar => bar.classList.add('active-pulse'));
-            voiceAudio.play();
-            voiceAudio.onended = () => { waveBars.forEach(bar => bar.classList.remove('active-pulse')); };
         }
 
         function trapInputKeypress(e) { if (e.key === 'Enter') executeTextDispatch(); }
@@ -2517,62 +2189,87 @@
             const container = document.getElementById('shop-items-grid-target');
             if (!container) return;
             container.innerHTML = '';
-            
             shopInventoryMatrix.forEach(item => {
-                let purchaseTriggerButtonHTML = "";
+                let statusBadgeHTML = item.locked ? `<div class="item-badge-locked">Locked</div>` : (item.exclusive ? `<div class="item-badge-exclusive">Exclusive</div>` : "");
+                let actionButtonHTML = "";
 
-                if (item.isChristmasAsset) {
-                    if (isChristmasHatUnlockedGlobalState) {
-                        purchaseTriggerButtonHTML = `<button class="buy-action-trigger unlocked">Unlocked Claimed</button>`;
-                    } else {
-                        purchaseTriggerButtonHTML = `<button class="buy-action-trigger" disabled>Locked Temporarily</button>`;
-                    }
+                if (item.locked) {
+                    actionButtonHTML = `<button class="buy-action-trigger" disabled>Coming Soon</button>`;
+                } else if (item.link) {
+                    actionButtonHTML = `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="buy-action-trigger" style="text-decoration:none; display:inline-block; text-align:center;">Activate Link</a>`;
                 } else {
-                    purchaseTriggerButtonHTML = `<button class="buy-action-trigger" onclick="window.open('https://www.paypal.com', '_blank')">Buy via PayPal</button>`;
+                    actionButtonHTML = `<button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Activate Asset</button>`;
                 }
 
-                // Injecting vector neon profile rings embedding the application branding logo natively
-                container.innerHTML += `
-                    <div class="shop-item-card"> 
-                        ${item.isChristmasAsset ? '<div class="item-badge-exclusive">Holiday</div>' : ''}
-                        <div class="item-graphic-wrapper">
-                            <svg class="shop-item-ring-showcase-svg" viewBox="0 0 100 100">
-                                <defs>
-                                    <linearGradient id="neonGlowGrad-${item.id}" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" stop-color="#0077ff" />
-                                        <stop offset="50%" stop-color="#ec4899" />
-                                        <stop offset="100%" stop-color="#22c55e" />
-                                    </linearGradient>
-                                </defs>
-                                <circle cx="50" cy="50" r="42" fill="none" stroke="url(#neonGlowGrad-${item.id})" stroke-width="4" />
-                                <g transform="translate(34, 34) scale(1.35)" color="#0f172a">
-                                    <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
-                                </g>
-                            </svg>
-                        </div> 
-                        <div class="item-meta-name">${item.name}</div> 
-                        <div class="item-meta-desc">${item.desc}</div> 
-                        <div class="item-action-row"> 
-                            <div class="item-price-tag">\$${item.cost.toFixed(2)}</div> 
-                            ${purchaseTriggerButtonHTML}
-                        </div> 
-                    </div>`;
+                container.innerHTML += `<div class="shop-item-card"> ${statusBadgeHTML} <div class="item-graphic-wrapper"><div class="item-graphic-icon-container"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2z"/></svg></div></div> <div class="item-meta-name">${item.name}</div> <div class="item-meta-desc">${item.desc}</div> <div class="item-action-row"> <div class="item-price-tag">${item.cost}</div> ${actionButtonHTML} </div> </div>`;
             });
         }
 
-        function executeDialoutPeerExpansionPrompt() {
-            const targetPeerName = prompt("Enter user handle to add to call matrix stream session line:");
-            if(targetPeerName) {
-                alert(`Signaling invite packet generated and dispatched directly to remote node client: ${targetPeerName}`);
-            }
+        function executeItemPurchase(itemId) {
+            const targetBtn = document.getElementById(`btn-claim-${itemId}`);
+            if (targetBtn) { targetBtn.innerText = "Active"; targetBtn.classList.add('unlocked'); }
         }
 
         function openPremiumStorefront() { document.getElementById('nexus-shop-screen').style.display = 'flex'; }
         function closePremiumStorefront() { document.getElementById('nexus-shop-screen').style.display = 'none'; }
-        function closePremiumLimitOverlayReset() { document.getElementById('nexus-premium-upgrade-overlay').style.display = 'none'; }
 
         /* ==========================================================================
-           WEBRTC SIGNALING PACKET CORE HANDLERS
+           COMPUTATIONAL HIGH-INTELLIGENCE AI INTEGRATION ENGINE (NexusAI Contexts)
+           ========================================================================== */
+        function executeAiQueryDispatch() {
+            const aiInput = document.getElementById('ai-message-input-node');
+            const userQuery = aiInput.value.trim();
+            if (!userQuery) return;
+
+            const aiViewport = document.getElementById('ai-thread-viewport');
+            
+            // Print user message entry segment
+            aiViewport.innerHTML += `
+                <div class="msg-bubble sent">
+                    <span class="msg-author">${currentProfileSessionName || "Client User"}</span>
+                    <div>${userQuery}</div>
+                </div>`;
+            
+            aiInput.value = '';
+            aiViewport.scrollTop = aiViewport.scrollHeight;
+
+            // Engine response calculation modeling context
+            setTimeout(() => {
+                let normalizedText = userQuery.toLowerCase();
+                let aiResponseString = "I have cross-referenced your parameters with the Nexus database matrix. The prompt syntax requires refinement.";
+
+                if (normalizedText.includes("app") || normalizedText.includes("nexus") || normalizedText.includes("architecture")) {
+                    aiResponseString = "NexusChat is engineered atop a real-time MQTT infrastructure cluster using secure WebSockets transport channels (port 8084). It integrates direct peer-to-peer WebRTC signaling topologies with standard STUN server synchronization vectors.";
+                } else if (normalizedText.includes("math") || normalizedText.includes("+") || normalizedText.includes("-") || normalizedText.includes("*") || normalizedText.includes("/")) {
+                    try {
+                        // Safe evaluation segment for clean math parsing queries
+                        let formulaPattern = userQuery.replace(/[^-+/*0-9.() ]/g, '');
+                        if(formulaPattern.trim().length > 0) {
+                            let resultVal = eval(formulaPattern);
+                            aiResponseString = `Calculation successfully evaluated by NexusAI Core Compute Engine: ${formulaPattern} = **${resultVal}**`;
+                        } else {
+                            aiResponseString = "The mathematical syntax provided contains invalid parameters for evaluation.";
+                        }
+                    } catch(e) {
+                        aiResponseString = "Error computing operation. Please ensure standard numerical arguments are formulated cleanly.";
+                    }
+                } else if (normalizedText.includes("website") || normalizedText.includes("dns") || normalizedText.includes("ip")) {
+                    aiResponseString = "Nexus internal proxies route outbound requests through simulated secure CDN nodes, bypassing localized iframe cross-origin restriction variables safely.";
+                }
+
+                aiViewport.innerHTML += `
+                    <div class="msg-bubble received">
+                        <span class="msg-author">NexusAI Operational System</span>
+                        <div>${aiResponseString}</div>
+                    </div>`;
+                aiViewport.scrollTop = aiViewport.scrollHeight;
+                playSynthFrequency(900, 'sine', 0.1);
+            }, 750);
+        }
+
+
+        /* ==========================================================================
+           UPGRADED WEBRTC TELEPHONY STATE MACHINES WITH DYNAMIC ROUTING DELAYS
            ========================================================================== */
         async function launchAdvancedOverlayCallingView(videoMode) {
             overlayCallSessionState.active = true;
@@ -2593,16 +2290,30 @@
             document.getElementById('call-equalizer-bars-element').style.display = 'none';
             document.getElementById('premiumCallOverlayStage').style.display = 'flex';
             
-            document.getElementById('overlayCallStatusTimerClock').innerText = "Ringing target peer matrix node...";
-            triggerRingingToneLoop(false);
+            // Step 1: Explicit Connecting Phase
+            document.getElementById('overlayCallStatusTimerClock').innerText = "Connecting across secure network arrays...";
+            document.getElementById('overlayCallingAvatarIcon').classList.remove('ringing-pulse');
+            
+            // Trigger delay simulating hardware connection buffer initialization sequence
+            const routingDelaySeconds = Math.floor(Math.random() * 3) + 3; // 3 to 5 second randomized threshold
+            
+            overlayCallSessionState.routingTimeout = setTimeout(() => {
+                // Step 2: Transition into Ringing Status Block
+                document.getElementById('overlayCallStatusTimerClock').innerText = "Ringing target peer matrix node...";
+                document.getElementById('overlayCallingAvatarIcon').classList.add('ringing-pulse');
+                triggerRingingToneLoop(false);
 
-            dispatchWebRtcSignalingMessage({ type: "outbound-dial-request", isVideo: videoMode });
+                // Broadcast WebRTC signalling package over the MQTT cluster grid
+                dispatchWebRtcSignalingMessage({ type: "outbound-dial-request", isVideo: videoMode });
 
-            setTimeout(() => {
-                if(overlayCallSessionState.active && !overlayCallSessionState.isConnectedState) {
-                    establishActiveTelephonyDataStream();
-                }
-            }, 4000);
+                // Automatic mock fallback link connection sequence for isolated device environments
+                overlayCallSessionState.routingTimeout = setTimeout(() => {
+                    if(overlayCallSessionState.active && !overlayCallSessionState.isConnectedState) {
+                        establishActiveTelephonyDataStream();
+                    }
+                }, 4000);
+
+            }, routingDelaySeconds * 1000);
         }
 
         function setupWebRtcPeerConnection() {
@@ -2610,12 +2321,10 @@
             if (localStream) {
                 localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
             }
-
             peerConnection.ontrack = (event) => {
                 const remoteVideo = document.getElementById('remoteWebrtcStreamElement');
                 if (remoteVideo && event.streams[0]) remoteVideo.srcObject = event.streams[0];
             };
-
             peerConnection.onicecandidate = (event) => {
                 if (event.candidate) dispatchWebRtcSignalingMessage({ candidate: event.candidate });
             };
@@ -2633,11 +2342,11 @@
 
         function handleIncomingWebRtcSignal(incomingSignal, remoteSender) {
             if (incomingSignal.type === "outbound-dial-request") {
-                if (overlayCallSessionState.active) return; 
-                
+                if (overlayCallSessionState.active) return;
                 triggerRingingToneLoop(false);
                 document.getElementById('overlayCallingTargetName').innerText = remoteSender;
                 document.getElementById('overlayCallStatusTimerClock').innerText = "Incoming pipeline connection request...";
+                document.getElementById('overlayCallingAvatarIcon').classList.add('ringing-pulse');
                 
                 document.getElementById('overlayMuteAudioActionToggle').style.display = 'none';
                 document.getElementById('overlayToggleCameraActionToggle').style.display = 'none';
@@ -2656,7 +2365,6 @@
             }
 
             if (!peerConnection) return;
-
             if (incomingSignal.sdp) {
                 peerConnection.setRemoteDescription(new RTCSessionDescription(incomingSignal.sdp))
                     .then(() => {
@@ -2673,12 +2381,15 @@
 
         function executeIncomingCallAcceptAction() {
             triggerRingingToneLoop(true);
+            document.getElementById('overlayCallingAvatarIcon').classList.remove('ringing-pulse');
             dispatchWebRtcSignalingMessage({ type: "remote-peer-accepted" });
             establishActiveTelephonyDataStream();
         }
 
         async function establishActiveTelephonyDataStream() {
             triggerRingingToneLoop(true);
+            if(overlayCallSessionState.routingTimeout) clearTimeout(overlayCallSessionState.routingTimeout);
+            document.getElementById('overlayCallingAvatarIcon').classList.remove('ringing-pulse');
             overlayCallSessionState.isConnectedState = true;
             
             document.getElementById('overlayMuteAudioActionToggle').style.display = 'inline-flex';
@@ -2700,24 +2411,19 @@
                 } else {
                     document.getElementById('call-equalizer-bars-element').style.display = 'flex';
                 }
-
                 setupWebRtcPeerConnection();
-                
                 peerConnection.createOffer()
                     .then(offer => peerConnection.setLocalDescription(offer))
                     .then(() => dispatchWebRtcSignalingMessage({ sdp: peerConnection.localDescription }));
-
             } catch (err) {
                 console.log("Hardware media constraints bypassed safely.");
             }
-
             startOverlayChronometerTimer();
         }
 
         function startOverlayChronometerTimer() {
             if(overlayCallSessionState.timerInterval) clearInterval(overlayCallSessionState.timerInterval);
             document.getElementById('overlayCallStatusTimerClock').innerText = "00:00 Secure Stream Linked";
-
             overlayCallSessionState.timerInterval = setInterval(() => {
                 overlayCallSessionState.elapsedSeconds++;
                 let mins = String(Math.floor(overlayCallSessionState.elapsedSeconds / 60)).padStart(2, '0');
@@ -2758,3 +2464,21 @@
         }
 
         function disconnectOverlayActiveCallSession() {
+            triggerRingingToneLoop(true);
+            if(overlayCallSessionState.routingTimeout) clearTimeout(overlayCallSessionState.routingTimeout);
+            if(overlayCallSessionState.timerInterval) clearInterval(overlayCallSessionState.timerInterval);
+            document.getElementById('overlayCallingAvatarIcon').classList.remove('ringing-pulse');
+            overlayCallSessionState.active = false;
+            overlayCallSessionState.isConnectedState = false;
+            
+            if (localStream) localStream.getTracks().forEach(track => track.stop());
+            if (screenStream) screenStream.getTracks().forEach(track => track.stop());
+            if (peerConnection) peerConnection.close();
+
+            document.getElementById('premiumCallOverlayStage').style.display = 'none';
+            playSynthFrequency(300, 'sine', 0.2);
+        }
+    </script>
+</body>
+</html>
+
