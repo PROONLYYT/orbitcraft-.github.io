@@ -1474,17 +1474,21 @@
             z-index: 3;
         }
         .item-graphic-wrapper {
-            height: 100px;
+            height: 120px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 12px;
+            position: relative;
         }
-        .item-graphic-icon-container {
-            width: 48px;
-            height: 48px;
-            color: var(--primary-accent);
+        
+        /* High fidelity responsive profile ring SVG asset blueprint matching image payload specs */
+        .shop-item-ring-showcase-svg {
+            width: 100px;
+            height: 100px;
+            filter: drop-shadow(0 0 8px rgba(0, 119, 255, 0.3));
         }
+        
         .item-meta-name {
             font-size: 16px;
             font-weight: 700;
@@ -1941,11 +1945,10 @@
             ringInterval = setInterval(executeDoubleBeep, 2000);
         }
 
-        // Global Structural Initialized Target Chronometer State Structs
+        // Global Static Markers Used for Calculating the Relative Offset Timeline
         let initialDaysTarget = 12;
         let initialHoursTarget = 8;
         let initialMinsTarget = 12;
-        let totalElapsedSecondsSessionOffset = 0;
 
         // Static Hardcoded Friend Roster Database Array for Discord Styling Match
         const friendsRosterDatabase = [
@@ -2025,37 +2028,49 @@
             evaluateCachedProfileState();
         });
 
-        // Genuine Time Calculation Engine To Prevent Static Repeat Glitches Across Render States
+        // Dynamic Milestone Chronometer Architecture to Prevent Refresh Glitches
         function initializeTrueChronometerEngine() {
-            // Converts our custom initial target markers into exact global relative numeric offsets
-            let initialTotalSeconds = (initialDaysTarget * 86400) + (initialHoursTarget * 3600) + (initialMinsTarget * 60);
+            let savedMilestoneTimestamp = localStorage.getItem('nexus_christmas_milestone_v2');
+            
+            if (!savedMilestoneTimestamp) {
+                // Compute absolute future target coordinate point from right now on first run
+                let currentEpochMs = Date.now();
+                let additionalOffsetSeconds = (initialDaysTarget * 86400) + (initialHoursTarget * 3600) + (initialMinsTarget * 60);
+                savedMilestoneTimestamp = String(currentEpochMs + (additionalOffsetSeconds * 1000));
+                localStorage.setItem('nexus_christmas_milestone_v2', savedMilestoneTimestamp);
+            }
 
-            setInterval(() => {
-                totalElapsedSecondsSessionOffset++;
-                let activeRemainingSeconds = initialTotalSeconds - totalElapsedSecondsSessionOffset;
+            const targetMilestoneTimeValue = parseInt(savedMilestoneTimestamp, 10);
 
-                if (activeRemainingSeconds <= 0) {
-                    activeRemainingSeconds = 0;
+            const calculateTimeRemainingNode = () => {
+                let currentEpochMs = Date.now();
+                let deltaSecondsRemaining = Math.floor((targetMilestoneTimeValue - currentEpochMs) / 1000);
+
+                if (deltaSecondsRemaining <= 0) {
+                    deltaSecondsRemaining = 0;
                     if (!isChristmasHatUnlockedGlobalState) {
                         isChristmasHatUnlockedGlobalState = true;
-                        generateStorefrontCards(); // Re trigger card generation grid state updates instantly
+                        generateStorefrontCards(); // Re-trigger marketplace inventory state adjustments
                     }
                 }
 
-                // Mathematical matrix layout transformations
-                let dynamicDaysLeft = Math.floor(activeRemainingSeconds / 86400);
-                let residueSeconds = activeRemainingSeconds % 86400;
+                // Structural grid layout transformations
+                let dynamicDaysLeft = Math.floor(deltaSecondsRemaining / 86400);
+                let residueSeconds = deltaSecondsRemaining % 86400;
                 let dynamicHoursLeft = Math.floor(residueSeconds / 3600);
                 residueSeconds %= 3600;
                 let dynamicMinsLeft = Math.floor(residueSeconds / 60);
                 let dynamicSecsLeft = residueSeconds % 60;
 
-                // Sync elements directly to DOM with padded string values
+                // Bind fields cleanly to viewport nodes
                 document.getElementById('xmas-days-node').innerText = String(dynamicDaysLeft).padStart(2, '0');
                 document.getElementById('xmas-hours-node').innerText = String(dynamicHoursLeft).padStart(2, '0');
                 document.getElementById('xmas-mins-node').innerText = String(dynamicMinsLeft).padStart(2, '0');
                 document.getElementById('xmas-secs-node').innerText = String(dynamicSecsLeft).padStart(2, '0');
-            }, 1000);
+            };
+
+            calculateTimeRemainingNode();
+            setInterval(calculateTimeRemainingNode, 1000);
         }
 
         function connectRealTimeMqttPipeline() {
@@ -2513,17 +2528,27 @@
                         purchaseTriggerButtonHTML = `<button class="buy-action-trigger" disabled>Locked Temporarily</button>`;
                     }
                 } else {
-                    // Redirect directly to PayPal links safely to simulate genuine test flows
                     purchaseTriggerButtonHTML = `<button class="buy-action-trigger" onclick="window.open('https://www.paypal.com', '_blank')">Buy via PayPal</button>`;
                 }
 
+                // Injecting vector neon profile rings embedding the application branding logo natively
                 container.innerHTML += `
                     <div class="shop-item-card"> 
                         ${item.isChristmasAsset ? '<div class="item-badge-exclusive">Holiday</div>' : ''}
                         <div class="item-graphic-wrapper">
-                            <div class="item-graphic-icon-container">
-                                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2z"/></svg>
-                            </div>
+                            <svg class="shop-item-ring-showcase-svg" viewBox="0 0 100 100">
+                                <defs>
+                                    <linearGradient id="neonGlowGrad-${item.id}" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#0077ff" />
+                                        <stop offset="50%" stop-color="#ec4899" />
+                                        <stop offset="100%" stop-color="#22c55e" />
+                                    </linearGradient>
+                                </defs>
+                                <circle cx="50" cy="50" r="42" fill="none" stroke="url(#neonGlowGrad-${item.id})" stroke-width="4" />
+                                <g transform="translate(34, 34) scale(1.35)" color="#0f172a">
+                                    <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
+                                </g>
+                            </svg>
                         </div> 
                         <div class="item-meta-name">${item.name}</div> 
                         <div class="item-meta-desc">${item.desc}</div> 
@@ -2733,18 +2758,3 @@
         }
 
         function disconnectOverlayActiveCallSession() {
-            triggerRingingToneLoop(true);
-            if(overlayCallSessionState.timerInterval) clearInterval(overlayCallSessionState.timerInterval);
-            overlayCallSessionState.active = false;
-            overlayCallSessionState.isConnectedState = false;
-            
-            if (localStream) localStream.getTracks().forEach(track => track.stop());
-            if (screenStream) screenStream.getTracks().forEach(track => track.stop());
-            if (peerConnection) peerConnection.close();
-
-            document.getElementById('premiumCallOverlayStage').style.display = 'none';
-            playSynthFrequency(300, 'sine', 0.2);
-        }
-    </script>
-</body>
-</html>
