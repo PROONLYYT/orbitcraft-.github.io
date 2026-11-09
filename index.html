@@ -53,6 +53,14 @@
             display: flex;
             user-select: none;
             -webkit-user-select: none;
+            
+            /* Custom Mouse Cursor Asset Integration */
+            cursor: url('Cursor.png'), auto;
+        }
+
+        /* Enforce custom cursor asset style across actionable workspace interactive nodes */
+        button, a, input, select, textarea, .rail-tab-item, .chat-list-row, .emoji-grid-item-cell, .buy-action-trigger {
+            cursor: url('Cursor.png'), pointer !important;
         }
 
         /* Scannable Scrollbar Elements */
@@ -274,7 +282,6 @@
             font-size: 13px;
             font-weight: 600;
             color: var(--text-main);
-            cursor: pointer;
             transition: all 0.2s ease;
         }
 
@@ -291,7 +298,6 @@
             border-radius: 10px;
             font-size: 14px;
             font-weight: 600;
-            cursor: pointer;
             transition: background 0.2s ease;
             margin-top: 8px;
         }
@@ -339,7 +345,6 @@
             color: var(--text-muted);
             position: relative;
             transition: all 0.2s ease;
-            cursor: pointer;
         }
 
         .rail-tab-item svg {
@@ -468,7 +473,6 @@
             border-radius: 8px;
             transition: all 0.15s ease;
             text-align: left;
-            cursor: pointer;
         }
 
         .sm-btn:hover {
@@ -496,7 +500,6 @@
             border-radius: 8px;
             transition: all 0.15s ease;
             text-align: center;
-            cursor: pointer;
         }
 
         .shop-trigger-btn:hover {
@@ -515,7 +518,6 @@
             align-items: center;
             gap: 12px;
             transition: all 0.2s ease;
-            cursor: pointer;
         }
 
         .chat-list-row:hover, .chat-list-row.active {
@@ -756,7 +758,6 @@
             justify-content: center;
             width: 38px;
             height: 38px;
-            cursor: pointer;
         }
 
         .emoji-trigger-node-btn svg, .mic-record-trigger-btn svg, .media-attach-trigger-btn svg {
@@ -817,7 +818,6 @@
             height: 40px;
             border-radius: 8px;
             transition: all 0.15s ease;
-            cursor: pointer;
             color: var(--text-muted);
         }
 
@@ -841,7 +841,6 @@
             font-weight: 600;
             font-size: 13px;
             transition: all 0.15s ease;
-            cursor: pointer;
         }
 
         .send-btn:hover {
@@ -853,7 +852,6 @@
             border-color: var(--border-subtle);
             color: var(--text-muted);
             background: transparent;
-            cursor: not-allowed;
         }
 
         .call-header-action-button-group {
@@ -873,7 +871,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            cursor: pointer;
         }
 
         .call-action-btn:hover {
@@ -1077,7 +1074,6 @@
             height: 54px;
             border-radius: 50%;
             border: 1px solid var(--border-subtle);
-            cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1279,7 +1275,6 @@
             border-radius: 8px;
             font-weight: 600;
             font-size: 12px;
-            cursor: pointer;
             transition: all 0.15s ease;
         }
         .buy-action-trigger:hover {
@@ -1290,13 +1285,11 @@
             background: rgba(16, 185, 129, 0.08) !important;
             border-color: var(--success-green) !important;
             color: var(--success-green) !important;
-            cursor: default;
         }
         .buy-action-trigger:disabled {
             background: #f1f5f9;
             border-color: #cbd5e1;
             color: #94a3b8;
-            cursor: not-allowed;
         }
 
         .nexus-gate-premium-modal-wrapper {
@@ -1350,7 +1343,6 @@
             font-size: 13px;
             font-weight: 600;
             border: none;
-            cursor: pointer;
             transition: all 0.15s ease;
             text-decoration: none;
             display: inline-block;
@@ -1422,11 +1414,11 @@
                     <div class="avatar-file-upload-trigger-container">
                         <div class="avatar-upload-preview-frame" id="portal-avatar-preview-box">?</div>
                         <input type="file" id="portal-avatar-file-input" accept="image/*" style="display: none;" onchange="handleLocalAvatarSelection(event)">
-                        <button type="button" class="custom-file-input-facade-btn" onclick="document.getElementById('portal-avatar-file-input').click()">Upload Photo Asset</button>
+                        <button type="button" class="custom-file-input-facade-btn" onclick="initPremiumAudioEngine(); document.getElementById('portal-avatar-file-input').click()">Upload Photo Asset</button>
                     </div>
                 </div>
 
-                <button type="button" class="submit-portal-access-btn" onclick="executeManualProfileCommit()">Enter App Matrix</button>
+                <button type="button" class="submit-portal-access-btn" onclick="initPremiumAudioEngine(); executeManualProfileCommit()">Enter App Matrix</button>
             </form>
         </div>
     </div>
@@ -1616,9 +1608,10 @@
     </div>
 
     <script>
-        // High Quality Audio Oscillation Synthesizer Architecture for Telephony Sound FX
+        // High Quality Audio Oscillation Synthesizer Architecture for Sound FX & Background Music
         let audioCtx = null;
         let ringInterval = null;
+        let bgMusicNode = null;
         let unreadMessageCount = 0;
         let pageIsFocused = true;
 
@@ -1641,7 +1634,55 @@
 
         function initAudioContext() {
             if (!audioCtx) {
-                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                window.AudioContext = window.AudioContext || window.webkitAudioContext;
+                audioCtx = new AudioContext();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+
+        // Ambient Generative Synthesizer Background Music Loop Architecture
+        function initPremiumAudioEngine() {
+            initAudioContext();
+            if (bgMusicNode) return; // Prevent spawning duplicate ambient nodes
+
+            try {
+                // Setup low-frequency modular parameter controls
+                const ambientGain = audioCtx.createGain();
+                ambientGain.gain.setValueAtTime(0.02, audioCtx.currentTime); // Low background volume threshold
+                ambientGain.connect(audioCtx.destination);
+
+                // Create main synthesizer oscillator
+                const oscNode = audioCtx.createOscillator();
+                oscNode.type = 'sine';
+                oscNode.frequency.setValueAtTime(110, audioCtx.currentTime); // A2 Ambient low drone anchor
+
+                // Create custom periodic wave filter envelope to simulate premium space mists
+                const filterNode = audioCtx.createBiquadFilter();
+                filterNode.type = 'lowpass';
+                filterNode.frequency.setValueAtTime(350, audioCtx.currentTime);
+
+                oscNode.connect(filterNode);
+                filterNode.connect(ambientGain);
+                oscNode.start(0);
+                bgMusicNode = oscNode;
+
+                // Dynamic background wave modulation cycle loop
+                setInterval(() => {
+                    if (audioCtx && audioCtx.state === 'running') {
+                        // Alternate frequencies incrementally to produce a relaxing tech space theme
+                        const timeMod = Date.now() / 4000;
+                        const dynamicFreq = 110 + Math.sin(timeMod) * 5;
+                        const dynamicFilter = 350 + Math.cos(timeMod) * 80;
+                        
+                        oscNode.frequency.setTargetAtTime(dynamicFreq, audioCtx.currentTime, 0.5);
+                        filterNode.frequency.setTargetAtTime(dynamicFilter, audioCtx.currentTime, 0.5);
+                    }
+                }, 1000);
+
+            } catch (err) {
+                console.log("Generative background ambient track stream bypass handled cleanly.");
             }
         }
 
@@ -1743,6 +1784,9 @@
             generateStorefrontCards();
             populateEmojiPickerGrid();
             evaluateCachedProfileState();
+            
+            // Re-trigger audio check on any simple click context layout area
+            document.body.addEventListener('click', initPremiumAudioEngine, { once: true });
         });
 
         // Holiday Counter Persistent Implementation Logic
@@ -2203,6 +2247,26 @@
         function performProfileHardwareReset() {
             localStorage.clear();
             window.location.reload();
+        }
+
+        function generateStorefrontCards() {
+            const container = document.getElementById('shop-items-grid-target');
+            if (!container) return;
+            container.innerHTML = '';
+            shopInventoryMatrix.forEach(item => {
+                let statusBadgeHTML = item.locked ? `<div class="item-badge-locked">Locked</div>` : (item.exclusive ? `<div class="item-badge-exclusive">Exclusive</div>` : "");
+                let actionButtonHTML = "";
+
+                if (item.locked) {
+                    actionButtonHTML = `<button class="buy-action-trigger" disabled>Coming Soon</button>`;
+                } else if (item.link) {
+                    actionButtonHTML = `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="buy-action-trigger" style="text-decoration:none; display:inline-block; text-align:center;">Activate Link</a>`;
+                } else {
+                    actionButtonHTML = `<button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Activate Asset</button>`;
+                }
+
+                container.innerHTML += `<div class="shop-item-card"> ${statusBadgeHTML} <div class="item-graphic-wrapper"><div class="item-graphic-icon-container"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2z"/></svg></div></div> <div class="item-meta-name">${item.name}</div> <div class="item-meta-desc">${item.desc}</div> <div class="item-action-row"> <div class="item-price-tag">${item.cost}</div> ${actionButtonHTML} </div> </div>`;
+            });
         }
 
         function generateStorefrontCards() {
