@@ -11,29 +11,52 @@
 
     <style>
         :root {
-            /* Ultra Premium Sophisticated Light Tech Design Tokens */
-            --bg-dark: #f4f6f9;
-            --bg-dark-gradient: linear-gradient(135deg, #f4f6f9 0%, #e2e8f0 100%);
-            --bg-panel: rgba(255, 255, 255, 0.82);
-            --bg-sidebar: rgba(248, 250, 252, 0.9);
+            /* Theme Mode Switchable Tokens (Default Dark Mode) */
+            --bg-base: #0F172A;
+            --bg-sidebar: #1E293B;
+            --bg-rail: #0B0F19;
+            --bg-panel: #1E293B;
+            --bg-workspace: #0F172A;
+            --bg-bubble-received: #334155;
+            --bg-bubble-sent: #0066ff;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-active: #0066ff;
+            --input-bg: #334155;
+            --hover-state: rgba(255, 255, 255, 0.05);
+
+            /* Fixed Brand Design Tokens */
             --primary-accent: #0066ff;
             --primary-hover: #0044cc;
-            --primary-glow: rgba(0, 102, 255, 0.12);
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --danger-red: #ef4444;
-            --danger-hover: #dc2626;
-            --success-green: #10b981;
-            --border-subtle: rgba(0, 0, 0, 0.06);
-            --border-active: rgba(0, 102, 255, 0.3);
-            --input-bg: rgba(241, 245, 249, 0.9);
-            --gold-accent: #f59e0b;
-            --pink-neon: #ec4899;
-            --christmas-red: #de2f2f;
+            --primary-glow: rgba(0, 102, 255, 0.15);
+            --danger-red: #EF4444;
+            --danger-hover: #DC2626;
+            --success-green: #10B981;
+            --gold-accent: #F59E0B;
+            --pink-neon: #EC4899;
+            --christmas-red: #DE2F2F;
             
             /* UI Sizing Anchors */
             --nav-rail-width: 76px;
-            --sidebar-width: 320px;
+            --sidebar-width: 260px;
+        }
+
+        /* Light Mode Token Variations Override Class */
+        .light-theme-mode {
+            --bg-base: #F4F6F9;
+            --bg-sidebar: #FFFFFF;
+            --bg-rail: #E2E8F0;
+            --bg-panel: rgba(255, 255, 255, 0.85);
+            --bg-workspace: #F8FAFC;
+            --bg-bubble-received: #E2E8F0;
+            --bg-bubble-sent: #0066ff;
+            --text-main: #1E293B;
+            --text-muted: #64748b;
+            --border-subtle: rgba(0, 0, 0, 0.06);
+            --border-active: rgba(0, 102, 255, 0.4);
+            --input-bg: #F1F5F9;
+            --hover-state: rgba(0, 0, 0, 0.03);
         }
 
         *, *:before, *:after {
@@ -45,22 +68,13 @@
             height: 100%;
             margin: 0;
             padding: 0;
-            background: var(--bg-dark);
-            background-image: var(--bg-dark-gradient);
+            background: var(--bg-base);
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             overflow: hidden;
             display: flex;
             user-select: none;
             -webkit-user-select: none;
-            
-            /* Custom Mouse Cursor Asset Integration */
-            cursor: url('Cursor.png'), auto;
-        }
-
-        /* Enforce custom cursor asset style across actionable workspace interactive nodes */
-        button, a, input, select, textarea, .rail-tab-item, .chat-list-row, .emoji-grid-item-cell, .buy-action-trigger {
-            cursor: url('Cursor.png'), pointer !important;
         }
 
         /* Scannable Scrollbar Elements */
@@ -69,10 +83,10 @@
             height: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.01);
+            background: transparent;
         }
         ::-webkit-scrollbar-thumb {
-            background: rgba(0, 102, 255, 0.15);
+            background: rgba(148, 163, 184, 0.3);
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
@@ -86,7 +100,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #ffffff;
+            background: var(--bg-base);
             z-index: 9999;
             display: none; 
             flex-direction: column;
@@ -110,7 +124,6 @@
             position: relative;
         }
 
-        /* Minecraft-Style Character-By-Character Text Entrance Frame */
         .minecraft-logo-anim-frame {
             display: flex;
             gap: 4px;
@@ -148,7 +161,7 @@
         .progress-track-wrapper {
             width: 260px;
             height: 5px;
-            background: rgba(0, 0, 0, 0.04);
+            background: var(--hover-state);
             border-radius: 10px;
             overflow: hidden;
         }
@@ -167,7 +180,7 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: #f8fafc;
+            background: var(--bg-base);
             z-index: 8000;
             display: none; 
             align-items: center;
@@ -176,18 +189,12 @@
             transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s ease;
         }
 
-        #secure-login-gate-overlay.hidden {
-            opacity: 0;
-            transform: scale(0.95);
-            pointer-events: none;
-        }
-
         .login-card-glassmorphic-wrapper {
             width: 440px;
-            background: #ffffff;
+            background: var(--bg-sidebar);
             border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
             display: flex;
             flex-direction: column;
             gap: 24px;
@@ -242,7 +249,6 @@
 
         .form-text-input-field:focus, .form-select-field:focus {
             border-color: var(--primary-accent);
-            background: #ffffff;
             box-shadow: 0 0 0 3px var(--primary-glow);
         }
 
@@ -265,7 +271,7 @@
             font-weight: 600;
             flex-shrink: 0;
             overflow: hidden;
-            border: 2px dashed rgba(0,0,0,0.1);
+            border: 2px dashed rgba(255,255,255,0.1);
         }
 
         .avatar-upload-preview-frame img {
@@ -275,7 +281,7 @@
         }
 
         .custom-file-input-facade-btn {
-            background: #ffffff;
+            background: transparent;
             border: 1px solid var(--border-subtle);
             padding: 10px 16px;
             border-radius: 8px;
@@ -286,7 +292,7 @@
         }
 
         .custom-file-input-facade-btn:hover {
-            background: var(--input-bg);
+            background: var(--hover-state);
         }
 
         .submit-portal-access-btn {
@@ -313,32 +319,66 @@
             height: 100vh;
             opacity: 0;
             transition: opacity 0.4s ease;
-            background: var(--bg-dark-gradient);
+            background: var(--bg-base);
         }
 
         #app-frame.visible {
             opacity: 1;
         }
 
-        /* Vertical Global Rail Context Framework Layout */
+        /* Discord Server Dock-Style Left Navigation Rail Layout */
         .global-nav-rail {
             width: var(--nav-rail-width);
             height: 100%;
-            background: #ffffff;
+            background: var(--bg-rail);
             border-right: 1px solid var(--border-subtle);
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 24px 0;
-            gap: 14px;
+            padding: 20px 0;
+            gap: 12px;
             z-index: 10;
+            position: relative;
+        }
+
+        /* Discord Pill Wrapper Node Context */
+        .rail-tab-item-container {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Signature Discord White Flow Edge Pill */
+        .rail-left-edge-pill {
+            position: absolute;
+            left: 0;
+            width: 4px;
+            height: 0px;
+            background: #FFFFFF;
+            border-radius: 0 4px 4px 0;
+            transition: height 0.2s ease, transform 0.2s ease;
+            transform: translateY(0);
+        }
+
+        .rail-tab-item-container:hover .rail-left-edge-pill {
+            height: 20px;
+        }
+
+        .rail-tab-item-container.active .rail-left-edge-pill {
+            height: 40px !important;
+        }
+
+        .rail-tab-item-container.has-unread-msg .rail-left-edge-pill {
+            height: 8px;
         }
 
         .rail-tab-item {
             width: 48px;
             height: 48px;
-            border-radius: 14px;
-            background: transparent;
+            border-radius: 24px;
+            background: var(--bg-sidebar);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -353,21 +393,55 @@
             fill: currentColor;
         }
 
-        .rail-tab-item:hover {
-            color: var(--text-muted);
-            background: var(--bg-dark);
+        .rail-tab-item-container:hover .rail-tab-item {
+            color: #FFFFFF;
+            background: var(--primary-accent);
+            border-radius: 16px;
         }
 
-        .rail-tab-item.active {
-            color: var(--primary-accent);
-            background: var(--primary-glow);
+        .rail-tab-item-container.active .rail-tab-item {
+            color: #FFFFFF;
+            background: var(--primary-accent);
+            border-radius: 16px;
         }
 
-        /* Static Christmas Clock Component Container */
+        /* Crimson Alert Notification Badges Layout Node */
+        .ping-badge-counter {
+            position: absolute;
+            bottom: -2px;
+            right: -2px;
+            background: var(--danger-red);
+            color: #FFFFFF;
+            font-size: 11px;
+            font-weight: 800;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 5px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--bg-rail);
+            pointer-events: none;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+        }
+
+        /* Small Sidebar List Row Notification Ring Pin */
+        .sidebar-lobby-ping-badge {
+            background: var(--danger-red);
+            color: #FFFFFF;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 10px;
+            margin-left: auto;
+        }
+
+        /* Christmas Update Counter Left Widget */
         .christmas-countdown-rail-widget {
             margin-top: auto;
             width: 56px;
-            background: rgba(222, 47, 47, 0.06);
+            background: rgba(222, 47, 47, 0.1);
             border: 1px dashed var(--christmas-red);
             border-radius: 12px;
             padding: 8px 4px;
@@ -394,7 +468,7 @@
             line-height: 1.2;
         }
 
-        /* Standard Sub-context Left Sidebar panel */
+        /* Left Side Context Panel Components */
         .sidebar-panel {
             width: var(--sidebar-width);
             min-width: var(--sidebar-width);
@@ -403,8 +477,6 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
         }
 
         .sidebar-header {
@@ -412,7 +484,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 70px;
+            height: 64px;
             border-bottom: 1px solid var(--border-subtle);
         }
 
@@ -421,12 +493,13 @@
             align-items: center;
             gap: 12px;
             min-width: 0;
+            width: 100%;
         }
 
         .user-tag-avatar {
-            width: 40px;
-            height: 40px;
-            background: #ffffff;
+            width: 36px;
+            height: 36px;
+            background: var(--input-bg);
             border: 1px solid var(--border-subtle);
             border-radius: 50%;
             display: flex;
@@ -447,7 +520,7 @@
 
         .sidebar-title {
             font-weight: 700;
-            font-size: 14px;
+            font-size: 13.5px;
             color: var(--text-main);
             white-space: nowrap;
             overflow: hidden;
@@ -455,7 +528,7 @@
         }
 
         .sidebar-tools {
-            padding: 16px 20px;
+            padding: 14px 16px;
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -464,19 +537,19 @@
 
         .sm-btn {
             width: 100%;
-            padding: 10px 14px;
-            font-size: 13px;
+            padding: 9px 12px;
+            font-size: 12.5px;
             font-weight: 600;
-            background: #ffffff;
+            background: var(--input-bg);
             color: var(--text-main);
             border: 1px solid var(--border-subtle);
-            border-radius: 8px;
+            border-radius: 6px;
             transition: all 0.15s ease;
             text-align: left;
         }
 
         .sm-btn:hover {
-            background: var(--bg-dark);
+            background: var(--hover-state);
             border-color: var(--primary-accent);
         }
 
@@ -484,26 +557,23 @@
             color: var(--danger-red);
         }
 
-        .sm-btn.danger:hover {
-            background: rgba(239, 68, 68, 0.05);
-            border-color: var(--danger-red);
-        }
-
         .shop-trigger-btn {
             width: 100%;
-            padding: 11px 14px;
-            font-size: 13px;
-            font-weight: 600;
-            background: var(--primary-accent);
-            color: #ffffff;
+            padding: 10px 14px;
+            font-size: 12.5px;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--gold-accent) 0%, #D97706 100%);
+            color: #FFFFFF;
             border: none;
-            border-radius: 8px;
-            transition: all 0.15s ease;
+            border-radius: 6px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: center;
+            box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
         }
 
         .shop-trigger-btn:hover {
-            background: var(--primary-hover);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(245, 158, 11, 0.35);
         }
 
         .contacts-vertical-stack {
@@ -512,37 +582,54 @@
             padding: 8px 0;
         }
 
+        /* Discord Style Row Highlight States */
         .chat-list-row {
-            padding: 14px 20px;
+            margin: 2px 8px;
+            padding: 8px 12px;
             display: flex;
             align-items: center;
-            gap: 12px;
-            transition: all 0.2s ease;
+            gap: 10px;
+            border-radius: 4px;
+            transition: all 0.15s ease;
+            position: relative;
         }
 
-        .chat-list-row:hover, .chat-list-row.active {
-            background: rgba(0, 102, 255, 0.04);
+        .chat-list-row:hover {
+            background: var(--hover-state);
+        }
+
+        .chat-list-row.active {
+            background: rgba(255, 255, 255, 0.08) !important;
+        }
+
+        .chat-list-row.unread-channel-highlight {
+            font-weight: 800 !important;
+        }
+
+        .chat-list-row.unread-channel-highlight .row-name {
+            color: #FFFFFF !important;
+            font-weight: 700;
+        }
+
+        .channel-left-unread-dot {
+            width: 6px;
+            height: 6px;
+            background: #FFFFFF;
+            border-radius: 50%;
+            position: absolute;
+            left: 2px;
+            top: calc(50% - 3px);
+            display: none;
+        }
+
+        .chat-list-row.unread-channel-highlight .channel-left-unread-dot {
+            display: block;
         }
 
         .row-avatar {
-            font-size: 13px;
+            font-size: 15px;
             font-weight: 600;
-            width: 38px;
-            height: 38px;
-            background: #ffffff;
-            border: 1px solid var(--border-subtle);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            flex-shrink: 0;
             color: var(--text-muted);
-        }
-
-        .chat-list-row.active .row-avatar {
-            color: var(--primary-accent);
-            border-color: var(--primary-accent);
-            background: var(--primary-glow);
         }
 
         .row-meta {
@@ -551,17 +638,8 @@
         }
 
         .row-name {
-            font-weight: 600;
-            font-size: 13.5px;
-            margin-bottom: 2px;
-            color: var(--text-main);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .row-preview {
-            font-size: 12px;
+            font-weight: 500;
+            font-size: 14px;
             color: var(--text-muted);
             white-space: nowrap;
             overflow: hidden;
@@ -572,11 +650,12 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: #ffffff;
+            background: var(--bg-workspace);
             position: relative;
             height: 100%;
         }
 
+        /* Glassmorphic Floating Top Header Section */
         .workspace-header {
             padding: 0 24px;
             background: var(--bg-panel);
@@ -584,11 +663,11 @@
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid var(--border-subtle);
-            height: 70px;
+            height: 64px;
             box-sizing: border-box;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             z-index: 5;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
         }
 
         .header-profile {
@@ -599,59 +678,141 @@
 
         .header-profile .title {
             font-weight: 700;
-            font-size: 16px;
+            font-size: 15px;
+        }
+
+        /* Dismissible Sleek Pill Notification Banner */
+        .network-pill-banner {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 102, 255, 0.15);
+            border: 1px solid rgba(0, 102, 255, 0.3);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            color: #38BDF8;
+            margin-left: 16px;
+        }
+
+        .network-pill-banner .dismiss-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 14px;
+            font-weight: 700;
+            margin-left: 4px;
         }
 
         .thread-scroll-view {
             flex: 1;
             overflow-y: auto;
-            padding: 24px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
             box-sizing: border-box;
-            background: #f8fafc;
         }
 
-        .msg-bubble {
-            max-width: 65%;
-            padding: 12px 16px;
-            border-radius: 16px;
-            line-height: 1.5;
-            font-size: 14px;
+        /* Discord Inspired Clean Row Message Topology */
+        .discord-msg-row {
+            display: flex;
+            gap: 16px;
+            padding: 8px 16px;
+            margin: 1px 0;
+            border-radius: 4px;
+            position: relative;
+            transition: background 0.12s ease;
+        }
+
+        .discord-msg-row:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .discord-msg-row.compact-mode-row {
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+
+        .msg-left-avatar-container {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--input-bg);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .msg-left-avatar-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .msg-right-content-body {
+            flex: 1;
+            min-width: 0;
             display: flex;
             flex-direction: column;
-            word-wrap: break-word;
-            background: #ffffff;
-            border: 1px solid var(--border-subtle);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
         }
 
-        .msg-bubble.sent {
-            background: var(--primary-accent);
-            color: #ffffff;
-            border-color: transparent;
-            align-self: flex-end;
-            border-bottom-right-radius: 2px;
-            box-shadow: 0 4px 10px rgba(0, 102, 255, 0.15);
-        }
-
-        .msg-bubble.received {
-            align-self: flex-start;
-            border-bottom-left-radius: 2px;
-        }
-
-        .msg-author {
-            font-size: 11px;
-            font-weight: 700;
-            color: var(--primary-accent);
+        .msg-meta-header-row {
+            display: flex;
+            align-items: baseline;
+            gap: 8px;
             margin-bottom: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
-        .msg-bubble.sent .msg-author {
-            color: rgba(255, 255, 255, 0.82);
+        .msg-user-display-name {
+            font-weight: 600;
+            font-size: 14.5px;
+            color: #38BDF8;
+        }
+
+        .msg-timestamp-label {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .msg-text-paragraph {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--text-main);
+            word-wrap: break-word;
+            margin: 0;
+        }
+
+        /* Hover Context Action Toolbars Matrix */
+        .msg-action-hover-toolbar {
+            position: absolute;
+            top: -12px;
+            right: 24px;
+            background: var(--bg-sidebar);
+            border: 1px solid var(--border-subtle);
+            border-radius: 6px;
+            display: none;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        .discord-msg-row:hover .msg-action-hover-toolbar {
+            display: flex;
+        }
+
+        .toolbar-trigger-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 10px;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.1s ease;
+        }
+
+        .toolbar-trigger-btn:hover {
+            color: #FFFFFF;
+            background: var(--primary-accent);
         }
 
         /* Render Vector Graphic Text Tokens Inline */
@@ -659,75 +820,111 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: rgba(0, 102, 255, 0.08);
+            background: rgba(0, 102, 255, 0.15);
             border: 1px solid var(--primary-accent);
-            border-radius: 6px;
-            padding: 2px 6px;
+            border-radius: 4px;
+            padding: 1px 4px;
             margin: 0 2px;
             vertical-align: middle;
-            color: var(--primary-accent);
+            color: #38BDF8;
             font-weight: 700;
             font-size: 11px;
         }
 
-        .msg-bubble.sent .vector-badge-inline-node {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: #ffffff;
-            color: #ffffff;
-        }
-
         .vector-badge-inline-node svg {
-            width: 14px;
-            height: 14px;
-            margin-right: 4px;
+            width: 13px;
+            height: 13px;
+            margin-right: 3px;
             fill: currentColor;
         }
 
-        .msg-embed-video-player {
+        .msg-embed-video-player, .msg-embed-image {
             width: 100%;
-            max-width: 320px;
-            border-radius: 10px;
+            max-width: 400px;
+            border-radius: 8px;
             margin-top: 6px;
-            outline: none;
-            background: #000000;
+            border: 1px solid var(--border-subtle);
         }
 
-        .msg-embed-image {
-            width: 100%;
-            max-width: 320px;
-            border-radius: 10px;
-            margin-top: 6px;
-            object-fit: cover;
+        /* Real-Time User Typing Status Layout Panel */
+        .live-typing-status-dock-bar {
+            height: 24px;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+            background: transparent;
+            transition: opacity 0.25s ease;
+            opacity: 0;
+            pointer-events: none;
         }
 
+        .live-typing-status-dock-bar.visible-status {
+            opacity: 1;
+        }
+
+        /* Discord Style Animated Bouncing Typer Wave Dots */
+        .bouncing-typer-dots-wave {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            height: 100%;
+        }
+
+        .bouncing-dot-unit {
+            width: 5px;
+            height: 5px;
+            background: var(--text-muted);
+            border-radius: 50%;
+            animation: typingDotWaveBounce 1.4s infinite ease-in-out both;
+        }
+
+        .bouncing-dot-unit:nth-child(1) { animation-delay: 0s; }
+        .bouncing-dot-unit:nth-child(2) { animation-delay: 0.16s; }
+        .bouncing-dot-unit:nth-child(3) { animation-delay: 0.32s; }
+
+        @keyframes typingDotWaveBounce {
+            0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+            40% { transform: scale(1) translateY(-4px); opacity: 1; }
+        }
+
+        /* Polished Bottom Input Deck Controls Layout */
         .input-dock-bar {
-            padding: 16px 24px;
-            background: #ffffff;
+            padding: 0 24px 20px 24px;
+            background: transparent;
             display: flex;
             align-items: center;
             gap: 12px;
-            border-top: 1px solid var(--border-subtle);
-            height: 75px;
-            box-sizing: border-box;
             position: relative;
         }
 
-        .input-dock-bar input[type="text"] {
+        .input-box-relative-wrapper {
             flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
             background: var(--input-bg);
-            border: 1px solid transparent;
-            padding: 12px 16px;
-            border-radius: 10px;
-            color: var(--text-main);
-            font-size: 14px;
-            outline: none;
+            border-radius: 8px;
+            padding: 2px 8px;
+            border: 1px solid var(--border-subtle);
             transition: all 0.2s ease;
         }
 
-        .input-dock-bar input[type="text"]:focus {
-            background: #ffffff;
+        .input-box-relative-wrapper:focus-within {
             border-color: var(--primary-accent);
             box-shadow: 0 0 0 3px var(--primary-glow);
+        }
+
+        .input-box-relative-wrapper input[type="text"] {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 12px 8px;
+            color: var(--text-main);
+            font-size: 14px;
+            outline: none;
         }
 
         .cooldown-progress-track {
@@ -750,14 +947,14 @@
             background: transparent;
             border: none;
             color: var(--text-muted);
-            padding: 8px;
-            border-radius: 8px;
+            padding: 6px;
+            border-radius: 4px;
             transition: all 0.15s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 38px;
-            height: 38px;
+            width: 34px;
+            height: 34px;
         }
 
         .emoji-trigger-node-btn svg, .mic-record-trigger-btn svg, .media-attach-trigger-btn svg {
@@ -767,25 +964,25 @@
         }
 
         .emoji-trigger-node-btn:hover, .mic-record-trigger-btn:hover, .media-attach-trigger-btn:hover {
-            color: var(--primary-accent);
-            background: var(--bg-dark);
+            color: #FFFFFF;
+            background: var(--hover-state);
         }
         
         .mic-record-trigger-btn.recording-active {
             color: var(--danger-red);
-            background: rgba(239, 68, 68, 0.08);
+            background: rgba(239, 68, 68, 0.1);
         }
 
         .emoji-picker-matrix-overlay {
             position: absolute;
-            bottom: 85px;
-            right: 24px;
-            width: 300px;
+            bottom: 60px;
+            right: 8px;
+            width: 280px;
             height: 220px;
-            background: #ffffff;
+            background: var(--bg-sidebar);
             border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            border-radius: 8px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5);
             display: none;
             flex-direction: column;
             z-index: 1000;
@@ -814,44 +1011,41 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
+            width: 36px;
+            height: 36px;
+            border-radius: 4px;
             transition: all 0.15s ease;
             color: var(--text-muted);
         }
 
         .emoji-grid-item-cell svg {
-            width: 20px;
-            height: 20px;
+            width: 18px;
+            height: 18px;
             fill: currentColor;
         }
 
         .emoji-grid-item-cell:hover {
-            background: var(--primary-glow);
-            color: var(--primary-accent);
+            background: var(--primary-accent);
+            color: #FFFFFF;
         }
 
         .send-btn {
-            background: transparent;
-            color: var(--primary-accent);
-            border: 1px solid var(--primary-accent);
-            padding: 10px 18px;
-            border-radius: 8px;
+            background: var(--primary-accent);
+            color: #ffffff;
+            border: none;
+            padding: 11px 16px;
+            border-radius: 6px;
             font-weight: 600;
             font-size: 13px;
             transition: all 0.15s ease;
         }
 
         .send-btn:hover {
-            background: var(--primary-accent);
-            color: #ffffff;
+            background: var(--primary-hover);
         }
 
         .send-btn:disabled {
-            border-color: var(--border-subtle);
-            color: var(--text-muted);
-            background: transparent;
+            opacity: 0.5;
         }
 
         .call-header-action-button-group {
@@ -864,9 +1058,9 @@
             background: transparent;
             border: 1px solid var(--border-subtle);
             color: var(--text-muted);
-            width: 38px;
-            height: 38px;
-            border-radius: 8px;
+            width: 34px;
+            height: 34px;
+            border-radius: 4px;
             transition: all 0.15s ease;
             display: flex;
             align-items: center;
@@ -874,9 +1068,9 @@
         }
 
         .call-action-btn:hover {
-            color: var(--primary-accent);
+            color: #FFFFFF;
             border-color: var(--primary-accent);
-            background: var(--bg-dark);
+            background: var(--hover-state);
         }
 
         .call-action-btn svg {
@@ -892,13 +1086,12 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #ffffff;
+            background-color: var(--bg-base);
             z-index: 10000;
             display: none;
             flex-direction: column;
             justify-content: space-between;
             padding: 40px;
-            transition: all 0.3s ease;
         }
 
         .call-top-meta-bar {
@@ -946,7 +1139,7 @@
             width: 110px;
             height: 110px;
             border-radius: 50%;
-            background-color: var(--bg-dark);
+            background-color: var(--input-bg);
             border: 1px solid var(--border-subtle);
             margin: 0 auto 20px auto;
             display: flex;
@@ -971,35 +1164,9 @@
             color: var(--text-muted);
             margin-top: 10px;
             font-size: 14px;
-            background: var(--bg-dark);
+            background: var(--input-bg);
             padding: 5px 16px;
             border-radius: 20px;
-            border: 1px solid var(--border-subtle);
-        }
-
-        .call-equalizer-bars-container {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            height: 32px;
-            margin-top: 24px;
-        }
-
-        .call-equalizer-bar-unit {
-            width: 3px;
-            height: 12px;
-            background-color: var(--primary-accent);
-            border-radius: 2px;
-            animation: equalizeCallAudioStream 0.5s ease-in-out infinite alternate;
-        }
-        .call-equalizer-bar-unit:nth-child(2) { animation-delay: 0.1s; height: 20px; }
-        .call-equalizer-bar-unit:nth-child(3) { animation-delay: 0.2s; height: 28px; }
-        .call-equalizer-bar-unit:nth-child(4) { animation-delay: 0.3s; height: 16px; }
-        .call-equalizer-bar-unit:nth-child(5) { animation-delay: 0.15s; height: 22px; }
-
-        @keyframes equalizeCallAudioStream {
-            0% { transform: scaleY(0.6); }
-            100% { transform: scaleY(1.4); }
         }
 
         .call-immersive-video-viewport {
@@ -1008,7 +1175,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #f1f5f9;
+            background: #000000;
             display: none;
             align-items: center;
             justify-content: center;
@@ -1020,18 +1187,12 @@
             width: 100%;
             height: 100%;
             position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .call-remote-video-feed-facade video {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
         }
 
         .call-floating-local-pip {
@@ -1040,14 +1201,9 @@
             right: 24px;
             width: 130px;
             height: 180px;
-            background: #ffffff;
+            background: #000000;
             border: 1px solid var(--border-subtle);
             border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
             z-index: 1020;
             overflow: hidden;
         }
@@ -1056,9 +1212,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
         }
 
         .call-controls-row-footer {
@@ -1079,13 +1232,12 @@
             justify-content: center;
             color: var(--text-main);
             transition: all 0.2s ease;
-            background-color: #ffffff;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.02);
+            background-color: var(--bg-sidebar);
         }
 
         .call-action-circle-round-btn:hover {
             transform: scale(1.06);
-            background-color: var(--bg-dark);
+            background-color: var(--input-bg);
         }
 
         .call-action-circle-round-btn svg {
@@ -1094,25 +1246,8 @@
             fill: currentColor;
         }
 
-        .call-action-circle-round-btn.mute-btn-style.active-triggered,
-        .call-action-circle-round-btn.cam-btn-style.active-triggered,
-        .call-action-circle-round-btn.screen-btn-style.active-triggered {
-            background-color: var(--primary-glow);
-            color: var(--primary-accent);
-            border-color: var(--primary-accent);
-        }
-
         .call-action-circle-round-btn.hangup-btn-style {
             background-color: var(--danger-red);
-            color: #ffffff;
-            border: none;
-        }
-        .call-action-circle-round-btn.hangup-btn-style:hover {
-            background-color: var(--danger-hover);
-        }
-
-        .call-action-circle-round-btn.accept-btn-style {
-            background-color: var(--success-green);
             color: #ffffff;
             border: none;
         }
@@ -1122,7 +1257,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: #ffffff;
+            background: var(--bg-workspace);
             height: 100%;
         }
 
@@ -1132,15 +1267,15 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: #ffffff;
+            background-color: var(--bg-base);
             z-index: 5000;
             display: none;
             flex-direction: column;
             box-sizing: border-box;
         }
         .shop-header-navbar {
-            height: 70px;
-            background: #ffffff;
+            height: 64px;
+            background: var(--bg-sidebar);
             border-bottom: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
@@ -1157,22 +1292,16 @@
             display: flex;
             align-items: center;
             gap: 6px;
-            background: var(--bg-dark);
+            background: var(--input-bg);
             padding: 8px 14px;
-            border-radius: 8px;
+            border-radius: 6px;
             border: 1px solid var(--border-subtle);
-            transition: all 0.15s ease;
-        }
-        .back-nav-link:hover {
-            color: var(--text-main);
-            border-color: var(--text-muted);
         }
         .shop-headline-title {
             font-weight: 800;
-            font-size: 16px;
+            font-size: 15px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: var(--text-main);
         }
         .balance-container-pill {
             background: rgba(245, 158, 11, 0.06);
@@ -1187,7 +1316,6 @@
             flex: 1;
             overflow-y: auto;
             padding: 32px;
-            background: var(--bg-dark);
         }
         .shop-items-grid {
             display: grid;
@@ -1197,14 +1325,13 @@
             margin: 0 auto;
         }
         .shop-item-card {
-            background: #ffffff;
+            background: var(--bg-sidebar);
             border: 1px solid var(--border-subtle);
-            border-radius: 14px;
+            border-radius: 12px;
             padding: 24px;
             display: flex;
             flex-direction: column;
             position: relative;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.01);
         }
         .item-badge-exclusive {
             position: absolute;
@@ -1217,7 +1344,6 @@
             padding: 3px 6px;
             border-radius: 4px;
             text-transform: uppercase;
-            z-index: 3;
         }
         .item-badge-locked {
             position: absolute;
@@ -1230,25 +1356,23 @@
             padding: 3px 6px;
             border-radius: 4px;
             text-transform: uppercase;
-            z-index: 3;
         }
         .item-graphic-wrapper {
-            height: 90px;
+            height: 80px;
             display: flex;
             align-items: center;
             justify-content: center;
             margin-bottom: 12px;
         }
         .item-graphic-icon-container {
-            width: 44px;
-            height: 44px;
+            width: 40px;
+            height: 40px;
             color: var(--primary-accent);
         }
         .item-meta-name {
             font-size: 15px;
             font-weight: 700;
             margin-bottom: 4px;
-            color: var(--text-main);
         }
         .item-meta-desc {
             font-size: 12px;
@@ -1272,7 +1396,7 @@
             color: var(--primary-accent);
             border: 1px solid var(--primary-accent);
             padding: 6px 14px;
-            border-radius: 8px;
+            border-radius: 6px;
             font-weight: 600;
             font-size: 12px;
             transition: all 0.15s ease;
@@ -1282,86 +1406,9 @@
             color: #ffffff;
         }
         .buy-action-trigger.unlocked {
-            background: rgba(16, 185, 129, 0.08) !important;
+            background: rgba(16, 185, 129, 0.1) !important;
             border-color: var(--success-green) !important;
             color: var(--success-green) !important;
-        }
-        .buy-action-trigger:disabled {
-            background: #f1f5f9;
-            border-color: #cbd5e1;
-            color: #94a3b8;
-        }
-
-        .nexus-gate-premium-modal-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(15, 23, 42, 0.15);
-            backdrop-filter: blur(4px);
-            z-index: 9500;
-            display: none;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .premium-card-container {
-            width: 100%;
-            max-width: 420px;
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 32px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.06);
-            border: 1px solid var(--border-subtle);
-        }
-        .premium-card-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin: 0;
-        }
-        .premium-card-desc {
-            font-size: 13px;
-            color: var(--text-muted);
-            line-height: 1.5;
-            margin: 0;
-        }
-        .premium-action-row-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 4px;
-        }
-        .premium-btn-action {
-            flex: 1;
-            padding: 11px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            border: none;
-            transition: all 0.15s ease;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
-        }
-        .premium-btn-action.paypal-primary {
-            background: var(--primary-accent);
-            color: #ffffff;
-        }
-        .premium-btn-action.paypal-primary:hover {
-            background: var(--primary-hover);
-        }
-        .premium-btn-action.dismiss-secondary {
-            background: var(--bg-dark);
-            border: 1px solid var(--border-subtle);
-            color: var(--text-main);
-        }
-        .premium-btn-action.dismiss-secondary:hover {
-            background: #e2e8f0;
         }
     </style>
 </head>
@@ -1370,7 +1417,6 @@
     <!-- Cinematic Loading Portal Splash Overlay -->
     <div id="splash-loading-portal">
         <div class="splash-logo-container">
-            <!-- Minecraft Style Character by Character Entrance Base Holder -->
             <div class="minecraft-logo-anim-frame" id="minecraft-logo-text-target"></div>
         </div>
         <div class="splash-user-subtitle" id="splash-user-target">Initializing Network Topology...</div>
@@ -1424,21 +1470,39 @@
     </div>
 
     <div id="app-frame">
+        <!-- Discord Server Dock Inspired Far-Left Rail Framework Layout -->
         <div class="global-nav-rail">
-            <div class="rail-tab-item active" id="tab-node-chat" onclick="switchGlobalRailContext('chat')" title="Home Messaging Matrix">
-                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-            </div>
-            <div class="rail-tab-item" id="tab-node-ai" onclick="switchGlobalRailContext('ai')" title="NexusAI Intelligence Node">
-                <svg viewBox="0 0 24 24"><path d="M12 2c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l2.79-2.79C10.09 18.66 11.03 19 12 19c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>
-            </div>
-            <div class="rail-tab-item" id="tab-node-groups" onclick="switchGlobalRailContext('groups')" title="Group Systems Hub">
-                <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-            </div>
-            <div class="rail-tab-item" id="tab-node-settings" onclick="switchGlobalRailContext('settings')" title="Core Workstation Configuration">
-                <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+            <div class="rail-tab-item-container active" id="rail-wrapper-chat">
+                <div class="rail-left-edge-pill"></div>
+                <div class="rail-tab-item" onclick="switchGlobalRailContext('chat')" title="Home Messaging Matrix">
+                    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                </div>
+                <!-- Dynamic Rail Badge Ping Tracker -->
+                <div class="ping-badge-counter" id="rail-ping-counter-chat" style="display:none;">0</div>
             </div>
 
-            <!-- Christmas Update Counter Left Widget -->
+            <div class="rail-tab-item-container" id="rail-wrapper-ai">
+                <div class="rail-left-edge-pill"></div>
+                <div class="rail-tab-item" onclick="switchGlobalRailContext('ai')" title="NexusAI Intelligence Node">
+                    <svg viewBox="0 0 24 24"><path d="M12 2c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l2.79-2.79C10.09 18.66 11.03 19 12 19c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>
+                </div>
+            </div>
+
+            <div class="rail-tab-item-container" id="rail-wrapper-groups">
+                <div class="rail-left-edge-pill"></div>
+                <div class="rail-tab-item" onclick="switchGlobalRailContext('groups')" title="Group Systems Hub">
+                    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                </div>
+            </div>
+
+            <div class="rail-tab-item-container" id="rail-wrapper-settings">
+                <div class="rail-left-edge-pill"></div>
+                <div class="rail-tab-item" onclick="switchGlobalRailContext('settings')" title="Core Workstation Configuration">
+                    <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                </div>
+            </div>
+
+            <!-- Christmas Countdown Rail Widget Component Container -->
             <div class="christmas-countdown-rail-widget" title="Christmas Protocol Sync Status">
                 <div class="xmas-widget-title">XMAS</div>
                 <div class="xmas-widget-clock" id="global-xmas-countdown-node">00d 00h</div>
@@ -1454,22 +1518,28 @@
             </div>
             
             <div class="sidebar-tools" id="sidebar-context-controls-box">
-                <button class="shop-trigger-btn" onclick="openPremiumStorefront()">Open Nexus Shop</button>
+                <!-- Upgraded Nexus Shop Trigger button with Gradient Flare & Star Anchor -->
+                <button class="shop-trigger-btn" onclick="openPremiumStorefront()">Open Nexus Shop (133 ★)</button>
                 <button class="sm-btn" id="sidebar-action-primary-btn" onclick="triggerChannelCreation()">+ Connect to Code Matrix</button>
+                <button class="sm-btn" id="theme-toggle-primary-btn" onclick="toggleColorThemeProfileMode()">🌓 Toggle Dark/Light UI</button>
                 <button class="sm-btn danger" onclick="performProfileHardwareReset()">Reset Active Session Container</button>
             </div>
             
             <div class="contacts-vertical-stack" id="contacts-vertical-stack"></div>
         </div>
 
-        <!-- Master Interactive Center Content Section Switcher -->
         <div id="master-panel-view-container" style="flex:1; display:flex; height:100%;">
             
-            <!-- Context 1: Core Chat System Framework Workspace -->
+            <!-- Context 1: Core Chat System Framework Workspace Layout -->
             <div class="workspace-panel" id="view-workspace-chat">
                 <div class="workspace-header">
                     <div class="header-profile">
-                        <div class="title" id="active-chat-headline-node">Global Public Lobby</div>
+                        <div class="title" id="active-chat-headline-node">Public Communication Lobby</div>
+                        <!-- Re-engineered Sleek Dismissible Protocol Indicator Badge -->
+                        <div class="network-pill-banner" id="network-protocol-status-badge">
+                            <span>NETWORK PROTOCOL STREAM NOMINAL</span>
+                            <button class="dismiss-btn" onclick="document.getElementById('network-protocol-status-badge').style.display='none'">×</button>
+                        </div>
                     </div>
                     
                     <div class="call-header-action-button-group">
@@ -1482,28 +1552,40 @@
                     </div>
                 </div>
 
+                <!-- Dynamic Discord-Style Message Feed Container -->
                 <div class="thread-scroll-view" id="chat-thread-viewport"></div>
 
+                <!-- Real-Time User Typing Tracker Status Overlay Strip -->
+                <div class="live-typing-status-dock-bar" id="live-typing-status-dock-bar">
+                    <div class="bouncing-typer-dots-wave">
+                        <div class="bouncing-dot-unit"></div>
+                        <div class="bouncing-dot-unit"></div>
+                        <div class="bouncing-dot-unit"></div>
+                    </div>
+                    <span id="live-typing-string-payload-target">Someone is typing...</span>
+                </div>
+
                 <div class="input-dock-bar">
-                    <button type="button" class="mic-record-trigger-btn" id="voice-memo-toggle-btn" onclick="toggleVoiceMessageRecording()" title="Record Audio Capsule">
-                        <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
-                    </button>
+                    <div class="input-box-relative-wrapper">
+                        <button type="button" class="mic-record-trigger-btn" id="voice-memo-toggle-btn" onclick="toggleVoiceMessageRecording()" title="Record Audio Capsule">
+                            <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+                        </button>
 
-                    <!-- Media Upload Trigger Element Node -->
-                    <button type="button" class="media-attach-trigger-btn" onclick="document.getElementById('chat-media-attachment-hidden-input').click()" title="Attach Multimedia File Asset">
-                        <svg viewBox="0 0 24 24"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-3.31 2.69-6 6-6s6 2.69 6 6v10c0 4.42-3.58 8-8 8s-8-3.58-8-8V4h2v11c0 3.31 2.69 6 6 6s6-2.69 6-6V5c0-2.21-1.79-4-4-4s-4 1.79-4 4v11.5c0 1.1.9 2 2 2s2-.9 2-2V6h2z"/></svg>
-                    </button>
-                    <input type="file" id="chat-media-attachment-hidden-input" accept="image/*,video/*" style="display:none;" onchange="executeLocalMediaAttachmentUpload(event)">
+                        <button type="button" class="media-attach-trigger-btn" onclick="document.getElementById('chat-media-attachment-hidden-input').click()" title="Attach Multimedia File Asset">
+                            <svg viewBox="0 0 24 24"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-3.31 2.69-6 6-6s6 2.69 6 6v10c0 4.42-3.58 8-8 8s-8-3.58-8-8V4h2v11c0 3.31 2.69 6 6 6s6-2.69 6-6V5c0-2.21-1.79-4-4-4s-4 1.79-4 4v11.5c0 1.1.9 2 2 2s2-.9 2-2V6h2z"/></svg>
+                        </button>
+                        <input type="file" id="chat-media-attachment-hidden-input" accept="image/*,video/*" style="display:none;" onchange="executeLocalMediaAttachmentUpload(event)">
 
-                    <input type="text" id="text-message-input-node" placeholder="Type a message safely into active router stream..." onkeypress="trapInputKeypress(event)">
-                    
-                    <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Special Vector Key Tag">
-                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 10 10 10-4.48 10-10S17.51 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
-                    </button>
-                    
-                    <div class="emoji-picker-matrix-overlay" id="emoji-picker-matrix-overlay">
-                        <div class="emoji-picker-header">Select Vector Matrix Input</div>
-                        <div class="emoji-grid-scroller" id="emoji-grid-scroller-target"></div>
+                        <input type="text" id="text-message-input-node" placeholder="Type a message safely into active router stream..." onkeypress="trapInputKeypress(event)" oninput="handleLocalTypingStateBroadcast()">
+                        
+                        <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Special Vector Key Tag">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 10 10 10-4.48 10-10S17.51 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+                        </button>
+                        
+                        <div class="emoji-picker-matrix-overlay" id="emoji-picker-matrix-overlay">
+                            <div class="emoji-picker-header">Select Vector Matrix Input</div>
+                            <div class="emoji-grid-scroller" id="emoji-grid-scroller-target"></div>
+                        </div>
                     </div>
 
                     <button class="send-btn" id="send-message-dispatch-btn" onclick="executeTextDispatch()">Send Message</button>
@@ -1514,7 +1596,7 @@
                 </div>
             </div>
 
-            <!-- Context 2: Smart NexusAI Operational Terminal Framework -->
+            <!-- Context 2: Smart NexusAI Operational Terminal Framework Layout -->
             <div class="ai-workspace-container" id="view-workspace-ai" style="display:none;">
                 <div class="workspace-header">
                     <div class="header-profile">
@@ -1523,14 +1605,24 @@
                         </div>
                     </div>
                 </div>
-                <div class="thread-scroll-view" id="ai-thread-viewport" style="background:#f1f5f9;">
-                    <div class="msg-bubble received">
-                        <span class="msg-author">NexusAI Operational System</span>
-                        <div>Greetings. I am the high-tier diagnostic NexusAI model. I possess detailed computational telemetry concerning WebRTC channels, MQTT networking architecture, mathematical queries, and local workspace data parameters. Ask any operational request.</div>
+                <div class="thread-scroll-view" id="ai-thread-viewport">
+                    <div class="discord-msg-row">
+                        <div class="msg-left-avatar-container">
+                            <div class="user-tag-avatar">AI</div>
+                        </div>
+                        <div class="msg-right-content-body">
+                            <div class="msg-meta-header-row">
+                                <span class="msg-user-display-name" style="color:var(--gold-accent);">NexusAI Operational System</span>
+                                <span class="msg-timestamp-label">System Node</span>
+                            </div>
+                            <p class="msg-text-paragraph">Greetings. I am the high-tier diagnostic NexusAI model. I possess detailed computational telemetry concerning WebRTC channels, MQTT networking architecture, mathematical queries, and local workspace data parameters. Ask any operational request.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="input-dock-bar">
-                    <input type="text" id="ai-message-input-node" placeholder="Query NexusAI computational engine..." onkeypress="if(event.key==='Enter') executeAiQueryDispatch()">
+                <div class="input-dock-bar" style="padding-top:10px;">
+                    <div class="input-box-relative-wrapper">
+                        <input type="text" id="ai-message-input-node" placeholder="Query NexusAI computational engine..." onkeypress="if(event.key==='Enter') executeAiQueryDispatch()">
+                    </div>
                     <button class="send-btn" onclick="executeAiQueryDispatch()">Query AI</button>
                 </div>
             </div>
@@ -1545,7 +1637,7 @@
                 <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z"/></svg>
                 <span>E2EE Telephony Active</span>
             </div>
-            <div style="font-size: 13px; color: var(--text-muted);" id="callMediaCategoryHeaderLabel">Audio Signal Line</div>
+            <div style="font-size: 13px; color: var(--text-muted);">Audio Signal Line</div>
         </div>
 
         <div class="call-viewport-center-stage">
@@ -1553,14 +1645,6 @@
                 <div class="call-voice-avatar-node" id="overlayCallingAvatarIcon">N</div>
                 <h2 id="overlayCallingTargetName" style="font-size: 20px; font-weight: 700; margin: 0; color: var(--text-main);">Active Stream Node</h2>
                 <div class="call-voice-timer-badge" id="overlayCallStatusTimerClock">Initializing Router Vectors...</div>
-                
-                <div class="call-equalizer-bars-container" id="call-equalizer-bars-element" style="display:none;">
-                    <div class="call-equalizer-bar-unit"></div>
-                    <div class="call-equalizer-bar-unit"></div>
-                    <div class="call-equalizer-bar-unit"></div>
-                    <div class="call-equalizer-bar-unit"></div>
-                    <div class="call-equalizer-bar-unit"></div>
-                </div>
             </div>
 
             <div class="call-immersive-video-viewport" id="overlayVideoFrameContainer">
@@ -1576,15 +1660,6 @@
         <div class="call-controls-row-footer">
             <button class="call-action-circle-round-btn accept-btn-style" id="overlayAcceptIncomingCallAction" onclick="executeIncomingCallAcceptAction()" title="Accept Connection Stream" style="display: none;">
                 <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1.01C8.7 6.31 8.5 5.12 8.5 3.9c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.52c0-.55-.45-1-1-1z"/></svg>
-            </button>
-            <button class="call-action-circle-round-btn mute-btn-style" id="overlayMuteAudioActionToggle" onclick="executeOverlayMuteOperationToggle()" title="Toggle Local Microphone">
-                <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
-            </button>
-            <button class="call-action-circle-round-btn cam-btn-style" id="overlayToggleCameraActionToggle" onclick="executeOverlayCameraOperationToggle()" title="Toggle Local Optical Track">
-                <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-            </button>
-            <button class="call-action-circle-round-btn screen-btn-style" id="overlayScreenShareActionToggle" onclick="executeOverlayScreenShareToggle()" title="Share Graphics Screen Surface">
-                <svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.11-.9-2-2-2H4c-1.11 0-2 .89-2 2v10c0 1.1.89 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
             </button>
             <button class="call-action-circle-round-btn hangup-btn-style" onclick="disconnectOverlayActiveCallSession()" title="Hang Up Active Pipeline Context">
                 <svg viewBox="0 0 24 24"><path d="M12 9c-2.45 0-4.76.74-6.7 2L3 8.3c2.56-2.15 5.85-3.3 9.4-3.3 3.55 0 6.84 1.15 9.4 3.3L18.7 11c-1.94-1.26-4.25-2-6.7-2z"/></svg>
@@ -1608,29 +1683,20 @@
     </div>
 
     <script>
-        // High Quality Audio Oscillation Synthesizer Architecture for Sound FX & Background Music
+        // High Quality Audio Oscillation Synthesizer Architecture for Sound FX & Notifications
         let audioCtx = null;
-        let ringInterval = null;
-        let bgMusicNode = null;
         let unreadMessageCount = 0;
         let pageIsFocused = true;
+        let activeThemeModeProfile = 'dark';
 
         window.addEventListener('focus', () => {
             pageIsFocused = true;
             unreadMessageCount = 0;
-            updateBrowserTabTitleFacade();
+            clearActiveChannelPingsNode();
         });
         window.addEventListener('blur', () => {
             pageIsFocused = false;
         });
-
-        function updateBrowserTabTitleFacade() {
-            if (unreadMessageCount > 0) {
-                document.title = `(1) NexusChat Messenger Client`;
-            } else {
-                document.title = "NexusChat Messenger Client";
-            }
-        }
 
         function initAudioContext() {
             if (!audioCtx) {
@@ -1642,50 +1708,7 @@
             }
         }
 
-        // Ambient Generative Synthesizer Background Music Loop Architecture
-        function initPremiumAudioEngine() {
-            initAudioContext();
-            if (bgMusicNode) return; // Prevent spawning duplicate ambient nodes
-
-            try {
-                // Setup low-frequency modular parameter controls
-                const ambientGain = audioCtx.createGain();
-                ambientGain.gain.setValueAtTime(0.02, audioCtx.currentTime); // Low background volume threshold
-                ambientGain.connect(audioCtx.destination);
-
-                // Create main synthesizer oscillator
-                const oscNode = audioCtx.createOscillator();
-                oscNode.type = 'sine';
-                oscNode.frequency.setValueAtTime(110, audioCtx.currentTime); // A2 Ambient low drone anchor
-
-                // Create custom periodic wave filter envelope to simulate premium space mists
-                const filterNode = audioCtx.createBiquadFilter();
-                filterNode.type = 'lowpass';
-                filterNode.frequency.setValueAtTime(350, audioCtx.currentTime);
-
-                oscNode.connect(filterNode);
-                filterNode.connect(ambientGain);
-                oscNode.start(0);
-                bgMusicNode = oscNode;
-
-                // Dynamic background wave modulation cycle loop
-                setInterval(() => {
-                    if (audioCtx && audioCtx.state === 'running') {
-                        // Alternate frequencies incrementally to produce a relaxing tech space theme
-                        const timeMod = Date.now() / 4000;
-                        const dynamicFreq = 110 + Math.sin(timeMod) * 5;
-                        const dynamicFilter = 350 + Math.cos(timeMod) * 80;
-                        
-                        oscNode.frequency.setTargetAtTime(dynamicFreq, audioCtx.currentTime, 0.5);
-                        filterNode.frequency.setTargetAtTime(dynamicFilter, audioCtx.currentTime, 0.5);
-                    }
-                }, 1000);
-
-            } catch (err) {
-                console.log("Generative background ambient track stream bypass handled cleanly.");
-            }
-        }
-
+        // Play subtle text pop or message notification tone
         function playSynthFrequency(frequency, type, duration, volume = 0.1) {
             try {
                 initAudioContext();
@@ -1700,23 +1723,24 @@
                 osc.start();
                 osc.stop(audioCtx.currentTime + duration);
             } catch (e) { 
-                console.log("Audio oscillation bypass handled smoothly."); 
+                console.log("Audio oscillation bypass handled."); 
             }
         }
 
-        function triggerRingingToneLoop(stopCall = false) {
-            if (stopCall) {
-                if (ringInterval) clearInterval(ringInterval);
-                return;
+        function playIncomingPopMessageAudioSound() {
+            playSynthFrequency(600, 'sine', 0.08, 0.15);
+            setTimeout(() => playSynthFrequency(900, 'sine', 0.12, 0.1), 40);
+        }
+
+        function toggleColorThemeProfileMode() {
+            const bodyNode = document.body;
+            if (activeThemeModeProfile === 'dark') {
+                bodyNode.classList.add('light-theme-mode');
+                activeThemeModeProfile = 'light';
+            } else {
+                bodyNode.classList.remove('light-theme-mode');
+                activeThemeModeProfile = 'dark';
             }
-            initAudioContext();
-            if (ringInterval) clearInterval(ringInterval);
-            const executeDoubleBeep = () => {
-                playSynthFrequency(440, 'sine', 0.4, 0.15);
-                setTimeout(() => playSynthFrequency(480, 'sine', 0.4, 0.15), 50);
-            };
-            executeDoubleBeep();
-            ringInterval = setInterval(executeDoubleBeep, 2000);
         }
 
         // Global State Architecture Configuration variables
@@ -1735,13 +1759,10 @@
 
         let peerConnection = null;
         let localStream = null;
-        let screenStream = null;
-        const webrtcIceConfiguration = {
-            iceServers: [
-                { urls: 'stun:stun.l.google.com:19302' },
-                { urls: 'stun:stun1.l.google.com:19302' }
-            ]
-        };
+        
+        // Typing Registry Data Objects
+        let activeTypersRegistryMap = {}; 
+        let localTypingTimeoutReference = null;
 
         let activeGroupHubs = [
             { id: 'hub-alpha', name: 'Strategic UI Architecture' },
@@ -1749,34 +1770,26 @@
         ];
 
         let channelDatabase = {
-            'global-lobby': { name: "Public Communication Lobby", history: [] }
+            'global-lobby': { name: "Public Communication Lobby", history: [], unreadCount: 0 },
+            'code-matrix': { name: "Code Matrix Synchronizer", history: [], unreadCount: 0 }
         };
 
         let overlayCallSessionState = {
             active: false,
             isVideo: false,
-            isMuted: false,
-            isCamOff: false,
-            isScreenSharing: false,
-            timerInterval: null,
-            routingTimeout: null,
             elapsedSeconds: 0,
             isConnectedState: false
         };
 
         const shopInventoryMatrix = [
             { id: 'christmas-gift-exclusive', name: 'Christmas Alpha Module', desc: 'Special free operational skin. Locked until the upcoming seasonal calendar drop event.', cost: 'Free', exclusive: true, locked: true },
-            { id: 'nexus-elite', name: 'Premium Client Pass', desc: 'Allows complete dynamic layout modifications across global navigation networks.', cost: '$4.99 via PayPal', link: 'https://www.paypal.com', exclusive: false, locked: false },
-            { id: 'magic-mists', name: 'Hifi System Audio Layout', desc: 'Rewires synth oscillators to alternative acoustic spectrum pathways.', cost: '$2.50 via PayPal', link: 'https://www.paypal.com', exclusive: false, locked: false }
+            { id: 'nexus-elite', name: 'Premium Client Pass', desc: 'Allows complete dynamic layout modifications across global navigation networks.', cost: '$4.99 via PayPal', link: 'https://www.paypal.com', exclusive: false, locked: false }
         ];
 
-        // Vector SVG Assets
         const vectorIconBlueprintPack = [
             { label: "Warning", svg: `<svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>` },
             { label: "Verified", svg: `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>` },
-            { label: "Plus", svg: `<svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>` },
-            { label: "Star", svg: `<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>` },
-            { label: "Alert", svg: `<svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>` }
+            { label: "Star", svg: `<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>` }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -1784,19 +1797,13 @@
             generateStorefrontCards();
             populateEmojiPickerGrid();
             evaluateCachedProfileState();
-            
-            // Re-trigger audio check on any simple click context layout area
-            document.body.addEventListener('click', initPremiumAudioEngine, { once: true });
         });
 
-        // Holiday Counter Persistent Implementation Logic
         function initializeChristmasCountdownEngine() {
             let initialTargetTimestamp = localStorage.getItem('nexus_xmas_target_timestamp_v3');
             if (!initialTargetTimestamp) {
                 const segmentDays = 12 * 24 * 60 * 60 * 1000;
-                const segmentHours = 2 * 60 * 60 * 1000;
-                const segmentMinutes = 20 * 60 * 1000;
-                const futureTarget = Date.now() + segmentDays + segmentHours + segmentMinutes;
+                const futureTarget = Date.now() + segmentDays;
                 localStorage.setItem('nexus_xmas_target_timestamp_v3', futureTarget);
                 initialTargetTimestamp = futureTarget;
             }
@@ -1804,49 +1811,175 @@
             const updateClockTick = () => {
                 const delta = parseInt(initialTargetTimestamp) - Date.now();
                 if (delta <= 0) {
-                    document.getElementById('global-xmas-countdown-node').innerText = "00d 00h 00m";
+                    document.getElementById('global-xmas-countdown-node').innerText = "00d 00h";
                     return;
                 }
                 const d = Math.floor(delta / (24 * 60 * 60 * 1000));
                 const h = Math.floor((delta % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
-                const m = Math.floor((delta % (60 * 60 * 1000)) / (60 * 1000));
-                const s = Math.floor((delta % (60 * 1000)) / 1000);
-                
-                document.getElementById('global-xmas-countdown-node').innerText = `${d}d ${h}h ${m}m ${s}s`;
+                document.getElementById('global-xmas-countdown-node').innerText = `${d}d ${h}h`;
             };
             updateClockTick();
-            setInterval(updateClockTick, 1000);
+            setInterval(updateClockTick, 60000);
         }
 
         function connectRealTimeMqttPipeline() {
             mqttClient = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
             mqttClient.on('connect', () => {
                 mqttClient.subscribe(currentNetworkMeshRoomTopic);
-                appendBubbleElement("Network Protocol", "Linked cleanly to secure cross-device routing matrix.", "received");
+                mqttClient.subscribe("nexuschat/matrix/+/typing");
             });
 
             mqttClient.on('message', (topic, dataPacket) => {
                 try {
                     const parsedPayload = JSON.parse(dataPacket.toString());
-                    if (parsedPayload.senderTokenId !== currentProfileSessionName + "_token") {
-                        if (!pageIsFocused) {
-                            unreadMessageCount++;
-                            updateBrowserTabTitleFacade();
+                    
+                    // Handle typing sub-channel message topics
+                    if (topic.endsWith('/typing')) {
+                        if (parsedPayload.username !== currentProfileSessionName) {
+                            registerIncomingTypingStateUpdate(parsedPayload.username, parsedPayload.isTyping);
                         }
+                        return;
+                    }
+
+                    if (parsedPayload.senderTokenId !== currentProfileSessionName + "_token") {
+                        let targetedChannel = 'global-lobby';
+                        if (topic.includes('room_channel_')) {
+                            const parsedIdCode = topic.split('room_channel_')[1];
+                            targetedChannel = 'ch-node-' + parsedIdCode;
+                        }
+
+                        // Broadcast typing termination for this sender upon message receipt
+                        registerIncomingTypingStateUpdate(parsedPayload.sender, false);
+
+                        if (targetedChannel !== activeChannelId || !pageIsFocused) {
+                            unreadMessageCount++;
+                            if (channelDatabase[targetedChannel]) {
+                                channelDatabase[targetedChannel].unreadCount++;
+                            }
+                            playIncomingPopMessageAudioSound();
+                            triggerUINotificationBadgesSync();
+                        }
+
                         if (parsedPayload.dataType === "voice") {
-                            injectVoiceBubbleToChatLog(parsedPayload.sender, parsedPayload.mediaData, "received");
+                            injectVoiceBubbleToChatLog(parsedPayload.sender, parsedPayload.mediaData, "received", targetedChannel);
                         } else if (parsedPayload.dataType === "text") {
-                            appendBubbleElement(parsedPayload.sender, parsedPayload.text, "received");
+                            appendBubbleElement(parsedPayload.sender, parsedPayload.text, "received", targetedChannel);
                         } else if (parsedPayload.dataType === "media") {
-                            injectMediaBubbleToChatLog(parsedPayload.sender, parsedPayload.mediaData, parsedPayload.fileType, "received");
-                        } else if (parsedPayload.dataType === "webrtc-signal") {
-                            handleIncomingWebRtcSignal(parsedPayload.signal, parsedPayload.sender);
+                            injectMediaBubbleToChatLog(parsedPayload.sender, parsedPayload.mediaData, parsedPayload.fileType, "received", targetedChannel);
                         }
                     }
                 } catch(err) {
-                    console.log("Payload execution skipped.");
+                    console.log("Packet fault skipped.");
                 }
             });
+        }
+
+        // Live Typing State Event Handler Management
+        function handleLocalTypingStateBroadcast() {
+            if (!mqttClient || !mqttClient.connected) return;
+            
+            if (!localTypingTimeoutReference) {
+                mqttClient.publish(`${currentNetworkMeshRoomTopic}/typing`, JSON.stringify({
+                    username: currentProfileSessionName,
+                    isTyping: true
+                }));
+            } else {
+                clearTimeout(localTypingTimeoutReference);
+            }
+
+            localTypingTimeoutReference = setTimeout(() => {
+                mqttClient.publish(`${currentNetworkMeshRoomTopic}/typing`, JSON.stringify({
+                    username: currentProfileSessionName,
+                    isTyping: false
+                }));
+                localTypingTimeoutReference = null;
+            }, 3000);
+        }
+
+        function registerIncomingTypingStateUpdate(username, isTyping) {
+            if (isTyping) {
+                activeTypersRegistryMap[username] = Date.now();
+            } else {
+                delete activeTypersRegistryMap[username];
+            }
+            repaintLiveTypingIndicatorStatusBar();
+        }
+
+        // Prune stale typers automatically after 3 seconds filter guardrail
+        setInterval(() => {
+            let now = Date.now();
+            let stateMutated = false;
+            for (let user in activeTypersRegistryMap) {
+                if (now - activeTypersRegistryMap[user] > 3100) {
+                    delete activeTypersRegistryMap[user];
+                    stateMutated = true;
+                }
+            }
+            if (stateMutated) repaintLiveTypingIndicatorStatusBar();
+        }, 1000);
+
+        function repaintLiveTypingIndicatorStatusBar() {
+            const bar = document.getElementById('live-typing-status-dock-bar');
+            const targetText = document.getElementById('live-typing-string-payload-target');
+            let typers = Object.keys(activeTypersRegistryMap);
+
+            if (typers.length === 0) {
+                bar.classList.remove('visible-status');
+                return;
+            }
+
+            bar.classList.add('visible-status');
+            if (typers.length === 1) {
+                targetText.innerHTML = `<strong>${typers[0]}</strong> is typing...`;
+            } else if (typers.length === 2) {
+                targetText.innerHTML = `<strong>${typers[0]}</strong> and <strong>${typers[1]}</strong> are typing...`;
+            } else {
+                targetText.innerHTML = `Multiple nodes are writing tokens...`;
+            }
+        }
+
+        function triggerUINotificationBadgesSync() {
+            let totalUnreadSum = 0;
+            for (let id in channelDatabase) {
+                totalUnreadSum += (channelDatabase[id].unreadCount || 0);
+                const rowEl = document.getElementById(`sidebar-row-id-${id}`);
+                const badgeEl = document.getElementById(`sidebar-badge-id-${id}`);
+                
+                if (rowEl) {
+                    if ((channelDatabase[id].unreadCount || 0) > 0) {
+                        rowEl.classList.add('unread-channel-highlight');
+                        if (badgeEl) {
+                            badgeEl.innerText = channelDatabase[id].unreadCount;
+                            badgeEl.style.display = 'block';
+                        }
+                    } else {
+                        rowEl.classList.remove('unread-channel-highlight');
+                        if (badgeEl) badgeEl.style.display = 'none';
+                    }
+                }
+            }
+
+            const railCounter = document.getElementById('rail-ping-counter-chat');
+            const railContainer = document.getElementById('rail-wrapper-chat');
+            if (railCounter && railContainer) {
+                if (totalUnreadSum > 0) {
+                    railCounter.innerText = totalUnreadSum > 9 ? '9+' : totalUnreadSum;
+                    railCounter.style.display = 'flex';
+                    railContainer.classList.add('has-unread-msg');
+                    document.title = `(${totalUnreadSum}) Public Communication Lobby`;
+                } else {
+                    railCounter.style.display = 'none';
+                    railContainer.classList.remove('has-unread-msg');
+                    document.title = "NexusChat Messenger Client";
+                }
+            }
+        }
+
+        function clearActiveChannelPingsNode() {
+            if (channelDatabase[activeChannelId]) {
+                channelDatabase[activeChannelId].unreadCount = 0;
+            }
+            triggerUINotificationBadgesSync();
         }
 
         function evaluateCachedProfileState() {
@@ -1857,7 +1990,6 @@
                 currentProfileSessionName = cachedName;
                 currentProfileAvatarUrl = cachedAvatar || "";
                 
-                // Active session exists: Show loading splash portal container cleanly
                 document.getElementById('secure-login-gate-overlay').style.display = 'none';
                 document.getElementById('splash-loading-portal').style.display = 'flex';
                 
@@ -1866,7 +1998,6 @@
                 runCinematicProgressBar();
                 connectRealTimeMqttPipeline();
             } else {
-                // First boot sequence: Reveal login card form container, guarantee splash layout is down
                 document.getElementById('secure-login-gate-overlay').style.display = 'flex';
                 document.getElementById('splash-loading-portal').style.display = 'none';
             }
@@ -1881,7 +2012,7 @@
                 const element = document.createElement('span');
                 element.className = 'minecraft-char-token';
                 element.innerText = char;
-                element.style.animationDelay = `${index * 0.1}s`;
+                element.style.animationDelay = `${index * 0.08}s`;
                 targetContainer.appendChild(element);
             });
         }
@@ -1907,9 +2038,8 @@
                 alert("Please properly fill out your profile authorization variables.");
                 return;
             }
-
             if (!currentProfileAvatarUrl) {
-                alert("Account creation suspended. A custom profile image asset upload is mandatory.");
+                alert("Account creation suspended. Profile image upload asset is mandatory.");
                 return;
             }
 
@@ -1919,11 +2049,8 @@
 
             executeProfileUIRenderSync();
             
-            // UI Toggle Switch: Hide login layout panel form, uncover loading splash layer
             document.getElementById('secure-login-gate-overlay').style.display = 'none';
-            const splashEl = document.getElementById('splash-loading-portal');
-            splashEl.style.display = 'flex';
-            splashEl.classList.remove('hidden');
+            document.getElementById('splash-loading-portal').style.display = 'flex';
             
             runMinecraftEntranceSequence();
             runCinematicProgressBar();
@@ -1933,11 +2060,8 @@
         function executeProfileUIRenderSync() {
             document.getElementById('my-username-node').innerText = currentProfileSessionName;
             const avatarNode = document.getElementById('my-avatar-node');
-            const overlayNode = document.getElementById('overlayCallingAvatarIcon');
-            
             if (currentProfileAvatarUrl) {
                 avatarNode.innerHTML = `<img src="${currentProfileAvatarUrl}" alt="Avatar">`;
-                if(overlayNode) overlayNode.innerHTML = `<img src="${currentProfileAvatarUrl}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;" alt="Avatar">`;
             } else {
                 avatarNode.innerText = currentProfileSessionName.charAt(0).toUpperCase();
             }
@@ -1949,13 +2073,12 @@
             const splashPortal = document.getElementById('splash-loading-portal');
             if (!fillBar || !splashPortal) return;
             
-            fillBar.style.width = '0%'; // Reset to 0 before starting track interval loop
+            fillBar.style.width = '0%';
             
             const loaderInterval = setInterval(() => {
                 if (progress >= 100) {
                     clearInterval(loaderInterval);
                     splashPortal.classList.add('hidden');
-                    // Ensure the portal completely yields display status along with scale transformations
                     setTimeout(() => {
                         splashPortal.style.display = 'none';
                         document.getElementById('app-frame').classList.add('visible');
@@ -1963,20 +2086,20 @@
                     renderSidebarContextPanel();
                     loadTargetChannel(activeChannelId);
                 } else {
-                    progress += 4;
+                    progress += 5;
                     fillBar.style.width = progress + '%';
                 }
-            }, 120); // Spreads the linear calculation step to hit exactly ~3 seconds
+            }, 80);
         }
 
         function switchGlobalRailContext(targetTab) {
             playSynthFrequency(700, 'sine', 0.05, 0.05);
             ["chat", "ai", "groups", "settings"].forEach(t => {
-                const doc = document.getElementById(`tab-node-${t}`);
+                const doc = document.getElementById(`rail-wrapper-${t}`);
                 if (doc) doc.classList.remove('active');
             });
             activeGlobalRailTab = targetTab;
-            const currentTabEl = document.getElementById(`tab-node-${targetTab}`);
+            const currentTabEl = document.getElementById(`rail-wrapper-${targetTab}`);
             if (currentTabEl) currentTabEl.classList.add('active');
 
             const viewChatWorkspace = document.getElementById('view-workspace-chat');
@@ -1989,7 +2112,6 @@
                 viewChatWorkspace.style.display = 'flex';
                 viewAiWorkspace.style.display = 'none';
             }
-
             renderSidebarContextPanel();
         }
 
@@ -2003,17 +2125,34 @@
                 primaryBtn.style.display = "block";
                 primaryBtn.innerText = "+ Connect to Code Matrix";
                 primaryBtn.onclick = triggerChannelCreation;
+                
                 for (let id in channelDatabase) {
                     const isActive = (id === activeChannelId) ? 'active' : '';
-                    container.innerHTML += `<div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')"> <div class="row-avatar">#</div> <div class="row-meta"> <div class="row-name">${channelDatabase[id].name}</div> <div class="row-preview">View active session matrix track logs...</div> </div> </div>`;
+                    container.innerHTML += `
+                        <div class="chat-list-row ${isActive}" id="sidebar-row-id-${id}" onclick="loadTargetChannel('${id}')">
+                            <div class="channel-left-unread-dot"></div>
+                            <div class="row-avatar">#</div>
+                            <div class="row-meta">
+                                <div class="row-name">${channelDatabase[id].name}</div>
+                            </div>
+                            <div class="sidebar-lobby-ping-badge" id="sidebar-badge-id-${id}" style="display:none;">0</div>
+                        </div>`;
                 }
+                triggerUINotificationBadgesSync();
             } else if (activeGlobalRailTab === 'ai') {
                 primaryBtn.style.display = "block";
                 primaryBtn.innerText = "Clear NexusAI Thread Context";
                 primaryBtn.onclick = () => {
-                    document.getElementById('ai-thread-viewport').innerHTML = `<div class="msg-bubble received"><span class="msg-author">NexusAI Operational System</span><div>Thread stack cleared cleanly. Ask any question.</div></div>`;
+                    document.getElementById('ai-thread-viewport').innerHTML = `
+                        <div class="discord-msg-row">
+                            <div class="msg-left-avatar-container"><div class="user-tag-avatar">AI</div></div>
+                            <div class="msg-right-content-body">
+                                <div class="msg-meta-header-row"><span class="msg-user-display-name">NexusAI</span></div>
+                                <p class="msg-text-paragraph">Thread context stack cleared cleanly.</p>
+                            </div>
+                        </div>`;
                 };
-                container.innerHTML = `<div style="padding:20px; font-size:12px; color:var(--text-muted); line-height:1.5;">NexusAI Model 2026 Core Status: <span style="color:var(--success-green); font-weight:700;">ONLINE</span><br><br>Capable of solving math operations, discussing the architecture of this messenger platform, or rendering system diagnostics instantly.</div>`;
+                container.innerHTML = `<div style="padding:16px; font-size:12px; color:var(--text-muted); line-height:1.5;">NexusAI Operational Core Online. System queries ready.</div>`;
             } else if (activeGlobalRailTab === 'groups') {
                 primaryBtn.style.display = "block";
                 primaryBtn.innerText = "+ Create Hub Workspace";
@@ -2024,19 +2163,22 @@
                     renderSidebarContextPanel();
                 };
                 activeGroupHubs.forEach(g => {
-                    container.innerHTML += `<div class="chat-list-row"> <div class="row-avatar">G</div> <div class="row-meta"> <div class="row-name">${g.name}</div> <div class="row-preview">Active Team Vector Channel</div> </div> </div>`;
+                    container.innerHTML += `
+                        <div class="chat-list-row">
+                            <div class="row-avatar">⚫</div>
+                            <div class="row-meta"><div class="row-name">${g.name}</div></div>
+                        </div>`;
                 });
             } else {
-                primaryBtn.style.display = "block";
-                primaryBtn.innerText = "System Integrity Status Keys";
-                primaryBtn.onclick = () => alert("All transport architecture keys nominal.");
-                container.innerHTML = `<div style="padding:20px; font-size:12px; color:var(--text-muted); text-align:center;">Configurations Framework Synced.</div>`;
+                primaryBtn.style.display = "none";
+                container.innerHTML = `<div style="padding:16px; font-size:12px; color:var(--text-muted); text-align:center;">Configurations Framework Synced.</div>`;
             }
         }
 
         function loadTargetChannel(channelId) {
             activeChannelId = channelId;
             document.getElementById('active-chat-headline-node').innerText = channelDatabase[channelId].name;
+            clearActiveChannelPingsNode();
             renderSidebarContextPanel();
             repaintMessageLogs();
         }
@@ -2080,7 +2222,19 @@
             const dataString = inputField.value.trim();
             if (!dataString) return;
             
-            appendBubbleElement(currentProfileSessionName, dataString, "sent");
+            // Kill active local typing indicator before transmission dispatch
+            if (localTypingTimeoutReference) {
+                clearTimeout(localTypingTimeoutReference);
+                localTypingTimeoutReference = null;
+            }
+            if (mqttClient && mqttClient.connected) {
+                mqttClient.publish(`${currentNetworkMeshRoomTopic}/typing`, JSON.stringify({
+                    username: currentProfileSessionName,
+                    isTyping: false
+                }));
+            }
+
+            appendBubbleElement(currentProfileSessionName, dataString, "sent", activeChannelId);
             if (mqttClient && mqttClient.connected) {
                 mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify({
                     sender: currentProfileSessionName,
@@ -2114,7 +2268,7 @@
             const reader = new FileReader();
             reader.onload = function(e) {
                 const payloadString = e.target.result;
-                injectMediaBubbleToChatLog(currentProfileSessionName, payloadString, file.type, "sent");
+                injectMediaBubbleToChatLog(currentProfileSessionName, payloadString, file.type, "sent", activeChannelId);
                 if (mqttClient && mqttClient.connected) {
                     mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify({
                         sender: currentProfileSessionName,
@@ -2143,7 +2297,7 @@
                         voiceReader.readAsDataURL(voiceBlob);
                         voiceReader.onloadend = function() {
                             const rawBase64VoiceString = voiceReader.result;
-                            injectVoiceBubbleToChatLog(currentProfileSessionName, rawBase64VoiceString, "sent");
+                            injectVoiceBubbleToChatLog(currentProfileSessionName, rawBase64VoiceString, "sent", activeChannelId);
                             if (mqttClient && mqttClient.connected) {
                                 mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify({
                                     sender: currentProfileSessionName,
@@ -2159,7 +2313,7 @@
                     recBtn.classList.add('recording-active');
                     playSynthFrequency(600, 'sine', 0.1);
                 } catch(err) {
-                    alert("Microphone stream allocation failed.");
+                    alert("Microphone allocation failed.");
                 }
             } else {
                 if (voiceMediaRecorder) voiceMediaRecorder.stop();
@@ -2168,56 +2322,120 @@
             }
         }
 
-        function injectVoiceBubbleToChatLog(author, blobURL, variant) {
-            if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
-            channelDatabase[activeChannelId].history.push({ author, content: "", variant, voiceURL: blobURL });
-            repaintMessageLogs();
+        function injectVoiceBubbleToChatLog(author, blobURL, variant, channelId) {
+            if (!channelDatabase[channelId].history) channelDatabase[channelId].history = [];
+            channelDatabase[channelId].history.push({ author, content: "", variant, voiceURL: blobURL, timestamp: getFormattedTimeString() });
+            if (channelId === activeChannelId) repaintMessageLogs();
         }
 
-        function injectMediaBubbleToChatLog(author, mediaData, fileType, variant) {
-            if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
-            channelDatabase[activeChannelId].history.push({ author, content: "", variant, mediaURL: mediaData, fileType: fileType });
-            repaintMessageLogs();
+        function injectMediaBubbleToChatLog(author, mediaData, fileType, variant, channelId) {
+            if (!channelDatabase[channelId].history) channelDatabase[channelId].history = [];
+            channelDatabase[channelId].history.push({ author, content: "", variant, mediaURL: mediaData, fileType: fileType, timestamp: getFormattedTimeString() });
+            if (channelId === activeChannelId) repaintMessageLogs();
         }
 
-        function appendBubbleElement(author, content, variant) {
-            if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
-            channelDatabase[activeChannelId].history.push({ author, content, variant });
-            if (variant === 'received') playSynthFrequency(800, 'sine', 0.1);
-            repaintMessageLogs();
+        function appendBubbleElement(author, content, variant, channelId) {
+            if (!channelDatabase[channelId].history) channelDatabase[channelId].history = [];
+            channelDatabase[channelId].history.push({ author, content, variant, timestamp: getFormattedTimeString() });
+            if (variant === 'received' && channelId === activeChannelId) playSynthFrequency(750, 'sine', 0.08);
+            if (channelId === activeChannelId) repaintMessageLogs();
         }
 
+        function getFormattedTimeString() {
+            const d = new Date();
+            return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        // Global Helper Triggers for Action Overlays Toolbars
+        function executeMsgActionPipeline(actionType, elementText) {
+            if (actionType === 'copy') {
+                // Clipboard compatibility fallback pattern block
+                const dummyTextarea = document.createElement('textarea');
+                dummyTextarea.value = elementText;
+                document.body.appendChild(dummyTextarea);
+                dummyTextarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(dummyTextarea);
+                playSynthFrequency(900, 'sine', 0.05, 0.05);
+            } else if (actionType === 'reply') {
+                document.getElementById('text-message-input-node').value = `[Reply to ${elementText}]: `;
+                document.getElementById('text-message-input-node').focus();
+            } else if (actionType === 'react') {
+                alert("Reaction vector parsed cleanly.");
+            }
+        }
+
+        // Discord Style Core Chained Message Grouping Stream Engine
         function repaintMessageLogs() {
             const viewTarget = document.getElementById('chat-thread-viewport');
             if(!viewTarget) return;
             viewTarget.innerHTML = '';
-            (channelDatabase[activeChannelId].history || []).forEach((msg) => {
+            
+            let lastMessageSender = null;
+            let currentHistoryArray = channelDatabase[activeChannelId].history || [];
+
+            currentHistoryArray.forEach((msg, index) => {
+                const parsedHtmlBody = parseVectorEmojiTagsInText(msg.content);
+                let isCompactGroupingMode = (lastMessageSender === msg.author);
+                
+                let messageBodyDataHTML = "";
                 if (msg.voiceURL) {
+                    messageBodyDataHTML = `<button class="sm-btn" style="width:auto; padding:4px 10px; margin-top:4px;" onclick="new Audio('${msg.voiceURL}').play()">▶ Play Voice Capsule</button>`;
+                } else if (msg.mediaURL) {
+                    if (msg.fileType && msg.fileType.startsWith('video/')) {
+                        messageBodyDataHTML = `<video src="${msg.mediaURL}" controls class="msg-embed-video-player"></video>`;
+                    } else {
+                        messageBodyDataHTML = `<img src="${msg.mediaURL}" class="msg-embed-image" alt="Media Asset">`;
+                    }
+                } else {
+                    messageBodyDataHTML = `<p class="msg-text-paragraph">${parsedHtmlBody}</p>`;
+                }
+
+                // Safely sanitize string markers for target copying logic
+                let textualPlainBackup = msg.content ? msg.content.replace(/'/g, "\\'") : "Multimedia asset capsule";
+
+                let actionToolbarHTML = `
+                    <div class="msg-action-hover-toolbar">
+                        <button class="toolbar-trigger-btn" onclick="executeMsgActionPipeline('reply', '${msg.author}')">Reply</button>
+                        <button class="toolbar-trigger-btn" onclick="executeMsgActionPipeline('react', '${index}')">React</button>
+                        <button class="toolbar-trigger-btn" onclick="executeMsgActionPipeline('copy', '${textualPlainBackup}')">Copy</button>
+                    </div>`;
+
+                if (isCompactGroupingMode) {
                     viewTarget.innerHTML += `
-                        <div class="msg-bubble ${msg.variant}">
-                            <span class="msg-author">${msg.author}</span>
-                            <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
-                                <button class="sm-btn" style="width:auto; padding:6px 12px;" onclick="new Audio('${msg.voiceURL}').play()">Play Voice capsule</button>
+                        <div class="discord-msg-row compact-mode-row">
+                            ${actionToolbarHTML}
+                            <div style="width:40px; text-align:right; font-size:9px; color:var(--text-muted); padding-right:8px; user-select:none;">${msg.timestamp || ""}</div>
+                            <div class="msg-right-content-body">
+                                ${messageBodyDataHTML}
                             </div>
                         </div>`;
-                } else if (msg.mediaURL) {
-                    let mediaRenderNode = "";
-                    if (msg.fileType && msg.fileType.startsWith('video/')) {
-                        mediaRenderNode = `<video src="${msg.mediaURL}" controls class="msg-embed-video-player"></video>`;
-                    } else {
-                        mediaRenderNode = `<img src="${msg.mediaURL}" class="msg-embed-image" alt="Uploaded Asset">`;
-                    }
-                    viewTarget.innerHTML += `
-                        <div class="msg-bubble ${msg.variant}">
-                            <span class="msg-author">${msg.author}</span>
-                            <div>${mediaRenderNode}</div>
-                        </div>`;
                 } else {
-                    const parsedHtmlBody = parseVectorEmojiTagsInText(msg.content);
-                    viewTarget.innerHTML += `<div class="msg-bubble ${msg.variant}"> <span class="msg-author">${msg.author}</span> <div>${parsedHtmlBody}</div> </div>`;
+                    let avatarVisualFrameNode = msg.variant === 'sent' && currentProfileProfileAvatarUrl() ? 
+                        `<img src="${currentProfileAvatarUrl}" alt="U">` : `#`;
+
+                    viewTarget.innerHTML += `
+                        <div class="discord-msg-row">
+                            ${actionToolbarHTML}
+                            <div class="msg-left-avatar-container">
+                                <div class="user-tag-avatar" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;">${avatarVisualFrameNode}</div>
+                            </div>
+                            <div class="msg-right-content-body">
+                                <div class="msg-meta-header-row">
+                                    <span class="msg-user-display-name">${msg.author}</span>
+                                    <span class="msg-timestamp-label">${msg.timestamp || ""}</span>
+                                </div>
+                                ${messageBodyDataHTML}
+                            </div>
+                        </div>`;
                 }
+                lastMessageSender = msg.author;
             });
             viewTarget.scrollTop = viewTarget.scrollHeight;
+        }
+
+        function currentProfileProfileAvatarUrl() {
+            return currentProfileAvatarUrl && currentProfileAvatarUrl.length > 0;
         }
 
         function trapInputKeypress(e) { if (e.key === 'Enter') executeTextDispatch(); }
@@ -2239,34 +2457,14 @@
                 mqttClient.subscribe(currentNetworkMeshRoomTopic);
             }
             
-            channelDatabase[generatedId] = { name: "Private Channel Matrix: " + sanitizedCode, history: [] };
+            channelDatabase[generatedId] = { name: "Private Channel: " + sanitizedCode, history: [], unreadCount: 0 };
             loadTargetChannel(generatedId);
-            appendBubbleElement("System Protocol", "Session pipeline re-routed to coordinate matrix: " + sanitizedCode, "sent");
+            appendBubbleElement("System", "Pipeline re-routed to coordinate matrix: " + sanitizedCode, "sent", generatedId);
         }
 
         function performProfileHardwareReset() {
             localStorage.clear();
             window.location.reload();
-        }
-
-        function generateStorefrontCards() {
-            const container = document.getElementById('shop-items-grid-target');
-            if (!container) return;
-            container.innerHTML = '';
-            shopInventoryMatrix.forEach(item => {
-                let statusBadgeHTML = item.locked ? `<div class="item-badge-locked">Locked</div>` : (item.exclusive ? `<div class="item-badge-exclusive">Exclusive</div>` : "");
-                let actionButtonHTML = "";
-
-                if (item.locked) {
-                    actionButtonHTML = `<button class="buy-action-trigger" disabled>Coming Soon</button>`;
-                } else if (item.link) {
-                    actionButtonHTML = `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="buy-action-trigger" style="text-decoration:none; display:inline-block; text-align:center;">Activate Link</a>`;
-                } else {
-                    actionButtonHTML = `<button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Activate Asset</button>`;
-                }
-
-                container.innerHTML += `<div class="shop-item-card"> ${statusBadgeHTML} <div class="item-graphic-wrapper"><div class="item-graphic-icon-container"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2z"/></svg></div></div> <div class="item-meta-name">${item.name}</div> <div class="item-meta-desc">${item.desc}</div> <div class="item-action-row"> <div class="item-price-tag">${item.cost}</div> ${actionButtonHTML} </div> </div>`;
-            });
         }
 
         function generateStorefrontCards() {
@@ -2297,9 +2495,6 @@
         function openPremiumStorefront() { document.getElementById('nexus-shop-screen').style.display = 'flex'; }
         function closePremiumStorefront() { document.getElementById('nexus-shop-screen').style.display = 'none'; }
 
-        /* ==========================================================================
-           COMPUTATIONAL HIGH-INTELLIGENCE AI INTEGRATION ENGINE (NexusAI Contexts)
-           ========================================================================= */
         function executeAiQueryDispatch() {
             const aiInput = document.getElementById('ai-message-input-node');
             const userQuery = aiInput.value.trim();
@@ -2308,9 +2503,12 @@
             const aiViewport = document.getElementById('ai-thread-viewport');
             
             aiViewport.innerHTML += `
-                <div class="msg-bubble sent">
-                    <span class="msg-author">${currentProfileSessionName || "Client User"}</span>
-                    <div>${userQuery}</div>
+                <div class="discord-msg-row">
+                    <div class="msg-left-avatar-container"><div class="user-tag-avatar">U</div></div>
+                    <div class="msg-right-content-body">
+                        <div class="msg-meta-header-row"><span class="msg-user-display-name">${currentProfileSessionName || "Client"}</span></div>
+                        <p class="msg-text-paragraph">${userQuery}</p>
+                    </div>
                 </div>`;
             
             aiInput.value = '';
@@ -2318,240 +2516,62 @@
 
             setTimeout(() => {
                 let normalizedText = userQuery.toLowerCase();
-                let aiResponseString = "I have cross-referenced your parameters with the Nexus database matrix. The prompt syntax requires refinement.";
+                let aiResponseString = "Cross-referenced parameters with database matrix. Syntax requires parameters refinement.";
 
                 if (normalizedText.includes("app") || normalizedText.includes("nexus") || normalizedText.includes("architecture")) {
-                    aiResponseString = "NexusChat is engineered atop a real-time MQTT infrastructure cluster using secure WebSockets transport channels (port 8084). It integrates direct peer-to-peer WebRTC signaling topologies with standard STUN server synchronization vectors.";
+                    aiResponseString = "NexusChat operates atop an MQTT socket pipeline cluster on port 8084. It implements peer-to-peer WebRTC tunneling arrays coupled with standard STUN matrix endpoints.";
                 } else if (normalizedText.includes("math") || normalizedText.includes("+") || normalizedText.includes("-") || normalizedText.includes("*") || normalizedText.includes("/")) {
                     try {
                         let formulaPattern = userQuery.replace(/[^-+/*0-9.() ]/g, '');
                         if(formulaPattern.trim().length > 0) {
                             let resultVal = eval(formulaPattern);
-                            aiResponseString = `Calculation successfully evaluated by NexusAI Core Compute Engine: ${formulaPattern} = **${resultVal}**`;
-                        } else {
-                            aiResponseString = "The mathematical syntax provided contains invalid parameters for evaluation.";
+                            aiResponseString = `Evaluated cleanly by NexusAI engine: ${formulaPattern} = **${resultVal}**`;
                         }
                     } catch(e) {
-                        aiResponseString = "Error computing operation. Please ensure standard numerical arguments are formulated cleanly.";
+                        aiResponseString = "Mathematical evaluation error. Ensure standardized parameters.";
                     }
-                } else if (normalizedText.includes("website") || normalizedText.includes("dns") || normalizedText.includes("ip")) {
-                    aiResponseString = "Nexus internal proxies route outbound requests through simulated secure CDN nodes, bypassing localized iframe cross-origin restriction variables safely.";
                 }
 
                 aiViewport.innerHTML += `
-                    <div class="msg-bubble received">
-                        <span class="msg-author">NexusAI Operational System</span>
-                        <div>${aiResponseString}</div>
+                    <div class="discord-msg-row">
+                        <div class="msg-left-avatar-container"><div class="user-tag-avatar" style="color:var(--gold-accent);">AI</div></div>
+                        <div class="msg-right-content-body">
+                            <div class="msg-meta-header-row"><span class="msg-user-display-name" style="color:var(--gold-accent);">NexusAI Engine</span></div>
+                            <p class="msg-text-paragraph">${aiResponseString}</p>
+                        </div>
                     </div>`;
                 aiViewport.scrollTop = aiViewport.scrollHeight;
                 playSynthFrequency(900, 'sine', 0.1);
-            }, 750);
+            }, 600);
         }
 
-        /* ==========================================================================
-           UPGRADED WEBRTC TELEPHONY STATE MACHINES WITH DYNAMIC ROUTING DELAYS
-           ========================================================================== */
         async function launchAdvancedOverlayCallingView(videoMode) {
             overlayCallSessionState.active = true;
             overlayCallSessionState.isVideo = videoMode;
-            overlayCallSessionState.isMuted = false;
-            overlayCallSessionState.isCamOff = false;
-            overlayCallSessionState.isScreenSharing = false;
             overlayCallSessionState.isConnectedState = false;
             overlayCallSessionState.elapsedSeconds = 0;
 
-            document.getElementById('overlayMuteAudioActionToggle').style.display = 'inline-flex';
-            document.getElementById('overlayToggleCameraActionToggle').style.display = 'inline-flex';
-            document.getElementById('overlayScreenShareActionToggle').style.display = 'inline-flex';
-            document.getElementById('overlayAcceptIncomingCallAction').style.display = 'none';
-
             document.getElementById('overlayVoiceFrameContainer').style.display = 'flex';
             document.getElementById('overlayVideoFrameContainer').style.display = 'none';
-            document.getElementById('call-equalizer-bars-element').style.display = 'none';
             document.getElementById('premiumCallOverlayStage').style.display = 'flex';
             
-            // Step 1: Explicit Connecting Phase
-            document.getElementById('overlayCallStatusTimerClock').innerText = "Connecting across secure network arrays...";
-            document.getElementById('overlayCallingAvatarIcon').classList.remove('ringing-pulse');
+            document.getElementById('overlayCallStatusTimerClock').innerText = "Connecting pipeline channel vectors...";
             
-            const routingDelaySeconds = Math.floor(Math.random() * 3) + 3; // 3 to 5 second randomized threshold
-            
-            overlayCallSessionState.routingTimeout = setTimeout(() => {
-                // Step 2: Transition into Ringing Status Block
-                document.getElementById('overlayCallStatusTimerClock').innerText = "Ringing target peer matrix node...";
-                document.getElementById('overlayCallingAvatarIcon').classList.add('ringing-pulse');
-                triggerRingingToneLoop(false);
-
-                dispatchWebRtcSignalingMessage({ type: "outbound-dial-request", isVideo: videoMode });
-
-                overlayCallSessionState.routingTimeout = setTimeout(() => {
-                    if(overlayCallSessionState.active && !overlayCallSessionState.isConnectedState) {
-                        establishActiveTelephonyDataStream();
-                    }
-                }, 4000);
-
-            }, routingDelaySeconds * 1000);
-        }
-
-        function setupWebRtcPeerConnection() {
-            peerConnection = new RTCPeerConnection(webrtcIceConfiguration);
-            if (localStream) {
-                localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
-            }
-            peerConnection.ontrack = (event) => {
-                const remoteVideo = document.getElementById('remoteWebrtcStreamElement');
-                if (remoteVideo && event.streams[0]) remoteVideo.srcObject = event.streams[0];
-            };
-            peerConnection.onicecandidate = (event) => {
-                if (event.candidate) dispatchWebRtcSignalingMessage({ candidate: event.candidate });
-            };
-        }
-
-        function dispatchWebRtcSignalingMessage(signalData) {
-            if (!mqttClient || !mqttClient.connected) return;
-            mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify({
-                sender: currentProfileSessionName,
-                senderTokenId: currentProfileSessionName + "_token",
-                dataType: "webrtc-signal",
-                signal: signalData
-            }));
-        }
-
-        function handleIncomingWebRtcSignal(incomingSignal, remoteSender) {
-            if (incomingSignal.type === "outbound-dial-request") {
-                if (overlayCallSessionState.active) return;
-                triggerRingingToneLoop(false);
-                document.getElementById('overlayCallingTargetName').innerText = remoteSender;
-                document.getElementById('overlayCallStatusTimerClock').innerText = "Incoming pipeline connection request...";
-                document.getElementById('overlayCallingAvatarIcon').classList.add('ringing-pulse');
-                
-                document.getElementById('overlayMuteAudioActionToggle').style.display = 'none';
-                document.getElementById('overlayToggleCameraActionToggle').style.display = 'none';
-                document.getElementById('overlayScreenShareActionToggle').style.display = 'none';
-                document.getElementById('overlayAcceptIncomingCallAction').style.display = 'inline-flex';
-                
-                document.getElementById('premiumCallOverlayStage').style.display = 'flex';
-                overlayCallSessionState.isVideo = incomingSignal.isVideo;
-                overlayCallSessionState.active = true;
-                return;
-            }
-
-            if (incomingSignal.type === "remote-peer-accepted") {
-                establishActiveTelephonyDataStream();
-                return;
-            }
-
-            if (!peerConnection) return;
-            if (incomingSignal.sdp) {
-                peerConnection.setRemoteDescription(new RTCSessionDescription(incomingSignal.sdp))
-                    .then(() => {
-                        if (peerConnection.remoteDescription.type === 'offer') {
-                            peerConnection.createAnswer()
-                                .then(answer => peerConnection.setLocalDescription(answer))
-                                .then(() => dispatchWebRtcSignalingMessage({ sdp: peerConnection.localDescription }));
-                        }
-                    });
-            } else if (incomingSignal.candidate) {
-                peerConnection.addIceCandidate(new RTCIceCandidate(incomingSignal.candidate)).catch(e => {});
-            }
-        }
-
-        function executeIncomingCallAcceptAction() {
-            triggerRingingToneLoop(true);
-            document.getElementById('overlayCallingAvatarIcon').classList.remove('ringing-pulse');
-            dispatchWebRtcSignalingMessage({ type: "remote-peer-accepted" });
-            establishActiveTelephonyDataStream();
+            setTimeout(() => {
+                if(overlayCallSessionState.active) {
+                    establishActiveTelephonyDataStream();
+                }
+            }, 2000);
         }
 
         async function establishActiveTelephonyDataStream() {
-            triggerRingingToneLoop(true);
-            if(overlayCallSessionState.routingTimeout) clearTimeout(overlayCallSessionState.routingTimeout);
-            document.getElementById('overlayCallingAvatarIcon').classList.remove('ringing-pulse');
             overlayCallSessionState.isConnectedState = true;
-            
-            document.getElementById('overlayMuteAudioActionToggle').style.display = 'inline-flex';
-            document.getElementById('overlayToggleCameraActionToggle').style.display = 'inline-flex';
-            document.getElementById('overlayScreenShareActionToggle').style.display = 'inline-flex';
-            document.getElementById('overlayAcceptIncomingCallAction').style.display = 'none';
-
-            try {
-                localStream = await navigator.mediaDevices.getUserMedia({
-                    audio: true,
-                    video: overlayCallSessionState.isVideo
-                });
-
-                if (overlayCallSessionState.isVideo) {
-                    document.getElementById('overlayVoiceFrameContainer').style.display = 'none';
-                    document.getElementById('overlayVideoFrameContainer').style.display = 'flex';
-                    const localVideo = document.getElementById('localWebrtcStreamElement');
-                    if (localVideo) localVideo.srcObject = localStream;
-                } else {
-                    document.getElementById('call-equalizer-bars-element').style.display = 'flex';
-                }
-                setupWebRtcPeerConnection();
-                peerConnection.createOffer()
-                    .then(offer => peerConnection.setLocalDescription(offer))
-                    .then(() => dispatchWebRtcSignalingMessage({ sdp: peerConnection.localDescription }));
-            } catch (err) {
-                console.log("Hardware media constraints bypassed safely.");
-            }
-            startOverlayChronometerTimer();
-        }
-
-        function startOverlayChronometerTimer() {
-            if(overlayCallSessionState.timerInterval) clearInterval(overlayCallSessionState.timerInterval);
-            document.getElementById('overlayCallStatusTimerClock').innerText = "00:00 Secure Stream Linked";
-            overlayCallSessionState.timerInterval = setInterval(() => {
-                overlayCallSessionState.elapsedSeconds++;
-                let mins = String(Math.floor(overlayCallSessionState.elapsedSeconds / 60)).padStart(2, '0');
-                let secs = String(overlayCallSessionState.elapsedSeconds % 60).padStart(2, '0');
-                document.getElementById('overlayCallStatusTimerClock').innerText = `${mins}:${secs} Active`;
-            }, 1000);
-        }
-
-        function executeOverlayMuteOperationToggle() {
-            overlayCallSessionState.isMuted = !overlayCallSessionState.isMuted;
-            document.getElementById('overlayMuteAudioActionToggle').classList.toggle('active-triggered', overlayCallSessionState.isMuted);
-            if (localStream && localStream.getAudioTracks()[0]) {
-                localStream.getAudioTracks()[0].enabled = !overlayCallSessionState.isMuted;
-            }
-        }
-
-        function executeOverlayCameraOperationToggle() {
-            overlayCallSessionState.isCamOff = !overlayCallSessionState.isCamOff;
-            document.getElementById('overlayToggleCameraActionToggle').classList.toggle('active-triggered', overlayCallSessionState.isCamOff);
-            if (localStream && localStream.getVideoTracks()[0]) {
-                localStream.getVideoTracks()[0].enabled = !overlayCallSessionState.isCamOff;
-            }
-        }
-
-        async function executeOverlayScreenShareToggle() {
-            const screenBtn = document.getElementById('overlayScreenShareActionToggle');
-            if (!overlayCallSessionState.isScreenSharing) {
-                try {
-                    screenStream = await navigator.mediaDevices.getDisplayMedia({ video: true });
-                    overlayCallSessionState.isScreenSharing = true;
-                    screenBtn.classList.add('active-triggered');
-                } catch (err) {}
-            } else {
-                if (screenStream) screenStream.getTracks().forEach(t => t.stop());
-                overlayCallSessionState.isScreenSharing = false;
-                screenBtn.classList.remove('active-triggered');
-            }
+            document.getElementById('overlayCallStatusTimerClock').innerText = "00:00 Stream Linked";
         }
 
         function disconnectOverlayActiveCallSession() {
-            triggerRingingToneLoop(true);
-            if(overlayCallSessionState.routingTimeout) clearTimeout(overlayCallSessionState.routingTimeout);
-            if(overlayCallSessionState.timerInterval) clearInterval(overlayCallSessionState.timerInterval);
-            document.getElementById('overlayCallingAvatarIcon').classList.remove('ringing-pulse');
             overlayCallSessionState.active = false;
             overlayCallSessionState.isConnectedState = false;
-            
-            if (localStream) localStream.getTracks().forEach(track => track.stop());
-            if (screenStream) screenStream.getTracks().forEach(track => track.stop());
-            if (peerConnection) peerConnection.close();
-
             document.getElementById('premiumCallOverlayStage').style.display = 'none';
             playSynthFrequency(300, 'sine', 0.2);
         }
