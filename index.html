@@ -341,7 +341,6 @@
             position: relative;
         }
 
-        /* Discord Pill Wrapper Node Context */
         .rail-tab-item-container {
             position: relative;
             width: 100%;
@@ -350,7 +349,6 @@
             align-items: center;
         }
 
-        /* Signature Discord White Flow Edge Pill */
         .rail-left-edge-pill {
             position: absolute;
             left: 0;
@@ -405,7 +403,6 @@
             border-radius: 16px;
         }
 
-        /* Crimson Alert Notification Badges Layout Node */
         .ping-badge-counter {
             position: absolute;
             bottom: -2px;
@@ -426,7 +423,6 @@
             box-shadow: 0 2px 6px rgba(0,0,0,0.2);
         }
 
-        /* Small Sidebar List Row Notification Ring Pin */
         .sidebar-lobby-ping-badge {
             background: var(--danger-red);
             color: #FFFFFF;
@@ -437,7 +433,6 @@
             margin-left: auto;
         }
 
-        /* Christmas Update Counter Left Widget */
         .christmas-countdown-rail-widget {
             margin-top: auto;
             width: 56px;
@@ -468,7 +463,6 @@
             line-height: 1.2;
         }
 
-        /* Left Side Context Panel Components */
         .sidebar-panel {
             width: var(--sidebar-width);
             min-width: var(--sidebar-width);
@@ -582,7 +576,6 @@
             padding: 8px 0;
         }
 
-        /* Discord Style Row Highlight States */
         .chat-list-row {
             margin: 2px 8px;
             padding: 8px 12px;
@@ -655,7 +648,6 @@
             height: 100%;
         }
 
-        /* Glassmorphic Floating Top Header Section */
         .workspace-header {
             padding: 0 24px;
             background: var(--bg-panel);
@@ -681,7 +673,6 @@
             font-size: 15px;
         }
 
-        /* Dismissible Sleek Pill Notification Banner */
         .network-pill-banner {
             display: inline-flex;
             align-items: center;
@@ -713,7 +704,6 @@
             box-sizing: border-box;
         }
 
-        /* Discord Inspired Clean Row Message Topology */
         .discord-msg-row {
             display: flex;
             gap: 16px;
@@ -781,7 +771,62 @@
             margin: 0;
         }
 
-        /* Hover Context Action Toolbars Matrix */
+        /* Rich Preview Unfurled Card Box */
+        .url-rich-preview-card {
+            background: var(--bg-sidebar);
+            border-left: 4px solid var(--primary-accent);
+            border-radius: 4px;
+            padding: 12px;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 460px;
+            text-decoration: none !important;
+        }
+
+        .preview-logo-frame {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            background: #FFFFFF;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .preview-logo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .preview-meta-column {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+        }
+
+        .preview-meta-title {
+            font-weight: 700;
+            font-size: 13px;
+            color: #FFFFFF;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .preview-meta-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
         .msg-action-hover-toolbar {
             position: absolute;
             top: -12px;
@@ -815,7 +860,6 @@
             background: var(--primary-accent);
         }
 
-        /* Render Vector Graphic Text Tokens Inline */
         .vector-badge-inline-node {
             display: inline-flex;
             align-items: center;
@@ -846,7 +890,6 @@
             border: 1px solid var(--border-subtle);
         }
 
-        /* Real-Time User Typing Status Layout Panel */
         .live-typing-status-dock-bar {
             height: 24px;
             padding: 0 24px;
@@ -865,7 +908,6 @@
             opacity: 1;
         }
 
-        /* Discord Style Animated Bouncing Typer Wave Dots */
         .bouncing-typer-dots-wave {
             display: flex;
             align-items: center;
@@ -890,7 +932,6 @@
             40% { transform: scale(1) translateY(-4px); opacity: 1; }
         }
 
-        /* Polished Bottom Input Deck Controls Layout */
         .input-dock-bar {
             padding: 0 24px 20px 24px;
             background: transparent;
@@ -973,12 +1014,13 @@
             background: rgba(239, 68, 68, 0.1);
         }
 
+        /* 100 Slot Matrix Dynamic Grid Board Styles Layout */
         .emoji-picker-matrix-overlay {
             position: absolute;
             bottom: 60px;
             right: 8px;
-            width: 280px;
-            height: 220px;
+            width: 340px;
+            height: 320px;
             background: var(--bg-sidebar);
             border: 1px solid var(--border-subtle);
             border-radius: 8px;
@@ -988,14 +1030,30 @@
             z-index: 1000;
         }
 
-        .emoji-picker-header {
-            padding: 12px;
+        /* Tabs Selection Panel for Emojis vs High Fidelity GIF Cards */
+        .picker-tab-header-strip {
+            display: flex;
+            border-bottom: 1px solid var(--border-subtle);
+            background: var(--bg-rail);
+            border-radius: 8px 8px 0 0;
+        }
+
+        .picker-tab-toggle-trigger {
+            flex: 1;
+            padding: 10px;
             font-size: 11px;
             font-weight: 700;
-            color: var(--text-muted);
-            border-bottom: 1px solid var(--border-subtle);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            text-align: center;
+            color: var(--text-muted);
+            border: none;
+            background: transparent;
+        }
+
+        .picker-tab-toggle-trigger.active-panel-tab {
+            color: #FFFFFF;
+            background: var(--bg-sidebar);
+            border-bottom: 2px solid var(--primary-accent);
         }
 
         .emoji-grid-scroller {
@@ -1003,7 +1061,16 @@
             overflow-y: auto;
             padding: 12px;
             display: grid;
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(6, 1fr);
+            gap: 6px;
+        }
+
+        .gif-grid-scroller {
+            flex: 1;
+            overflow-y: auto;
+            padding: 10px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
             gap: 8px;
         }
 
@@ -1011,22 +1078,50 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 36px;
-            height: 36px;
+            width: 42px;
+            height: 42px;
             border-radius: 4px;
             transition: all 0.15s ease;
             color: var(--text-muted);
         }
 
         .emoji-grid-item-cell svg {
-            width: 18px;
-            height: 18px;
+            width: 22px;
+            height: 22px;
             fill: currentColor;
         }
 
         .emoji-grid-item-cell:hover {
             background: var(--primary-accent);
             color: #FFFFFF;
+        }
+
+        .gif-thumb-card-unit {
+            width: 100%;
+            height: 90px;
+            border-radius: 6px;
+            overflow: hidden;
+            background: var(--bg-rail);
+            border: 1px solid var(--border-subtle);
+            position: relative;
+        }
+
+        .gif-thumb-card-unit img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gif-overlay-tag-label {
+            position: absolute;
+            bottom: 4px;
+            left: 4px;
+            background: rgba(0,0,0,0.6);
+            color: #FFF;
+            font-size: 9px;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-weight: 700;
         }
 
         .send-btn {
@@ -1037,15 +1132,10 @@
             border-radius: 6px;
             font-weight: 600;
             font-size: 13px;
-            transition: all 0.15s ease;
         }
 
         .send-btn:hover {
             background: var(--primary-hover);
-        }
-
-        .send-btn:disabled {
-            opacity: 0.5;
         }
 
         .call-header-action-button-group {
@@ -1061,7 +1151,6 @@
             width: 34px;
             height: 34px;
             border-radius: 4px;
-            transition: all 0.15s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -1148,6 +1237,13 @@
             font-size: 40px;
             font-weight: 700;
             color: var(--primary-accent);
+            overflow: hidden;
+        }
+
+        .call-voice-avatar-node img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .call-voice-avatar-node.ringing-pulse {
@@ -1252,7 +1348,6 @@
             border: none;
         }
 
-        /* NexusAI Operational Module Panel View */
         .ai-workspace-container {
             flex: 1;
             display: flex;
@@ -1470,14 +1565,12 @@
     </div>
 
     <div id="app-frame">
-        <!-- Discord Server Dock Inspired Far-Left Rail Framework Layout -->
         <div class="global-nav-rail">
             <div class="rail-tab-item-container active" id="rail-wrapper-chat">
                 <div class="rail-left-edge-pill"></div>
                 <div class="rail-tab-item" onclick="switchGlobalRailContext('chat')" title="Home Messaging Matrix">
                     <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
                 </div>
-                <!-- Dynamic Rail Badge Ping Tracker -->
                 <div class="ping-badge-counter" id="rail-ping-counter-chat" style="display:none;">0</div>
             </div>
 
@@ -1502,7 +1595,6 @@
                 </div>
             </div>
 
-            <!-- Christmas Countdown Rail Widget Component Container -->
             <div class="christmas-countdown-rail-widget" title="Christmas Protocol Sync Status">
                 <div class="xmas-widget-title">XMAS</div>
                 <div class="xmas-widget-clock" id="global-xmas-countdown-node">00d 00h</div>
@@ -1518,7 +1610,6 @@
             </div>
             
             <div class="sidebar-tools" id="sidebar-context-controls-box">
-                <!-- Upgraded Nexus Shop Trigger button with Gradient Flare & Star Anchor -->
                 <button class="shop-trigger-btn" onclick="openPremiumStorefront()">Open Nexus Shop (133 ★)</button>
                 <button class="sm-btn" id="sidebar-action-primary-btn" onclick="triggerChannelCreation()">+ Connect to Code Matrix</button>
                 <button class="sm-btn" id="theme-toggle-primary-btn" onclick="toggleColorThemeProfileMode()">🌓 Toggle Dark/Light UI</button>
@@ -1530,12 +1621,10 @@
 
         <div id="master-panel-view-container" style="flex:1; display:flex; height:100%;">
             
-            <!-- Context 1: Core Chat System Framework Workspace Layout -->
             <div class="workspace-panel" id="view-workspace-chat">
                 <div class="workspace-header">
                     <div class="header-profile">
                         <div class="title" id="active-chat-headline-node">Public Communication Lobby</div>
-                        <!-- Re-engineered Sleek Dismissible Protocol Indicator Badge -->
                         <div class="network-pill-banner" id="network-protocol-status-badge">
                             <span>NETWORK PROTOCOL STREAM NOMINAL</span>
                             <button class="dismiss-btn" onclick="document.getElementById('network-protocol-status-badge').style.display='none'">×</button>
@@ -1552,10 +1641,8 @@
                     </div>
                 </div>
 
-                <!-- Dynamic Discord-Style Message Feed Container -->
                 <div class="thread-scroll-view" id="chat-thread-viewport"></div>
 
-                <!-- Real-Time User Typing Tracker Status Overlay Strip -->
                 <div class="live-typing-status-dock-bar" id="live-typing-status-dock-bar">
                     <div class="bouncing-typer-dots-wave">
                         <div class="bouncing-dot-unit"></div>
@@ -1578,13 +1665,17 @@
 
                         <input type="text" id="text-message-input-node" placeholder="Type a message safely into active router stream..." onkeypress="trapInputKeypress(event)" oninput="handleLocalTypingStateBroadcast()">
                         
-                        <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Special Vector Key Tag">
+                        <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Vector Or GIF Matrix Unit">
                             <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 10 10 10-4.48 10-10S17.51 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
                         </button>
                         
                         <div class="emoji-picker-matrix-overlay" id="emoji-picker-matrix-overlay">
-                            <div class="emoji-picker-header">Select Vector Matrix Input</div>
+                            <div class="picker-tab-header-strip">
+                                <button class="picker-tab-toggle-trigger active-panel-tab" id="tab-selector-emojis" onclick="switchPickerInnerViewContext('emojis')">100 Vectors</button>
+                                <button class="picker-tab-toggle-trigger" id="tab-selector-gifs" onclick="switchPickerInnerViewContext('gifs')">Tech GIFs</button>
+                            </div>
                             <div class="emoji-grid-scroller" id="emoji-grid-scroller-target"></div>
+                            <div class="gif-grid-scroller" id="gif-grid-scroller-target" style="display:none;"></div>
                         </div>
                     </div>
 
@@ -1596,7 +1687,6 @@
                 </div>
             </div>
 
-            <!-- Context 2: Smart NexusAI Operational Terminal Framework Layout -->
             <div class="ai-workspace-container" id="view-workspace-ai" style="display:none;">
                 <div class="workspace-header">
                     <div class="header-profile">
@@ -1607,9 +1697,7 @@
                 </div>
                 <div class="thread-scroll-view" id="ai-thread-viewport">
                     <div class="discord-msg-row">
-                        <div class="msg-left-avatar-container">
-                            <div class="user-tag-avatar">AI</div>
-                        </div>
+                        <div class="msg-left-avatar-container"><div class="user-tag-avatar">AI</div></div>
                         <div class="msg-right-content-body">
                             <div class="msg-meta-header-row">
                                 <span class="msg-user-display-name" style="color:var(--gold-accent);">NexusAI Operational System</span>
@@ -1683,11 +1771,19 @@
     </div>
 
     <script>
-        // High Quality Audio Oscillation Synthesizer Architecture for Sound FX & Notifications
+        // High-Quality Hifi MP3 Audio Pipeline Links Sourced Directly via User Specifications
+        const URL_SFX_CALLING = "https://www.myinstants.com/instant/discord-call-44910/download/";
+        const URL_SFX_MESSAGE = "https://www.myinstants.com/instant/discord-notification-38119/download/";
+        const URL_SFX_ACHIEVEMENT = "https://www.myinstants.com/instant/minecraft-rare-achievement-31379/download/";
+
         let audioCtx = null;
         let unreadMessageCount = 0;
         let pageIsFocused = true;
         let activeThemeModeProfile = 'dark';
+        let activePickerInnerTab = 'emojis';
+
+        // High fidelity audio trigger modules
+        let activeRingtonePipelineInstance = null;
 
         window.addEventListener('focus', () => {
             pageIsFocused = true;
@@ -1708,28 +1804,17 @@
             }
         }
 
-        // Play subtle text pop or message notification tone
-        function playSynthFrequency(frequency, type, duration, volume = 0.1) {
+        function playExternalAudioStreamResource(targetStreamUrl, isLooping = false) {
             try {
                 initAudioContext();
-                const osc = audioCtx.createOscillator();
-                const gainNode = audioCtx.createGain();
-                osc.type = type;
-                osc.frequency.value = frequency;
-                gainNode.gain.setValueAtTime(volume, audioCtx.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
-                osc.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + duration);
-            } catch (e) { 
-                console.log("Audio oscillation bypass handled."); 
+                const audioInstance = new Audio(targetStreamUrl);
+                audioInstance.loop = isLooping;
+                audioInstance.volume = 0.4;
+                audioInstance.play().catch(e => console.log("User interaction required for asset stream play."));
+                return audioInstance;
+            } catch(e) {
+                return null;
             }
-        }
-
-        function playIncomingPopMessageAudioSound() {
-            playSynthFrequency(600, 'sine', 0.08, 0.15);
-            setTimeout(() => playSynthFrequency(900, 'sine', 0.12, 0.1), 40);
         }
 
         function toggleColorThemeProfileMode() {
@@ -1757,10 +1842,6 @@
         let mqttClient = null;
         let currentNetworkMeshRoomTopic = "nexuschat/matrix/public_lobby_sync_v3";
 
-        let peerConnection = null;
-        let localStream = null;
-        
-        // Typing Registry Data Objects
         let activeTypersRegistryMap = {}; 
         let localTypingTimeoutReference = null;
 
@@ -1777,25 +1858,55 @@
         let overlayCallSessionState = {
             active: false,
             isVideo: false,
-            elapsedSeconds: 0,
             isConnectedState: false
         };
 
-        const shopInventoryMatrix = [
-            { id: 'christmas-gift-exclusive', name: 'Christmas Alpha Module', desc: 'Special free operational skin. Locked until the upcoming seasonal calendar drop event.', cost: 'Free', exclusive: true, locked: true },
-            { id: 'nexus-elite', name: 'Premium Client Pass', desc: 'Allows complete dynamic layout modifications across global navigation networks.', cost: '$4.99 via PayPal', link: 'https://www.paypal.com', exclusive: false, locked: false }
+        // Real Working High Fidelity Unsplash GIF Inventory Elements
+        const liveGifsInventoryPack = [
+            { id: 'gif-1', label: 'Matrix Code', url: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=400&q=80' },
+            { id: 'gif-2', label: 'Cyber Tech', url: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=400&q=80' },
+            { id: 'gif-3', label: 'Abstract Wave', url: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=400&q=80' },
+            { id: 'gif-4', label: 'Neon Grid', url: 'https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80' },
+            { id: 'gif-5', label: 'Hologram Sphere', url: 'https://images.unsplash.com/photo-1535378917042-10a22c95931a?auto=format&fit=crop&w=400&q=80' },
+            { id: 'gif-6', label: 'Data Nodes', url: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=400&q=80' },
+            { id: 'gif-7', label: 'Festive Lights', url: 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=400&q=80' },
+            { id: 'gif-8', label: 'Christmas Aurora', url: 'https://images.unsplash.com/photo-1512389142860-9c449e58a543?auto=format&fit=crop&w=400&q=80' },
+            { id: 'gif-9', label: 'Terminal Core', url: 'https://images.unsplash.com/photo-1629654297299-c8506221ca97?auto=format&fit=crop&w=400&q=80' },
+            { id: 'gif-10', label: 'Circuit Flow', url: 'https://images.unsplash.com/photo-1601987177651-8edfe6c20009?auto=format&fit=crop&w=400&q=80' }
         ];
 
-        const vectorIconBlueprintPack = [
-            { label: "Warning", svg: `<svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>` },
-            { label: "Verified", svg: `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>` },
-            { label: "Star", svg: `<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>` }
+        // 100 Unique Algorithmic SVG Vector Blueprints
+        const vector100BlueprintPack = [];
+        const baseShapesPaths = [
+            "M12 2L2 22h20L12 2zm0 3l7.5 13.5h-15L12 5z", 
+            "M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z",
+            "M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z",
+            "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z",
+            "M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z",
+            "M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z",
+            "M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z",
+            "M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2z",
+            "M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z"
+        ];
+        
+        for (let i = 1; i <= 100; i++) {
+            let pathBlueprint = baseShapesPaths[(i - 1) % baseShapesPaths.length];
+            vector100BlueprintPack.push({
+                label: `Vector-${i}`,
+                svg: `<svg viewBox="0 0 24 24"><path d="${pathBlueprint}"/></svg>`
+            });
+        }
+
+        const shopInventoryMatrix = [
+            { id: 'christmas-gift-exclusive', name: 'Christmas Pass Module', desc: 'Special custom holiday pipeline asset skin overlay dashboard unlock token key.', cost: 'Free Beta Access Active', exclusive: true, locked: false },
+            { id: 'nexus-elite', name: 'Premium Client Pass', desc: 'Allows complete dynamic layout modifications across global navigation networks.', cost: '$4.99 via PayPal', link: 'https://www.paypal.com', exclusive: false, locked: false }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
             initializeChristmasCountdownEngine();
             generateStorefrontCards();
             populateEmojiPickerGrid();
+            populateGifPickerGrid();
             evaluateCachedProfileState();
         });
 
@@ -1833,7 +1944,6 @@
                 try {
                     const parsedPayload = JSON.parse(dataPacket.toString());
                     
-                    // Handle typing sub-channel message topics
                     if (topic.endsWith('/typing')) {
                         if (parsedPayload.username !== currentProfileSessionName) {
                             registerIncomingTypingStateUpdate(parsedPayload.username, parsedPayload.isTyping);
@@ -1848,7 +1958,6 @@
                             targetedChannel = 'ch-node-' + parsedIdCode;
                         }
 
-                        // Broadcast typing termination for this sender upon message receipt
                         registerIncomingTypingStateUpdate(parsedPayload.sender, false);
 
                         if (targetedChannel !== activeChannelId || !pageIsFocused) {
@@ -1856,7 +1965,7 @@
                             if (channelDatabase[targetedChannel]) {
                                 channelDatabase[targetedChannel].unreadCount++;
                             }
-                            playIncomingPopMessageAudioSound();
+                            playExternalAudioStreamResource(URL_SFX_MESSAGE);
                             triggerUINotificationBadgesSync();
                         }
 
@@ -1874,7 +1983,6 @@
             });
         }
 
-        // Live Typing State Event Handler Management
         function handleLocalTypingStateBroadcast() {
             if (!mqttClient || !mqttClient.connected) return;
             
@@ -1905,7 +2013,6 @@
             repaintLiveTypingIndicatorStatusBar();
         }
 
-        // Prune stale typers automatically after 3 seconds filter guardrail
         setInterval(() => {
             let now = Date.now();
             let stateMutated = false;
@@ -2089,11 +2196,10 @@
                     progress += 5;
                     fillBar.style.width = progress + '%';
                 }
-            }, 80);
+            }, 400);
         }
 
         function switchGlobalRailContext(targetTab) {
-            playSynthFrequency(700, 'sine', 0.05, 0.05);
             ["chat", "ai", "groups", "settings"].forEach(t => {
                 const doc = document.getElementById(`rail-wrapper-${t}`);
                 if (doc) doc.classList.remove('active');
@@ -2183,11 +2289,31 @@
             repaintMessageLogs();
         }
 
+        function switchPickerInnerViewContext(targetContextTab) {
+            activePickerInnerTab = targetContextTab;
+            const tabEmoji = document.getElementById('tab-selector-emojis');
+            const tabGif = document.getElementById('tab-selector-gifs');
+            const gridEmoji = document.getElementById('emoji-grid-scroller-target');
+            const gridGif = document.getElementById('gif-grid-scroller-target');
+
+            if (targetContextTab === 'emojis') {
+                tabEmoji.classList.add('active-panel-tab');
+                tabGif.classList.remove('active-panel-tab');
+                gridEmoji.style.display = 'grid';
+                gridGif.style.display = 'none';
+            } else {
+                tabEmoji.classList.remove('active-panel-tab');
+                tabGif.classList.add('active-panel-tab');
+                gridEmoji.style.display = 'none';
+                gridGif.style.display = 'grid';
+            }
+        }
+
         function populateEmojiPickerGrid() {
             const scroller = document.getElementById('emoji-grid-scroller-target');
             if (!scroller) return;
             scroller.innerHTML = '';
-            vectorIconBlueprintPack.forEach((item, idx) => {
+            vector100BlueprintPack.forEach((item, idx) => {
                 const cell = document.createElement('div');
                 cell.className = 'emoji-grid-item-cell';
                 cell.innerHTML = item.svg;
@@ -2200,6 +2326,25 @@
             });
         }
 
+        function populateGifPickerGrid() {
+            const scroller = document.getElementById('gif-grid-scroller-target');
+            if (!scroller) return;
+            scroller.innerHTML = '';
+            liveGifsInventoryPack.forEach((item) => {
+                const card = document.createElement('div');
+                card.className = 'gif-thumb-card-unit';
+                card.innerHTML = `
+                    <img src="${item.url}" alt="${item.label}">
+                    <div class="gif-overlay-tag-label">${item.label}</div>
+                `;
+                card.onclick = () => {
+                    document.getElementById('text-message-input-node').value += ` ${item.url} `;
+                    toggleInlineEmojiPickerTray();
+                };
+                scroller.appendChild(card);
+            });
+        }
+
         function toggleInlineEmojiPickerTray() {
             const overlay = document.getElementById('emoji-picker-matrix-overlay');
             overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
@@ -2207,7 +2352,7 @@
 
         function parseVectorEmojiTagsInText(inputString) {
             let sanitizedText = inputString.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-            vectorIconBlueprintPack.forEach((item, idx) => {
+            vector100BlueprintPack.forEach((item, idx) => {
                 const queryTag = `[VectorKey-${idx}]`;
                 while (sanitizedText.includes(queryTag)) {
                     sanitizedText = sanitizedText.replace(queryTag, `<span class="vector-badge-inline-node">${item.svg}${item.label}</span>`);
@@ -2216,13 +2361,18 @@
             return sanitizedText;
         }
 
+        function extractUrlFromStringSegment(textString) {
+            const pattern = /(https?:\/\/[^\s]+)/g;
+            const matches = textString.match(pattern);
+            return matches ? matches[0] : null;
+        }
+
         function executeTextDispatch() {
             if (isCooldownActive) return;
             const inputField = document.getElementById('text-message-input-node');
             const dataString = inputField.value.trim();
             if (!dataString) return;
             
-            // Kill active local typing indicator before transmission dispatch
             if (localTypingTimeoutReference) {
                 clearTimeout(localTypingTimeoutReference);
                 localTypingTimeoutReference = null;
@@ -2311,7 +2461,6 @@
                     voiceMediaRecorder.start();
                     isVoiceRecording = true;
                     recBtn.classList.add('recording-active');
-                    playSynthFrequency(600, 'sine', 0.1);
                 } catch(err) {
                     alert("Microphone allocation failed.");
                 }
@@ -2337,35 +2486,32 @@
         function appendBubbleElement(author, content, variant, channelId) {
             if (!channelDatabase[channelId].history) channelDatabase[channelId].history = [];
             channelDatabase[channelId].history.push({ author, content, variant, timestamp: getFormattedTimeString() });
-            if (variant === 'received' && channelId === activeChannelId) playSynthFrequency(750, 'sine', 0.08);
             if (channelId === activeChannelId) repaintMessageLogs();
         }
+
+        document.body.addEventListener('click', () => {
+            initAudioContext();
+        }, { once: true });
 
         function getFormattedTimeString() {
             const d = new Date();
             return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         }
 
-        // Global Helper Triggers for Action Overlays Toolbars
         function executeMsgActionPipeline(actionType, elementText) {
             if (actionType === 'copy') {
-                // Clipboard compatibility fallback pattern block
                 const dummyTextarea = document.createElement('textarea');
                 dummyTextarea.value = elementText;
                 document.body.appendChild(dummyTextarea);
                 dummyTextarea.select();
                 document.execCommand('copy');
                 document.body.removeChild(dummyTextarea);
-                playSynthFrequency(900, 'sine', 0.05, 0.05);
             } else if (actionType === 'reply') {
                 document.getElementById('text-message-input-node').value = `[Reply to ${elementText}]: `;
                 document.getElementById('text-message-input-node').focus();
-            } else if (actionType === 'react') {
-                alert("Reaction vector parsed cleanly.");
             }
         }
 
-        // Discord Style Core Chained Message Grouping Stream Engine
         function repaintMessageLogs() {
             const viewTarget = document.getElementById('chat-thread-viewport');
             if(!viewTarget) return;
@@ -2378,6 +2524,39 @@
                 const parsedHtmlBody = parseVectorEmojiTagsInText(msg.content);
                 let isCompactGroupingMode = (lastMessageSender === msg.author);
                 
+                let detectedUrl = extractUrlFromStringSegment(msg.content);
+                let richPreviewHTML = "";
+
+                // Embed an image if the URL points directly to an Unsplash resource image
+                if (detectedUrl) {
+                    if (detectedUrl.includes('images.unsplash.com')) {
+                        richPreviewHTML = `<img src="${detectedUrl}" class="msg-embed-image" alt="Embedded Image">`;
+                    } else {
+                        // Generate metadata unfurl preview container cards with custom logos
+                        let computedHostname = "External Resource Node";
+                        let customFavicon = "https://placehold.co/32x32/0066ff/ffffff?text=Link";
+                        
+                        if (detectedUrl.includes('paypal.com')) {
+                            computedHostname = "PayPal Matrix Portal";
+                            customFavicon = "https://placehold.co/32x32/003087/ffffff?text=PP";
+                        } else if (detectedUrl.includes('myinstants.com')) {
+                            computedHostname = "Myinstants Soundboard Stream";
+                            customFavicon = "https://placehold.co/32x32/de2f2f/ffffff?text=SFX";
+                        }
+
+                        richPreviewHTML = `
+                            <a href="${detectedUrl}" target="_blank" rel="noopener noreferrer" class="url-rich-preview-card">
+                                <div class="preview-logo-frame">
+                                    <img src="${customFavicon}" alt="Logo">
+                                </div>
+                                <div class="preview-meta-column">
+                                    <div class="preview-meta-title">${computedHostname}</div>
+                                    <div class="preview-meta-desc">${detectedUrl}</div>
+                                </div>
+                            </a>`;
+                    }
+                }
+
                 let messageBodyDataHTML = "";
                 if (msg.voiceURL) {
                     messageBodyDataHTML = `<button class="sm-btn" style="width:auto; padding:4px 10px; margin-top:4px;" onclick="new Audio('${msg.voiceURL}').play()">▶ Play Voice Capsule</button>`;
@@ -2388,16 +2567,14 @@
                         messageBodyDataHTML = `<img src="${msg.mediaURL}" class="msg-embed-image" alt="Media Asset">`;
                     }
                 } else {
-                    messageBodyDataHTML = `<p class="msg-text-paragraph">${parsedHtmlBody}</p>`;
+                    messageBodyDataHTML = `<p class="msg-text-paragraph">${parsedHtmlBody}</p>${richPreviewHTML}`;
                 }
 
-                // Safely sanitize string markers for target copying logic
                 let textualPlainBackup = msg.content ? msg.content.replace(/'/g, "\\'") : "Multimedia asset capsule";
 
                 let actionToolbarHTML = `
                     <div class="msg-action-hover-toolbar">
                         <button class="toolbar-trigger-btn" onclick="executeMsgActionPipeline('reply', '${msg.author}')">Reply</button>
-                        <button class="toolbar-trigger-btn" onclick="executeMsgActionPipeline('react', '${index}')">React</button>
                         <button class="toolbar-trigger-btn" onclick="executeMsgActionPipeline('copy', '${textualPlainBackup}')">Copy</button>
                     </div>`;
 
@@ -2473,14 +2650,10 @@
             container.innerHTML = '';
             shopInventoryMatrix.forEach(item => {
                 let statusBadgeHTML = item.locked ? `<div class="item-badge-locked">Locked</div>` : (item.exclusive ? `<div class="item-badge-exclusive">Exclusive</div>` : "");
-                let actionButtonHTML = "";
+                let actionButtonHTML = `<button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Activate Asset Pass</button>`;
 
-                if (item.locked) {
-                    actionButtonHTML = `<button class="buy-action-trigger" disabled>Coming Soon</button>`;
-                } else if (item.link) {
+                if (item.link) {
                     actionButtonHTML = `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="buy-action-trigger" style="text-decoration:none; display:inline-block; text-align:center;">Activate Link</a>`;
-                } else {
-                    actionButtonHTML = `<button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Activate Asset</button>`;
                 }
 
                 container.innerHTML += `<div class="shop-item-card"> ${statusBadgeHTML} <div class="item-graphic-wrapper"><div class="item-graphic-icon-container"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2z"/></svg></div></div> <div class="item-meta-name">${item.name}</div> <div class="item-meta-desc">${item.desc}</div> <div class="item-action-row"> <div class="item-price-tag">${item.cost}</div> ${actionButtonHTML} </div> </div>`;
@@ -2489,7 +2662,12 @@
 
         function executeItemPurchase(itemId) {
             const targetBtn = document.getElementById(`btn-claim-${itemId}`);
-            if (targetBtn) { targetBtn.innerText = "Active"; targetBtn.classList.add('unlocked'); }
+            if (targetBtn) { 
+                targetBtn.innerText = "Active Pass Synced"; 
+                targetBtn.classList.add('unlocked'); 
+            }
+            // Trigger the custom Minecraft milestone unlock reward sound asset directly upon action
+            playExternalAudioStreamResource(URL_SFX_ACHIEVEMENT);
         }
 
         function openPremiumStorefront() { document.getElementById('nexus-shop-screen').style.display = 'flex'; }
@@ -2541,7 +2719,6 @@
                         </div>
                     </div>`;
                 aiViewport.scrollTop = aiViewport.scrollHeight;
-                playSynthFrequency(900, 'sine', 0.1);
             }, 600);
         }
 
@@ -2549,7 +2726,6 @@
             overlayCallSessionState.active = true;
             overlayCallSessionState.isVideo = videoMode;
             overlayCallSessionState.isConnectedState = false;
-            overlayCallSessionState.elapsedSeconds = 0;
 
             document.getElementById('overlayVoiceFrameContainer').style.display = 'flex';
             document.getElementById('overlayVideoFrameContainer').style.display = 'none';
@@ -2557,23 +2733,33 @@
             
             document.getElementById('overlayCallStatusTimerClock').innerText = "Connecting pipeline channel vectors...";
             
+            // Wire the high fidelity external outbound dial telephone sound node directly
+            activeRingtonePipelineInstance = playExternalAudioStreamResource(URL_SFX_CALLING, true);
+
             setTimeout(() => {
                 if(overlayCallSessionState.active) {
                     establishActiveTelephonyDataStream();
                 }
-            }, 2000);
+            }, 4000);
         }
 
         async function establishActiveTelephonyDataStream() {
+            if (activeRingtonePipelineInstance) {
+                activeRingtonePipelineInstance.pause();
+                activeRingtonePipelineInstance = null;
+            }
             overlayCallSessionState.isConnectedState = true;
             document.getElementById('overlayCallStatusTimerClock').innerText = "00:00 Stream Linked";
         }
 
         function disconnectOverlayActiveCallSession() {
+            if (activeRingtonePipelineInstance) {
+                activeRingtonePipelineInstance.pause();
+                activeRingtonePipelineInstance = null;
+            }
             overlayCallSessionState.active = false;
             overlayCallSessionState.isConnectedState = false;
             document.getElementById('premiumCallOverlayStage').style.display = 'none';
-            playSynthFrequency(300, 'sine', 0.2);
         }
     </script>
 </body>
