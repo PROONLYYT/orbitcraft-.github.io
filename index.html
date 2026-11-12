@@ -1,5 +1,3 @@
-//NexusChat_Code
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1246,7 +1244,7 @@
             height: 44px;
             color: var(--primary-accent);
         }
-        .item-meta-name {
+        .item-magic-name {
             font-size: 15px;
             font-weight: 700;
             margin-bottom: 4px;
@@ -1678,7 +1676,7 @@
                         const dynamicFreq = 110 + Math.sin(timeMod) * 5;
                         const dynamicFilter = 350 + Math.cos(timeMod) * 80;
                         
-                        oscNode.frequency.setTargetAtTime(dynamicFreq, audioCtx.currentTime, 0.5);
+                        oscNode.frequency.setTargetAtTime(dynamicFreq, dynamicFreq, 0.5);
                         filterNode.frequency.setTargetAtTime(dynamicFilter, audioCtx.currentTime, 0.5);
                     }
                 }, 1000);
@@ -1703,6 +1701,19 @@
                 osc.stop(audioCtx.currentTime + duration);
             } catch (e) { 
                 console.log("Audio oscillation bypass handled smoothly."); 
+            }
+        }
+
+        // Logic framework parameter execution to fire rare login sound alert file
+        function triggerLoginSoundFile() {
+            try {
+                const loginAudio = new Audio('minecraft-rare.mpeg');
+                loginAudio.volume = 0.6;
+                loginAudio.play().catch(e => {
+                    console.log("Audio playback engagement requiring programmatic device touch gesture interaction parameters.");
+                });
+            } catch (err) {
+                console.log("Audio pipeline configuration exceptions handled gracefully.");
             }
         }
 
@@ -1957,6 +1968,10 @@
                 if (progress >= 100) {
                     clearInterval(loaderInterval);
                     splashPortal.classList.add('hidden');
+                    
+                    // Trigger sound file execution upon completion of profile loading splash routing context
+                    triggerLoginSoundFile();
+
                     // Ensure the portal completely yields display status along with scale transformations
                     setTimeout(() => {
                         splashPortal.style.display = 'none';
@@ -2267,27 +2282,7 @@
                     actionButtonHTML = `<button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Activate Asset</button>`;
                 }
 
-                container.innerHTML += `<div class="shop-item-card"> ${statusBadgeHTML} <div class="item-graphic-wrapper"><div class="item-graphic-icon-container"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2z"/></svg></div></div> <div class="item-meta-name">${item.name}</div> <div class="item-meta-desc">${item.desc}</div> <div class="item-action-row"> <div class="item-price-tag">${item.cost}</div> ${actionButtonHTML} </div> </div>`;
-            });
-        }
-
-        function generateStorefrontCards() {
-            const container = document.getElementById('shop-items-grid-target');
-            if (!container) return;
-            container.innerHTML = '';
-            shopInventoryMatrix.forEach(item => {
-                let statusBadgeHTML = item.locked ? `<div class="item-badge-locked">Locked</div>` : (item.exclusive ? `<div class="item-badge-exclusive">Exclusive</div>` : "");
-                let actionButtonHTML = "";
-
-                if (item.locked) {
-                    actionButtonHTML = `<button class="buy-action-trigger" disabled>Coming Soon</button>`;
-                } else if (item.link) {
-                    actionButtonHTML = `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="buy-action-trigger" style="text-decoration:none; display:inline-block; text-align:center;">Activate Link</a>`;
-                } else {
-                    actionButtonHTML = `<button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Activate Asset</button>`;
-                }
-
-                container.innerHTML += `<div class="shop-item-card"> ${statusBadgeHTML} <div class="item-graphic-wrapper"><div class="item-graphic-icon-container"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2z"/></svg></div></div> <div class="item-meta-name">${item.name}</div> <div class="item-meta-desc">${item.desc}</div> <div class="item-action-row"> <div class="item-price-tag">${item.cost}</div> ${actionButtonHTML} </div> </div>`;
+                container.innerHTML += `<div class="shop-item-card"> ${statusBadgeHTML} <div class="item-graphic-wrapper"><div class="item-graphic-icon-container"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2z"/></svg></div></div> <div class="item-magic-name">${item.name}</div> <div class="item-meta-desc">${item.desc}</div> <div class="item-action-row"> <div class="item-price-tag">${item.cost}</div> ${actionButtonHTML} </div> </div>`;
             });
         }
 
