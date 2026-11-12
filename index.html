@@ -1704,6 +1704,21 @@
             }
         }
 
+        // Dedicated Notification Trigger handling local or network sound alert files cleanly
+        function playMessageNotificationSound() {
+            try {
+                const notificationAudio = new Audio('discord-notification.mp3.mpeg');
+                notificationAudio.volume = 0.5;
+                notificationAudio.play().catch(e => {
+                    console.log("Interaction required before standalone programmatic sound file triggers can process.");
+                    // Fallback to synthetic frequency if device environment blocks audio context stream
+                    playSynthFrequency(880, 'sine', 0.15, 0.2);
+                });
+            } catch (err) {
+                console.log("Notification file error handled safely.");
+            }
+        }
+
         // Logic framework parameter execution to fire rare login sound alert file
         function triggerLoginSoundFile() {
             try {
@@ -2098,6 +2113,10 @@
             if (!dataString) return;
             
             appendBubbleElement(currentProfileSessionName, dataString, "sent");
+            
+            // Fire custom notification audio asset whenever user sends a message
+            playMessageNotificationSound();
+
             if (mqttClient && mqttClient.connected) {
                 mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify({
                     sender: currentProfileSessionName,
@@ -2132,6 +2151,10 @@
             reader.onload = function(e) {
                 const payloadString = e.target.result;
                 injectMediaBubbleToChatLog(currentProfileSessionName, payloadString, file.type, "sent");
+                
+                // Fire notification audio trigger upon media attachments as well
+                playMessageNotificationSound();
+
                 if (mqttClient && mqttClient.connected) {
                     mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify({
                         sender: currentProfileSessionName,
@@ -2161,6 +2184,10 @@
                         voiceReader.onloadend = function() {
                             const rawBase64VoiceString = voiceReader.result;
                             injectVoiceBubbleToChatLog(currentProfileSessionName, rawBase64VoiceString, "sent");
+                            
+                            // Audio notifications upon dynamic voice note stream creation
+                            playMessageNotificationSound();
+
                             if (mqttClient && mqttClient.connected) {
                                 mqttClient.publish(currentNetworkMeshRoomTopic, JSON.stringify({
                                     sender: currentProfileSessionName,
@@ -2200,6 +2227,8 @@
         function appendBubbleElement(author, content, variant) {
             if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
             channelDatabase[activeChannelId].history.push({ author, content, variant });
+            
+            // Received messages retain the unique high synth frequency alert to preserve distinction
             if (variant === 'received') playSynthFrequency(800, 'sine', 0.1);
             repaintMessageLogs();
         }
