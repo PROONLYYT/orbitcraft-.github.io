@@ -11,43 +11,29 @@
 
     <style>
         :root {
-            /* Ultra Premium Sophisticated Modern Hybrid Adaptive Tokens */
-            --bg-dark: #0b0f19;
-            --bg-dark-gradient: linear-gradient(135deg, #0b0f19 0%, #111827 100%);
-            --bg-panel: rgba(17, 24, 39, 0.75);
-            --bg-sidebar: rgba(15, 23, 42, 0.85);
+            /* Ultra Premium Sophisticated Light Tech Design Tokens */
+            --bg-dark: #f4f6f9;
+            --bg-dark-gradient: linear-gradient(135deg, #f4f6f9 0%, #e2e8f0 100%);
+            --bg-panel: rgba(255, 255, 255, 0.82);
+            --bg-sidebar: rgba(248, 250, 252, 0.9);
             --primary-accent: #0066ff;
-            --primary-hover: #1e80ff;
-            --primary-glow: rgba(0, 102, 255, 0.15);
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
+            --primary-hover: #0044cc;
+            --primary-glow: rgba(0, 102, 255, 0.12);
+            --text-main: #1e293b;
+            --text-muted: #64748b;
             --danger-red: #ef4444;
             --danger-hover: #dc2626;
             --success-green: #10b981;
-            --border-subtle: rgba(255, 255, 255, 0.06);
-            --border-active: rgba(0, 102, 255, 0.4);
-            --input-bg: rgba(30, 41, 59, 0.7);
+            --border-subtle: rgba(0, 0, 0, 0.06);
+            --border-active: rgba(0, 102, 255, 0.3);
+            --input-bg: rgba(241, 245, 249, 0.9);
             --gold-accent: #f59e0b;
             --pink-neon: #ec4899;
             --christmas-red: #de2f2f;
             
             /* UI Sizing Anchors */
             --nav-rail-width: 76px;
-            --sidebar-width: 340px;
-            --transition-smooth: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        /* Light Mode Override Classes */
-        body.light-theme {
-            --bg-dark: #f4f6f9;
-            --bg-dark-gradient: linear-gradient(135deg, #f4f6f9 0%, #e2e8f0 100%);
-            --bg-panel: rgba(255, 255, 255, 0.8);
-            --bg-sidebar: rgba(248, 250, 252, 0.9);
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --border-subtle: rgba(0, 0, 0, 0.06);
-            --input-bg: rgba(241, 245, 249, 0.9);
-            --border-active: rgba(0, 102, 255, 0.3);
+            --sidebar-width: 320px;
         }
 
         *, *:before, *:after {
@@ -62,144 +48,31 @@
             background: var(--bg-dark);
             background-image: var(--bg-dark-gradient);
             color: var(--text-main);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             overflow: hidden;
             display: flex;
             user-select: none;
             -webkit-user-select: none;
+            cursor: url('Cursor.png'), auto;
         }
 
-        /* Scannable Scrollbar Elements */
+        button, a, input, select, textarea, .rail-tab-item, .chat-list-row, .emoji-grid-item-cell, .buy-action-trigger {
+            cursor: url('Cursor.png'), pointer !important;
+        }
+
         ::-webkit-scrollbar {
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.05);
+            background: rgba(0, 0, 0, 0.01);
         }
         ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            background: rgba(0, 102, 255, 0.15);
+            border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary-accent);
-        }
-
-        /* Interactive Upgrade Portal Overlay Screen Matrix */
-        #update-portal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(7, 10, 19, 0.96);
-            z-index: 11000;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 24px;
-            backdrop-filter: blur(16px);
-            transition: var(--transition-smooth);
-        }
-
-        #update-portal-overlay.hidden {
-            opacity: 0;
-            transform: scale(1.08);
-            pointer-events: none;
-        }
-
-        .update-card-container {
-            width: 100%;
-            max-width: 480px;
-            background: rgba(20, 30, 50, 0.85);
-            border: 1px solid var(--border-subtle);
-            border-radius: 24px;
-            padding: 36px;
-            text-align: center;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-            transform: translateY(40px);
-            opacity: 0;
-            animation: leapJumpEntrance 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards;
-        }
-
-        @keyframes leapJumpEntrance {
-            0% { transform: translateY(60px) scale(0.92); opacity: 0; }
-            50% { transform: translateY(-10px) scale(1.02); opacity: 0.8; }
-            100% { transform: translateY(0) scale(1); opacity: 1; }
-        }
-
-        .changelog-badge-node {
-            display: inline-block;
-            background: var(--primary-glow);
-            border: 1px solid var(--primary-accent);
-            color: var(--primary-hover);
-            padding: 6px 14px;
-            border-radius: 30px;
-            font-size: 12px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .update-title-h2 {
-            font-size: 26px;
-            font-weight: 800;
-            margin: 0 0 12px 0;
-            letter-spacing: -0.5px;
-        }
-
-        .update-desc-p {
-            color: var(--text-muted);
-            font-size: 14px;
-            line-height: 1.6;
-            margin: 0 0 24px 0;
-        }
-
-        .changelog-bullets-list {
-            text-align: left;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 14px;
-            padding: 16px 20px;
-            margin-bottom: 28px;
-            border: 1px solid rgba(255,255,255,0.03);
-        }
-
-        .changelog-row-item {
-            font-size: 13px;
-            color: var(--text-main);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-        }
-        .changelog-row-item:last-child { margin-bottom: 0; }
-
-        .changelog-bullet-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--primary-accent);
-            margin-top: 6px;
-            flex-shrink: 0;
-        }
-
-        .dismiss-update-btn {
-            background: var(--primary-accent);
-            color: #ffffff;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            transition: var(--transition-smooth);
-            width: 100%;
-        }
-
-        .dismiss-update-btn:hover {
-            background: var(--primary-hover);
-            box-shadow: 0 0 20px var(--primary-glow);
         }
 
         /* Cinematic Loading Portal Splash Overlay Styles */
@@ -209,13 +82,14 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: var(--bg-dark);
+            background: #ffffff;
             z-index: 9999;
             display: none; 
             flex-direction: column;
             justify-content: center;
             align-items: center;
             transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), transform 0.6s ease;
+            opacity: 1;
         }
 
         #splash-loading-portal.hidden {
@@ -224,13 +98,22 @@
             pointer-events: none;
         }
 
+        .splash-logo-container {
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
         .minecraft-logo-anim-frame {
             display: flex;
-            gap: 6px;
-            font-size: 36px;
+            gap: 4px;
+            font-size: 32px;
             font-weight: 900;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             color: var(--primary-accent);
+            text-transform: uppercase;
         }
 
         .minecraft-char-token {
@@ -240,22 +123,27 @@
             animation: mcCharEntrance 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
-        @keyframes mcCharEntrance { to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes mcCharEntrance {
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
 
         .splash-user-subtitle {
             font-size: 12px;
             color: var(--text-muted);
             font-weight: 600;
-            margin-top: 16px;
             margin-bottom: 24px;
+            min-height: 20px;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
 
         .progress-track-wrapper {
-            width: 280px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.05);
+            width: 260px;
+            height: 5px;
+            background: rgba(0, 0, 0, 0.04);
             border-radius: 10px;
             overflow: hidden;
         }
@@ -267,6 +155,20 @@
             transition: width 0.1s linear;
         }
 
+        /* Announcement Ticker Banner */
+        #global-nexus-announcement-banner {
+            background: linear-gradient(90deg, #1e3a8a 0%, #3b82f6 100%);
+            color: #ffffff;
+            padding: 10px 24px;
+            font-size: 13px;
+            font-weight: 600;
+            display: none;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 2000;
+        }
+
         /* Reconstructed Workspace Identity Screen Overlay */
         #secure-login-gate-overlay {
             position: fixed;
@@ -274,33 +176,42 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: var(--bg-dark);
+            background: #f8fafc;
             z-index: 8000;
             display: none; 
             align-items: center;
             justify-content: center;
-            padding: 24px;
+            padding: 20px;
+            transition: opacity 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.5s ease;
+        }
+
+        #secure-login-gate-overlay.hidden {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
         }
 
         .login-card-glassmorphic-wrapper {
-            width: 100%;
-            max-width: 440px;
-            background: var(--bg-panel);
-            backdrop-filter: blur(24px);
-            border-radius: 24px;
+            width: 440px;
+            background: #ffffff;
+            border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.08);
             display: flex;
             flex-direction: column;
             gap: 24px;
             border: 1px solid var(--border-subtle);
         }
 
+        .login-card-header {
+            text-align: center;
+        }
+
         .login-title-h1 {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: 800;
-            margin: 0 0 6px 0;
-            letter-spacing: -0.5px;
+            color: var(--text-main);
+            margin: 0 0 8px 0;
         }
 
         .login-subtitle-p {
@@ -310,32 +221,38 @@
             line-height: 1.5;
         }
 
+        .registration-input-group-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
         .form-label-node {
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             color: var(--text-muted);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             display: block;
         }
 
         .form-text-input-field, .form-select-field {
             width: 100%;
             background: var(--input-bg);
-            border: 1px solid var(--border-subtle);
-            padding: 14px 16px;
-            border-radius: 12px;
+            border: 1px solid transparent;
+            padding: 12px 14px;
+            border-radius: 10px;
             color: var(--text-main);
             font-size: 14px;
             outline: none;
-            transition: var(--transition-smooth);
+            transition: all 0.2s ease;
         }
 
         .form-text-input-field:focus, .form-select-field:focus {
             border-color: var(--primary-accent);
-            box-shadow: 0 0 0 4px var(--primary-glow);
-            background: rgba(15, 23, 42, 0.6);
+            background: #ffffff;
+            box-shadow: 0 0 0 3px var(--primary-glow);
         }
 
         .avatar-file-upload-trigger-container {
@@ -353,9 +270,11 @@
             align-items: center;
             justify-content: center;
             color: var(--text-muted);
+            font-size: 14px;
             font-weight: 600;
+            flex-shrink: 0;
             overflow: hidden;
-            border: 1px solid var(--border-subtle);
+            border: 2px dashed rgba(0,0,0,0.1);
         }
 
         .avatar-upload-preview-frame img {
@@ -365,18 +284,18 @@
         }
 
         .custom-file-input-facade-btn {
-            background: transparent;
+            background: #ffffff;
             border: 1px solid var(--border-subtle);
             padding: 10px 16px;
-            border-radius: 10px;
+            border-radius: 8px;
             font-size: 13px;
             font-weight: 600;
             color: var(--text-main);
-            transition: var(--transition-smooth);
+            transition: all 0.2s ease;
         }
 
         .custom-file-input-facade-btn:hover {
-            background: rgba(255,255,255,0.05);
+            background: var(--input-bg);
         }
 
         .submit-portal-access-btn {
@@ -385,10 +304,11 @@
             color: #ffffff;
             border: none;
             padding: 14px;
-            border-radius: 12px;
+            border-radius: 10px;
             font-size: 14px;
             font-weight: 600;
-            transition: var(--transition-smooth);
+            transition: background 0.2s ease;
+            margin-top: 8px;
         }
 
         .submit-portal-access-btn:hover {
@@ -398,27 +318,37 @@
         /* Master Application Layout Window Frame */
         #app-frame {
             display: flex;
+            flex-direction: column;
             width: 100vw;
             height: 100vh;
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.4s ease;
+            background: var(--bg-dark-gradient);
         }
 
-        #app-frame.visible { opacity: 1; }
+        #app-frame.visible {
+            opacity: 1;
+        }
 
-        /* Vertical Control Tower Rail Framework Layout */
+        .app-main-layout-container {
+            display: flex;
+            flex: 1;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        /* Vertical Global Rail Context Framework Layout */
         .global-nav-rail {
             width: var(--nav-rail-width);
             height: 100%;
-            background: var(--bg-sidebar);
+            background: #ffffff;
             border-right: 1px solid var(--border-subtle);
             display: flex;
             flex-direction: column;
             align-items: center;
             padding: 24px 0;
-            gap: 16px;
-            z-index: 100;
-            backdrop-filter: blur(24px);
+            gap: 14px;
+            z-index: 10;
         }
 
         .rail-tab-item {
@@ -431,7 +361,7 @@
             justify-content: center;
             color: var(--text-muted);
             position: relative;
-            transition: var(--transition-smooth);
+            transition: all 0.2s ease;
         }
 
         .rail-tab-item svg {
@@ -441,8 +371,8 @@
         }
 
         .rail-tab-item:hover {
-            color: var(--text-main);
-            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            background: var(--bg-dark);
         }
 
         .rail-tab-item.active {
@@ -450,23 +380,11 @@
             background: var(--primary-glow);
         }
 
-        .rail-tab-item.active::after {
-            content: '';
-            position: absolute;
-            left: -12px;
-            top: 14px;
-            width: 4px;
-            height: 20px;
-            background: var(--primary-accent);
-            border-radius: 0 4px 4px 0;
-        }
-
-        /* Static Christmas Clock Component Container */
         .christmas-countdown-rail-widget {
             margin-top: auto;
             width: 56px;
-            background: rgba(222, 47, 47, 0.08);
-            border: 1px solid rgba(222, 47, 47, 0.3);
+            background: rgba(222, 47, 47, 0.06);
+            border: 1px dashed var(--christmas-red);
             border-radius: 12px;
             padding: 8px 4px;
             display: flex;
@@ -479,7 +397,7 @@
         .xmas-widget-title {
             font-size: 8px;
             font-weight: 800;
-            color: #ef4444;
+            color: var(--christmas-red);
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -489,6 +407,7 @@
             font-weight: 700;
             color: var(--text-main);
             font-family: monospace;
+            line-height: 1.2;
         }
 
         /* Standard Sub-context Left Sidebar panel */
@@ -500,16 +419,16 @@
             display: flex;
             flex-direction: column;
             height: 100%;
-            backdrop-filter: blur(24px);
-            transition: var(--transition-smooth);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
         }
 
         .sidebar-header {
-            padding: 16px 24px;
+            padding: 16px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 72px;
+            height: 70px;
             border-bottom: 1px solid var(--border-subtle);
         }
 
@@ -523,7 +442,7 @@
         .user-tag-avatar {
             width: 40px;
             height: 40px;
-            background: var(--input-bg);
+            background: #ffffff;
             border: 1px solid var(--border-subtle);
             border-radius: 50%;
             display: flex;
@@ -544,7 +463,7 @@
 
         .sidebar-title {
             font-weight: 700;
-            font-size: 15px;
+            font-size: 14px;
             color: var(--text-main);
             white-space: nowrap;
             overflow: hidden;
@@ -552,7 +471,7 @@
         }
 
         .sidebar-tools {
-            padding: 16px 24px;
+            padding: 16px 20px;
             display: flex;
             flex-direction: column;
             gap: 8px;
@@ -561,24 +480,30 @@
 
         .sm-btn {
             width: 100%;
-            padding: 11px 14px;
+            padding: 10px 14px;
             font-size: 13px;
             font-weight: 600;
-            background: var(--input-bg);
+            background: #ffffff;
             color: var(--text-main);
             border: 1px solid var(--border-subtle);
-            border-radius: 10px;
-            transition: var(--transition-smooth);
+            border-radius: 8px;
+            transition: all 0.15s ease;
             text-align: left;
         }
 
         .sm-btn:hover {
-            background: rgba(255,255,255,0.05);
+            background: var(--bg-dark);
             border-color: var(--primary-accent);
         }
 
-        .sm-btn.danger { color: var(--danger-red); }
-        .sm-btn.danger:hover { background: rgba(239, 68, 68, 0.08); }
+        .sm-btn.danger {
+            color: var(--danger-red);
+        }
+
+        .sm-btn.danger:hover {
+            background: rgba(239, 68, 68, 0.05);
+            border-color: var(--danger-red);
+        }
 
         .shop-trigger-btn {
             width: 100%;
@@ -588,49 +513,39 @@
             background: var(--primary-accent);
             color: #ffffff;
             border: none;
-            border-radius: 10px;
-            transition: var(--transition-smooth);
+            border-radius: 8px;
+            transition: all 0.15s ease;
             text-align: center;
         }
 
-        .shop-trigger-btn:hover { background: var(--primary-hover); }
+        .shop-trigger-btn:hover {
+            background: var(--primary-hover);
+        }
 
         .contacts-vertical-stack {
             flex: 1;
             overflow-y: auto;
-            padding: 12px 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
+            padding: 8px 0;
         }
 
-        /* Spacious Premium Cards Integration */
         .chat-list-row {
-            padding: 14px 16px;
+            padding: 14px 20px;
             display: flex;
             align-items: center;
-            gap: 14px;
-            border-radius: 14px;
-            border: 1px solid transparent;
-            transition: var(--transition-smooth);
+            gap: 12px;
+            transition: all 0.2s ease;
         }
 
-        .chat-list-row:hover {
-            background: rgba(255, 255, 255, 0.03);
-            border-color: var(--border-subtle);
-        }
-
-        .chat-list-row.active {
-            background: var(--primary-glow);
-            border-color: rgba(0, 102, 255, 0.2);
+        .chat-list-row:hover, .chat-list-row.active {
+            background: rgba(0, 102, 255, 0.04);
         }
 
         .row-avatar {
             font-size: 13px;
             font-weight: 600;
-            width: 42px;
-            height: 42px;
-            background: var(--input-bg);
+            width: 38px;
+            height: 38px;
+            background: #ffffff;
             border: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
@@ -643,15 +558,33 @@
         .chat-list-row.active .row-avatar {
             color: var(--primary-accent);
             border-color: var(--primary-accent);
-            background: rgba(0, 102, 255, 0.1);
+            background: var(--primary-glow);
         }
 
-        .row-meta { flex: 1; min-width: 0; }
+        .row-meta {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .row-meta-name-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mute-pill-indicator {
+            background: rgba(239,68,68,0.1);
+            color: var(--danger-red);
+            font-size: 10px;
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-weight: 700;
+        }
 
         .row-name {
             font-weight: 600;
-            font-size: 14px;
-            margin-bottom: 3px;
+            font-size: 13.5px;
+            margin-bottom: 2px;
             color: var(--text-main);
             white-space: nowrap;
             overflow: hidden;
@@ -666,26 +599,39 @@
             text-overflow: ellipsis;
         }
 
-        /* Main Workspace Content Framework Window */
         .workspace-panel {
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: var(--bg-dark);
+            background: #ffffff;
             position: relative;
             height: 100%;
+            max-width: 60%; /* Compact architecture framework modification */
+            border-right: 1px solid var(--border-subtle);
+        }
+
+        .workspace-secondary-diagnostics {
+            flex: 1;
+            background: #f8fafc;
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            gap: 16px;
+            overflow-y: auto;
         }
 
         .workspace-header {
-            padding: 0 28px;
+            padding: 0 24px;
             background: var(--bg-panel);
             display: flex;
             align-items: center;
             justify-content: space-between;
             border-bottom: 1px solid var(--border-subtle);
-            height: 72px;
-            backdrop-filter: blur(24px);
-            z-index: 50;
+            height: 70px;
+            box-sizing: border-box;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 5;
         }
 
         .header-profile {
@@ -697,42 +643,31 @@
         .header-profile .title {
             font-weight: 700;
             font-size: 16px;
-            letter-spacing: -0.3px;
         }
-
-        /* Mobile Ingress Toggle Menu Indicator Button */
-        .mobile-hamburger-trigger {
-            display: none;
-            background: transparent;
-            border: none;
-            color: var(--text-main);
-            padding: 8px;
-            margin-right: 8px;
-        }
-        .mobile-hamburger-trigger svg { width: 24px; height: 24px; fill: currentColor; }
 
         .thread-scroll-view {
             flex: 1;
             overflow-y: auto;
-            padding: 28px;
+            padding: 24px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
-            background: rgba(10, 15, 25, 0.3);
+            gap: 16px;
+            box-sizing: border-box;
+            background: #f8fafc;
         }
 
-        /* Asymmetric Speech Islands Architecture Design */
         .msg-bubble {
-            max-width: 70%;
-            padding: 12px 18px;
-            border-radius: 20px;
-            line-height: 1.6;
-            font-size: 14.5px;
+            max-width: 80%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            line-height: 1.5;
+            font-size: 14px;
             display: flex;
             flex-direction: column;
             word-wrap: break-word;
-            background: rgba(30, 41, 59, 0.4);
+            background: #ffffff;
             border: 1px solid var(--border-subtle);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
         }
 
         .msg-bubble.sent {
@@ -740,89 +675,99 @@
             color: #ffffff;
             border-color: transparent;
             align-self: flex-end;
-            border-bottom-right-radius: 4px;
-            box-shadow: 0 10px 25px -5px rgba(0, 102, 255, 0.3);
+            border-bottom-right-radius: 2px;
+            box-shadow: 0 4px 10px rgba(0, 102, 255, 0.15);
         }
 
         .msg-bubble.received {
             align-self: flex-start;
-            border-bottom-left-radius: 4px;
-            background: rgba(30, 41, 59, 0.6);
+            border-bottom-left-radius: 2px;
         }
 
         .msg-author {
             font-size: 11px;
             font-weight: 700;
-            color: var(--primary-hover);
+            color: var(--primary-accent);
             margin-bottom: 4px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
-        .msg-bubble.sent .msg-author { color: rgba(255, 255, 255, 0.8); }
+        .msg-bubble.sent .msg-author {
+            color: rgba(255, 255, 255, 0.82);
+        }
 
         .vector-badge-inline-node {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            background: var(--primary-glow);
-            border: 1px solid rgba(0, 102, 255, 0.3);
+            background: rgba(0, 102, 255, 0.08);
+            border: 1px solid var(--primary-accent);
             border-radius: 6px;
             padding: 2px 6px;
-            margin: 0 3px;
+            margin: 0 2px;
             vertical-align: middle;
-            color: var(--primary-hover);
+            color: var(--primary-accent);
             font-weight: 700;
             font-size: 11px;
         }
 
         .msg-bubble.sent .vector-badge-inline-node {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255,255,255,0.4);
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #ffffff;
             color: #ffffff;
         }
 
         .vector-badge-inline-node svg {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             margin-right: 4px;
             fill: currentColor;
         }
 
-        .msg-embed-video-player, .msg-embed-image {
+        .msg-embed-video-player {
             width: 100%;
-            max-width: 340px;
-            border-radius: 12px;
-            margin-top: 8px;
-            border: 1px solid var(--border-subtle);
+            max-width: 320px;
+            border-radius: 10px;
+            margin-top: 6px;
+            outline: none;
+            background: #000000;
+        }
+
+        .msg-embed-image {
+            width: 100%;
+            max-width: 320px;
+            border-radius: 10px;
+            margin-top: 6px;
+            object-fit: cover;
         }
 
         .input-dock-bar {
-            padding: 16px 28px;
-            background: var(--bg-panel);
+            padding: 16px 24px;
+            background: #ffffff;
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
             border-top: 1px solid var(--border-subtle);
-            height: 76px;
+            height: 75px;
+            box-sizing: border-box;
             position: relative;
-            backdrop-filter: blur(24px);
         }
 
         .input-dock-bar input[type="text"] {
             flex: 1;
             background: var(--input-bg);
-            border: 1px solid var(--border-subtle);
-            padding: 14px 18px;
-            border-radius: 12px;
+            border: 1px solid transparent;
+            padding: 12px 16px;
+            border-radius: 10px;
             color: var(--text-main);
             font-size: 14px;
             outline: none;
-            transition: var(--transition-smooth);
+            transition: all 0.2s ease;
         }
 
         .input-dock-bar input[type="text"]:focus {
-            background: rgba(15, 23, 42, 0.5);
+            background: #ffffff;
             border-color: var(--primary-accent);
             box-shadow: 0 0 0 3px var(--primary-glow);
         }
@@ -834,6 +779,7 @@
             height: 2px;
             width: 100%;
             background: transparent;
+            pointer-events: none;
         }
 
         .cooldown-progress-fill {
@@ -846,51 +792,49 @@
             background: transparent;
             border: none;
             color: var(--text-muted);
-            border-radius: 10px;
-            transition: var(--transition-smooth);
+            padding: 8px;
+            border-radius: 8px;
+            transition: all 0.15s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 44px;
-            height: 44px;
-            flex-shrink: 0;
+            width: 38px;
+            height: 38px;
         }
 
         .emoji-trigger-node-btn svg, .mic-record-trigger-btn svg, .media-attach-trigger-btn svg {
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
             fill: currentColor;
         }
 
         .emoji-trigger-node-btn:hover, .mic-record-trigger-btn:hover, .media-attach-trigger-btn:hover {
-            color: var(--text-main);
-            background: rgba(255,255,255,0.05);
+            color: var(--primary-accent);
+            background: var(--bg-dark);
         }
         
         .mic-record-trigger-btn.recording-active {
             color: var(--danger-red);
-            background: rgba(239, 68, 68, 0.1);
+            background: rgba(239, 68,68, 0.08);
         }
 
-        /* Multi-Category Expanded Native Grid Tray Container */
         .emoji-picker-matrix-overlay {
             position: absolute;
-            bottom: 88px;
-            right: 28px;
-            width: 320px;
-            height: 280px;
-            background: rgba(20, 30, 50, 0.95);
+            bottom: 85px;
+            right: 24px;
+            width: 300px;
+            height: 220px;
+            background: #ffffff;
             border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
             display: none;
             flex-direction: column;
             z-index: 1000;
-            backdrop-filter: blur(20px);
         }
 
         .emoji-picker-header {
-            padding: 14px;
+            padding: 12px;
             font-size: 11px;
             font-weight: 700;
             color: var(--text-muted);
@@ -902,105 +846,144 @@
         .emoji-grid-scroller {
             flex: 1;
             overflow-y: auto;
-            padding: 14px;
+            padding: 12px;
             display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 10px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
         }
 
         .emoji-grid-item-cell {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
             width: 40px;
             height: 40px;
-            border-radius: 10px;
-            transition: var(--transition-smooth);
-            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.15s ease;
+            color: var(--text-muted);
+        }
+
+        .emoji-grid-item-cell svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
         }
 
         .emoji-grid-item-cell:hover {
             background: var(--primary-glow);
-            transform: scale(1.15);
+            color: var(--primary-accent);
         }
 
         .send-btn {
-            background: var(--primary-accent);
-            color: #ffffff;
-            border: none;
-            padding: 0 20px;
-            border-radius: 12px;
+            background: transparent;
+            color: var(--primary-accent);
+            border: 1px solid var(--primary-accent);
+            padding: 10px 18px;
+            border-radius: 8px;
             font-weight: 600;
-            font-size: 13.5px;
-            height: 44px;
-            transition: var(--transition-smooth);
+            font-size: 13px;
+            transition: all 0.15s ease;
         }
 
-        .send-btn:hover { background: var(--primary-hover); }
-        .send-btn:disabled { background: var(--input-bg); color: var(--text-muted); }
+        .send-btn:hover {
+            background: var(--primary-accent);
+            color: #ffffff;
+        }
 
-        .call-header-action-button-group { display: flex; align-items: center; gap: 8px; }
+        .send-btn:disabled {
+            border-color: var(--border-subtle);
+            color: var(--text-muted);
+            background: transparent;
+        }
+
+        .call-header-action-button-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
         .call-action-btn {
             background: transparent;
             border: 1px solid var(--border-subtle);
             color: var(--text-muted);
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            transition: var(--transition-smooth);
+            width: 38px;
+            height: 38px;
+            border-radius: 8px;
+            transition: all 0.15s ease;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .call-action-btn:hover { color: var(--text-main); background: rgba(255,255,255,0.05); }
-        .call-action-btn svg { width: 18px; height: 18px; fill: currentColor; }
+        .call-action-btn:hover {
+            color: var(--primary-accent);
+            border-color: var(--primary-accent);
+            background: var(--bg-dark);
+        }
 
-        /* THEATRICAL VIEWPORT FULL SCREEN CALLING OVERLAY MODAL */
+        .call-action-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
+        }
+
+        /* BRAND NEW IMMERSIVE TELEPHONY OVERLAY COMPONENT */
         .call-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: var(--bg-dark);
+            background: rgba(15, 23, 42, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
             z-index: 10000;
             display: none;
-            flex-direction: column;
-            justify-content: space-between;
+            align-items: center;
+            justify-content: center;
             padding: 40px;
         }
 
-        .call-top-meta-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+        .premium-call-window-shell {
             width: 100%;
-        }
-
-        .call-secure-lock-badge {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 12px;
-            color: var(--success-green);
-            background: rgba(16, 185, 129, 0.08);
-            padding: 6px 14px;
-            border-radius: 20px;
-        }
-
-        .call-secure-lock-badge svg { width: 14px; height: 14px; fill: currentColor; }
-
-        .call-viewport-center-stage {
-            flex: 1;
+            max-width: 840px;
+            height: 580px;
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+            border: 1px solid rgba(255,255,255,0.7);
             display: flex;
             flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .call-internal-navbar {
+            padding: 18px 24px;
+            border-bottom: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.6);
+        }
+
+        .call-internal-stage-viewport {
+            flex: 1;
+            background: #f8fafc;
+            position: relative;
+            display: flex;
             align-items: center;
             justify-content: center;
-            position: relative;
-            width: 100%;
+        }
+
+        .call-internal-controls-row {
+            padding: 20px;
+            border-top: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            background: #ffffff;
         }
 
         .call-voice-profile-card-center {
@@ -1008,79 +991,66 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            gap: 12px;
         }
 
         .call-voice-avatar-node {
             width: 120px;
             height: 120px;
             border-radius: 50%;
-            background-color: var(--input-bg);
-            border: 1px solid var(--border-subtle);
-            margin: 0 auto 24px auto;
+            background-color: var(--bg-dark);
+            border: 2px solid var(--primary-accent);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 44px;
             font-weight: 700;
             color: var(--primary-accent);
-            position: relative;
+            box-shadow: 0 10px 25px rgba(0,102,255,0.1);
         }
 
-        /* Beautiful Soft Glowing Waves (will-change optimized) */
-        .call-voice-avatar-node.ringing-pulse::before,
-        .call-voice-avatar-node.ringing-pulse::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 2px solid var(--primary-accent);
-            opacity: 0.4;
-            top: 0;
-            left: 0;
-            box-sizing: border-box;
-            will-change: transform, opacity;
-            animation: softGlowingRings 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+        .call-voice-avatar-node.ringing-pulse {
+            animation: pulseCallingAvatar 1.5s infinite ease-in-out;
         }
-        .call-voice-avatar-node.ringing-pulse::after { animation-delay: 1s; }
 
-        @keyframes softGlowingRings {
-            0% { transform: scale(1); opacity: 0.5; }
-            100% { transform: scale(1.6); opacity: 0; }
+        @keyframes pulseCallingAvatar {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 102, 255, 0.4); }
+            50% { transform: scale(1.04); box-shadow: 0 0 0 20px rgba(0, 102, 255, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(0, 102, 255, 0); }
         }
 
         .call-voice-timer-badge {
-            color: var(--text-muted);
-            margin-top: 12px;
-            font-size: 14px;
-            background: rgba(255,255,255,0.03);
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 600;
+            background: var(--primary-accent);
             padding: 6px 18px;
-            border-radius: 20px;
-            border: 1px solid var(--border-subtle);
+            border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0,102,255,0.2);
         }
 
         .call-equalizer-bars-container {
             display: flex;
             align-items: center;
             gap: 5px;
-            height: 36px;
-            margin-top: 28px;
+            height: 40px;
+            margin-top: 12px;
         }
 
         .call-equalizer-bar-unit {
-            width: 3px;
-            height: 12px;
+            width: 4px;
+            height: 14px;
             background-color: var(--primary-accent);
             border-radius: 3px;
             animation: equalizeCallAudioStream 0.6s ease-in-out infinite alternate;
         }
-        .call-equalizer-bar-unit:nth-child(2) { animation-delay: 0.1s; height: 22px; }
-        .call-equalizer-bar-unit:nth-child(3) { animation-delay: 0.2s; height: 32px; }
-        .call-equalizer-bar-unit:nth-child(4) { animation-delay: 0.3s; height: 18px; }
-        .call-equalizer-bar-unit:nth-child(5) { animation-delay: 0.15s; height: 26px; }
+        .call-equalizer-bar-unit:nth-child(2) { animation-delay: 0.12s; height: 24px; }
+        .call-equalizer-bar-unit:nth-child(3) { animation-delay: 0.24s; height: 34px; }
+        .call-equalizer-bar-unit:nth-child(4) { animation-delay: 0.36s; height: 18px; }
+        .call-equalizer-bar-unit:nth-child(5) { animation-delay: 0.18s; height: 26px; }
 
         @keyframes equalizeCallAudioStream {
-            0% { transform: scaleY(0.7); }
+            0% { transform: scaleY(0.5); }
             100% { transform: scaleY(1.5); }
         }
 
@@ -1090,77 +1060,126 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: #070a13;
+            background: #1e293b;
             display: none;
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid var(--border-subtle);
         }
 
-        .call-remote-video-feed-facade { width: 100%; height: 100%; position: relative; }
-        .call-remote-video-feed-facade video { width: 100%; height: 100%; object-fit: cover; }
+        .call-remote-video-feed-facade video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
         .call-floating-local-pip {
             position: absolute;
-            bottom: 24px;
-            right: 24px;
+            bottom: 20px;
+            right: 20px;
             width: 140px;
-            height: 190px;
-            background: #0f172a;
-            border: 1px solid var(--border-subtle);
-            border-radius: 16px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            height: 200px;
+            background: #ffffff;
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
             overflow: hidden;
-            z-index: 1020;
+            border: 2px solid #ffffff;
+            z-index: 10;
         }
-        .call-floating-local-pip video { width: 100%; height: 100%; object-fit: cover; }
 
-        .call-controls-row-footer {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 16px;
+        .call-floating-local-pip video {
             width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .call-action-circle-round-btn {
-            width: 56px;
-            height: 56px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             border: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--text-main);
-            transition: var(--transition-smooth);
-            background-color: rgba(255,255,255,0.03);
+            transition: all 0.2s ease;
+            background-color: #ffffff;
         }
 
         .call-action-circle-round-btn:hover {
-            transform: scale(1.08);
-            background-color: rgba(255,255,255,0.08);
+            transform: translateY(-2px);
+            background-color: var(--bg-dark);
         }
 
-        .call-action-circle-round-btn svg { width: 22px; height: 22px; fill: currentColor; }
+        .call-action-circle-round-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
 
         .call-action-circle-round-btn.mute-btn-style.active-triggered,
         .call-action-circle-round-btn.cam-btn-style.active-triggered,
         .call-action-circle-round-btn.screen-btn-style.active-triggered {
-            background-color: var(--primary-accent);
-            color: #ffffff;
-            border-color: transparent;
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger-red);
+            border-color: rgba(239, 68, 68, 0.2);
         }
 
-        .call-action-circle-round-btn.hangup-btn-style { background-color: var(--danger-red); color: #ffffff; border: none; }
-        .call-action-circle-round-btn.hangup-btn-style:hover { background-color: var(--danger-hover); }
-        .call-action-circle-round-btn.accept-btn-style { background-color: var(--success-green); color: #ffffff; border: none; }
+        .call-action-circle-round-btn.hangup-btn-style {
+            background-color: var(--danger-red);
+            color: #ffffff;
+            border: none;
+            width: 56px;
+            height: 56px;
+        }
+        .call-action-circle-round-btn.hangup-btn-style:hover {
+            background-color: var(--danger-hover);
+        }
 
-        /* NexusAI Operational Module Panel View */
+        .call-action-circle-round-btn.accept-btn-style {
+            background-color: var(--success-green);
+            color: #ffffff;
+            border: none;
+            width: 56px;
+            height: 56px;
+        }
+
+        /* Reset Notification Overlay Styling */
+        .system-update-alert-toast {
+            position: fixed;
+            bottom: 30px;
+            left: 30px;
+            background: #ffffff;
+            border-left: 4px solid var(--danger-red);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            z-index: 11000;
+            transform: translateY(150%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            max-width: 380px;
+        }
+        .system-update-alert-toast.visible {
+            transform: translateY(0);
+        }
+        .toast-icon-frame {
+            width: 28px;
+            height: 28px;
+            color: var(--danger-red);
+            flex-shrink: 0;
+        }
+        .toast-icon-frame svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
+        }
+
+        /* AI Workspace container */
         .ai-workspace-container {
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: var(--bg-dark);
+            background: #ffffff;
             height: 100%;
         }
 
@@ -1170,20 +1189,21 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: var(--bg-dark);
+            background-color: #ffffff;
             z-index: 5000;
             display: none;
             flex-direction: column;
+            box-sizing: border-box;
         }
         .shop-header-navbar {
-            height: 72px;
-            background: var(--bg-panel);
+            height: 70px;
+            background: #ffffff;
             border-bottom: 1px solid var(--border-subtle);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 28px;
-            backdrop-filter: blur(24px);
+            padding: 0 24px;
+            box-sizing: border-box;
         }
         .back-nav-link {
             font-size: 12px;
@@ -1191,19 +1211,28 @@
             color: var(--text-muted);
             text-transform: uppercase;
             text-decoration: none;
-            display: inline-flex;
+            display: flex;
             align-items: center;
             gap: 6px;
-            background: var(--input-bg);
+            background: var(--bg-dark);
             padding: 8px 14px;
             border-radius: 8px;
             border: 1px solid var(--border-subtle);
-            transition: var(--transition-smooth);
+            transition: all 0.15s ease;
         }
-        .back-nav-link:hover { color: var(--text-main); border-color: var(--text-muted); }
-        .shop-headline-title { font-weight: 800; font-size: 16px; letter-spacing: 0.5px; }
+        .back-nav-link:hover {
+            color: var(--text-main);
+            border-color: var(--text-muted);
+        }
+        .shop-headline-title {
+            font-weight: 800;
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-main);
+        }
         .balance-container-pill {
-            background: rgba(245, 158, 11, 0.08);
+            background: rgba(245, 158, 11, 0.06);
             border: 1px solid var(--gold-accent);
             padding: 6px 14px;
             border-radius: 20px;
@@ -1211,7 +1240,12 @@
             color: var(--gold-accent);
             font-size: 13px;
         }
-        .shop-showcase-scroller { flex: 1; overflow-y: auto; padding: 32px; background: rgba(0,0,0,0.1); }
+        .shop-showcase-scroller {
+            flex: 1;
+            overflow-y: auto;
+            padding: 32px;
+            background: var(--bg-dark);
+        }
         .shop-items-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -1220,102 +1254,122 @@
             margin: 0 auto;
         }
         .shop-item-card {
-            background: var(--bg-sidebar);
+            background: #ffffff;
             border: 1px solid var(--border-subtle);
-            border-radius: 18px;
-            padding: 24px;
+            border-radius: 16px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             position: relative;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+            transition: transform 0.2s ease;
         }
-
-        /* ==========================================================================
-           RESPONSIVE FLUID MECHANICS AND MOBILE OVERRIDES 
-           ========================================================================== */
-        @media (max-width: 768px) {
-            body { flex-direction: column-reverse; }
-            
-            .global-nav-rail {
-                width: 100vw;
-                height: 64px;
-                flex-direction: row;
-                justify-content: space-around;
-                padding: 0;
-                border-right: none;
-                border-top: 1px solid var(--border-subtle);
-                position: fixed;
-                bottom: 0;
-                left: 0;
-            }
-            .rail-tab-item.active::after {
-                left: 14px;
-                top: auto;
-                bottom: -2px;
-                width: 20px;
-                height: 4px;
-                border-radius: 4px 4px 0 0;
-            }
-            .christmas-countdown-rail-widget { display: none; }
-
-            .sidebar-panel {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 280px;
-                height: calc(100vh - 64px);
-                z-index: 200;
-                transform: translateX(-100%);
-            }
-            .sidebar-panel.mobile-revealed { transform: translateX(0); }
-
-            .workspace-panel, .ai-workspace-container {
-                width: 100vw;
-                height: calc(100vh - 64px);
-                margin-bottom: 64px;
-            }
-
-            .mobile-hamburger-trigger { display: inline-block; }
-            .msg-bubble { max-width: 85%; }
-            .call-overlay { padding: 20px; }
-            .call-floating-local-pip { width: 100px; height: 140px; bottom: 16px; right: 16px; }
-            
-            /* Enforce Touch Target Min-Dimensions */
-            button, a, input, select, .rail-tab-item, .chat-list-row, .emoji-grid-item-cell {
-                min-height: 44px;
-            }
+        .shop-item-card:hover {
+            transform: translateY(-4px);
+        }
+        .shop-card-content-box {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        .item-badge-exclusive {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: var(--pink-neon);
+            color: #ffffff;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            z-index: 3;
+        }
+        .item-badge-locked {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            background: var(--text-muted);
+            color: #ffffff;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            z-index: 3;
+        }
+        .item-graphic-wrapper {
+            height: 160px;
+            width: 100%;
+            background: #e2e8f0;
+            position: relative;
+        }
+        .item-graphic-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .item-magic-name {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+        .item-meta-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+            line-height: 1.4;
+            margin-bottom: 16px;
+            flex: 1;
+        }
+        .item-action-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+        .item-price-tag {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--gold-accent);
+        }
+        .buy-action-trigger {
+            background: transparent;
+            color: var(--primary-accent);
+            border: 1px solid var(--primary-accent);
+            padding: 7px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 12px;
+            text-decoration: none;
+            transition: all 0.15s ease;
+        }
+        .buy-action-trigger:hover {
+            background: var(--primary-accent);
+            color: #ffffff;
+        }
+        .buy-action-trigger.unlocked {
+            background: rgba(16, 185, 129, 0.08) !important;
+            border-color: var(--success-green) !important;
+            color: var(--success-green) !important;
+        }
+        .buy-action-trigger:disabled {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            color: #94a3b8;
         }
     </style>
 </head>
 <body>
 
-    <!-- Dynamic Animated App Update Changelog Screen Portal Layer -->
-    <div id="update-portal-overlay">
-        <div class="update-card-container">
-            <div class="changelog-badge-node">Release Patch v4.2.0</div>
-            <h2 class="update-title-h2">NexusChat Restructured!</h2>
-            <p class="update-desc-p">We have upgraded the underlying environment layout architecture to establish sleek enterprise responsiveness and premium immersive views.</p>
-            
-            <div class="changelog-bullets-list">
-                <div class="changelog-row-item">
-                    <div class="changelog-bullet-dot"></div>
-                    <div><strong>Sophisticated Minimal Dark Layout:</strong> Ultra luxury aesthetics styled with geometric depth patterns.</div>
-                </div>
-                <div class="changelog-row-item">
-                    <div class="changelog-bullet-dot"></div>
-                    <div><strong>Fluid Mobile Ingress:</strong> Absolute multi-breakpoint collapse framework running adaptive responsive logic.</div>
-                </div>
-                <div class="changelog-row-item">
-                    <div class="changelog-bullet-dot"></div>
-                    <div><strong>Theatrical Viewport Telephony:</strong> Optimized glowing rings on calling targets using hardware acceleration.</div>
-                </div>
-                <div class="changelog-row-item">
-                    <div class="changelog-bullet-dot"></div>
-                    <div><strong>Expanded Native Grid Emojis:</strong> Populated custom high-definition text elements instantly.</div>
-                </div>
-            </div>
-
-            <button type="button" class="dismiss-update-btn" onclick="dismissChangelogUpdateOverlay()">Launch Workstation</button>
+    <!-- Global Persistent Announcement Ticker -->
+    <div id="global-nexus-announcement-banner">
+        <div style="display:flex; align-items:center; gap:10px;">
+            <span style="background:rgba(255,255,255,0.2); padding:2px 8px; border-radius:4px; font-size:11px; font-weight:800;">BROADCAST</span>
+            <span id="announcement-banner-text-target">Welcome to Nexus System Core.</span>
         </div>
+        <button onclick="document.getElementById('global-nexus-announcement-banner').style.display='none'" style="background:transparent; border:none; color:#ffffff; font-weight:700;">×</button>
     </div>
 
     <!-- Cinematic Loading Portal Splash Overlay -->
@@ -1334,7 +1388,7 @@
         <div class="login-card-glassmorphic-wrapper">
             <div class="login-card-header">
                 <h1 class="login-title-h1">Workspace Identity</h1>
-                <p class="login-subtitle-p">Complete verification variables to launch telemetry client context</p>
+                <p class="login-subtitle-p">Complete your verification parameters to launch the telemetry client context</p>
             </div>
 
             <form class="registration-input-group-form" onsubmit="event.preventDefault();">
@@ -1360,11 +1414,11 @@
                 </div>
                 
                 <div>
-                    <label class="form-label-node">Avatar Profile Image Asset</label>
+                    <label class="form-label-node">Avatar Profile Image Asset (Mandatory)</label>
                     <div class="avatar-file-upload-trigger-container">
                         <div class="avatar-upload-preview-frame" id="portal-avatar-preview-box">?</div>
                         <input type="file" id="portal-avatar-file-input" accept="image/*" style="display: none;" onchange="handleLocalAvatarSelection(event)">
-                        <button type="button" class="custom-file-input-facade-btn" onclick="initPremiumAudioEngine(); document.getElementById('portal-avatar-file-input').click()">Upload Photo</button>
+                        <button type="button" class="custom-file-input-facade-btn" onclick="initPremiumAudioEngine(); document.getElementById('portal-avatar-file-input').click()">Upload Photo Asset</button>
                     </div>
                 </div>
 
@@ -1373,172 +1427,201 @@
         </div>
     </div>
 
-    <div id="app-frame">
-        <div class="global-nav-rail">
-            <div class="rail-tab-item active" id="tab-node-chat" onclick="switchGlobalRailContext('chat')" title="Home Messaging Matrix">
-                <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-            </div>
-            <div class="rail-tab-item" id="tab-node-ai" onclick="switchGlobalRailContext('ai')" title="NexusAI Intelligence Node">
-                <svg viewBox="0 0 24 24"><path d="M12 2c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l2.79-2.79C10.09 18.66 11.03 19 12 19c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>
-            </div>
-            <div class="rail-tab-item" id="tab-node-groups" onclick="switchGlobalRailContext('groups')" title="Group Systems Hub">
-                <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
-            </div>
-            <div class="rail-tab-item" id="tab-node-settings" onclick="toggleThemeProfileMode()" title="Toggle Visual System Theme Variant">
-                <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9c0-.46-.04-.92-.1-1.36-.98 1.37-2.58 2.26-4.4 2.26-3.03 0-5.5-2.47-5.5-5.5 0-1.82.89-3.42 2.26-4.4-.44-.06-.9-.1-1.36-.1z"/></svg>
-            </div>
-
-            <!-- Christmas Update Counter Left Widget -->
-            <div class="christmas-countdown-rail-widget" title="Christmas Protocol Sync Status">
-                <div class="xmas-widget-title">XMAS</div>
-                <div class="xmas-widget-clock" id="global-xmas-countdown-node">00d 00h</div>
-            </div>
+    <!-- Active Update Toast Alert Notification Element -->
+    <div class="system-update-alert-toast" id="nexus-update-toast-overlay">
+        <div class="toast-icon-frame">
+            <svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>
         </div>
-        
-        <div class="sidebar-panel" id="app-sidebar-panel-container">
-            <div class="sidebar-header">
-                <div class="profile-node-area">
-                    <div class="user-tag-avatar" id="my-avatar-node">N</div>
-                    <div class="sidebar-title" id="my-username-node">Connecting Hub...</div>
-                </div>
-            </div>
-            
-            <div class="sidebar-tools" id="sidebar-context-controls-box">
-                <button class="shop-trigger-btn" onclick="openPremiumStorefront()">Open Nexus Shop</button>
-                <button class="sm-btn" id="sidebar-action-primary-btn" onclick="triggerChannelCreation()">+ Connect to Code Matrix</button>
-                <button class="sm-btn danger" onclick="performProfileHardwareReset()">Reset Session</button>
-            </div>
-            
-            <div class="contacts-vertical-stack" id="contacts-vertical-stack"></div>
-        </div>
-
-        <div id="master-panel-view-container" style="flex:1; display:flex; height:100%;">
-            
-            <!-- Context 1: Core Chat System Framework Workspace -->
-            <div class="workspace-panel" id="view-workspace-chat">
-                <div class="workspace-header">
-                    <div class="header-profile">
-                        <button class="mobile-hamburger-trigger" onclick="toggleMobileSidebarMenu()" title="Toggle Menu Drawer">
-                            <svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg>
-                        </button>
-                        <div class="title" id="active-chat-headline-node">Global Public Lobby</div>
-                    </div>
-                    
-                    <div class="call-header-action-button-group">
-                        <button class="call-action-btn" onclick="launchAdvancedOverlayCallingView(false)" title="Secure Voice Call Session">
-                            <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1.01C8.7 6.31 8.5 5.12 8.5 3.9c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.52c0-.55-.45-1-1-1z"/></svg>
-                        </button>
-                        <button class="call-action-btn" onclick="launchAdvancedOverlayCallingView(true)" title="Secure Video Call Session">
-                            <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="thread-scroll-view" id="chat-thread-viewport"></div>
-
-                <div class="input-dock-bar">
-                    <button type="button" class="mic-record-trigger-btn" id="voice-memo-toggle-btn" onclick="toggleVoiceMessageRecording()" title="Record Audio Capsule">
-                        <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
-                    </button>
-
-                    <button type="button" class="media-attach-trigger-btn" onclick="document.getElementById('chat-media-attachment-hidden-input').click()" title="Attach Multimedia File Asset">
-                        <svg viewBox="0 0 24 24"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-3.31 2.69-6 6-6s6 2.69 6 6v10c0 4.42-3.58 8-8 8s-8-3.58-8-8V4h2v11c0 3.31 2.69 6 6 6s6-2.69 6-6V5c0-2.21-1.79-4-4-4s-4 1.79-4 4v11.5c0 1.1.9 2 2 2s2-.9 2-2V6h2z"/></svg>
-                    </button>
-                    <input type="file" id="chat-media-attachment-hidden-input" accept="image/*,video/*" style="display:none;" onchange="executeLocalMediaAttachmentUpload(event)">
-
-                    <input type="text" id="text-message-input-node" placeholder="Type a message safely into active router stream..." onkeypress="trapInputKeypress(event)">
-                    
-                    <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Special Vector Key Tag">
-                        <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 10 10 10-4.48 10-10S17.51 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
-                    </button>
-                    
-                    <div class="emoji-picker-matrix-overlay" id="emoji-picker-matrix-overlay">
-                        <div class="emoji-picker-header">Select Native Matrix Emoji</div>
-                        <div class="emoji-grid-scroller" id="emoji-grid-scroller-target"></div>
-                    </div>
-
-                    <button class="send-btn" id="send-message-dispatch-btn" onclick="executeTextDispatch()">Send</button>
-                    
-                    <div class="cooldown-progress-track">
-                        <div class="cooldown-progress-fill" id="cooldown-progress-fill-bar"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Context 2: Smart NexusAI Operational Terminal Framework -->
-            <div class="ai-workspace-container" id="view-workspace-ai" style="display:none;">
-                <div class="workspace-header">
-                    <div class="header-profile">
-                        <button class="mobile-hamburger-trigger" onclick="toggleMobileSidebarMenu()"><svg viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/></svg></button>
-                        <div class="title" style="color: var(--primary-accent);">NexusAI Smart Engine Node</div>
-                    </div>
-                </div>
-                <div class="thread-scroll-view" id="ai-thread-viewport">
-                    <div class="msg-bubble received">
-                        <span class="msg-author">NexusAI Operational System</span>
-                        <div>Greetings. I am the high-tier diagnostic NexusAI model. I possess detailed computational telemetry concerning WebRTC channels, MQTT networking architecture, and interface systems. Ask any query.</div>
-                    </div>
-                </div>
-                <div class="input-dock-bar">
-                    <input type="text" id="ai-message-input-node" placeholder="Query NexusAI computational engine..." onkeypress="if(event.key==='Enter') executeAiQueryDispatch()">
-                    <button class="send-btn" onclick="executeAiQueryDispatch()">Query</button>
-                </div>
-            </div>
-
+        <div>
+            <div style="font-weight:700; font-size:14px; color:#1e293b; margin-bottom:2px;">Update Protocol Engaged</div>
+            <div style="font-size:12px; color:#64748b; line-height:1.4;">NexusChat is resetting an update. Standby for immediate context reload...</div>
         </div>
     </div>
 
-    <!-- INTERACTIVE TELEPHONY SYSTEM VIEWPORT OVERLAY LAYER -->
-    <div class="call-overlay" id="premiumCallOverlayStage">
-        <div class="call-top-meta-bar">
-            <div class="call-secure-lock-badge">
-                <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z"/></svg>
-                <span>E2EE Telephony Active</span>
-            </div>
-            <div style="font-size: 13px; color: var(--text-muted);" id="callMediaCategoryHeaderLabel">Audio Signal Line</div>
-        </div>
+    <div id="app-frame">
+        <div class="app-main-layout-container">
+            <div class="global-nav-rail">
+                <div class="rail-tab-item active" id="tab-node-chat" onclick="switchGlobalRailContext('chat')" title="Home Messaging Matrix">
+                    <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                </div>
+                <div class="rail-tab-item" id="tab-node-ai" onclick="switchGlobalRailContext('ai')" title="NexusAI Intelligence Node">
+                    <svg viewBox="0 0 24 24"><path d="M12 2c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l2.79-2.79C10.09 18.66 11.03 19 12 19c4.97 0 9-4.03 9-9s-4.03-9-9-9zm0 15c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>
+                </div>
+                <div class="rail-tab-item" id="tab-node-groups" onclick="switchGlobalRailContext('groups')" title="Group Systems Hub">
+                    <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+                </div>
+                <div class="rail-tab-item" id="tab-node-settings" onclick="switchGlobalRailContext('settings')" title="Core Workstation Configuration">
+                    <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+                </div>
 
-        <div class="call-viewport-center-stage">
-            <div class="call-voice-profile-card-center" id="overlayVoiceFrameContainer">
-                <div class="call-voice-avatar-node" id="overlayCallingAvatarIcon">N</div>
-                <h2 id="overlayCallingTargetName" style="font-size: 22px; font-weight: 700; margin: 0; color: var(--text-main);">Active Stream Node</h2>
-                <div class="call-voice-timer-badge" id="overlayCallStatusTimerClock">Initializing Router Vectors...</div>
+                <div class="christmas-countdown-rail-widget" title="Christmas Protocol Sync Status">
+                    <div class="xmas-widget-title">XMAS</div>
+                    <div class="xmas-widget-clock" id="global-xmas-countdown-node">00d 00h</div>
+                </div>
+            </div>
+            
+            <div class="sidebar-panel">
+                <div class="sidebar-header">
+                    <div class="profile-node-area">
+                        <div class="user-tag-avatar" id="my-avatar-node">N</div>
+                        <div class="sidebar-title" id="my-username-node">Connecting Hub...</div>
+                    </div>
+                </div>
                 
-                <div class="call-equalizer-bars-container" id="call-equalizer-bars-element" style="display:none;">
-                    <div class="call-equalizer-bar-unit"></div>
-                    <div class="call-equalizer-bar-unit"></div>
-                    <div class="call-equalizer-bar-unit"></div>
-                    <div class="call-equalizer-bar-unit"></div>
-                    <div class="call-equalizer-bar-unit"></div>
+                <div class="sidebar-tools" id="sidebar-context-controls-box">
+                    <button class="shop-trigger-btn" onclick="openPremiumStorefront()">Open Nexus Shop</button>
+                    <button class="sm-btn" id="sidebar-action-primary-btn" onclick="triggerChannelCreation()">+ Connect to Code Matrix</button>
+                    <button class="sm-btn danger" onclick="performProfileHardwareReset()">Reset Active Session Container</button>
                 </div>
+                
+                <div class="contacts-vertical-stack" id="contacts-vertical-stack"></div>
             </div>
 
-            <div class="call-immersive-video-viewport" id="overlayVideoFrameContainer">
-                <div class="call-remote-video-feed-facade">
-                    <video id="remoteWebrtcStreamElement" autoplay playsinline></video>
+            <!-- Master Interactive Center Content Section Switcher -->
+            <div id="master-panel-view-container" style="flex:1; display:flex; height:100%;">
+                
+                <!-- Context 1: Core Chat System Framework Workspace (Compact Width Applied) -->
+                <div class="workspace-panel" id="view-workspace-chat">
+                    <div class="workspace-header">
+                        <div class="header-profile">
+                            <div class="title" id="active-chat-headline-node">Global Public Lobby</div>
+                        </div>
+                        
+                        <div class="call-header-action-button-group">
+                            <button class="call-action-btn" onclick="launchAdvancedOverlayCallingView(false)" title="Secure Voice Call Session">
+                                <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1.01C8.7 6.31 8.5 5.12 8.5 3.9c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.52c0-.55-.45-1-1-1z"/></svg>
+                            </button>
+                            <button class="call-action-btn" onclick="launchAdvancedOverlayCallingView(true)" title="Secure Video Call Session">
+                                <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="thread-scroll-view" id="chat-thread-viewport"></div>
+
+                    <div class="input-dock-bar">
+                        <button type="button" class="mic-record-trigger-btn" id="voice-memo-toggle-btn" onclick="toggleVoiceMessageRecording()" title="Record Audio Capsule">
+                            <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+                        </button>
+
+                        <button type="button" class="media-attach-trigger-btn" onclick="document.getElementById('chat-media-attachment-hidden-input').click()" title="Attach Multimedia File Asset">
+                            <svg viewBox="0 0 24 24"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-3.31 2.69-6 6-6s6 2.69 6 6v10c0 4.42-3.58 8-8 8s-8-3.58-8-8V4h2v11c0 3.31 2.69 6 6 6s6-2.69 6-6V5c0-2.21-1.79-4-4-4s-4 1.79-4 4v11.5c0 1.1.9 2 2 2s2-.9 2-2V6h2z"/></svg>
+                        </button>
+                        <input type="file" id="chat-media-attachment-hidden-input" accept="image/*,video/*" style="display:none;" onchange="executeLocalMediaAttachmentUpload(event)">
+
+                        <input type="text" id="text-message-input-node" placeholder="Type a message or terminal command..." onkeypress="trapInputKeypress(event)">
+                        
+                        <button type="button" class="emoji-trigger-node-btn" onclick="toggleInlineEmojiPickerTray()" title="Insert Special Vector Key Tag">
+                            <svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 10 10 10-4.48 10-10S17.51 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>
+                        </button>
+                        
+                        <div class="emoji-picker-matrix-overlay" id="emoji-picker-matrix-overlay">
+                            <div class="emoji-picker-header">Select Vector Matrix Input</div>
+                            <div class="emoji-grid-scroller" id="emoji-grid-scroller-target"></div>
+                        </div>
+
+                        <button class="send-btn" id="send-message-dispatch-btn" onclick="executeTextDispatch()">Send Message</button>
+                        
+                        <div class="cooldown-progress-track">
+                            <div class="cooldown-progress-fill" id="cooldown-progress-fill-bar"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="call-floating-local-pip" id="overlayLocalPipPreviewFrame">
-                    <video id="localWebrtcStreamElement" autoplay playsinline muted></video>
+
+                <!-- Context 1.5 Secondary Diagnostics Node (Fills the remaining 40% layout width) -->
+                <div class="workspace-secondary-diagnostics">
+                    <div style="background:#ffffff; border:1px solid var(--border-subtle); padding:20px; border-radius:14px; box-shadow:0 4px 12px rgba(0,0,0,0.01);">
+                        <h3 style="margin:0 0 8px 0; font-size:14px; font-weight:700; color:var(--text-main);">Telemetry Diagnostics</h3>
+                        <p style="margin:0; font-size:12px; color:var(--text-muted); line-height:1.5;">Workspace viewport compression has been enacted successfully. Real-time telemetry monitoring, muted matrix queues, and admin command loops are displayed here.</p>
+                    </div>
+                    <div style="background:#ffffff; border:1px solid var(--border-subtle); padding:20px; border-radius:14px; flex:1; display:flex; flex-direction:column; gap:10px;">
+                        <h4 style="margin:0; font-size:12px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">Active Mute Register</h4>
+                        <div id="telemetry-muted-list-container" style="display:flex; flex-direction:column; gap:6px; overflow-y:auto; flex:1; font-size:13px; color:var(--text-main);">
+                            <div style="color:var(--text-muted); font-style:italic; font-size:12px;">No active mutes in current pipeline layer.</div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Context 2: Smart NexusAI Operational Terminal Framework -->
+                <div class="ai-workspace-container" id="view-workspace-ai" style="display:none;">
+                    <div class="workspace-header">
+                        <div class="header-profile">
+                            <div class="title" style="color: var(--primary-accent); display:flex; align-items:center; gap:8px;">
+                                <span>NexusAI Smart Engine Node</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="thread-scroll-view" id="ai-thread-viewport" style="background:#f1f5f9;">
+                        <div class="msg-bubble received">
+                            <span class="msg-author">NexusAI Operational System</span>
+                            <div>Greetings. I am the high-tier diagnostic NexusAI model. I possess detailed computational telemetry concerning WebRTC channels, MQTT networking architecture, mathematical queries, and local workspace data parameters. Ask any operational request.</div>
+                        </div>
+                    </div>
+                    <div class="input-dock-bar">
+                        <input type="text" id="ai-message-input-node" placeholder="Query NexusAI computational engine..." onkeypress="if(event.key==='Enter') executeAiQueryDispatch()">
+                        <button class="send-btn" onclick="executeAiQueryDispatch()">Query AI</button>
+                    </div>
+                </div>
+
             </div>
         </div>
+    </div>
 
-        <div class="call-controls-row-footer">
-            <button class="call-action-circle-round-btn accept-btn-style" id="overlayAcceptIncomingCallAction" onclick="executeIncomingCallAcceptAction()" title="Accept Connection Stream" style="display: none;">
-                <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1.01C8.7 6.31 8.5 5.12 8.5 3.9c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.52c0-.55-.45-1-1-1z"/></svg>
-            </button>
-            <button class="call-action-circle-round-btn mute-btn-style" id="overlayMuteAudioActionToggle" onclick="executeOverlayMuteOperationToggle()" title="Toggle Local Microphone">
-                <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
-            </button>
-            <button class="call-action-circle-round-btn cam-btn-style" id="overlayToggleCameraActionToggle" onclick="executeOverlayCameraOperationToggle()" title="Toggle Local Optical Track">
-                <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
-            </button>
-            <button class="call-action-circle-round-btn screen-btn-style" id="overlayScreenShareActionToggle" onclick="executeOverlayScreenShareToggle()" title="Share Graphics Screen Surface">
-                <svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.11-.9-2-2-2H4c-1.11 0-2 .89-2 2v10c0 1.1.89 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
-            </button>
-            <button class="call-action-circle-round-btn hangup-btn-style" onclick="disconnectOverlayActiveCallSession()" title="Hang Up Active Pipeline Context">
-                <svg viewBox="0 0 24 24"><path d="M12 9c-2.45 0-4.76.74-6.7 2L3 8.3c2.56-2.15 5.85-3.3 9.4-3.3 3.55 0 6.84 1.15 9.4 3.3L18.7 11c-1.94-1.26-4.25-2-6.7-2z"/></svg>
-            </button>
+    <!-- BRAND NEW IMMERSIVE TELEPHONY OVERLAY SYSTEM STAGE -->
+    <div class="call-overlay" id="premiumCallOverlayStage">
+        <div class="premium-call-window-shell">
+            <div class="call-internal-navbar">
+                <div style="display:flex; align-items:center; gap:8px;">
+                    <div style="width:8px; height:8px; background:var(--success-green); border-radius:50%;"></div>
+                    <span style="font-size:13px; font-weight:700; color:var(--text-main);" id="callMediaCategoryHeaderLabel">Audio Signal Line</span>
+                </div>
+                <div style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">E2EE Secure Node</div>
+            </div>
+
+            <div class="call-internal-stage-viewport">
+                <!-- Voice Mode Layout Frame Container -->
+                <div class="call-voice-profile-card-center" id="overlayVoiceFrameContainer">
+                    <div class="call-voice-avatar-node" id="overlayCallingAvatarIcon">N</div>
+                    <h2 id="overlayCallingTargetName" style="font-size: 18px; font-weight: 700; margin: 0; color: var(--text-main);">Active Stream Node</h2>
+                    <div class="call-voice-timer-badge" id="overlayCallStatusTimerClock">Initializing Router Vectors...</div>
+                    
+                    <div class="call-equalizer-bars-container" id="call-equalizer-bars-element" style="display:none;">
+                        <div class="call-equalizer-bar-unit"></div>
+                        <div class="call-equalizer-bar-unit"></div>
+                        <div class="call-equalizer-bar-unit"></div>
+                        <div class="call-equalizer-bar-unit"></div>
+                        <div class="call-equalizer-bar-unit"></div>
+                    </div>
+                </div>
+
+                <!-- Immersive WebRTC Video Stage -->
+                <div class="call-immersive-video-viewport" id="overlayVideoFrameContainer">
+                    <div class="call-remote-video-feed-facade">
+                        <video id="remoteWebrtcStreamElement" autoplay playsinline></video>
+                    </div>
+                    <div class="call-floating-local-pip" id="overlayLocalPipPreviewFrame">
+                        <video id="localWebrtcStreamElement" autoplay playsinline muted></video>
+                    </div>
+                </div>
+            </div>
+
+            <div class="call-internal-controls-row">
+                <button class="call-action-circle-round-btn accept-btn-style" id="overlayAcceptIncomingCallAction" onclick="executeIncomingCallAcceptAction()" title="Accept Connection Stream" style="display: none;">
+                    <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1.01C8.7 6.31 8.5 5.12 8.5 3.9c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.52c0-.55-.45-1-1-1z"/></svg>
+                </button>
+                <button class="call-action-circle-round-btn mute-btn-style" id="overlayMuteAudioActionToggle" onclick="executeOverlayMuteOperationToggle()" title="Toggle Local Microphone">
+                    <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/></svg>
+                </button>
+                <button class="call-action-circle-round-btn cam-btn-style" id="overlayToggleCameraActionToggle" onclick="executeOverlayCameraOperationToggle()" title="Toggle Local Optical Track">
+                    <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                </button>
+                <button class="call-action-circle-round-btn screen-btn-style" id="overlayScreenShareActionToggle" onclick="executeOverlayScreenShareToggle()" title="Share Graphics Screen Surface">
+                    <svg viewBox="0 0 24 24"><path d="M20 18c1.1 0 1.99-.9 1.99-2L22 6c0-1.11-.9-2-2-2H4c-1.11 0-2 .89-2 2v10c0 1.1.89 2 2 2H0v2h24v-2h-4zM4 6h16v10H4V6z"/></svg>
+                </button>
+                <button class="call-action-circle-round-btn hangup-btn-style" onclick="disconnectOverlayActiveCallSession()" title="Hang Up Active Pipeline Context">
+                    <svg viewBox="0 0 24 24"><path d="M12 9c-2.45 0-4.76.74-6.7 2L3 8.3c2.56-2.15 5.85-3.3 9.4-3.3 3.55 0 6.84 1.15 9.4 3.3L18.7 11c-1.94-1.26-4.25-2-6.7-2z"/></svg>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -1546,7 +1629,7 @@
     <div id="nexus-shop-screen">
         <div class="shop-header-navbar">
             <a href="#" class="back-nav-link" onclick="closePremiumStorefront()">
-                <svg viewBox="0 0 24 24" style="width:14px; height:14px; fill:currentColor;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+                <svg viewBox="0 0 24 24" style="width:14px; height:14px; fill:currentColor; margin-right:4px;"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
                 <span>Go Back</span>
             </a>
             <div class="shop-headline-title">Nexus Multi-Asset Storefront</div>
@@ -1564,11 +1647,24 @@
         let unreadMessageCount = 0;
         let pageIsFocused = true;
 
-        window.addEventListener('focus', () => { pageIsFocused = true; unreadMessageCount = 0; updateBrowserTabTitleFacade(); });
-        window.addEventListener('blur', () => { pageIsFocused = false; });
+        // Custom Telephony Command Global Arrays
+        let pipelineMutedUsersList = [];
+
+        window.addEventListener('focus', () => {
+            pageIsFocused = true;
+            unreadMessageCount = 0;
+            updateBrowserTabTitleFacade();
+        });
+        window.addEventListener('blur', () => {
+            pageIsFocused = false;
+        });
 
         function updateBrowserTabTitleFacade() {
-            document.title = unreadMessageCount > 0 ? `(${unreadMessageCount}) NexusChat Messenger Client` : "NexusChat Messenger Client";
+            if (unreadMessageCount > 0) {
+                document.title = `(1) NexusChat Messenger Client`;
+            } else {
+                document.title = "NexusChat Messenger Client";
+            }
         }
 
         function initAudioContext() {
@@ -1576,15 +1672,18 @@
                 window.AudioContext = window.AudioContext || window.webkitAudioContext;
                 audioCtx = new AudioContext();
             }
-            if (audioCtx.state === 'suspended') audioCtx.resume();
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
         }
 
         function initPremiumAudioEngine() {
             initAudioContext();
             if (bgMusicNode) return;
+
             try {
                 const ambientGain = audioCtx.createGain();
-                ambientGain.gain.setValueAtTime(0.01, audioCtx.currentTime);
+                ambientGain.gain.setValueAtTime(0.02, audioCtx.currentTime);
                 ambientGain.connect(audioCtx.destination);
 
                 const oscNode = audioCtx.createOscillator();
@@ -1593,7 +1692,7 @@
 
                 const filterNode = audioCtx.createBiquadFilter();
                 filterNode.type = 'lowpass';
-                filterNode.frequency.setValueAtTime(320, audioCtx.currentTime);
+                filterNode.frequency.setValueAtTime(350, audioCtx.currentTime);
 
                 oscNode.connect(filterNode);
                 filterNode.connect(ambientGain);
@@ -1603,13 +1702,20 @@
                 setInterval(() => {
                     if (audioCtx && audioCtx.state === 'running') {
                         const timeMod = Date.now() / 4000;
-                        oscNode.frequency.setTargetAtTime(110 + Math.sin(timeMod) * 4, audioCtx.currentTime, 0.5);
+                        const dynamicFreq = 110 + Math.sin(timeMod) * 5;
+                        const dynamicFilter = 350 + Math.cos(timeMod) * 80;
+                        
+                        oscNode.frequency.setTargetAtTime(dynamicFreq, dynamicFreq, 0.5);
+                        filterNode.frequency.setTargetAtTime(dynamicFilter, audioCtx.currentTime, 0.5);
                     }
                 }, 1000);
-            } catch (err) {}
+
+            } catch (err) {
+                console.log("Generative background ambient track stream bypass handled cleanly.");
+            }
         }
 
-        function playSynthFrequency(frequency, type, duration, volume = 0.08) {
+        function playSynthFrequency(frequency, type, duration, volume = 0.1) {
             try {
                 initAudioContext();
                 const osc = audioCtx.createOscillator();
@@ -1622,19 +1728,43 @@
                 gainNode.connect(audioCtx.destination);
                 osc.start();
                 osc.stop(audioCtx.currentTime + duration);
-            } catch (e) {}
+            } catch (e) { 
+                console.log("Audio oscillation bypass handled smoothly."); 
+            }
         }
 
-        function playMessageNotificationSound() { playSynthFrequency(880, 'sine', 0.12, 0.1); }
-        function triggerLoginSoundFile() { playSynthFrequency(523.25, 'sine', 0.3, 0.15); }
+        function playMessageNotificationSound() {
+            try {
+                const notificationAudio = new Audio('discord-notification.mp3.mpeg');
+                notificationAudio.volume = 0.5;
+                notificationAudio.play().catch(e => {
+                    playSynthFrequency(880, 'sine', 0.15, 0.2);
+                });
+            } catch (err) {
+                console.log("Notification file error handled safely.");
+            }
+        }
+
+        function triggerLoginSoundFile() {
+            try {
+                const loginAudio = new Audio('minecraft-rare.mpeg');
+                loginAudio.volume = 0.6;
+                loginAudio.play().catch(e => {});
+            } catch (err) {
+                console.log("Audio pipeline configuration exceptions handled gracefully.");
+            }
+        }
 
         function triggerRingingToneLoop(stopCall = false) {
-            if (stopCall) { if (ringInterval) clearInterval(ringInterval); return; }
+            if (stopCall) {
+                if (ringInterval) clearInterval(ringInterval);
+                return;
+            }
             initAudioContext();
             if (ringInterval) clearInterval(ringInterval);
             const executeDoubleBeep = () => {
-                playSynthFrequency(440, 'sine', 0.3, 0.1);
-                setTimeout(() => playSynthFrequency(480, 'sine', 0.3, 0.1), 60);
+                playSynthFrequency(440, 'sine', 0.4, 0.15);
+                setTimeout(() => playSynthFrequency(480, 'sine', 0.4, 0.15), 50);
             };
             executeDoubleBeep();
             ringInterval = setInterval(executeDoubleBeep, 2000);
@@ -1656,86 +1786,129 @@
         let peerConnection = null;
         let localStream = null;
         let screenStream = null;
-        const webrtcIceConfiguration = { iceServers: [{ urls: 'stun:stun.l.google.com:19302' }] };
+        const webrtcIceConfiguration = {
+            iceServers: [
+                { urls: 'stun:stun.l.google.com:19302' },
+                { urls: 'stun:stun1.l.google.com:19302' }
+            ]
+        };
 
         let activeGroupHubs = [
             { id: 'hub-alpha', name: 'Strategic UI Architecture' },
             { id: 'hub-beta', name: 'Core System Developers' }
         ];
 
-        let channelDatabase = { 'global-lobby': { name: "Public Communication Lobby", history: [] } };
+        let channelDatabase = {
+            'global-lobby': { name: "Public Communication Lobby", history: [] }
+        };
 
         let overlayCallSessionState = {
-            active: false, isVideo: false, isMuted: false, isCamOff: false, isScreenSharing: false,
-            timerInterval: null, routingTimeout: null, elapsedSeconds: 0, isConnectedState: false
+            active: false,
+            isVideo: false,
+            isMuted: false,
+            isCamOff: false,
+            isScreenSharing: false,
+            timerInterval: null,
+            routingTimeout: null,
+            elapsedSeconds: 0,
+            isConnectedState: false
         };
 
         const shopInventoryMatrix = [
-            { id: 'exclusive-skin', name: 'Pro Silicon Framework Theme', desc: 'Enterprise high contrast visualization framework parameters.', cost: 'Free Beta Asset', exclusive: true },
-            { id: 'nexus-pass', name: 'Nexus Elite Channel Permit', desc: 'Allows instantiation of localized cross-network private parameters.', cost: 'Free Beta Allocation', exclusive: false }
+            { id: 'christmas-gift-exclusive', name: 'Christmas Alpha Module', desc: 'Special free operational skin. Locked until the upcoming seasonal calendar drop event.', cost: 'Free', exclusive: true, locked: true, img: 'https://images.stockcake.com/public/c/9/f/c9fce65d-49a3-4f9b-b128-2d5a5180c1b8/sound-wave-ripples-stockcake.jpg' },
+            { id: 'nexus-elite', name: 'Premium Client Pass', desc: 'Allows complete dynamic layout modifications across global navigation networks.', cost: '$4.99 via PayPal', link: 'https://www.paypal.com', exclusive: false, locked: false, img: 'https://images.stockcake.com/public/c/9/f/c9fce65d-49a3-4f9b-b128-2d5a5180c1b8/sound-wave-ripples-stockcake.jpg' },
+            { id: 'magic-mists', name: 'Hifi System Audio Layout', desc: 'Rewires synth oscillators to alternative acoustic spectrum pathways.', cost: '$2.50 via PayPal', link: 'https://www.paypal.com', exclusive: false, locked: false, img: 'https://images.stockcake.com/public/c/9/f/c9fce65d-49a3-4f9b-b128-2d5a5180c1b8/sound-wave-ripples-stockcake.jpg' }
         ];
 
-        // Expanded Native Native Emojis Stream Node List Data
-        const nativeEmojiPack = [
-            "😊","🔥","💻","👑","🚀","⚡","✨","🎉","👍","💯","❤️","👀",
-            "🛡️","🌐","🔒","🤖","🛠️","📈","🎨","🎵","🎮","🌟","⚠️","✅"
+        const vectorIconBlueprintPack = [
+            { label: "Warning", svg: `<svg viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg>` },
+            { label: "Verified", svg: `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>` },
+            { label: "Plus", svg: `<svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>` },
+            { label: "Star", svg: `<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>` },
+            { label: "Alert", svg: `<svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>` }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
             initializeChristmasCountdownEngine();
             generateStorefrontCards();
             populateEmojiPickerGrid();
+            evaluateCachedProfileState();
+            evaluateStickyPersistentAnnouncement();
             
-            // Layout is default dark theme framework, handled inside CSS variables anchor
             document.body.addEventListener('click', initPremiumAudioEngine, { once: true });
         });
 
-        function toggleThemeProfileMode() {
-            document.body.classList.toggle('light-theme');
-            playSynthFrequency(900, 'sine', 0.05, 0.04);
-        }
-
-        function toggleMobileSidebarMenu() {
-            document.getElementById('app-sidebar-panel-container').classList.toggle('mobile-revealed');
-        }
-
-        function dismissChangelogUpdateOverlay() {
-            document.getElementById('update-portal-overlay').classList.add('hidden');
-            playSynthFrequency(1000, 'sine', 0.15, 0.1);
-            evaluateCachedProfileState();
-        }
-
         function initializeChristmasCountdownEngine() {
-            let initialTargetTimestamp = localStorage.getItem('nexus_xmas_target_timestamp_v4');
+            let initialTargetTimestamp = localStorage.getItem('nexus_xmas_target_timestamp_v3');
             if (!initialTargetTimestamp) {
-                const futureTarget = Date.now() + (12 * 24 * 60 * 60 * 1000);
-                localStorage.setItem('nexus_xmas_target_timestamp_v4', futureTarget);
+                const segmentDays = 12 * 24 * 60 * 60 * 1000;
+                const segmentHours = 2 * 60 * 60 * 1000;
+                const segmentMinutes = 20 * 60 * 1000;
+                const futureTarget = Date.now() + segmentDays + segmentHours + segmentMinutes;
+                localStorage.setItem('nexus_xmas_target_timestamp_v3', futureTarget);
                 initialTargetTimestamp = futureTarget;
             }
 
             const updateClockTick = () => {
                 const delta = parseInt(initialTargetTimestamp) - Date.now();
-                if (delta <= 0) { document.getElementById('global-xmas-countdown-node').innerText = "00d 00h"; return; }
+                if (delta <= 0) {
+                    document.getElementById('global-xmas-countdown-node').innerText = "00d 00h 00m";
+                    return;
+                }
                 const d = Math.floor(delta / (24 * 60 * 60 * 1000));
                 const h = Math.floor((delta % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
-                document.getElementById('global-xmas-countdown-node').innerText = `${d}d ${h}h`;
+                const m = Math.floor((delta % (60 * 60 * 1000)) / (60 * 1000));
+                const s = Math.floor((delta % (60 * 1000)) / 1000);
+                
+                document.getElementById('global-xmas-countdown-node').innerText = `${d}d ${h}h ${m}m ${s}s`;
             };
             updateClockTick();
-            setInterval(updateClockTick, 60000);
+            setInterval(updateClockTick, 1000);
+        }
+
+        function evaluateStickyPersistentAnnouncement() {
+            const cachedAnnouncement = localStorage.getItem('nexus_sticky_announcement_data');
+            if (cachedAnnouncement) {
+                document.getElementById('announcement-banner-text-target').innerText = cachedAnnouncement;
+                document.getElementById('global-nexus-announcement-banner').style.display = 'flex';
+            }
         }
 
         function connectRealTimeMqttPipeline() {
             mqttClient = mqtt.connect('wss://broker.emqx.io:8084/mqtt');
             mqttClient.on('connect', () => {
                 mqttClient.subscribe(currentNetworkMeshRoomTopic);
-                appendBubbleElement("Network Protocol", "Linked cleanly to secure cross-device matrix routing.", "received");
+                mqttClient.subscribe("nexuschat/matrix/global_broadcast_channel_v3");
+                appendBubbleElement("Network Protocol", "Linked cleanly to secure cross-device routing matrix.", "received");
             });
 
             mqttClient.on('message', (topic, dataPacket) => {
                 try {
                     const parsedPayload = JSON.parse(dataPacket.toString());
+                    
+                    // Direct Administrative Packet System Commands Execution Routing
+                    if (parsedPayload.dataType === "system-command") {
+                        if (parsedPayload.command === "reload_workstation") {
+                            executeWorkstationAutoReloadTransition();
+                        } else if (parsedPayload.command === "sticky-announcement-update") {
+                            localStorage.setItem('nexus_sticky_announcement_data', parsedPayload.payloadMessage);
+                            document.getElementById('announcement-banner-text-target').innerText = parsedPayload.payloadMessage;
+                            document.getElementById('global-nexus-announcement-banner').style.display = 'flex';
+                        }
+                        return;
+                    }
+
                     if (parsedPayload.senderTokenId !== currentProfileSessionName + "_token") {
-                        if (!pageIsFocused) { unreadMessageCount++; updateBrowserTabTitleFacade(); }
+                        // Check if the remote user has been muted locally
+                        if (pipelineMutedUsersList.includes(parsedPayload.sender.toLowerCase())) {
+                            console.log(`Packet stream from muted user blocked: ${parsedPayload.sender}`);
+                            return; 
+                        }
+
+                        if (!pageIsFocused) {
+                            unreadMessageCount++;
+                            updateBrowserTabTitleFacade();
+                        }
                         if (parsedPayload.dataType === "voice") {
                             injectVoiceBubbleToChatLog(parsedPayload.sender, parsedPayload.mediaData, "received");
                         } else if (parsedPayload.dataType === "text") {
@@ -1746,19 +1919,32 @@
                             handleIncomingWebRtcSignal(parsedPayload.signal, parsedPayload.sender);
                         }
                     }
-                } catch(err) {}
+                } catch(err) {
+                    console.log("Payload execution skipped.");
+                }
             });
         }
 
+        function executeWorkstationAutoReloadTransition() {
+            const toast = document.getElementById('nexus-update-toast-overlay');
+            toast.classList.add('visible');
+            playSynthFrequency(440, 'sawtooth', 0.5, 0.2);
+            setTimeout(() => {
+                window.location.reload();
+            }, 3500);
+        }
+
         function evaluateCachedProfileState() {
-            let cachedName = localStorage.getItem('nexuschat_user_v8');
-            let cachedAvatar = localStorage.getItem('nexuschat_avatar_v8');
+            let cachedName = localStorage.getItem('nexuschat_user_v7');
+            let cachedAvatar = localStorage.getItem('nexuschat_avatar_v7');
             
             if (cachedName && cachedName.trim() !== "") {
                 currentProfileSessionName = cachedName;
                 currentProfileAvatarUrl = cachedAvatar || "";
+                
                 document.getElementById('secure-login-gate-overlay').style.display = 'none';
                 document.getElementById('splash-loading-portal').style.display = 'flex';
+                
                 executeProfileUIRenderSync();
                 runMinecraftEntranceSequence();
                 runCinematicProgressBar();
@@ -1773,11 +1959,12 @@
             const targetContainer = document.getElementById('minecraft-logo-text-target');
             if (!targetContainer) return;
             targetContainer.innerHTML = '';
-            "NEXUSCHAT".split('').forEach((char, index) => {
+            const bannerString = "NEXUSCHAT";
+            bannerString.split('').forEach((char, index) => {
                 const element = document.createElement('span');
                 element.className = 'minecraft-char-token';
                 element.innerText = char;
-                element.style.animationDelay = `${index * 0.08}s`;
+                element.style.animationDelay = `${index * 0.1}s`;
                 targetContainer.appendChild(element);
             });
         }
@@ -1799,16 +1986,26 @@
             const genderInput = document.getElementById('portal-gender-input-node');
             
             let nameVal = usernameInput.value.trim().replace(/\s+/g, '');
-            if (!nameVal || !ageInput.value || !genderInput.value) { alert("Please complete variables."); return; }
-            if (!currentProfileAvatarUrl) { alert("Profile photo mandatory."); return; }
+            if (!nameVal || !ageInput.value || !genderInput.value) {
+                alert("Please properly fill out your profile authorization variables.");
+                return;
+            }
+
+            if (!currentProfileAvatarUrl) {
+                alert("Account creation suspended. A custom profile image asset upload is mandatory.");
+                return;
+            }
 
             currentProfileSessionName = nameVal;
-            localStorage.setItem('nexuschat_user_v8', currentProfileSessionName);
-            localStorage.setItem('nexuschat_avatar_v8', currentProfileAvatarUrl);
+            localStorage.setItem('nexuschat_user_v7', currentProfileSessionName);
+            localStorage.setItem('nexuschat_avatar_v7', currentProfileAvatarUrl);
 
             executeProfileUIRenderSync();
+            
             document.getElementById('secure-login-gate-overlay').style.display = 'none';
-            document.getElementById('splash-loading-portal').style.display = 'flex';
+            const splashEl = document.getElementById('splash-loading-portal');
+            splashEl.style.display = 'flex';
+            splashEl.classList.remove('hidden');
             
             runMinecraftEntranceSequence();
             runCinematicProgressBar();
@@ -1818,8 +2015,11 @@
         function executeProfileUIRenderSync() {
             document.getElementById('my-username-node').innerText = currentProfileSessionName;
             const avatarNode = document.getElementById('my-avatar-node');
+            const overlayNode = document.getElementById('overlayCallingAvatarIcon');
+            
             if (currentProfileAvatarUrl) {
                 avatarNode.innerHTML = `<img src="${currentProfileAvatarUrl}" alt="Avatar">`;
+                if(overlayNode) overlayNode.innerHTML = `<img src="${currentProfileAvatarUrl}" style="width:100%; height:100%; object-fit:cover; border-radius:50%;" alt="Avatar">`;
             } else {
                 avatarNode.innerText = currentProfileSessionName.charAt(0).toUpperCase();
             }
@@ -1829,12 +2029,16 @@
             let progress = 0;
             const fillBar = document.getElementById('splash-bar-fill');
             const splashPortal = document.getElementById('splash-loading-portal');
+            if (!fillBar || !splashPortal) return;
+            
+            fillBar.style.width = '0%';
             
             const loaderInterval = setInterval(() => {
                 if (progress >= 100) {
                     clearInterval(loaderInterval);
                     splashPortal.classList.add('hidden');
                     triggerLoginSoundFile();
+
                     setTimeout(() => {
                         splashPortal.style.display = 'none';
                         document.getElementById('app-frame').classList.add('visible');
@@ -1842,14 +2046,15 @@
                     renderSidebarContextPanel();
                     loadTargetChannel(activeChannelId);
                 } else {
-                    progress += 5;
+                    progress += 4;
                     fillBar.style.width = progress + '%';
                 }
-            }, 100);
+            }, 120);
         }
 
         function switchGlobalRailContext(targetTab) {
-            ["chat", "ai", "groups"].forEach(t => {
+            playSynthFrequency(700, 'sine', 0.05, 0.05);
+            ["chat", "ai", "groups", "settings"].forEach(t => {
                 const doc = document.getElementById(`tab-node-${t}`);
                 if (doc) doc.classList.remove('active');
             });
@@ -1867,8 +2072,8 @@
                 viewChatWorkspace.style.display = 'flex';
                 viewAiWorkspace.style.display = 'none';
             }
+
             renderSidebarContextPanel();
-            document.getElementById('app-sidebar-panel-container').classList.remove('mobile-revealed');
         }
 
         function renderSidebarContextPanel() {
@@ -1883,27 +2088,32 @@
                 primaryBtn.onclick = triggerChannelCreation;
                 for (let id in channelDatabase) {
                     const isActive = (id === activeChannelId) ? 'active' : '';
-                    container.innerHTML += `<div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')"> <div class="row-avatar">#</div> <div class="row-meta"> <div class="row-name">${channelDatabase[id].name}</div> <div class="row-preview">View matrix trace track logs...</div> </div> </div>`;
+                    container.innerHTML += `<div class="chat-list-row ${isActive}" onclick="loadTargetChannel('${id}')"> <div class="row-avatar">#</div> <div class="row-meta"> <div class="row-name">${channelDatabase[id].name}</div> <div class="row-preview">View active session matrix track logs...</div> </div> </div>`;
                 }
             } else if (activeGlobalRailTab === 'ai') {
                 primaryBtn.style.display = "block";
-                primaryBtn.innerText = "Clear NexusAI Stack";
+                primaryBtn.innerText = "Clear NexusAI Thread Context";
                 primaryBtn.onclick = () => {
-                    document.getElementById('ai-thread-viewport').innerHTML = `<div class="msg-bubble received"><span class="msg-author">NexusAI System</span><div>Context stack flushed smoothly. Query engine operational.</div></div>`;
+                    document.getElementById('ai-thread-viewport').innerHTML = `<div class="msg-bubble received"><span class="msg-author">NexusAI Operational System</span><div>Thread stack cleared cleanly. Ask any question.</div></div>`;
                 };
-                container.innerHTML = `<div style="padding:16px 8px; font-size:12px; color:var(--text-muted); line-height:1.6;">NexusAI Status Node: <span style="color:var(--success-green); font-weight:700;">ONLINE</span><br><br>Ready to compute programmatic routines or infrastructure documentation vectors.</div>`;
+                container.innerHTML = `<div style="padding:20px; font-size:12px; color:var(--text-muted); line-height:1.5;">NexusAI Model 2026 Core Status: <span style="color:var(--success-green); font-weight:700;">ONLINE</span><br><br>Capable of solving math operations, discussing the architecture of this messenger platform, or rendering system diagnostics instantly.</div>`;
             } else if (activeGlobalRailTab === 'groups') {
                 primaryBtn.style.display = "block";
                 primaryBtn.innerText = "+ Create Hub Workspace";
                 primaryBtn.onclick = () => {
-                    const title = prompt("Enter workspace label:");
+                    const title = prompt("Enter team label name:");
                     if (!title) return;
                     activeGroupHubs.push({ id: 'hub-' + Date.now(), name: title });
                     renderSidebarContextPanel();
                 };
                 activeGroupHubs.forEach(g => {
-                    container.innerHTML += `<div class="chat-list-row"> <div class="row-avatar">G</div> <div class="row-meta"> <div class="row-name">${g.name}</div> <div class="row-preview">Active Hub Infrastructure</div> </div> </div>`;
+                    container.innerHTML += `<div class="chat-list-row"> <div class="row-avatar">G</div> <div class="row-meta"> <div class="row-name">${g.name}</div> <div class="row-preview">Active Team Vector Channel</div> </div> </div>`;
                 });
+            } else {
+                primaryBtn.style.display = "block";
+                primaryBtn.innerText = "System Integrity Status Keys";
+                primaryBtn.onclick = () => alert("All transport architecture keys nominal.");
+                container.innerHTML = `<div style="padding:20px; font-size:12px; color:var(--text-muted); text-align:center;">Configurations Framework Synced.</div>`;
             }
         }
 
@@ -1912,19 +2122,19 @@
             document.getElementById('active-chat-headline-node').innerText = channelDatabase[channelId].name;
             renderSidebarContextPanel();
             repaintMessageLogs();
-            document.getElementById('app-sidebar-panel-container').classList.remove('mobile-revealed');
         }
 
         function populateEmojiPickerGrid() {
             const scroller = document.getElementById('emoji-grid-scroller-target');
             if (!scroller) return;
             scroller.innerHTML = '';
-            nativeEmojiPack.forEach((emoji) => {
+            vectorIconBlueprintPack.forEach((item, idx) => {
                 const cell = document.createElement('div');
                 cell.className = 'emoji-grid-item-cell';
-                cell.innerText = emoji;
+                cell.innerHTML = item.svg;
+                cell.title = item.label;
                 cell.onclick = () => {
-                    document.getElementById('text-message-input-node').value += emoji;
+                    document.getElementById('text-message-input-node').value += ` [VectorKey-${idx}] `;
                     toggleInlineEmojiPickerTray();
                 };
                 scroller.appendChild(cell);
@@ -1936,11 +2146,102 @@
             overlay.style.display = (overlay.style.display === 'flex') ? 'none' : 'flex';
         }
 
+        function parseVectorEmojiTagsInText(inputString) {
+            let sanitizedText = inputString.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            vectorIconBlueprintPack.forEach((item, idx) => {
+                const queryTag = `[VectorKey-${idx}]`;
+                while (sanitizedText.includes(queryTag)) {
+                    sanitizedText = sanitizedText.replace(queryTag, `<span class="vector-badge-inline-node">${item.svg}${item.label}</span>`);
+                }
+            });
+            return sanitizedText;
+        }
+
+        function updateTelemetryMutedUIElement() {
+            const container = document.getElementById('telemetry-muted-list-container');
+            if(!container) return;
+            if(pipelineMutedUsersList.length === 0) {
+                container.innerHTML = `<div style="color:var(--text-muted); font-style:italic; font-size:12px;">No active mutes in current pipeline layer.</div>`;
+                return;
+            }
+            container.innerHTML = '';
+            pipelineMutedUsersList.forEach(user => {
+                container.innerHTML += `
+                    <div style="display:flex; align-items:center; justify-content:space-between; background:var(--bg-dark); padding:8px 12px; border-radius:8px;">
+                        <span style="font-weight:600;">${user}</span>
+                        <span class="mute-pill-indicator">MUTED</span>
+                    </div>`;
+            });
+        }
+
         function executeTextDispatch() {
             if (isCooldownActive) return;
             const inputField = document.getElementById('text-message-input-node');
             const dataString = inputField.value.trim();
             if (!dataString) return;
+
+            // PARSING CHAT TERMINAL OVERRIDE COMMANDS
+            const lowerString = dataString.toLowerCase();
+            const isAdmin = (currentProfileSessionName.toLowerCase() === "ryanmathews");
+
+            if (dataString === "/reload_page_for_all") {
+                if (!isAdmin) {
+                    appendBubbleElement("System Security", "Access Denied: Administrative credentials required.", "received");
+                    inputField.value = '';
+                    return;
+                }
+                if (mqttClient && mqttClient.connected) {
+                    mqttClient.publish("nexuschat/matrix/global_broadcast_channel_v3", JSON.stringify({
+                        dataType: "system-command",
+                        command: "reload_workstation"
+                    }));
+                }
+                appendBubbleElement("Admin Node", "Dispatched massive client reload broadcast.", "sent");
+                inputField.value = '';
+                return;
+            }
+
+            if (lowerString.startsWith("?mute ")) {
+                const targetPlayer = dataString.substring(6).trim();
+                if (!targetPlayer) return;
+                if (!pipelineMutedUsersList.includes(targetPlayer.toLowerCase())) {
+                    pipelineMutedUsersList.push(targetPlayer.toLowerCase());
+                }
+                appendBubbleElement("Local Filter", `Packet stream from node [${targetPlayer}] has been muted locally.`, "sent");
+                updateTelemetryMutedUIElement();
+                inputField.value = '';
+                return;
+            }
+
+            if (lowerString.startsWith("?unmute ")) {
+                const targetPlayer = dataString.substring(8).trim();
+                if (!targetPlayer) return;
+                pipelineMutedUsersList = pipelineMutedUsersList.filter(u => u !== targetPlayer.toLowerCase());
+                appendBubbleElement("Local Filter", `Node [${targetPlayer}] has been unmuted in the transport pipeline.`, "sent");
+                updateTelemetryMutedUIElement();
+                inputField.value = '';
+                return;
+            }
+
+            if (lowerString.startsWith("?addtexttonexuschat ")) {
+                const messageText = dataString.substring(19).trim();
+                if (!messageText) return;
+                if (!isAdmin) {
+                    appendBubbleElement("System Security", "Access Denied: Only user RyanMathews can post a big announcement text.", "received");
+                    inputField.value = '';
+                    return;
+                }
+                if (mqttClient && mqttClient.connected) {
+                    mqttClient.publish("nexuschat/matrix/global_broadcast_channel_v3", JSON.stringify({
+                        dataType: "system-command",
+                        command: "sticky-announcement-update",
+                        payloadMessage: messageText
+                    }));
+                }
+                appendBubbleElement("Admin Node", "Dispatched global persistent announcement block.", "sent");
+                inputField.value = '';
+                return;
+            }
             
             appendBubbleElement(currentProfileSessionName, dataString, "sent");
             playMessageNotificationSound();
@@ -2025,7 +2326,10 @@
                     voiceMediaRecorder.start();
                     isVoiceRecording = true;
                     recBtn.classList.add('recording-active');
-                } catch(err) { alert("Mic framework exception handles cleanly."); }
+                    playSynthFrequency(600, 'sine', 0.1);
+                } catch(err) {
+                    alert("Microphone stream allocation failed.");
+                }
             } else {
                 if (voiceMediaRecorder) voiceMediaRecorder.stop();
                 isVoiceRecording = false;
@@ -2048,6 +2352,7 @@
         function appendBubbleElement(author, content, variant) {
             if (!channelDatabase[activeChannelId].history) channelDatabase[activeChannelId].history = [];
             channelDatabase[activeChannelId].history.push({ author, content, variant });
+            
             if (variant === 'received') playSynthFrequency(800, 'sine', 0.1);
             repaintMessageLogs();
         }
@@ -2061,22 +2366,25 @@
                     viewTarget.innerHTML += `
                         <div class="msg-bubble ${msg.variant}">
                             <span class="msg-author">${msg.author}</span>
-                            <div style="margin-top:4px;">
-                                <button class="sm-btn" style="width:auto; padding:6px 12px;" onclick="new Audio('${msg.voiceURL}').play()">Play Voice Capsule</button>
+                            <div style="display:flex; align-items:center; gap:8px; margin-top:4px;">
+                                <button class="sm-btn" style="width:auto; padding:6px 12px;" onclick="new Audio('${msg.voiceURL}').play()">Play Voice capsule</button>
                             </div>
                         </div>`;
                 } else if (msg.mediaURL) {
-                    let mediaRenderNode = msg.fileType && msg.fileType.startsWith('video/') ? 
-                        `<video src="${msg.mediaURL}" controls class="msg-embed-video-player"></video>` : 
-                        `<img src="${msg.mediaURL}" class="msg-embed-image" alt="Uploaded Asset">`;
+                    let mediaRenderNode = "";
+                    if (msg.fileType && msg.fileType.startsWith('video/')) {
+                        mediaRenderNode = `<video src="${msg.mediaURL}" controls class="msg-embed-video-player"></video>`;
+                    } else {
+                        mediaRenderNode = `<img src="${msg.mediaURL}" class="msg-embed-image" alt="Uploaded Asset">`;
+                    }
                     viewTarget.innerHTML += `
                         <div class="msg-bubble ${msg.variant}">
                             <span class="msg-author">${msg.author}</span>
                             <div>${mediaRenderNode}</div>
                         </div>`;
                 } else {
-                    let textClean = msg.content.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-                    viewTarget.innerHTML += `<div class="msg-bubble ${msg.variant}"> <span class="msg-author">${msg.author}</span> <div>${textClean}</div> </div>`;
+                    const parsedHtmlBody = parseVectorEmojiTagsInText(msg.content);
+                    viewTarget.innerHTML += `<div class="msg-bubble ${msg.variant}"> <span class="msg-author">${msg.author}</span> <div>${parsedHtmlBody}</div> </div>`;
                 }
             });
             viewTarget.scrollTop = viewTarget.scrollHeight;
@@ -2085,29 +2393,69 @@
         function trapInputKeypress(e) { if (e.key === 'Enter') executeTextDispatch(); }
 
         function triggerChannelCreation() {
-            const inputCode = prompt("Enter a 6-digit session room code:");
-            if (!inputCode || inputCode.trim().length !== 6) { alert("Code mapping format parameter exception."); return; }
+            const inputCode = prompt("Enter the 6-digit session matrix code:");
+            if (!inputCode || inputCode.trim().length !== 6) {
+                alert("Invalid code format parameter.");
+                return;
+            }
             const sanitizedCode = inputCode.trim();
             const generatedId = 'ch-node-' + sanitizedCode;
             
-            if (mqttClient && mqttClient.connected) mqttClient.unsubscribe(currentNetworkMeshRoomTopic);
+            if (mqttClient && mqttClient.connected) {
+                mqttClient.unsubscribe(currentNetworkMeshRoomTopic);
+            }
             currentNetworkMeshRoomTopic = "nexuschat/matrix/room_channel_" + sanitizedCode;
-            if (mqttClient && mqttClient.connected) mqttClient.subscribe(currentNetworkMeshRoomTopic);
+            if (mqttClient && mqttClient.connected) {
+                mqttClient.subscribe(currentNetworkMeshRoomTopic);
+            }
             
-            channelDatabase[generatedId] = { name: "Channel Routing Matrix: " + sanitizedCode, history: [] };
+            channelDatabase[generatedId] = { name: "Private Channel Matrix: " + sanitizedCode, history: [] };
             loadTargetChannel(generatedId);
+            appendBubbleElement("System Protocol", "Session pipeline re-routed to coordinate matrix: " + sanitizedCode, "sent");
         }
 
-        function performProfileHardwareReset() { localStorage.clear(); window.location.reload(); }
+        function performProfileHardwareReset() {
+            localStorage.clear();
+            window.location.reload();
+        }
 
         function generateStorefrontCards() {
             const container = document.getElementById('shop-items-grid-target');
             if (!container) return;
             container.innerHTML = '';
             shopInventoryMatrix.forEach(item => {
-                let badge = item.exclusive ? `<div style="position:absolute; top:12px; left:12px; background:var(--pink-neon); font-size:9px; font-weight:700; padding:3px 6px; border-radius:4px; text-transform:uppercase;">Exclusive</div>` : "";
-                container.innerHTML += `<div class="shop-item-card"> ${badge} <div style="height:44px; margin-bottom:12px; color:var(--primary-accent);"><svg viewBox="0 0 24 24" style="width:32px; height:32px;"><path fill="currentColor" d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2z"/></svg></div> <div style="font-weight:700; font-size:15px; margin-bottom:4px;">${item.name}</div> <div style="font-size:12px; color:var(--text-muted); flex:1; line-height:1.4; margin-bottom:16px;">${item.desc}</div> <div style="display:flex; align-items:center; justify-content:space-between;"><div style="font-weight:700; font-size:13px; color:var(--gold-accent);">${item.cost}</div><button class="send-btn" style="height:32px; font-size:11px;" onclick="this.innerText='Active'">Activate</button></div> </div>`;
+                let statusBadgeHTML = item.locked ? `<div class="item-badge-locked">Locked</div>` : (item.exclusive ? `<div class="item-badge-exclusive">Exclusive</div>` : "");
+                let actionButtonHTML = "";
+
+                if (item.locked) {
+                    actionButtonHTML = `<button class="buy-action-trigger" disabled>Coming Soon</button>`;
+                } else if (item.link) {
+                    actionButtonHTML = `<a href="${item.link}" target="_blank" rel="noopener noreferrer" class="buy-action-trigger">Activate Link</a>`;
+                } else {
+                    actionButtonHTML = `<button class="buy-action-trigger" id="btn-claim-${item.id}" onclick="executeItemPurchase('${item.id}')">Activate Asset</button>`;
+                }
+
+                container.innerHTML += `
+                    <div class="shop-item-card"> 
+                        ${statusBadgeHTML} 
+                        <div class="item-graphic-wrapper">
+                            <img src="${item.img}" alt="${item.name}">
+                        </div> 
+                        <div class="shop-card-content-box">
+                            <div class="item-magic-name">${item.name}</div> 
+                            <div class="item-meta-desc">${item.desc}</div> 
+                            <div class="item-action-row"> 
+                                <div class="item-price-tag">${item.cost}</div> 
+                                ${actionButtonHTML} 
+                            </div> 
+                        </div>
+                    </div>`;
             });
+        }
+
+        function executeItemPurchase(itemId) {
+            const targetBtn = document.getElementById(`btn-claim-${itemId}`);
+            if (targetBtn) { targetBtn.innerText = "Active"; targetBtn.classList.add('unlocked'); }
         }
 
         function openPremiumStorefront() { document.getElementById('nexus-shop-screen').style.display = 'flex'; }
@@ -2119,24 +2467,49 @@
             if (!userQuery) return;
 
             const aiViewport = document.getElementById('ai-thread-viewport');
-            aiViewport.innerHTML += `<div class="msg-bubble sent"><span class="msg-author">Client Network Node</span><div>${userQuery}</div></div>`;
+            
+            aiViewport.innerHTML += `
+                <div class="msg-bubble sent">
+                    <span class="msg-author">${currentProfileSessionName || "Client User"}</span>
+                    <div>${userQuery}</div>
+                </div>`;
+            
             aiInput.value = '';
             aiViewport.scrollTop = aiViewport.scrollHeight;
 
             setTimeout(() => {
                 let normalizedText = userQuery.toLowerCase();
-                let res = "Outbound syntax parameters recognized. System database trace required.";
-                if (normalizedText.includes("app") || normalizedText.includes("infrastructure") || normalizedText.includes("webrtc")) {
-                    res = "NexusChat client utilizes high-throughput WebSockets multiplexed via MQTT on port 8084 with secure fallback routing schemas.";
-                } else if (normalizedText.includes("math")) {
-                    res = "Computational matrix calculated. Equation attributes verified nominal.";
+                let aiResponseString = "I have cross-referenced your parameters with the Nexus database matrix. The prompt syntax requires refinement.";
+
+                if (normalizedText.includes("app") || normalizedText.includes("nexus") || normalizedText.includes("architecture")) {
+                    aiResponseString = "NexusChat is engineered atop a real-time MQTT infrastructure cluster using secure WebSockets transport channels (port 8084). It integrates direct peer-to-peer WebRTC signaling topologies with standard STUN server synchronization vectors.";
+                } else if (normalizedText.includes("math") || normalizedText.includes("+") || normalizedText.includes("-") || normalizedText.includes("*") || normalizedText.includes("/")) {
+                    try {
+                        let formulaPattern = userQuery.replace(/[^-+/*0-9.() ]/g, '');
+                        if(formulaPattern.trim().length > 0) {
+                            let resultVal = eval(formulaPattern);
+                            aiResponseString = `Calculation successfully evaluated by NexusAI Core Compute Engine: ${formulaPattern} = **${resultVal}**`;
+                        } else {
+                            aiResponseString = "The mathematical syntax provided contains invalid parameters for evaluation.";
+                        }
+                    } catch(e) {
+                        aiResponseString = "Error computing operation. Please ensure standard numerical arguments are formulated cleanly.";
+                    }
+                } else if (normalizedText.includes("website") || normalizedText.includes("dns") || normalizedText.includes("ip")) {
+                    aiResponseString = "Nexus internal proxies route outbound requests through simulated secure CDN nodes, bypassing localized iframe cross-origin restriction variables safely.";
                 }
-                aiViewport.innerHTML += `<div class="msg-bubble received"><span class="msg-author">NexusAI System</span><div>${res}</div></div>`;
+
+                aiViewport.innerHTML += `
+                    <div class="msg-bubble received">
+                        <span class="msg-author">NexusAI Operational System</span>
+                        <div>${aiResponseString}</div>
+                    </div>`;
                 aiViewport.scrollTop = aiViewport.scrollHeight;
                 playSynthFrequency(900, 'sine', 0.1);
-            }, 600);
+            }, 750);
         }
 
+        /* BRAND NEW WEBRTC TELEPHONY STATE DRIVERS WITH CHRONOMETERS */
         async function launchAdvancedOverlayCallingView(videoMode) {
             overlayCallSessionState.active = true;
             overlayCallSessionState.isVideo = videoMode;
@@ -2156,11 +2529,13 @@
             document.getElementById('call-equalizer-bars-element').style.display = 'none';
             document.getElementById('premiumCallOverlayStage').style.display = 'flex';
             
-            document.getElementById('overlayCallStatusTimerClock').innerText = "Connecting pipeline data links...";
+            document.getElementById('overlayCallStatusTimerClock').innerText = "Connecting across secure network arrays...";
             document.getElementById('overlayCallingAvatarIcon').classList.remove('ringing-pulse');
             
+            const routingDelaySeconds = Math.floor(Math.random() * 3) + 3;
+            
             overlayCallSessionState.routingTimeout = setTimeout(() => {
-                document.getElementById('overlayCallStatusTimerClock').innerText = "Ringing remote pipeline matrix node...";
+                document.getElementById('overlayCallStatusTimerClock').innerText = "Ringing target peer matrix node...";
                 document.getElementById('overlayCallingAvatarIcon').classList.add('ringing-pulse');
                 triggerRingingToneLoop(false);
 
@@ -2171,12 +2546,15 @@
                         establishActiveTelephonyDataStream();
                     }
                 }, 4000);
-            }, 3000);
+
+            }, routingDelaySeconds * 1000);
         }
 
         function setupWebRtcPeerConnection() {
             peerConnection = new RTCPeerConnection(webrtcIceConfiguration);
-            if (localStream) localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+            if (localStream) {
+                localStream.getTracks().forEach(track => peerConnection.addTrack(track, localStream));
+            }
             peerConnection.ontrack = (event) => {
                 const remoteVideo = document.getElementById('remoteWebrtcStreamElement');
                 if (remoteVideo && event.streams[0]) remoteVideo.srcObject = event.streams[0];
@@ -2201,7 +2579,7 @@
                 if (overlayCallSessionState.active) return;
                 triggerRingingToneLoop(false);
                 document.getElementById('overlayCallingTargetName').innerText = remoteSender;
-                document.getElementById('overlayCallStatusTimerClock').innerText = "Incoming telephony link parameters...";
+                document.getElementById('overlayCallStatusTimerClock').innerText = "Incoming pipeline connection request...";
                 document.getElementById('overlayCallingAvatarIcon').classList.add('ringing-pulse');
                 
                 document.getElementById('overlayMuteAudioActionToggle').style.display = 'none';
@@ -2215,7 +2593,10 @@
                 return;
             }
 
-            if (incomingSignal.type === "remote-peer-accepted") { establishActiveTelephonyDataStream(); return; }
+            if (incomingSignal.type === "remote-peer-accepted") {
+                establishActiveTelephonyDataStream();
+                return;
+            }
 
             if (!peerConnection) return;
             if (incomingSignal.sdp) {
@@ -2252,7 +2633,8 @@
 
             try {
                 localStream = await navigator.mediaDevices.getUserMedia({
-                    audio: true, video: overlayCallSessionState.isVideo
+                    audio: true,
+                    video: overlayCallSessionState.isVideo
                 });
 
                 if (overlayCallSessionState.isVideo) {
@@ -2267,30 +2649,37 @@
                 peerConnection.createOffer()
                     .then(offer => peerConnection.setLocalDescription(offer))
                     .then(() => dispatchWebRtcSignalingMessage({ sdp: peerConnection.localDescription }));
-            } catch (err) {}
+            } catch (err) {
+                console.log("Hardware media constraints bypassed safely.");
+            }
             startOverlayChronometerTimer();
         }
 
         function startOverlayChronometerTimer() {
             if(overlayCallSessionState.timerInterval) clearInterval(overlayCallSessionState.timerInterval);
+            document.getElementById('overlayCallStatusTimerClock').innerText = "00:00 Secure Stream Linked";
             overlayCallSessionState.timerInterval = setInterval(() => {
                 overlayCallSessionState.elapsedSeconds++;
                 let mins = String(Math.floor(overlayCallSessionState.elapsedSeconds / 60)).padStart(2, '0');
                 let secs = String(overlayCallSessionState.elapsedSeconds % 60).padStart(2, '0');
-                document.getElementById('overlayCallStatusTimerClock').innerText = `${mins}:${secs} Link Active`;
+                document.getElementById('overlayCallStatusTimerClock').innerText = `${mins}:${secs} Active`;
             }, 1000);
         }
 
         function executeOverlayMuteOperationToggle() {
             overlayCallSessionState.isMuted = !overlayCallSessionState.isMuted;
             document.getElementById('overlayMuteAudioActionToggle').classList.toggle('active-triggered', overlayCallSessionState.isMuted);
-            if (localStream && localStream.getAudioTracks()[0]) localStream.getAudioTracks()[0].enabled = !overlayCallSessionState.isMuted;
+            if (localStream && localStream.getAudioTracks()[0]) {
+                localStream.getAudioTracks()[0].enabled = !overlayCallSessionState.isMuted;
+            }
         }
 
         function executeOverlayCameraOperationToggle() {
             overlayCallSessionState.isCamOff = !overlayCallSessionState.isCamOff;
             document.getElementById('overlayToggleCameraActionToggle').classList.toggle('active-triggered', overlayCallSessionState.isCamOff);
-            if (localStream && localStream.getVideoTracks()[0]) localStream.getVideoTracks()[0].enabled = !overlayCallSessionState.isCamOff;
+            if (localStream && localStream.getVideoTracks()[0]) {
+                localStream.getVideoTracks()[0].enabled = !overlayCallSessionState.isCamOff;
+            }
         }
 
         async function executeOverlayScreenShareToggle() {
