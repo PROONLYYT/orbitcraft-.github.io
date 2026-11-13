@@ -566,21 +566,6 @@
             min-width: 0;
         }
 
-        .row-meta-name-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .mute-pill-indicator {
-            background: rgba(239,68,68,0.1);
-            color: var(--danger-red);
-            font-size: 10px;
-            padding: 1px 5px;
-            border-radius: 4px;
-            font-weight: 700;
-        }
-
         .row-name {
             font-weight: 600;
             font-size: 13.5px;
@@ -599,6 +584,7 @@
             text-overflow: ellipsis;
         }
 
+        /* Expanded Chat Workspace Panel Framework (Fills remaining screen width space perfectly) */
         .workspace-panel {
             flex: 1;
             display: flex;
@@ -606,18 +592,7 @@
             background: #ffffff;
             position: relative;
             height: 100%;
-            max-width: 60%; /* Compact architecture framework modification */
-            border-right: 1px solid var(--border-subtle);
-        }
-
-        .workspace-secondary-diagnostics {
-            flex: 1;
-            background: #f8fafc;
-            display: flex;
-            flex-direction: column;
-            padding: 24px;
-            gap: 16px;
-            overflow-y: auto;
+            border-right: none;
         }
 
         .workspace-header {
@@ -657,7 +632,7 @@
         }
 
         .msg-bubble {
-            max-width: 80%;
+            max-width: 65%;
             padding: 12px 16px;
             border-radius: 16px;
             line-height: 1.5;
@@ -815,7 +790,7 @@
         
         .mic-record-trigger-btn.recording-active {
             color: var(--danger-red);
-            background: rgba(239, 68,68, 0.08);
+            background: rgba(239, 68, 68, 0.08);
         }
 
         .emoji-picker-matrix-overlay {
@@ -1174,6 +1149,49 @@
             fill: currentColor;
         }
 
+        /* Fullscreen Arcade Layer Container Overlay */
+        #nexus-fullscreen-arcade-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000000;
+            z-index: 99999;
+            display: none;
+            flex-direction: column;
+        }
+        .arcade-navbar-frame {
+            height: 50px;
+            background: #111827;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: #ffffff;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .arcade-close-trigger {
+            background: var(--danger-red);
+            border: none;
+            color: #ffffff;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: background 0.2s ease;
+        }
+        .arcade-close-trigger:hover {
+            background: var(--danger-hover);
+        }
+        .arcade-iframe-viewport-wrapper {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            border: none;
+        }
+
         /* AI Workspace container */
         .ai-workspace-container {
             flex: 1;
@@ -1434,8 +1452,19 @@
         </div>
         <div>
             <div style="font-weight:700; font-size:14px; color:#1e293b; margin-bottom:2px;">Update Protocol Engaged</div>
-            <div style="font-size:12px; color:#64748b; line-height:1.4;">NexusChat is resetting an update. Standby for immediate context reload...</div>
+            <div style="font-size:12px; color:#64748b; line-height:1.4;">NexusChat will soon restart for a update</div>
         </div>
+    </div>
+
+    <!-- Immersive Fullscreen Arcade Overlay Matrix Frame -->
+    <div id="nexus-fullscreen-arcade-overlay">
+        <div class="arcade-navbar-frame">
+            <div style="display:flex; align-items:center; gap:8px; font-weight:700; font-size:14px; letter-spacing:0.5px;">
+                <span style="color:var(--success-green);">●</span> Arcade Portal Matrix: BLOXD.IO
+            </div>
+            <button class="arcade-close-trigger" onclick="terminateArcadeArcWorkspace()">Terminate Arcade Workspace</button>
+        </div>
+        <iframe id="arcade-iframe-element-node" class="arcade-iframe-viewport-wrapper" src=""></iframe>
     </div>
 
     <div id="app-frame">
@@ -1480,7 +1509,7 @@
             <!-- Master Interactive Center Content Section Switcher -->
             <div id="master-panel-view-container" style="flex:1; display:flex; height:100%;">
                 
-                <!-- Context 1: Core Chat System Framework Workspace (Compact Width Applied) -->
+                <!-- Context 1: Core Chat System Framework Workspace (Expanded Layout Active) -->
                 <div class="workspace-panel" id="view-workspace-chat">
                     <div class="workspace-header">
                         <div class="header-profile">
@@ -1488,6 +1517,9 @@
                         </div>
                         
                         <div class="call-header-action-button-group">
+                            <!-- Play Games Inline Action Trigger Button -->
+                            <button class="sm-btn" style="width:auto; padding:8px 16px; background:var(--primary-glow); color:var(--primary-accent); border-color:var(--primary-accent); font-weight:700; margin-right:8px;" onclick="launchArcadeArcWorkspace()">Play Games</button>
+
                             <button class="call-action-btn" onclick="launchAdvancedOverlayCallingView(false)" title="Secure Voice Call Session">
                                 <svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 0 0-1.01.24l-2.2 2.2c-2.83-1.44-5.15-3.75-6.59-6.59l2.2-2.21c.28-.26.36-.65.25-1.01C8.7 6.31 8.5 5.12 8.5 3.9c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.52c0-.55-.45-1-1-1z"/></svg>
                             </button>
@@ -1524,20 +1556,6 @@
                         
                         <div class="cooldown-progress-track">
                             <div class="cooldown-progress-fill" id="cooldown-progress-fill-bar"></div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Context 1.5 Secondary Diagnostics Node (Fills the remaining 40% layout width) -->
-                <div class="workspace-secondary-diagnostics">
-                    <div style="background:#ffffff; border:1px solid var(--border-subtle); padding:20px; border-radius:14px; box-shadow:0 4px 12px rgba(0,0,0,0.01);">
-                        <h3 style="margin:0 0 8px 0; font-size:14px; font-weight:700; color:var(--text-main);">Telemetry Diagnostics</h3>
-                        <p style="margin:0; font-size:12px; color:var(--text-muted); line-height:1.5;">Workspace viewport compression has been enacted successfully. Real-time telemetry monitoring, muted matrix queues, and admin command loops are displayed here.</p>
-                    </div>
-                    <div style="background:#ffffff; border:1px solid var(--border-subtle); padding:20px; border-radius:14px; flex:1; display:flex; flex-direction:column; gap:10px;">
-                        <h4 style="margin:0; font-size:12px; font-weight:800; color:var(--text-muted); text-transform:uppercase;">Active Mute Register</h4>
-                        <div id="telemetry-muted-list-container" style="display:flex; flex-direction:column; gap:6px; overflow-y:auto; flex:1; font-size:13px; color:var(--text-main);">
-                            <div style="color:var(--text-muted); font-style:italic; font-size:12px;">No active mutes in current pipeline layer.</div>
                         </div>
                     </div>
                 </div>
@@ -1579,7 +1597,6 @@
             </div>
 
             <div class="call-internal-stage-viewport">
-                <!-- Voice Mode Layout Frame Container -->
                 <div class="call-voice-profile-card-center" id="overlayVoiceFrameContainer">
                     <div class="call-voice-avatar-node" id="overlayCallingAvatarIcon">N</div>
                     <h2 id="overlayCallingTargetName" style="font-size: 18px; font-weight: 700; margin: 0; color: var(--text-main);">Active Stream Node</h2>
@@ -1594,7 +1611,6 @@
                     </div>
                 </div>
 
-                <!-- Immersive WebRTC Video Stage -->
                 <div class="call-immersive-video-viewport" id="overlayVideoFrameContainer">
                     <div class="call-remote-video-feed-facade">
                         <video id="remoteWebrtcStreamElement" autoplay playsinline></video>
@@ -1647,7 +1663,6 @@
         let unreadMessageCount = 0;
         let pageIsFocused = true;
 
-        // Custom Telephony Command Global Arrays
         let pipelineMutedUsersList = [];
 
         window.addEventListener('focus', () => {
@@ -1738,7 +1753,7 @@
                 const notificationAudio = new Audio('discord-notification.mp3.mpeg');
                 notificationAudio.volume = 0.5;
                 notificationAudio.play().catch(e => {
-                    playSynthFrequency(880, 'sine', 0.15, 0.2);
+                     RamosDynamicFrequency(880, 'sine', 0.15, 0.2);
                 });
             } catch (err) {
                 console.log("Notification file error handled safely.");
@@ -1825,7 +1840,7 @@
             { label: "Verified", svg: `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>` },
             { label: "Plus", svg: `<svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>` },
             { label: "Star", svg: `<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>` },
-            { label: "Alert", svg: `<svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>` }
+            { label: "Alert", svg: `<svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5 1.5-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>` }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -1886,7 +1901,6 @@
                 try {
                     const parsedPayload = JSON.parse(dataPacket.toString());
                     
-                    // Direct Administrative Packet System Commands Execution Routing
                     if (parsedPayload.dataType === "system-command") {
                         if (parsedPayload.command === "reload_workstation") {
                             executeWorkstationAutoReloadTransition();
@@ -1899,9 +1913,7 @@
                     }
 
                     if (parsedPayload.senderTokenId !== currentProfileSessionName + "_token") {
-                        // Check if the remote user has been muted locally
                         if (pipelineMutedUsersList.includes(parsedPayload.sender.toLowerCase())) {
-                            console.log(`Packet stream from muted user blocked: ${parsedPayload.sender}`);
                             return; 
                         }
 
@@ -2157,21 +2169,25 @@
             return sanitizedText;
         }
 
-        function updateTelemetryMutedUIElement() {
-            const container = document.getElementById('telemetry-muted-list-container');
-            if(!container) return;
-            if(pipelineMutedUsersList.length === 0) {
-                container.innerHTML = `<div style="color:var(--text-muted); font-style:italic; font-size:12px;">No active mutes in current pipeline layer.</div>`;
-                return;
+        /* Interactive Native Fullscreen Arcade Drivers */
+        function launchArcadeArcWorkspace() {
+            playSynthFrequency(900, 'sine', 0.1, 0.1);
+            const overlay = document.getElementById('nexus-fullscreen-arcade-overlay');
+            const iframe = document.getElementById('arcade-iframe-element-node');
+            if(overlay && iframe) {
+                iframe.src = "https://bloxd.io/";
+                overlay.style.display = "flex";
             }
-            container.innerHTML = '';
-            pipelineMutedUsersList.forEach(user => {
-                container.innerHTML += `
-                    <div style="display:flex; align-items:center; justify-content:space-between; background:var(--bg-dark); padding:8px 12px; border-radius:8px;">
-                        <span style="font-weight:600;">${user}</span>
-                        <span class="mute-pill-indicator">MUTED</span>
-                    </div>`;
-            });
+        }
+
+        function terminateArcadeArcWorkspace() {
+            playSynthFrequency(300, 'sine', 0.15, 0.1);
+            const overlay = document.getElementById('nexus-fullscreen-arcade-overlay');
+            const iframe = document.getElementById('arcade-iframe-element-node');
+            if(overlay && iframe) {
+                iframe.src = "";
+                overlay.style.display = "none";
+            }
         }
 
         function executeTextDispatch() {
@@ -2180,7 +2196,6 @@
             const dataString = inputField.value.trim();
             if (!dataString) return;
 
-            // PARSING CHAT TERMINAL OVERRIDE COMMANDS
             const lowerString = dataString.toLowerCase();
             const isAdmin = (currentProfileSessionName.toLowerCase() === "ryanmathews");
 
@@ -2208,7 +2223,6 @@
                     pipelineMutedUsersList.push(targetPlayer.toLowerCase());
                 }
                 appendBubbleElement("Local Filter", `Packet stream from node [${targetPlayer}] has been muted locally.`, "sent");
-                updateTelemetryMutedUIElement();
                 inputField.value = '';
                 return;
             }
@@ -2218,7 +2232,6 @@
                 if (!targetPlayer) return;
                 pipelineMutedUsersList = pipelineMutedUsersList.filter(u => u !== targetPlayer.toLowerCase());
                 appendBubbleElement("Local Filter", `Node [${targetPlayer}] has been unmuted in the transport pipeline.`, "sent");
-                updateTelemetryMutedUIElement();
                 inputField.value = '';
                 return;
             }
@@ -2509,7 +2522,6 @@
             }, 750);
         }
 
-        /* BRAND NEW WEBRTC TELEPHONY STATE DRIVERS WITH CHRONOMETERS */
         async function launchAdvancedOverlayCallingView(videoMode) {
             overlayCallSessionState.active = true;
             overlayCallSessionState.isVideo = videoMode;
